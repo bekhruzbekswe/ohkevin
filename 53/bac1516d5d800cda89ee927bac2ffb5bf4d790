@@ -1,0 +1,23 @@
+LICENSE
+  s_8264812eb9e3f3::t_eac13f1ed2cbff 1-202
+NOTICE
+  s_8264812eb9e3f3::t_99c4496edaa5ee 1-2
+README.md
+  s_8264812eb9e3f3::t_74367e3cf4d27b 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "53bac1516d5d800cda89ee927bac2ffb5bf4d790",
+  "prompts": {},
+  "sessions": {
+    "s_8264812eb9e3f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac956f26-7197-4b91-a7e8-4852d6fbc8d0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
