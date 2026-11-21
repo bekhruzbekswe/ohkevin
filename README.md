@@ -28,7 +28,7 @@ Think out loud. It answers out loud. Then it gets on with the work, and calls yo
 </tr>
 </table>
 
-It began with my hands full and the laptop across the room. I kept it for the conversation.
+I wanted Claude Code to keep working while my hands were busy on the other side of the room. A voice solved that. Then I noticed I'd rather talk ideas through than type them.
 
 Like it? [Star it on GitHub](https://github.com/bekhruzbekswe/ohkevin). That's how the next person finds it.
 
