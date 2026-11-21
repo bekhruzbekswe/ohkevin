@@ -1,0 +1,2191 @@
+.gitattributes
+  s_05186c50002419::t_899f7b3e620e52 1
+AGENTS.md
+  s_05186c50002419::t_3bd28d5ba02136 3-5,11-12,31-33,35,39,41-43
+ARCHITECTURE.md
+  s_05186c50002419::t_9077acceb87530 11-14,17,19,35-40,45,50,54,62
+CONTRIBUTING.md
+  s_05186c50002419::t_bd016b8c10ddc0 11,23-24,37
+SECURITY.md
+  s_05186c50002419::t_7d0bab8e3960f4 5-6
+app/.gitignore
+  s_05186c50002419::t_c5e919d90b320b 12
+app/AGENTS.md
+  s_05186c50002419::t_f264fb4ba85746 3,5
+app/Package.swift
+  s_05186c50002419::t_23b6266b7a8fe9 6,21-23,28,34-39
+app/README.md
+  s_05186c50002419::t_87e3ceaf6102f9 4,17,28-29,42-44
+app/Sources/AppChecks/Scene.swift
+  s_05186c50002419::t_a0ec7a6b60cafe 192
+app/Sources/AppChecks/main.swift
+  s_05186c50002419::t_137b04b866631b 11-12,28-31
+app/Sources/CallViews/Brand.swift
+  s_05186c50002419::t_eed5adbd0851de 4
+app/Sources/OhKevinKit/MenuBar.swift
+  s_05186c50002419::t_6118ddbc057d9b 64,190,214
+app/Sources/VoiceCore/Install.swift
+  s_05186c50002419::t_ac6044e6faa64e 31
+app/Sources/VoiceCore/UpdateState.swift
+  s_05186c50002419::t_00132d10e34be8 3
+app/Sources/kokoro-runner/main.swift
+  s_05186c50002419::t_7e8dbd023f30d1 47
+app/Tests/CallViewsTests/BrandTests.swift
+  s_05186c50002419::t_742765ceb33223 1-11
+app/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_05186c50002419::t_ea4aaf0d76c0b7 839
+app/build.sh
+  s_05186c50002419::t_bace6755387c20 7-9,11,14,23,32-35,37-39,41,76,83
+app/design/spec.md
+  s_05186c50002419::t_eef542ac9e43f3 8,71
+app/pack-call.sh
+  s_05186c50002419::t_2eb7a45439136c 2,7
+app/publish.sh
+  s_05186c50002419::t_f45c6ca87bd04c 2
+app/release.sh
+  s_05186c50002419::t_58d8e49bb5e7ed 4-5,15,21,67,70
+check-paths.mjs
+  s_05186c50002419::t_4915df7d983601 3,39
+check.sh
+  s_05186c50002419::t_e3422c4b4ca939 2,9
+launcher/.build/.buildSystem_debug
+  s_05186c50002419::t_a6ed3ebdc885b8 1
+launcher/.build/.buildSystem_release
+  s_05186c50002419::t_d4d2c91a816aa0 1
+launcher/.build/.lock
+  s_05186c50002419::t_77ad7f75519694 1
+launcher/.build/CACHEDIR.TAG
+  s_05186c50002419::t_200e968650b0a9 1-4
+launcher/.build/artifacts/launcher/Sparkle/CHANGELOG
+  s_05186c50002419::t_f772347120e772 1-1147
+launcher/.build/artifacts/launcher/Sparkle/INSTALL
+  s_05186c50002419::t_9475b3dea8d60d 1-5
+launcher/.build/artifacts/launcher/Sparkle/LICENSE
+  s_05186c50002419::t_c7dbd2d894eee8 1-134
+launcher/.build/artifacts/launcher/Sparkle/SampleAppcast.xml
+  s_05186c50002419::t_e3ccd102a87ad4 1-42
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/Info.plist
+  s_05186c50002419::t_282f54b9afe22c 1-30
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Autoupdate
+  s_05186c50002419::t_94a525e0752d46 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Headers
+  s_05186c50002419::t_43664b7ee44ef7 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Modules
+  s_05186c50002419::t_1a3ce0f92bdf5d 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/PrivateHeaders
+  s_05186c50002419::t_0f3ffbe6e652b6 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Resources
+  s_05186c50002419::t_d7acad1a3aae75 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Sparkle
+  s_05186c50002419::t_896a9119ae604f 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Updater.app
+  s_05186c50002419::t_cd368d232fc6f0 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h
+  s_05186c50002419::t_b8e69584336be8 1-7,9-10,12-32
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h
+  s_05186c50002419::t_cbc8d1bbfc88bd 1-52
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h
+  s_05186c50002419::t_a19b6c4043cb2f 1-127
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h
+  s_05186c50002419::t_4e94ce23cfd043 1-47
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h
+  s_05186c50002419::t_da2442f39c47c4 1-209
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h
+  s_05186c50002419::t_d31894f032ceba 1-33
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h
+  s_05186c50002419::t_fc0d3820758e07 1-42
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUpdater.h
+  s_05186c50002419::t_916d8cae404f7e 1-403
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h
+  s_05186c50002419::t_ce19be42499054 1-485
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h
+  s_05186c50002419::t_5a31e9bab870ee 1-98
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h
+  s_05186c50002419::t_37693d45070c08 1-304
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h
+  s_05186c50002419::t_7cf1c536553646 1-85
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUAppcast.h
+  s_05186c50002419::t_c0ad004a01097a 1-54
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h
+  s_05186c50002419::t_95b647cfd76b25 1-448
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUErrors.h
+  s_05186c50002419::t_d747147e0f6839 1-111
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUExport.h
+  s_05186c50002419::t_82693b02fb5e0b 1-18
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h
+  s_05186c50002419::t_18d2f449be4461 1-63
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h
+  s_05186c50002419::t_b08887a173835c 1-73
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUUpdater.h
+  s_05186c50002419::t_85ea2b1bf0a41d 1-212
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h
+  s_05186c50002419::t_2a1b5868c933a7 1-363
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h
+  s_05186c50002419::t_3e157a21f6efef 1-42
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h
+  s_05186c50002419::t_0f1896ca017f1f 1-78
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Headers/Sparkle.h
+  s_05186c50002419::t_24bba8836ff9e3 1-39
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Modules/module.modulemap
+  s_05186c50002419::t_b90971884682b0 1-3,5-6
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Modules/module.private.modulemap
+  s_05186c50002419::t_19a5e56529e72b 1-38
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h
+  s_05186c50002419::t_86d325017e77ff 1-38
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h
+  s_05186c50002419::t_08a0e92e824287 1-22
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h
+  s_05186c50002419::t_070563286fbdd8 1-19
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h
+  s_05186c50002419::t_398eeaf2406648 1-40
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h
+  s_05186c50002419::t_9f083427e5ced9 1-29
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h
+  s_05186c50002419::t_8c22f77ae6c7df 1-50
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h
+  s_05186c50002419::t_a7b3523f5206e2 1-37
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Resources/Info.plist
+  s_05186c50002419::t_8e2cd396737473 1-48
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
+  s_05186c50002419::t_a5d06772e326bd 1-13
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
+  s_05186c50002419::t_613f25127762fd 1-93
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
+  s_05186c50002419::t_5ff516d9f24217 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_ae6f9183952063 1-115
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
+  s_05186c50002419::t_f7992a31e6a25f 1-62
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_a5aab9d7f8df0c 1-115
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
+  s_05186c50002419::t_688e19f124b0ff 1-57
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_de465c88a6c25d 1-115
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
+  s_05186c50002419::t_194d97db9e2820 1-1062
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/Versions/Current
+  s_05186c50002419::t_393f867fa53ded 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework/XPCServices
+  s_05186c50002419::t_cbcf5578cc1566 1
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Autoupdate.dSYM/Contents/Info.plist
+  s_05186c50002419::t_f488f8c95ceb93 1-20
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Autoupdate.dSYM/Contents/Resources/Relocations/aarch64/Autoupdate.yml
+  s_05186c50002419::t_bf2fae116b8ffb 1-733
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Autoupdate.dSYM/Contents/Resources/Relocations/x86_64/Autoupdate.yml
+  s_05186c50002419::t_ada9d08c1d88b0 1-560
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Downloader.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_f23e584bd1712c 1-20
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Downloader.xpc.dSYM/Contents/Resources/Relocations/aarch64/Downloader.yml
+  s_05186c50002419::t_0e36249cf63e7c 1-81
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Downloader.xpc.dSYM/Contents/Resources/Relocations/x86_64/Downloader.yml
+  s_05186c50002419::t_af00ce3412dfc0 1-76
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Installer.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_903362a99be08d 1-20
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Installer.xpc.dSYM/Contents/Resources/Relocations/aarch64/Installer.yml
+  s_05186c50002419::t_1b8988058d8eb0 1-137
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Installer.xpc.dSYM/Contents/Resources/Relocations/x86_64/Installer.yml
+  s_05186c50002419::t_d4ddab30009685 1-77
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Sparkle.framework.dSYM/Contents/Info.plist
+  s_05186c50002419::t_5f057e33641758 1-20
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Sparkle.framework.dSYM/Contents/Resources/Relocations/aarch64/Sparkle.yml
+  s_05186c50002419::t_b9d88e5f7a8855 1-1466
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Sparkle.framework.dSYM/Contents/Resources/Relocations/x86_64/Sparkle.yml
+  s_05186c50002419::t_77ab4dff096050 1-1274
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Updater.app.dSYM/Contents/Info.plist
+  s_05186c50002419::t_e110a9fd250c4b 1-20
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Updater.app.dSYM/Contents/Resources/Relocations/aarch64/Updater.yml
+  s_05186c50002419::t_a0f8d421a20fc3 1-325
+launcher/.build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/dSYMs/Updater.app.dSYM/Contents/Resources/Relocations/x86_64/Updater.yml
+  s_05186c50002419::t_158c96283a732c 1-264
+launcher/.build/artifacts/launcher/Sparkle/bin/old_dsa_scripts/sign_update
+  s_05186c50002419::t_0d49ca972243f8 1-18
+launcher/.build/debug
+  s_05186c50002419::t_52d6921c7b1ea5 1
+launcher/.build/manifest.pif
+  s_05186c50002419::t_a0b8b9d38af583 1-5599
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/COnnxRuntime.modulemap
+  s_05186c50002419::t_c556ab461af013 1-4
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/CallViews-Swift.h
+  s_05186c50002419::t_11ea0b27698c19 1-383
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/CallViews.modulemap
+  s_05186c50002419::t_ba0a50180200cf 1-4
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/LauncherKit-Swift.h
+  s_05186c50002419::t_668b4b5fd68915 1-383
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/LauncherKit.modulemap
+  s_05186c50002419::t_fe6d3aafaf1a5a 1-4
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/Updating-Swift.h
+  s_05186c50002419::t_72981fd04f6653 1-429
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/Updating.modulemap
+  s_05186c50002419::t_295d01145bc804 1-4
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/VoiceCore-Swift.h
+  s_05186c50002419::t_9c5f44c654ae51 1-383
+launcher/.build/out/Intermediates.noindex/GeneratedModuleMaps/VoiceCore.modulemap
+  s_05186c50002419::t_dad66bfa1ae832 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/COnnxRuntime-t.build/COnnxRuntime.modulemap
+  s_05186c50002419::t_11e76120a0f7c6 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/COnnxRuntime-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+  s_05186c50002419::t_af4f94983583a5 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/COnnxRuntime-t.build/Objects-normal/arm64/COnnxRuntime.LinkFileList
+  s_05186c50002419::t_0a3538e93bb2e5 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/COnnxRuntime-t.build/Objects-normal/arm64/shim.d
+  s_05186c50002419::t_81b6be2ce7e13c 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/CallViews.modulemap
+  s_05186c50002419::t_12978083837e8e 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Brand.d
+  s_05186c50002419::t_5ecb4e057bf953 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Brand.swiftconstvalues
+  s_05186c50002419::t_e69b53193822a0 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews-OutputFileMap.json
+  s_05186c50002419::t_8b0967fc6898a4 1-79
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews-Swift.h
+  s_05186c50002419::t_ce4383cc159980 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews-dependencies-1.json
+  s_05186c50002419::t_9b308af09780e1 1-701
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews-primary-emit-module.d
+  s_05186c50002419::t_dce8b5f4bc6478 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews.LinkFileList
+  s_05186c50002419::t_e22f973ba2fb92 1-7
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews.SwiftFileList
+  s_05186c50002419::t_18550b9525fe53 1-7
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews.abi.json
+  s_05186c50002419::t_3630128807ef7f 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/CallViews_const_extract_protocols.json
+  s_05186c50002419::t_3752af8dfe942c 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Line.d
+  s_05186c50002419::t_32ddd05bac172d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Line.swiftconstvalues
+  s_05186c50002419::t_650c3abaadc89a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Palette.d
+  s_05186c50002419::t_161d99fef3736d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Palette.swiftconstvalues
+  s_05186c50002419::t_8bf6dd638296d2 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Panel.d
+  s_05186c50002419::t_c5900200b33fd3 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Panel.swiftconstvalues
+  s_05186c50002419::t_591ffee4b54a2e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Settings.d
+  s_05186c50002419::t_7c653cf9037536 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Settings.swiftconstvalues
+  s_05186c50002419::t_1ca430aee540f8 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Setup.d
+  s_05186c50002419::t_abb1150acafbc0 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Setup.swiftconstvalues
+  s_05186c50002419::t_632d8ae0eb6fb9 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Wave.d
+  s_05186c50002419::t_3215cf1f3b7df9 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/CallViews-t.build/Objects-normal/arm64/Wave.swiftconstvalues
+  s_05186c50002419::t_7cdc1d1c10ac6a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/ClaudeVoice.xcent
+  s_05186c50002419::t_a4730e8c4ab00c 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/ClaudeVoice.xcent.der
+  s_05186c50002419::t_9a3859817a2078 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/DerivedSources/Entitlements.plist
+  s_05186c50002419::t_5b0d2a0f2d90e2 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-OutputFileMap.json
+  s_05186c50002419::t_163a41a4f1c886 1-19
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-dependencies-1.json
+  s_05186c50002419::t_334e8d201792a4 1-761
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-primary-emit-module.d
+  s_05186c50002419::t_dc117e2ac1424f 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.LinkFileList
+  s_05186c50002419::t_688181f4f370da 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.SwiftFileList
+  s_05186c50002419::t_6779bbeb761071 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.abi.json
+  s_05186c50002419::t_e7f0ca3cd05147 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice_const_extract_protocols.json
+  s_05186c50002419::t_7e8d3e90ed0e2f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/main.d
+  s_05186c50002419::t_41d2bba56c068a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/ClaudeVoice-p.build/Objects-normal/arm64/main.swiftconstvalues
+  s_05186c50002419::t_6824bc62f88979 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/DerivedSources/Entitlements.plist
+  s_05186c50002419::t_348090884fedc0 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/LauncherChecks.xcent
+  s_05186c50002419::t_eaabec8c814d2a 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/LauncherChecks.xcent.der
+  s_05186c50002419::t_405903de802b4f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/AppIcon.d
+  s_05186c50002419::t_2e1ca38b6ffd84 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/AppIcon.swiftconstvalues
+  s_05186c50002419::t_3a3492549a1ed7 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/CleanInstall.d
+  s_05186c50002419::t_c1a8299aa71be3 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/CleanInstall.swiftconstvalues
+  s_05186c50002419::t_03c5bde8dd1809 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/FirstRun.d
+  s_05186c50002419::t_20ee156137f589 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/FirstRun.swiftconstvalues
+  s_05186c50002419::t_07de66236e7a03 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks-OutputFileMap.json
+  s_05186c50002419::t_6dac8707710e8d 1-99
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks-dependencies-1.json
+  s_05186c50002419::t_6da4f8fce6443d 1-761
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks-primary-emit-module.d
+  s_05186c50002419::t_e6fbcc9514bf32 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks.LinkFileList
+  s_05186c50002419::t_19041f870fa5be 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks.SwiftFileList
+  s_05186c50002419::t_f12199ea1a1078 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks.abi.json
+  s_05186c50002419::t_5976879240a0af 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks_const_extract_protocols.json
+  s_05186c50002419::t_808b8487b03247 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/SelfTest.d
+  s_05186c50002419::t_a7e018983fe270 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/SelfTest.swiftconstvalues
+  s_05186c50002419::t_55f8681e9442ec 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/SettingsLive.d
+  s_05186c50002419::t_3acbbf4eceac06 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/SettingsLive.swiftconstvalues
+  s_05186c50002419::t_1c0a2a1f808328 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/Snapshots.d
+  s_05186c50002419::t_a36ff03baf9851 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/Snapshots.swiftconstvalues
+  s_05186c50002419::t_6115e94e807192 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/UITest.d
+  s_05186c50002419::t_f6b664c849be77 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/UITest.swiftconstvalues
+  s_05186c50002419::t_ed77e6d68f3774 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/UpdateChecks.d
+  s_05186c50002419::t_a2dbe689127e54 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/UpdateChecks.swiftconstvalues
+  s_05186c50002419::t_9ad2ae5e34cd32 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/main.d
+  s_05186c50002419::t_3f3fb6d64ab38d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherChecks-p.build/Objects-normal/arm64/main.swiftconstvalues
+  s_05186c50002419::t_5c972411056e3e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/LauncherKit.modulemap
+  s_05186c50002419::t_36aae156c50978 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/AppDelegate.d
+  s_05186c50002419::t_cd6b5227b5fcf0 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/AppDelegate.swiftconstvalues
+  s_05186c50002419::t_05e284a7de538a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/AppMover.d
+  s_05186c50002419::t_b3663dcda2c13f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Launcher.d
+  s_05186c50002419::t_4b1c166f1bc685 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Launcher.swiftconstvalues
+  s_05186c50002419::t_be1af9acbfe5fe 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-OutputFileMap.json
+  s_05186c50002419::t_43edefb1b96dd9 1-69
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-Swift.h
+  s_05186c50002419::t_86ce7f6a399595 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-dependencies-1.json
+  s_05186c50002419::t_076af862cc6404 1-756
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-primary-emit-module.d
+  s_05186c50002419::t_2c5aedcdc3ce10 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.LinkFileList
+  s_05186c50002419::t_c8628690b50a48 1-6
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.SwiftFileList
+  s_05186c50002419::t_f03f747bfd5ec7 1-6
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.abi.json
+  s_05186c50002419::t_24b0ade6760847 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/LauncherKit_const_extract_protocols.json
+  s_05186c50002419::t_649ba122eaadfc 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Mark.d
+  s_05186c50002419::t_e1dd3416a58b24 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/MenuBarItem.d
+  s_05186c50002419::t_ef6f0d0ad42838 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/MenuBarItem.swiftconstvalues
+  s_05186c50002419::t_838f22af9d41d3 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/MicAsk.d
+  s_05186c50002419::t_28189e09ddadb9 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/MicAsk.swiftconstvalues
+  s_05186c50002419::t_ef9390f5ec7b32 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Panel.d
+  s_05186c50002419::t_9ad0a27c4682db 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/SettingsView.d
+  s_05186c50002419::t_ec1c17fcfc0175 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/SettingsView.swiftconstvalues
+  s_05186c50002419::t_0c41c5edb1b448 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Style.d
+  s_05186c50002419::t_5ae07aacc5e20c 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Style.swiftconstvalues
+  s_05186c50002419::t_9657395c9e0320 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/LauncherKit-t.build/Objects-normal/arm64/Updates.d
+  s_05186c50002419::t_e0872f31b0bf4f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/DerivedSources/Entitlements.plist
+  s_05186c50002419::t_19cb4bb198376a 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin-OutputFileMap.json
+  s_05186c50002419::t_782ddb422ad8e4 1-19
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin-dependencies-1.json
+  s_05186c50002419::t_99d2cdffb26e05 1-761
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin-primary-emit-module.d
+  s_05186c50002419::t_87c639f39cdc32 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin.LinkFileList
+  s_05186c50002419::t_bd27e800fc9ee5 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin.SwiftFileList
+  s_05186c50002419::t_18e53e9d725f4f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin.abi.json
+  s_05186c50002419::t_0b4d9fbe2e4fa6 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/OhKevin_const_extract_protocols.json
+  s_05186c50002419::t_6d6e6653cdd787 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/main.d
+  s_05186c50002419::t_05422e34e31b59 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/Objects-normal/arm64/main.swiftconstvalues
+  s_05186c50002419::t_de36e29cad9f8a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/OhKevin.xcent
+  s_05186c50002419::t_862a56c1f8c98c 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/OhKevin-p.build/OhKevin.xcent.der
+  s_05186c50002419::t_a570c7d67adeff 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/AppMover.d
+  s_05186c50002419::t_01847930e1c010 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/AppMover.swiftconstvalues
+  s_05186c50002419::t_ada50494a1f8de 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updates.d
+  s_05186c50002419::t_b02f28debb4153 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updates.swiftconstvalues
+  s_05186c50002419::t_26fb027d1fc743 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating-OutputFileMap.json
+  s_05186c50002419::t_5d868609471306 1-29
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating-Swift.h
+  s_05186c50002419::t_e0a08849f86cbb 1-423
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating-dependencies-1.json
+  s_05186c50002419::t_250dc6dd9a4f69 1-660
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating-primary-emit-module.d
+  s_05186c50002419::t_26c37dc0be936f 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating.LinkFileList
+  s_05186c50002419::t_6e5fe6444f4723 1-2
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating.SwiftFileList
+  s_05186c50002419::t_8d17e885195f96 1-2
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating.abi.json
+  s_05186c50002419::t_4cc20c866489f4 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Objects-normal/arm64/Updating_const_extract_protocols.json
+  s_05186c50002419::t_d51f88fbf0db35 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/Updating-t.build/Updating.modulemap
+  s_05186c50002419::t_390862814072bc 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/AppLocation.d
+  s_05186c50002419::t_9fba1b290cf21e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/AppLocation.swiftconstvalues
+  s_05186c50002419::t_7ad288a3f22b8c 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallServer.d
+  s_05186c50002419::t_788a5a20a435b9 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallServer.swiftconstvalues
+  s_05186c50002419::t_3c030ddf84db88 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallSettings.d
+  s_05186c50002419::t_5225146d492737 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallSettings.swiftconstvalues
+  s_05186c50002419::t_06ecca48c7b889 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallStatus.d
+  s_05186c50002419::t_4fec13ab32bf13 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/CallStatus.swiftconstvalues
+  s_05186c50002419::t_9dcfa24af2376e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Disclosure.d
+  s_05186c50002419::t_65f123cae35dfa 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Disclosure.swiftconstvalues
+  s_05186c50002419::t_bd2531da6ce571 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Health.d
+  s_05186c50002419::t_2cc9f3b058b966 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Health.swiftconstvalues
+  s_05186c50002419::t_192a0563f40e76 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Install.d
+  s_05186c50002419::t_bed47d01230b42 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Install.swiftconstvalues
+  s_05186c50002419::t_6a35a241c8bd7e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/InstallRunner.d
+  s_05186c50002419::t_c2adbdb438b197 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/InstallRunner.swiftconstvalues
+  s_05186c50002419::t_1232b4157875bb 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PanelLine.d
+  s_05186c50002419::t_83a6b02406a5db 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PanelLine.swiftconstvalues
+  s_05186c50002419::t_bef9d350822954 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PanelState.d
+  s_05186c50002419::t_1d87149d5385ae 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PanelState.swiftconstvalues
+  s_05186c50002419::t_3edd9f33545b5d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PlainWords.d
+  s_05186c50002419::t_141536c23f52a0 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/PlainWords.swiftconstvalues
+  s_05186c50002419::t_f526aa2463f040 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Product.d
+  s_05186c50002419::t_64f64a626d2ffd 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Product.swiftconstvalues
+  s_05186c50002419::t_b7cc42c2862aeb 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Setup.d
+  s_05186c50002419::t_6c0893596afbde 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Setup.swiftconstvalues
+  s_05186c50002419::t_2f2429935983ef 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Shell.d
+  s_05186c50002419::t_e721e725dddad1 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/Shell.swiftconstvalues
+  s_05186c50002419::t_2001cb7dd45d4c 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/UpdateState.d
+  s_05186c50002419::t_590a6e0e58cd47 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/UpdateState.swiftconstvalues
+  s_05186c50002419::t_0af838f128f590 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-OutputFileMap.json
+  s_05186c50002419::t_5a1b8073ece456 1-159
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-Swift.h
+  s_05186c50002419::t_ec72e961a963e3 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-dependencies-1.json
+  s_05186c50002419::t_3980b570eea7f2 1-366
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-primary-emit-module.d
+  s_05186c50002419::t_48c9e901c5b5a6 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.LinkFileList
+  s_05186c50002419::t_d04235d54897da 1-15
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.SwiftFileList
+  s_05186c50002419::t_d47496e77a18b3 1-15
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.abi.json
+  s_05186c50002419::t_ef882222d78018 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/Objects-normal/arm64/VoiceCore_const_extract_protocols.json
+  s_05186c50002419::t_8db7d645979f64 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCore-t.build/VoiceCore.modulemap
+  s_05186c50002419::t_1b5ec802926e8b 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/DerivedSources/Entitlements.plist
+  s_05186c50002419::t_e03041714e989b 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/DerivedSources/test_entry_point.swift
+  s_05186c50002419::t_5a402e65d3ceff 1-3,5-17,19,21-25,29-37,42-45,47-49,52-54,57-60,63-71,73,75-77,80-83,86-94,96,98-100,103-157,159,161-177,179-181,183-184,186-225,227,229-250,252,254,256-261,263-266,268-279,281,283-286,288-322,325,327-351,353,355-357,359-360,362-380,382-388,390,392,394-404,406-408,410-417,419-425,427-431,433-457,460-461,463-469,473-479,482-506,508-570
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/TmpReal.d
+  s_05186c50002419::t_77aa5763d310f1 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests-OutputFileMap.json
+  s_05186c50002419::t_fd42413bd986a1 1-29
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests-dependencies-1.json
+  s_05186c50002419::t_dfef91e85b9ccc 1-381
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests-primary-emit-module.d
+  s_05186c50002419::t_e30e31b1865947 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests.LinkFileList
+  s_05186c50002419::t_94fcd7ed535512 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests.SwiftFileList
+  s_05186c50002419::t_e5b45e10bc80e3 1-2
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests.abi.json
+  s_05186c50002419::t_250e76c37e2372 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests.d
+  s_05186c50002419::t_8f55d03bc891b2 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests.swiftconstvalues
+  s_05186c50002419::t_e0fe6cc7a5c574 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/VoiceCoreTests_const_extract_protocols.json
+  s_05186c50002419::t_ef7f362e20312d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/test_entry_point.d
+  s_05186c50002419::t_0381398725c9c8 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/Objects-normal/arm64/test_entry_point.swiftconstvalues
+  s_05186c50002419::t_d8a70b629f433c 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/VoiceCoreTests.xctest.xcent
+  s_05186c50002419::t_e5de82152a4468 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/VoiceCoreTests.xctest.xcent.der
+  s_05186c50002419::t_8309c5781318ae 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/VoiceCoreTests-p.build/empty-VoiceCoreTests.plist
+  s_05186c50002419::t_82248a36261ab2 1-5
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/DerivedSources/Entitlements.plist
+  s_05186c50002419::t_ef6c3625907cec 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Audio.d
+  s_05186c50002419::t_e42c51c2280b2d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Audio.swiftconstvalues
+  s_05186c50002419::t_0538be27b045cb 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Espeak.d
+  s_05186c50002419::t_5105f1fed0129d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Espeak.swiftconstvalues
+  s_05186c50002419::t_0a26853d281f24 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Kokoro.d
+  s_05186c50002419::t_ff45aa308d9bfa 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Kokoro.swiftconstvalues
+  s_05186c50002419::t_bd14dcc24913f6 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Npz.d
+  s_05186c50002419::t_ffa3b1d74b811e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Npz.swiftconstvalues
+  s_05186c50002419::t_77a34f4e746ac3 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Ort.d
+  s_05186c50002419::t_59afa7a68a2d9e 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Ort.swiftconstvalues
+  s_05186c50002419::t_8610ff88a6e13b 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Phonemizer.d
+  s_05186c50002419::t_f8c0d3fdd0a6de 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Phonemizer.swiftconstvalues
+  s_05186c50002419::t_05b6d782244dd1 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Scalars.d
+  s_05186c50002419::t_8f88996872b912 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Scalars.swiftconstvalues
+  s_05186c50002419::t_8623dd7fbfb549 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Vocab.d
+  s_05186c50002419::t_ff8be2f97aab73 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/Vocab.swiftconstvalues
+  s_05186c50002419::t_da35dff72d12c1 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner-OutputFileMap.json
+  s_05186c50002419::t_d9cacc9db12f6c 1-99
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner-primary-emit-module.d
+  s_05186c50002419::t_fca998b7ee9bec 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner.LinkFileList
+  s_05186c50002419::t_30befc853afdb8 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner.SwiftFileList
+  s_05186c50002419::t_ce953ee7473f6c 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner_const_extract_protocols.json
+  s_05186c50002419::t_f028fd577580ab 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro_runner-dependencies-1.json
+  s_05186c50002419::t_c4fcbc5605bd21 1-337
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/kokoro_runner.abi.json
+  s_05186c50002419::t_6f884e261340ed 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/main.d
+  s_05186c50002419::t_c2036019c99959 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/Objects-normal/arm64/main.swiftconstvalues
+  s_05186c50002419::t_ba2c06de44a359 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/kokoro-runner.xcent
+  s_05186c50002419::t_d319f3caf8ed0c 1-8
+launcher/.build/out/Intermediates.noindex/Launcher.build/Debug/kokoro-runner-p.build/kokoro-runner.xcent.der
+  s_05186c50002419::t_064af66d494748 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/COnnxRuntime-t.build/COnnxRuntime.modulemap
+  s_05186c50002419::t_7ec581ac75e956 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/COnnxRuntime-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+  s_05186c50002419::t_671b937ffe163b 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/COnnxRuntime-t.build/Objects-normal/arm64/COnnxRuntime.LinkFileList
+  s_05186c50002419::t_4cbb06a39aa500 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/COnnxRuntime-t.build/Objects-normal/arm64/shim.d
+  s_05186c50002419::t_0efd9dcb64f05f 1-3
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/CallViews.modulemap
+  s_05186c50002419::t_000c9ec1c13343 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews-OutputFileMap.json
+  s_05186c50002419::t_736d8845e850b7 1-46
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews-Swift.h
+  s_05186c50002419::t_66ac4753ba7cf4 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews-dependencies-1.json
+  s_05186c50002419::t_b386797192295f 1-696
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews-primary.d
+  s_05186c50002419::t_e80844eb89436f 1-11
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews-primary.swiftconstvalues
+  s_05186c50002419::t_2703809d05f633 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews.LinkFileList
+  s_05186c50002419::t_ce2ee745481aaf 1-7
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews.SwiftFileList
+  s_05186c50002419::t_320b0a4af114c2 1-7
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews.abi.json
+  s_05186c50002419::t_5c3c0bdfddee5f 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/CallViews_const_extract_protocols.json
+  s_05186c50002419::t_de890d525b086d 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/CallViews-t.build/Objects-normal/arm64/supplementaryOutputs-2
+  s_05186c50002419::t_3e8a2d62835816 1-12
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-OutputFileMap.json
+  s_05186c50002419::t_feb79eea239e53 1-16
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-dependencies-1.json
+  s_05186c50002419::t_4d85319adb8ced 1-756
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-primary.d
+  s_05186c50002419::t_cfe3f693ecba27 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice-primary.swiftconstvalues
+  s_05186c50002419::t_2d2a287e18ae28 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.LinkFileList
+  s_05186c50002419::t_8e280467b4eedd 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.SwiftFileList
+  s_05186c50002419::t_cd612b1a097f2f 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice.abi.json
+  s_05186c50002419::t_441d2510b527fa 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/ClaudeVoice-p.build/Objects-normal/arm64/ClaudeVoice_const_extract_protocols.json
+  s_05186c50002419::t_0721aed699ce38 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks-OutputFileMap.json
+  s_05186c50002419::t_7b7b44caa2d628 1-56
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks-dependencies-1.json
+  s_05186c50002419::t_dc6c6cf355633b 1-720
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks.LinkFileList
+  s_05186c50002419::t_2be5748fb92083 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks.SwiftFileList
+  s_05186c50002419::t_45d763be6c311a 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/LauncherChecks_const_extract_protocols.json
+  s_05186c50002419::t_069350061e2552 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherChecks-p.build/Objects-normal/arm64/supplementaryOutputs-4
+  s_05186c50002419::t_e7edea7bbdb2a5 1-11
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/LauncherKit.modulemap
+  s_05186c50002419::t_7c59c9a7e06b6b 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-OutputFileMap.json
+  s_05186c50002419::t_39dc610384d23a 1-41
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-Swift.h
+  s_05186c50002419::t_fd51006b8a9cb9 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-dependencies-1.json
+  s_05186c50002419::t_70abb3b6f4231b 1-751
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-primary.d
+  s_05186c50002419::t_b1c55e723a8372 1-10
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit-primary.swiftconstvalues
+  s_05186c50002419::t_c822e66be3b898 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.LinkFileList
+  s_05186c50002419::t_8a7721cb250622 1-6
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.SwiftFileList
+  s_05186c50002419::t_7a4c15eb241284 1-6
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit.abi.json
+  s_05186c50002419::t_4c960412ab7a28 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/LauncherKit_const_extract_protocols.json
+  s_05186c50002419::t_36edd2fb012adf 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/supplementaryOutputs-2
+  s_05186c50002419::t_1a974c5c47a141 1-12
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/LauncherKit-t.build/Objects-normal/arm64/supplementaryOutputs-3
+  s_05186c50002419::t_93a2ea50aac3b2 1-12
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating-OutputFileMap.json
+  s_05186c50002419::t_580176fd2f4185 1-21
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating-Swift.h
+  s_05186c50002419::t_11c7e97c6f5787 1-423
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating-dependencies-1.json
+  s_05186c50002419::t_03c21ebe804d80 1-655
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating-primary.d
+  s_05186c50002419::t_8d57d89cba578b 1-6
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating-primary.swiftconstvalues
+  s_05186c50002419::t_b4e2f79f53c102 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating.LinkFileList
+  s_05186c50002419::t_7abb923c6cb67c 1-2
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating.SwiftFileList
+  s_05186c50002419::t_23d244a67518da 1-2
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating.abi.json
+  s_05186c50002419::t_f5178e9c9bdf91 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Objects-normal/arm64/Updating_const_extract_protocols.json
+  s_05186c50002419::t_cb7d1257f50556 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/Updating-t.build/Updating.modulemap
+  s_05186c50002419::t_02ff223b1d4c08 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-OutputFileMap.json
+  s_05186c50002419::t_8c1c46ac407dc0 1-86
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-Swift.h
+  s_05186c50002419::t_92b7f6929d6b3e 1-377
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-primary.d
+  s_05186c50002419::t_58739d1e8dce92 1-19
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore-primary.swiftconstvalues
+  s_05186c50002419::t_178f76102f3694 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.LinkFileList
+  s_05186c50002419::t_cbd2accd60f976 1-15
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.SwiftFileList
+  s_05186c50002419::t_0a112591a00fdd 1-15
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore.abi.json
+  s_05186c50002419::t_ebbddec6b1178e 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/Objects-normal/arm64/VoiceCore_const_extract_protocols.json
+  s_05186c50002419::t_ffc8145a7dde70 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/VoiceCore-t.build/VoiceCore.modulemap
+  s_05186c50002419::t_747226d2023609 1-4
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner-OutputFileMap.json
+  s_05186c50002419::t_f475d8a8a3e200 1-56
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner-primary.d
+  s_05186c50002419::t_984a4ffd72e900 1-12
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner-primary.swiftconstvalues
+  s_05186c50002419::t_260d9580340ec3 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner.LinkFileList
+  s_05186c50002419::t_5cfe5bd0b1c02a 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner.SwiftFileList
+  s_05186c50002419::t_b8334772aa3b82 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro-runner_const_extract_protocols.json
+  s_05186c50002419::t_9861ed203ba1a7 1
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro_runner-dependencies-1.json
+  s_05186c50002419::t_fc256b55cf5c89 1-332
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/kokoro_runner.abi.json
+  s_05186c50002419::t_17ad058b52b6dd 1-9
+launcher/.build/out/Intermediates.noindex/Launcher.build/Release/kokoro-runner-p.build/Objects-normal/arm64/supplementaryOutputs-1
+  s_05186c50002419::t_28dd4772a4d647 1-11
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/195a3ec393572f0504cd0332241beac5
+  s_05186c50002419::t_4abae7f8d6bf7a 1-79
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/2e2baef69fe8215a526f90f8a22205de
+  s_05186c50002419::t_4b526d890b21a2 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/2e7e1d2ad54a1f146e83215d240df730
+  s_05186c50002419::t_53b240a4dc190a 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/3c0dc16e731c0203f286c6ae4cb5ec8e
+  s_05186c50002419::t_34df02357f344f 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/45d2b158e8532eca8648f52d1dda5412
+  s_05186c50002419::t_f9bba611a059b6 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/46eed2510ee57ab35ad767ab01e4a7fa
+  s_05186c50002419::t_a24382a6919a7b 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/47df951f15ff9abd76243a23156ae7c5
+  s_05186c50002419::t_c06cd5d61c06f3 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/608dbfb7f49fc792fd3669c94bf60ca1
+  s_05186c50002419::t_f7071b44b42b3c 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/7c1ad148808edec61317981ae1c9f9cf
+  s_05186c50002419::t_cfb5c27b5b9afe 1-69
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/8b310af9f245a1efd1ab835c79649047
+  s_05186c50002419::t_c7ad5e0fde85be 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/8e977b0bed6e81892137f76c581cf99e
+  s_05186c50002419::t_e819bfd11398d7 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/901605acb85d140bdaa682aa927ec6f5
+  s_05186c50002419::t_7d1a7e45b139ac 1-99
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/923e9892972dd82eb347dfe4fdf617b9
+  s_05186c50002419::t_b8b499b613186c 1-159
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/a2556589255fb96d934038f4a6c11ae9
+  s_05186c50002419::t_0075acbc1b31d8 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/a8837f06a943a4dcbf0c27d851e8b1b6
+  s_05186c50002419::t_02331bd8e8adfc 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/b80e2392f91ae0b33831f3bb9f562dba
+  s_05186c50002419::t_686b1289ea336c 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/c1003146d3e26e450da64b8f6620d41e
+  s_05186c50002419::t_e6c658f37c7bb2 1-29
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/c9d8f84a1895f8f6515972810540f7fd
+  s_05186c50002419::t_13c4947b6f02eb 1-9
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/cb4bcb1e7666e1abaf25e1b1e111a9d5
+  s_05186c50002419::t_2c4da68ef0a16d 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/f86cbb10517a3bd51f252887359b04af
+  s_05186c50002419::t_8de91f551b8175 1-8
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/attachments/f925474f3fd62a83a5384d50ee1d5624
+  s_05186c50002419::t_1e39b66645c206 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/build-request.json
+  s_05186c50002419::t_ecc495fc023064 1-128
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/manifest.json
+  s_05186c50002419::t_57a6823c04cff2 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/2e55d32e82c000cf8a03f97ca0ee52fe.xcbuilddata/target-graph.txt
+  s_05186c50002419::t_280a1aeba3c61a 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/055b98f9c4f7ca3447b094e241918e2a
+  s_05186c50002419::t_cb926a7b37377e 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/0f6a636a3483e5d4c42aa8bb2c4ac4be
+  s_05186c50002419::t_1985956358f3ca 1-56
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/29f627f16457c47d8e59f6ffd7289b91
+  s_05186c50002419::t_91d20108d37ba4 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/80e21a9a9399896a44498899592db411
+  s_05186c50002419::t_80bd078eafc013 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/9d4e756c8259d5bdb7fb45942d533aaa
+  s_05186c50002419::t_9802f876af5259 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/a8837f06a943a4dcbf0c27d851e8b1b6
+  s_05186c50002419::t_57a169abc0c2b1 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/attachments/bfea5a77eefb0c6131666214f57adf90
+  s_05186c50002419::t_556c4d4573a098 1-9
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/build-request.json
+  s_05186c50002419::t_72094ba9cd3a20 1-18,20-56,58,60,62-75,77-113,115,117-126
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/manifest.json
+  s_05186c50002419::t_d46fc6bbe075ab 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/3d3c2e64806caba65b5b3a3fc7c1925f.xcbuilddata/target-graph.txt
+  s_05186c50002419::t_ed516d2d3bf0c2 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/0b051d9bf1dc3c340e03cbd06461f3fd
+  s_05186c50002419::t_3482dc95c1884b 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/0dbe7977308bda9d7b3c95ccd60a18c3
+  s_05186c50002419::t_b6b2bbe2e0af5c 1-99
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/195a3ec393572f0504cd0332241beac5
+  s_05186c50002419::t_bcc8db50bdefb9 1-79
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/2de6a04cdba79ed13580c47dfd70cc5f
+  s_05186c50002419::t_981ea497296e7c 1-5
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/2e2baef69fe8215a526f90f8a22205de
+  s_05186c50002419::t_63472bdccf1b8d 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/2e7e1d2ad54a1f146e83215d240df730
+  s_05186c50002419::t_eb31fbdabdd485 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/31eb99f63438052d84a0cc9c536ad501
+  s_05186c50002419::t_429a0a1e609bab 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/3c0dc16e731c0203f286c6ae4cb5ec8e
+  s_05186c50002419::t_7f7a5896d33e68 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/45d2b158e8532eca8648f52d1dda5412
+  s_05186c50002419::t_e55557e8b23327 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/46eed2510ee57ab35ad767ab01e4a7fa
+  s_05186c50002419::t_e998b4a7bf608d 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/47df951f15ff9abd76243a23156ae7c5
+  s_05186c50002419::t_84c075a874030f 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/4cee86fdac91f72af0867fbeb9ea81f1
+  s_05186c50002419::t_d5c20638b38342 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/5500a8ffffc93f7fc5105545ef7b2101
+  s_05186c50002419::t_5b92ca368a35c5 1-29
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/608dbfb7f49fc792fd3669c94bf60ca1
+  s_05186c50002419::t_29faaefe31ae24 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/7c1ad148808edec61317981ae1c9f9cf
+  s_05186c50002419::t_c709c63371de90 1-69
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/8b310af9f245a1efd1ab835c79649047
+  s_05186c50002419::t_0abfbf95a2a792 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/8e977b0bed6e81892137f76c581cf99e
+  s_05186c50002419::t_a70615325aa7ec 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/901605acb85d140bdaa682aa927ec6f5
+  s_05186c50002419::t_f79ce0d902cea7 1-99
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/923e9892972dd82eb347dfe4fdf617b9
+  s_05186c50002419::t_b91972a59bd438 1-159
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/9d4e756c8259d5bdb7fb45942d533aaa
+  s_05186c50002419::t_37ddaf92f9954b 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/9f4586de77a82685f39b51422b2283e7
+  s_05186c50002419::t_c92d6c765ea9eb 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/a2556589255fb96d934038f4a6c11ae9
+  s_05186c50002419::t_d2e55224a36e03 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/a8837f06a943a4dcbf0c27d851e8b1b6
+  s_05186c50002419::t_8c8c6af97223e6 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/aa302c7d86432acad56d66cfb2121d81
+  s_05186c50002419::t_9552d03b4ed05e 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/ae3bb3cddd7754ffe6f1704a20f05aa6
+  s_05186c50002419::t_21c801e0e33ff4 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/b80e2392f91ae0b33831f3bb9f562dba
+  s_05186c50002419::t_04788876f50c61 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/bfea5a77eefb0c6131666214f57adf90
+  s_05186c50002419::t_1f5561280c7419 1-9
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/c1003146d3e26e450da64b8f6620d41e
+  s_05186c50002419::t_e52b2537acf2e9 1-29
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/c9d8f84a1895f8f6515972810540f7fd
+  s_05186c50002419::t_2e25f3a21be2c7 1-9
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/cb4bcb1e7666e1abaf25e1b1e111a9d5
+  s_05186c50002419::t_85fa7fd605267c 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/cbc7c1c723d0f0a072c51846b396c66e
+  s_05186c50002419::t_eeb0093fc2b05d 1-19
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/e03d89b3e11bb003f7c99a2d87fbcb1f
+  s_05186c50002419::t_7021343eeccc0e 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/f86cbb10517a3bd51f252887359b04af
+  s_05186c50002419::t_d8d06ea9e3f166 1-8
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/attachments/f925474f3fd62a83a5384d50ee1d5624
+  s_05186c50002419::t_8d1864065d3512 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/build-request.json
+  s_05186c50002419::t_1f8d9b336fb3b8 1-130
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/manifest.json
+  s_05186c50002419::t_e6d3ec855aee01 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/88ab5d14c05f6ef31e049235dcb672bd.xcbuilddata/target-graph.txt
+  s_05186c50002419::t_49c23068a09b7d 1-36
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/195a3ec393572f0504cd0332241beac5
+  s_05186c50002419::t_b70e350d5f1b08 1-79
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/2e2baef69fe8215a526f90f8a22205de
+  s_05186c50002419::t_d82e648cd0f5e6 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/2e7e1d2ad54a1f146e83215d240df730
+  s_05186c50002419::t_18b963f3660bc2 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/3c0dc16e731c0203f286c6ae4cb5ec8e
+  s_05186c50002419::t_0498c7ff1a3328 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/45d2b158e8532eca8648f52d1dda5412
+  s_05186c50002419::t_5c7ac2fc17d515 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/46eed2510ee57ab35ad767ab01e4a7fa
+  s_05186c50002419::t_5d39084c5c09b0 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/47df951f15ff9abd76243a23156ae7c5
+  s_05186c50002419::t_6df99021d34b25 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/608dbfb7f49fc792fd3669c94bf60ca1
+  s_05186c50002419::t_7c8a53f9b4cfca 1-7
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/7c1ad148808edec61317981ae1c9f9cf
+  s_05186c50002419::t_12aa71794fc813 1-69
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/8b310af9f245a1efd1ab835c79649047
+  s_05186c50002419::t_a10278ff4e2db6 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/8e977b0bed6e81892137f76c581cf99e
+  s_05186c50002419::t_fd1291fcc9c1b6 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/901605acb85d140bdaa682aa927ec6f5
+  s_05186c50002419::t_9f670dfad41028 1-99
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/923e9892972dd82eb347dfe4fdf617b9
+  s_05186c50002419::t_e3a99db41b8c48 1-159
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/a2556589255fb96d934038f4a6c11ae9
+  s_05186c50002419::t_870c46de1c482b 1-2
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/a8837f06a943a4dcbf0c27d851e8b1b6
+  s_05186c50002419::t_8ddb27297d43c1 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/b80e2392f91ae0b33831f3bb9f562dba
+  s_05186c50002419::t_3e7cf466ed8af4 1-4
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/c1003146d3e26e450da64b8f6620d41e
+  s_05186c50002419::t_3b1c0f11604a65 1-29
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/c9d8f84a1895f8f6515972810540f7fd
+  s_05186c50002419::t_bd15ecec9bfc19 1-9
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/cb4bcb1e7666e1abaf25e1b1e111a9d5
+  s_05186c50002419::t_9f38ca7cadb331 1-6
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/f86cbb10517a3bd51f252887359b04af
+  s_05186c50002419::t_51265a06caa9cc 1-8
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/attachments/f925474f3fd62a83a5384d50ee1d5624
+  s_05186c50002419::t_a5b66839792574 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/build-request.json
+  s_05186c50002419::t_4ee524f06b321f 1-128
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/manifest.json
+  s_05186c50002419::t_c0902b1f5afb78 1
+launcher/.build/out/Intermediates.noindex/XCBuildData/d6abc57cb7b49fbec134e8e8e7830239.xcbuilddata/target-graph.txt
+  s_05186c50002419::t_2c9e4738e8309e 1-15
+launcher/.build/out/Intermediates.noindex/XCBuildData/prior-build-descriptions.txt
+  s_05186c50002419::t_f216f7d1355da2 1-394
+launcher/.build/out/ModuleCache.noindex/Session.modulevalidation
+  s_05186c50002419::t_676bf873afe5c1 1
+launcher/.build/out/Products/Debug/Autoupdate.dSYM/Contents/Info.plist
+  s_05186c50002419::t_e2d589fbf86bd2 1-20
+launcher/.build/out/Products/Debug/Autoupdate.dSYM/Contents/Resources/Relocations/aarch64/Autoupdate.yml
+  s_05186c50002419::t_4d6873e1e0bbc7 1-733
+launcher/.build/out/Products/Debug/Autoupdate.dSYM/Contents/Resources/Relocations/x86_64/Autoupdate.yml
+  s_05186c50002419::t_0e8056aec21035 1-560
+launcher/.build/out/Products/Debug/CallViews.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_eec4a21dd3a7c3 1-9
+launcher/.build/out/Products/Debug/Downloader.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_5fe3102822f867 1-20
+launcher/.build/out/Products/Debug/Downloader.xpc.dSYM/Contents/Resources/Relocations/aarch64/Downloader.yml
+  s_05186c50002419::t_ce0417635faaca 1-81
+launcher/.build/out/Products/Debug/Downloader.xpc.dSYM/Contents/Resources/Relocations/x86_64/Downloader.yml
+  s_05186c50002419::t_43bf1654859fbb 1-76
+launcher/.build/out/Products/Debug/Installer.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_1255e439dd5295 1-20
+launcher/.build/out/Products/Debug/Installer.xpc.dSYM/Contents/Resources/Relocations/aarch64/Installer.yml
+  s_05186c50002419::t_3a52634dffd641 1-137
+launcher/.build/out/Products/Debug/Installer.xpc.dSYM/Contents/Resources/Relocations/x86_64/Installer.yml
+  s_05186c50002419::t_2afbbaa2e05d57 1-77
+launcher/.build/out/Products/Debug/LauncherKit.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_4a21441b604def 1-9
+launcher/.build/out/Products/Debug/Sparkle.framework.dSYM/Contents/Info.plist
+  s_05186c50002419::t_0b1e9c3fa6abfe 1-20
+launcher/.build/out/Products/Debug/Sparkle.framework.dSYM/Contents/Resources/Relocations/aarch64/Sparkle.yml
+  s_05186c50002419::t_1617f03e81ed37 1-1466
+launcher/.build/out/Products/Debug/Sparkle.framework.dSYM/Contents/Resources/Relocations/x86_64/Sparkle.yml
+  s_05186c50002419::t_12e19fdc712e3f 1-1274
+launcher/.build/out/Products/Debug/Sparkle.framework/Autoupdate
+  s_05186c50002419::t_29c6ca7cf4ec1d 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Headers
+  s_05186c50002419::t_bf476209485773 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Modules
+  s_05186c50002419::t_414b73e87129f2 1
+launcher/.build/out/Products/Debug/Sparkle.framework/PrivateHeaders
+  s_05186c50002419::t_df333e31be6d53 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Resources
+  s_05186c50002419::t_ef60432dd51af0 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Sparkle
+  s_05186c50002419::t_89968d90ce18c5 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Updater.app
+  s_05186c50002419::t_3c4e6de736f26c 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h
+  s_05186c50002419::t_5b156784c6af7a 1-32
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h
+  s_05186c50002419::t_36c7b8fe75febc 1-52
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h
+  s_05186c50002419::t_dd071369c5388f 1-127
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h
+  s_05186c50002419::t_f0487054401422 1-47
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h
+  s_05186c50002419::t_d0856c2aed9434 1-209
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h
+  s_05186c50002419::t_373f3effabb149 1-33
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h
+  s_05186c50002419::t_9adb9162f4bc78 1-42
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUpdater.h
+  s_05186c50002419::t_964bb08fe80bb7 1-403
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h
+  s_05186c50002419::t_b9aea2ce3678b9 1-485
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h
+  s_05186c50002419::t_ac12cd95192193 1-98
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h
+  s_05186c50002419::t_b8923582302db7 1-304
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h
+  s_05186c50002419::t_27d04ee04e748f 1-85
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUAppcast.h
+  s_05186c50002419::t_bc3b8c002a43bc 1-54
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h
+  s_05186c50002419::t_e6c3759df4a00c 1-448
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUErrors.h
+  s_05186c50002419::t_e067b7cfc1a38b 1-111
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUExport.h
+  s_05186c50002419::t_2701ae4c781c22 1-18
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h
+  s_05186c50002419::t_6e177627ba410b 1-63
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h
+  s_05186c50002419::t_d40504a35ac5cb 1-73
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUUpdater.h
+  s_05186c50002419::t_97deff492643d5 1-212
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h
+  s_05186c50002419::t_54cf967e244bfc 1-363
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h
+  s_05186c50002419::t_54db8d69bc89ea 1-42
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h
+  s_05186c50002419::t_9c76c322b70653 1-78
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Headers/Sparkle.h
+  s_05186c50002419::t_00c0d4e0438f36 1-39
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Modules/module.modulemap
+  s_05186c50002419::t_50c3d7412aa28c 1-6
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Modules/module.private.modulemap
+  s_05186c50002419::t_2697dd3354d697 1-38
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h
+  s_05186c50002419::t_64a90dc626942b 1-38
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h
+  s_05186c50002419::t_28fdb5e5d281c0 1-22
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h
+  s_05186c50002419::t_cd6edfd5952e2b 1-19
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h
+  s_05186c50002419::t_ece98da084c0c6 1-40
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h
+  s_05186c50002419::t_fdbf38ad7bd649 1-29
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h
+  s_05186c50002419::t_cd6a264af39195 1-50
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h
+  s_05186c50002419::t_1e66da7f626808 1-37
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Resources/Info.plist
+  s_05186c50002419::t_b3c85af287623f 1-48
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
+  s_05186c50002419::t_7c4e98e537f27a 1-13
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
+  s_05186c50002419::t_0b7b3cdca4b1a5 1-93
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
+  s_05186c50002419::t_72bd6ec082dce6 1
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_68aecf75a2c92c 1-115
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
+  s_05186c50002419::t_28ba7e0d8a1f26 1-62
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_9525b37e6cb1fe 1-115
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
+  s_05186c50002419::t_4e40f2b1ab3771 1-57
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_1b5a1ce73c4ab6 1-115
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
+  s_05186c50002419::t_54747036826020 1-1062
+launcher/.build/out/Products/Debug/Sparkle.framework/Versions/Current
+  s_05186c50002419::t_febf17399fffd0 1
+launcher/.build/out/Products/Debug/Sparkle.framework/XPCServices
+  s_05186c50002419::t_ef6424bc035ebc 1
+launcher/.build/out/Products/Debug/Updater.app.dSYM/Contents/Info.plist
+  s_05186c50002419::t_c0329f54d4a2d8 1-20
+launcher/.build/out/Products/Debug/Updater.app.dSYM/Contents/Resources/Relocations/aarch64/Updater.yml
+  s_05186c50002419::t_3e8bfba4af613e 1-325
+launcher/.build/out/Products/Debug/Updater.app.dSYM/Contents/Resources/Relocations/x86_64/Updater.yml
+  s_05186c50002419::t_68d3ddeb9dd156 1-264
+launcher/.build/out/Products/Debug/Updating.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_442fc2ade888d1 1-9
+launcher/.build/out/Products/Debug/VoiceCore.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_ad959b483463c9 1-9
+launcher/.build/out/Products/Debug/VoiceCoreTests.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_12aba9383f13b7 1-9
+launcher/.build/out/Products/Debug/VoiceCoreTests.xctest/Contents/Info.plist
+  s_05186c50002419::t_c81b05b7a34460 1-42
+launcher/.build/out/Products/Debug/VoiceCoreTests.xctest/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_5c452325201000 1-115
+launcher/.build/out/Products/Release/Autoupdate.dSYM/Contents/Info.plist
+  s_05186c50002419::t_da815cda2ed861 1-20
+launcher/.build/out/Products/Release/Autoupdate.dSYM/Contents/Resources/Relocations/aarch64/Autoupdate.yml
+  s_05186c50002419::t_ee317c611ffb37 1-733
+launcher/.build/out/Products/Release/Autoupdate.dSYM/Contents/Resources/Relocations/x86_64/Autoupdate.yml
+  s_05186c50002419::t_87e6d096230662 1-560
+launcher/.build/out/Products/Release/CallViews.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_cda0bb17a98a4f 1-9
+launcher/.build/out/Products/Release/ClaudeVoice.dSYM/Contents/Info.plist
+  s_05186c50002419::t_df14c6ce75b501 1-20
+launcher/.build/out/Products/Release/ClaudeVoice.dSYM/Contents/Resources/Relocations/aarch64/ClaudeVoice.yml
+  s_05186c50002419::t_c1f037c86de4d6 1-3860
+launcher/.build/out/Products/Release/Downloader.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_81037e09285688 1-20
+launcher/.build/out/Products/Release/Downloader.xpc.dSYM/Contents/Resources/Relocations/aarch64/Downloader.yml
+  s_05186c50002419::t_e20c439bd04d33 1-81
+launcher/.build/out/Products/Release/Downloader.xpc.dSYM/Contents/Resources/Relocations/x86_64/Downloader.yml
+  s_05186c50002419::t_f84a7498bb4b45 1-76
+launcher/.build/out/Products/Release/Installer.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_413816ff9ca45d 1-20
+launcher/.build/out/Products/Release/Installer.xpc.dSYM/Contents/Resources/Relocations/aarch64/Installer.yml
+  s_05186c50002419::t_bd4d29a53f9ac6 1-137
+launcher/.build/out/Products/Release/Installer.xpc.dSYM/Contents/Resources/Relocations/x86_64/Installer.yml
+  s_05186c50002419::t_5a7e1fce2bf233 1-77
+launcher/.build/out/Products/Release/LauncherKit.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_e00a27a6dabcad 1-9
+launcher/.build/out/Products/Release/Sparkle.framework.dSYM/Contents/Info.plist
+  s_05186c50002419::t_b658f387c994de 1-20
+launcher/.build/out/Products/Release/Sparkle.framework.dSYM/Contents/Resources/Relocations/aarch64/Sparkle.yml
+  s_05186c50002419::t_f74bfc127a92ca 1-1466
+launcher/.build/out/Products/Release/Sparkle.framework.dSYM/Contents/Resources/Relocations/x86_64/Sparkle.yml
+  s_05186c50002419::t_eeed945bddff75 1-1274
+launcher/.build/out/Products/Release/Sparkle.framework/Autoupdate
+  s_05186c50002419::t_19cf93ba9eb4f7 1
+launcher/.build/out/Products/Release/Sparkle.framework/Headers
+  s_05186c50002419::t_e54d82bd5466d1 1
+launcher/.build/out/Products/Release/Sparkle.framework/Modules
+  s_05186c50002419::t_e7755a4eb23d2a 1
+launcher/.build/out/Products/Release/Sparkle.framework/PrivateHeaders
+  s_05186c50002419::t_0a6d645f9b411d 1
+launcher/.build/out/Products/Release/Sparkle.framework/Resources
+  s_05186c50002419::t_294ea46722b40f 1
+launcher/.build/out/Products/Release/Sparkle.framework/Sparkle
+  s_05186c50002419::t_1d33cd692ccef5 1
+launcher/.build/out/Products/Release/Sparkle.framework/Updater.app
+  s_05186c50002419::t_7fbaa5f1b11d91 1
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h
+  s_05186c50002419::t_df88ab2bc8a724 1-32
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h
+  s_05186c50002419::t_9e267ee23c7d47 1-52
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h
+  s_05186c50002419::t_8138061f673c34 1-127
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h
+  s_05186c50002419::t_82f11760a1e1e5 1-47
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h
+  s_05186c50002419::t_9dbc05ddfb24ac 1-209
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h
+  s_05186c50002419::t_c6a490e99ab3de 1-33
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h
+  s_05186c50002419::t_e914d86cb3143d 1-42
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUpdater.h
+  s_05186c50002419::t_cb19e395c9435c 1-403
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h
+  s_05186c50002419::t_16f6b7aa606d99 1-485
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h
+  s_05186c50002419::t_8b3e239b92d440 1-98
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h
+  s_05186c50002419::t_6b5b947b26b0da 1-304
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h
+  s_05186c50002419::t_808b8788f155ca 1-85
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUAppcast.h
+  s_05186c50002419::t_47c8bad3db2c8a 1-54
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h
+  s_05186c50002419::t_9ff8c6c6f7f3aa 1-448
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUErrors.h
+  s_05186c50002419::t_f4ecb20aa42dde 1-111
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUExport.h
+  s_05186c50002419::t_889de385fe9a9d 1-18
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h
+  s_05186c50002419::t_777dfd6d868510 1-63
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h
+  s_05186c50002419::t_11e65d0668f662 1-73
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUUpdater.h
+  s_05186c50002419::t_31e07500cf552a 1-212
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h
+  s_05186c50002419::t_ba9dad88aeea71 1-363
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h
+  s_05186c50002419::t_ede6d5679d6ee4 1-42
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h
+  s_05186c50002419::t_bd76fdd75efc98 1-78
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Headers/Sparkle.h
+  s_05186c50002419::t_300124e2da71b2 1-39
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Modules/module.modulemap
+  s_05186c50002419::t_fea56986cfd698 1-6
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Modules/module.private.modulemap
+  s_05186c50002419::t_228b52fb84d86e 1-38
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h
+  s_05186c50002419::t_51e3e35287b21f 1-38
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h
+  s_05186c50002419::t_ee63800a64d8ea 1-22
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h
+  s_05186c50002419::t_6cab5c89789919 1-19
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h
+  s_05186c50002419::t_007499f9d857c6 1-40
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h
+  s_05186c50002419::t_3e3078073b2d14 1-29
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h
+  s_05186c50002419::t_d230dfce633dd4 1-50
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h
+  s_05186c50002419::t_d2ff4925d5b136 1-37
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Resources/Info.plist
+  s_05186c50002419::t_3648735bb44f9b 1-48
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
+  s_05186c50002419::t_3cbd2c2e78f6ba 1-13
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
+  s_05186c50002419::t_755992957204ff 1-93
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
+  s_05186c50002419::t_b54b19bced96d6 1
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_567cc159a8ee75 1-115
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
+  s_05186c50002419::t_5a04e4d7c482b1 1-62
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_0905941ddcff1a 1-115
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
+  s_05186c50002419::t_820a20f0179ffa 1-57
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_214a6af2c620af 1-115
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
+  s_05186c50002419::t_17038b0185ed6c 1-1062
+launcher/.build/out/Products/Release/Sparkle.framework/Versions/Current
+  s_05186c50002419::t_27a84fa923cdd9 1
+launcher/.build/out/Products/Release/Sparkle.framework/XPCServices
+  s_05186c50002419::t_56af5535ba4024 1
+launcher/.build/out/Products/Release/Updater.app.dSYM/Contents/Info.plist
+  s_05186c50002419::t_68c4fdca728b6c 1-20
+launcher/.build/out/Products/Release/Updater.app.dSYM/Contents/Resources/Relocations/aarch64/Updater.yml
+  s_05186c50002419::t_4da2f374ba94a6 1-325
+launcher/.build/out/Products/Release/Updater.app.dSYM/Contents/Resources/Relocations/x86_64/Updater.yml
+  s_05186c50002419::t_1db73631f5759d 1-264
+launcher/.build/out/Products/Release/Updating.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_ca99faeee7595a 1-9
+launcher/.build/out/Products/Release/VoiceCore.swiftmodule/arm64-apple-macos.abi.json
+  s_05186c50002419::t_eefd484f75f42a 1-9
+launcher/.build/out/Products/Release/kokoro-runner.dSYM/Contents/Info.plist
+  s_05186c50002419::t_9c5ee729a6da2a 1-20
+launcher/.build/out/Products/Release/kokoro-runner.dSYM/Contents/Resources/Relocations/aarch64/kokoro-runner.yml
+  s_05186c50002419::t_34f54b426fa1ba 1-241
+launcher/.build/release
+  s_05186c50002419::t_1c1d439262fe31 1
+launcher/.build/workspace-state.json
+  s_05186c50002419::t_7b912ca614acd7 1-33
+launcher/.sparkle/CHANGELOG
+  s_05186c50002419::t_a75badc1b2440d 1-1147
+launcher/.sparkle/INSTALL
+  s_05186c50002419::t_4f21723b745bd3 1-5
+launcher/.sparkle/LICENSE
+  s_05186c50002419::t_d82b867bf51abd 1-134
+launcher/.sparkle/SampleAppcast.xml
+  s_05186c50002419::t_2006d56efc8a36 1-42
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Autoupdate"
+  s_05186c50002419::t_cbf0f5ae3ec58a 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Resources"
+  s_05186c50002419::t_64c345bffae77c 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Sparkle"
+  s_05186c50002419::t_1f8ec0127ad3ae 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Updater.app"
+  s_05186c50002419::t_223aab06da8a7c 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist"
+  s_05186c50002419::t_2472c4c8574876 1-48
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css"
+  s_05186c50002419::t_e5143b2295e4b1 1-13
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist"
+  s_05186c50002419::t_ab9f64962a7cf8 1-93
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo"
+  s_05186c50002419::t_45df8914d7621f 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_64aa55f0350f48 1-115
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist"
+  s_05186c50002419::t_e15f9438f8ed2d 1-62
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_335ad690e71267 1-115
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist"
+  s_05186c50002419::t_af95610365d1f6 1-57
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_434fde5b5092f1 1-115
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources"
+  s_05186c50002419::t_0270856f77f8a8 1-838
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/Versions/Current"
+  s_05186c50002419::t_2e1daa7939fa6b 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Frameworks/Sparkle.framework/XPCServices"
+  s_05186c50002419::t_ae614bf298c902 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Info.plist"
+  s_05186c50002419::t_dab81dcfaac5dd 1-70
+"launcher/.sparkle/Sparkle Test App.app/Contents/PkgInfo"
+  s_05186c50002419::t_5f534dea2c290b 1
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ar.lproj/MainMenu.strings"
+  s_05186c50002419::t_f364fa94088017 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ca.lproj/MainMenu.strings"
+  s_05186c50002419::t_26d0ea41865943 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/cs.lproj/MainMenu.strings"
+  s_05186c50002419::t_ff50202a6fb182 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/da.lproj/MainMenu.strings"
+  s_05186c50002419::t_90397bf34e0477 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/de.lproj/MainMenu.strings"
+  s_05186c50002419::t_1e2ddb32259435 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/el.lproj/MainMenu.strings"
+  s_05186c50002419::t_ac17a3c186735c 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/en.lproj/MainMenu.strings"
+  s_05186c50002419::t_25259469b009b2 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/es.lproj/MainMenu.strings"
+  s_05186c50002419::t_3f8d3d23fdffcf 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/fa.lproj/MainMenu.strings"
+  s_05186c50002419::t_108d70892dc488 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/fi.lproj/MainMenu.strings"
+  s_05186c50002419::t_a4de692c881e47 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/fr.lproj/MainMenu.strings"
+  s_05186c50002419::t_9f996077796724 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/he.lproj/MainMenu.strings"
+  s_05186c50002419::t_7b2138a517d7b0 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/hr.lproj/MainMenu.strings"
+  s_05186c50002419::t_3ea28d9ff1e9c0 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/hu.lproj/MainMenu.strings"
+  s_05186c50002419::t_ff0d85bffa6fd5 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/is.lproj/MainMenu.strings"
+  s_05186c50002419::t_b98a4b92771b31 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/it.lproj/MainMenu.strings"
+  s_05186c50002419::t_5799da59b429f6 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ja.lproj/MainMenu.strings"
+  s_05186c50002419::t_8f2fe0fd4a91de 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ko.lproj/MainMenu.strings"
+  s_05186c50002419::t_50b42aedd8dee1 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/nb.lproj/MainMenu.strings"
+  s_05186c50002419::t_b35aa413172855 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/nl.lproj/MainMenu.strings"
+  s_05186c50002419::t_9381cbbcf26115 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/nn.lproj/MainMenu.strings"
+  s_05186c50002419::t_8472ae5f2bf46a 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/pl.lproj/MainMenu.strings"
+  s_05186c50002419::t_f65fa6892e1ef9 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/pt-BR.lproj/MainMenu.strings"
+  s_05186c50002419::t_62b6f88e98dda7 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/pt-PT.lproj/MainMenu.strings"
+  s_05186c50002419::t_0932045abde350 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ro.lproj/MainMenu.strings"
+  s_05186c50002419::t_63d1596e03437c 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/ru.lproj/MainMenu.strings"
+  s_05186c50002419::t_35af7cda4064f4 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/sk.lproj/MainMenu.strings"
+  s_05186c50002419::t_bdd9e905b59791 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/sl.lproj/MainMenu.strings"
+  s_05186c50002419::t_e1a0e4032e044a 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/sparkletestcast.xml"
+  s_05186c50002419::t_bd3794cb325bc1 1-135
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/sv.lproj/MainMenu.strings"
+  s_05186c50002419::t_14832f8ed694cb 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/th.lproj/MainMenu.strings"
+  s_05186c50002419::t_71ccdf5fc24cf2 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/tr.lproj/MainMenu.strings"
+  s_05186c50002419::t_e6988c9a9598e5 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/uk.lproj/MainMenu.strings"
+  s_05186c50002419::t_6fd875200bbbd8 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/vi.lproj/MainMenu.strings"
+  s_05186c50002419::t_d8d5677406ce75 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/zh_CN.lproj/MainMenu.strings"
+  s_05186c50002419::t_84036ee610996a 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/zh_HK.lproj/MainMenu.strings"
+  s_05186c50002419::t_612612aca04af9 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/Resources/zh_TW.lproj/MainMenu.strings"
+  s_05186c50002419::t_3fdbedd46ab154 1-162
+"launcher/.sparkle/Sparkle Test App.app/Contents/XPCServices/TestAppHelper.xpc/Contents/Info.plist"
+  s_05186c50002419::t_b04237ce0c2b68 1-64
+"launcher/.sparkle/Sparkle Test App.app/Contents/XPCServices/TestAppHelper.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_0cf83e3d92892a 1-115
+"launcher/.sparkle/Sparkle Test App.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_8e411d3ba57679 1-871
+launcher/.sparkle/Sparkle.framework/Autoupdate
+  s_05186c50002419::t_66d170ef8e8abc 1
+launcher/.sparkle/Sparkle.framework/Headers
+  s_05186c50002419::t_88c352b5d69c6c 1
+launcher/.sparkle/Sparkle.framework/Modules
+  s_05186c50002419::t_cfc5c63bd0df4b 1
+launcher/.sparkle/Sparkle.framework/PrivateHeaders
+  s_05186c50002419::t_d1eed30a765e2a 1
+launcher/.sparkle/Sparkle.framework/Resources
+  s_05186c50002419::t_554580ddf3e517 1
+launcher/.sparkle/Sparkle.framework/Sparkle
+  s_05186c50002419::t_96f24c4ce46773 1
+launcher/.sparkle/Sparkle.framework/Updater.app
+  s_05186c50002419::t_3eb40aef48aca4 1
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h
+  s_05186c50002419::t_c4f991495b47f3 1-32
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h
+  s_05186c50002419::t_7b4156f3abddb0 1-52
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h
+  s_05186c50002419::t_d6251ca1c16a98 1-127
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h
+  s_05186c50002419::t_dd108ec9f02e5c 1-47
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h
+  s_05186c50002419::t_cd1e480e625f86 1-209
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h
+  s_05186c50002419::t_976dda07c61b99 1-33
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h
+  s_05186c50002419::t_932b9b46ce7702 1-42
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUpdater.h
+  s_05186c50002419::t_72f0f99ba009e5 1-403
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h
+  s_05186c50002419::t_caa37b38a6e8a8 1-485
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h
+  s_05186c50002419::t_dd8ed9bce5243a 1-98
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h
+  s_05186c50002419::t_2d02d068653318 1-304
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h
+  s_05186c50002419::t_2e0faba3c8e6a5 1-85
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUAppcast.h
+  s_05186c50002419::t_66a6e82d38a564 1-54
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h
+  s_05186c50002419::t_386445c7939b93 1-448
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUErrors.h
+  s_05186c50002419::t_212e8816fb8eb7 1-111
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUExport.h
+  s_05186c50002419::t_8e3d3a1806e36c 1-18
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h
+  s_05186c50002419::t_adcd030428e854 1-63
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h
+  s_05186c50002419::t_2668af201f64b2 1-73
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUUpdater.h
+  s_05186c50002419::t_ca07fcbf8d1edd 1-212
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h
+  s_05186c50002419::t_d19d399010d8f6 1-363
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h
+  s_05186c50002419::t_33c2c5077faa4d 1-42
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h
+  s_05186c50002419::t_74135b867a4e14 1-78
+launcher/.sparkle/Sparkle.framework/Versions/B/Headers/Sparkle.h
+  s_05186c50002419::t_c9219714e8395e 1-39
+launcher/.sparkle/Sparkle.framework/Versions/B/Modules/module.modulemap
+  s_05186c50002419::t_7cc275ee2314c7 1-6
+launcher/.sparkle/Sparkle.framework/Versions/B/Modules/module.private.modulemap
+  s_05186c50002419::t_8e69c6eedb1e33 1-38
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h
+  s_05186c50002419::t_b03d04ecfaabee 1-38
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h
+  s_05186c50002419::t_16e2c19609bfa9 1-22
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h
+  s_05186c50002419::t_dc24ab5df86b7d 1-19
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h
+  s_05186c50002419::t_a869cc4eff3be5 1-40
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h
+  s_05186c50002419::t_2abff85b0d9d4e 1-29
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h
+  s_05186c50002419::t_5b53a0877a4598 1-50
+launcher/.sparkle/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h
+  s_05186c50002419::t_ccd2ef5a046056 1-37
+launcher/.sparkle/Sparkle.framework/Versions/B/Resources/Info.plist
+  s_05186c50002419::t_cd22a33db6e073 1-48
+launcher/.sparkle/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css
+  s_05186c50002419::t_cfac561a7f3eb1 1-13
+launcher/.sparkle/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist
+  s_05186c50002419::t_c8b5784590f9be 1-93
+launcher/.sparkle/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo
+  s_05186c50002419::t_bb703cb99ffc76 1
+launcher/.sparkle/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_f2acf6c7ee4238 1-115
+launcher/.sparkle/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist
+  s_05186c50002419::t_74940d415fffdd 1-62
+launcher/.sparkle/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_d4c6d0c6c3dcea 1-115
+launcher/.sparkle/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist
+  s_05186c50002419::t_38c0218812e2df 1-57
+launcher/.sparkle/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources
+  s_05186c50002419::t_c37a0dfbd514b7 1-115
+launcher/.sparkle/Sparkle.framework/Versions/B/_CodeSignature/CodeResources
+  s_05186c50002419::t_438385d9ea06f9 1-1062
+launcher/.sparkle/Sparkle.framework/Versions/Current
+  s_05186c50002419::t_6b0efe01257805 1
+launcher/.sparkle/Sparkle.framework/XPCServices
+  s_05186c50002419::t_44de813fa22ce9 1
+launcher/.sparkle/Symbols/Autoupdate.dSYM/Contents/Info.plist
+  s_05186c50002419::t_9efb657ab34b56 1-20
+launcher/.sparkle/Symbols/Autoupdate.dSYM/Contents/Resources/Relocations/aarch64/Autoupdate.yml
+  s_05186c50002419::t_316634785ea2a4 1-733
+launcher/.sparkle/Symbols/Autoupdate.dSYM/Contents/Resources/Relocations/x86_64/Autoupdate.yml
+  s_05186c50002419::t_1ec7176563db67 1-560
+launcher/.sparkle/Symbols/BinaryDelta.dSYM/Contents/Info.plist
+  s_05186c50002419::t_c26f6e2d6798bd 1-20
+launcher/.sparkle/Symbols/BinaryDelta.dSYM/Contents/Resources/Relocations/aarch64/BinaryDelta.yml
+  s_05186c50002419::t_a30ffefb18140d 1-1805
+launcher/.sparkle/Symbols/BinaryDelta.dSYM/Contents/Resources/Relocations/x86_64/BinaryDelta.yml
+  s_05186c50002419::t_6fb8d1e66ac14a 1-1759
+launcher/.sparkle/Symbols/Downloader.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_710ab3da9ef6b0 1-20
+launcher/.sparkle/Symbols/Downloader.xpc.dSYM/Contents/Resources/Relocations/aarch64/Downloader.yml
+  s_05186c50002419::t_3719d00f7a45a9 1-81
+launcher/.sparkle/Symbols/Downloader.xpc.dSYM/Contents/Resources/Relocations/x86_64/Downloader.yml
+  s_05186c50002419::t_b23c510ac98f3c 1-76
+launcher/.sparkle/Symbols/Installer.xpc.dSYM/Contents/Info.plist
+  s_05186c50002419::t_2a59d49766ecfb 1-20
+launcher/.sparkle/Symbols/Installer.xpc.dSYM/Contents/Resources/Relocations/aarch64/Installer.yml
+  s_05186c50002419::t_6392f73bb33a06 1-137
+launcher/.sparkle/Symbols/Installer.xpc.dSYM/Contents/Resources/Relocations/x86_64/Installer.yml
+  s_05186c50002419::t_59c053be94964f 1-77
+"launcher/.sparkle/Symbols/Sparkle Test App.app.dSYM/Contents/Info.plist"
+  s_05186c50002419::t_3bc1cd653d3773 1-20
+"launcher/.sparkle/Symbols/Sparkle Test App.app.dSYM/Contents/Resources/Relocations/aarch64/Sparkle Test App.yml"
+  s_05186c50002419::t_d3e75cc704a23a 1-342
+"launcher/.sparkle/Symbols/Sparkle Test App.app.dSYM/Contents/Resources/Relocations/x86_64/Sparkle Test App.yml"
+  s_05186c50002419::t_b6248996c2181b 1-278
+launcher/.sparkle/Symbols/Sparkle.framework.dSYM/Contents/Info.plist
+  s_05186c50002419::t_8054d42a67a9e9 1-20
+launcher/.sparkle/Symbols/Sparkle.framework.dSYM/Contents/Resources/Relocations/aarch64/Sparkle.yml
+  s_05186c50002419::t_33e8bc5072dbc4 1-1466
+launcher/.sparkle/Symbols/Sparkle.framework.dSYM/Contents/Resources/Relocations/x86_64/Sparkle.yml
+  s_05186c50002419::t_c70905af07b977 1-1274
+launcher/.sparkle/Symbols/Updater.app.dSYM/Contents/Info.plist
+  s_05186c50002419::t_76300692bba568 1-20
+launcher/.sparkle/Symbols/Updater.app.dSYM/Contents/Resources/Relocations/aarch64/Updater.yml
+  s_05186c50002419::t_706593cff2c8fb 1-325
+launcher/.sparkle/Symbols/Updater.app.dSYM/Contents/Resources/Relocations/x86_64/Updater.yml
+  s_05186c50002419::t_e63664783cc631 1-264
+launcher/.sparkle/Symbols/generate_appcast.dSYM/Contents/Info.plist
+  s_05186c50002419::t_bedf70319e7e98 1-20
+launcher/.sparkle/Symbols/generate_appcast.dSYM/Contents/Resources/Relocations/aarch64/generate_appcast.yml
+  s_05186c50002419::t_07ffcfac212954 1-2228
+launcher/.sparkle/Symbols/generate_appcast.dSYM/Contents/Resources/Relocations/x86_64/generate_appcast.yml
+  s_05186c50002419::t_b04b852d847f83 1-2132
+launcher/.sparkle/Symbols/generate_keys.dSYM/Contents/Info.plist
+  s_05186c50002419::t_8f79a6da119954 1-20
+launcher/.sparkle/Symbols/generate_keys.dSYM/Contents/Resources/Relocations/aarch64/generate_keys.yml
+  s_05186c50002419::t_37d0ae38b87efc 1-1576
+launcher/.sparkle/Symbols/generate_keys.dSYM/Contents/Resources/Relocations/x86_64/generate_keys.yml
+  s_05186c50002419::t_bd3f50de09bf94 1-1575
+launcher/.sparkle/Symbols/sign_update.dSYM/Contents/Info.plist
+  s_05186c50002419::t_d8b7b5f14b62b9 1-20
+launcher/.sparkle/Symbols/sign_update.dSYM/Contents/Resources/Relocations/aarch64/sign_update.yml
+  s_05186c50002419::t_63b155b07c6051 1-1611
+launcher/.sparkle/Symbols/sign_update.dSYM/Contents/Resources/Relocations/x86_64/sign_update.yml
+  s_05186c50002419::t_36dcee99abd8d8 1-1610
+launcher/.sparkle/bin/old_dsa_scripts/sign_update
+  s_05186c50002419::t_9508fe5c1ae170 1-18
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Autoupdate"
+  s_05186c50002419::t_f382373cbcf6d6 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Headers"
+  s_05186c50002419::t_fb70b0fe9a676f 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Modules"
+  s_05186c50002419::t_38df4d21c69e7e 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders"
+  s_05186c50002419::t_bbcd139fee6cf3 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Resources"
+  s_05186c50002419::t_a2d5865b755eba 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Sparkle"
+  s_05186c50002419::t_7dd74f17a4c04c 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Updater.app"
+  s_05186c50002419::t_fb35b74c266ada 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h"
+  s_05186c50002419::t_8bd35e4015863f 1-32
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h"
+  s_05186c50002419::t_56bc6893ab3bd1 1-52
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h"
+  s_05186c50002419::t_bd266f07a9ca41 1-127
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h"
+  s_05186c50002419::t_a9dc1db4ea629b 1-47
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h"
+  s_05186c50002419::t_6665e51fc2884e 1-209
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h"
+  s_05186c50002419::t_2773372d844e95 1-33
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h"
+  s_05186c50002419::t_edea323c775a50 1-42
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdater.h"
+  s_05186c50002419::t_67ec9a82d8b877 1-403
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h"
+  s_05186c50002419::t_58473522bb2bc2 1-485
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h"
+  s_05186c50002419::t_553a9277b81fef 1-98
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h"
+  s_05186c50002419::t_ad7ed7716ce825 1-304
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h"
+  s_05186c50002419::t_a6e7dc3283ff3b 1-85
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcast.h"
+  s_05186c50002419::t_621f40aeabd71d 1-54
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h"
+  s_05186c50002419::t_b446117ec5a183 1-448
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUErrors.h"
+  s_05186c50002419::t_20ee8c443aea67 1-111
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUExport.h"
+  s_05186c50002419::t_c04a0cf283530a 1-18
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h"
+  s_05186c50002419::t_f74240294f1797 1-63
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h"
+  s_05186c50002419::t_a769dbfe07b221 1-73
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdater.h"
+  s_05186c50002419::t_32c685b5977f15 1-212
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h"
+  s_05186c50002419::t_032abd13d0860e 1-363
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h"
+  s_05186c50002419::t_ae774b233d7453 1-42
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h"
+  s_05186c50002419::t_1d32c57c92b132 1-78
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/Sparkle.h"
+  s_05186c50002419::t_c73ef53343e41e 1-39
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.modulemap"
+  s_05186c50002419::t_546089f4700333 1-6
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.private.modulemap"
+  s_05186c50002419::t_07758c98fb8428 1-38
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h"
+  s_05186c50002419::t_e7c64872d85ecd 1-38
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h"
+  s_05186c50002419::t_ac0757c18dfce5 1-22
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h"
+  s_05186c50002419::t_573bbf40313f5c 1-19
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h"
+  s_05186c50002419::t_317506185182e7 1-40
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h"
+  s_05186c50002419::t_4def9c7fcbe490 1-29
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h"
+  s_05186c50002419::t_0c0db357175c28 1-50
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h"
+  s_05186c50002419::t_081eb8b7924591 1-37
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist"
+  s_05186c50002419::t_6117358a2f59dc 1-48
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css"
+  s_05186c50002419::t_9109020bf21af9 1-13
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist"
+  s_05186c50002419::t_7e6aa63453d217 1-93
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo"
+  s_05186c50002419::t_27087065a71874 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_055fd5eb4f6178 1-115
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist"
+  s_05186c50002419::t_764fc335531992 1-62
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_d53b8473d6c394 1-115
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist"
+  s_05186c50002419::t_68d641010160c9 1-57
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_c164d150363488 1-115
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources"
+  s_05186c50002419::t_c7306648b6d1e1 1-1062
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/Versions/Current"
+  s_05186c50002419::t_24fdbe4c8cac9d 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Frameworks/Sparkle.framework/XPCServices"
+  s_05186c50002419::t_9dbbd60740479d 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Info.plist"
+  s_05186c50002419::t_ed2c52f9850c45 1-21
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/.installed"
+  s_05186c50002419::t_fe3153c4e5661c 1
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/approve.mjs"
+  s_05186c50002419::t_ff20fedf592e45 1-111
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/claude-path.mjs"
+  s_05186c50002419::t_956da8de7bf442 1-14
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/ears.mjs"
+  s_05186c50002419::t_a7479a0efae602 1-82
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/handover.mjs"
+  s_05186c50002419::t_3477907f5fa755 1-70
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/hear.mjs"
+  s_05186c50002419::t_bd7be4a30783ab 1-70
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/index.html"
+  s_05186c50002419::t_4f2a8cc80dee7e 1-878
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/kokoro-requirements.in"
+  s_05186c50002419::t_2c5238dd0f9ba6 1-2
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/kokoro-requirements.txt"
+  s_05186c50002419::t_1111cdf5604607 1-599
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/limits.mjs"
+  s_05186c50002419::t_2ef01a0aefdfa2 1-59
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/package-lock.json"
+  s_05186c50002419::t_1e8199e6e21cb6 1-1550
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/package.json"
+  s_05186c50002419::t_e839c2d073c810 1-17
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/problem.md"
+  s_05186c50002419::t_af84ee4ff9f685 1-8
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/server.mjs"
+  s_05186c50002419::t_5a24297b6647b8 1-633
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/speech.mjs"
+  s_05186c50002419::t_7caaa5b77b9b30 1-48
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/stats.mjs"
+  s_05186c50002419::t_8a0bbf10389c30 1-21
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/tts.py"
+  s_05186c50002419::t_c451bc33bc0884 1-76
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/voice.mjs"
+  s_05186c50002419::t_bf7ee175d5b88a 1-316
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/call/workers.mjs"
+  s_05186c50002419::t_f1fb06ee5e563b 1-91
+"launcher/build/Oh Kevin Launcher.app/Contents/Resources/privacy.html"
+  s_05186c50002419::t_1753d32e22f853 1-28
+"launcher/build/Oh Kevin Launcher.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_2349cb87a451ab 1-410
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Autoupdate"
+  s_05186c50002419::t_93128deea78081 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Headers"
+  s_05186c50002419::t_31e2dd98c33ecd 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Modules"
+  s_05186c50002419::t_f1140bcd6d44f2 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders"
+  s_05186c50002419::t_af2871f9b60727 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Resources"
+  s_05186c50002419::t_9ca46787ab61d8 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Sparkle"
+  s_05186c50002419::t_753eb00f065c79 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Updater.app"
+  s_05186c50002419::t_574bc1e273a5e1 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h"
+  s_05186c50002419::t_c4cfeaaaea6647 1-32
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h"
+  s_05186c50002419::t_54df9c76f5be95 1-52
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h"
+  s_05186c50002419::t_d93d7dd785064f 1-127
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h"
+  s_05186c50002419::t_047e8e8e3bdf2d 1-47
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h"
+  s_05186c50002419::t_f0734ff69c8bc5 1-209
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h"
+  s_05186c50002419::t_23287dbafd3f8d 1-33
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h"
+  s_05186c50002419::t_38fe6aa8ff1f0a 1-42
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdater.h"
+  s_05186c50002419::t_8fb4dead6832d6 1-403
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h"
+  s_05186c50002419::t_1ed4c3296604ef 1-485
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h"
+  s_05186c50002419::t_ce474f8be7382e 1-98
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h"
+  s_05186c50002419::t_cfbe62ab15c6a2 1-304
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h"
+  s_05186c50002419::t_883697271102c1 1-85
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcast.h"
+  s_05186c50002419::t_ed28e9d393e9a6 1-54
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h"
+  s_05186c50002419::t_db481908e4e5e5 1-448
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUErrors.h"
+  s_05186c50002419::t_08f16e150c7d0e 1-111
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUExport.h"
+  s_05186c50002419::t_ca54f2d8a3d4c6 1-18
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h"
+  s_05186c50002419::t_089f54a4b43dcc 1-63
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h"
+  s_05186c50002419::t_d56801e66cef70 1-73
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdater.h"
+  s_05186c50002419::t_59afbef4c8884a 1-212
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h"
+  s_05186c50002419::t_0ed0de1ba881d1 1-363
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h"
+  s_05186c50002419::t_100f552eb48ed3 1-42
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h"
+  s_05186c50002419::t_ca6da6f64cfcd3 1-78
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/Sparkle.h"
+  s_05186c50002419::t_ff6af3260f53ac 1-39
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.modulemap"
+  s_05186c50002419::t_0d22bef02c4dff 1-6
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.private.modulemap"
+  s_05186c50002419::t_5060fb7aab7b75 1-38
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h"
+  s_05186c50002419::t_66a6df9cb2d953 1-38
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h"
+  s_05186c50002419::t_422b239fd84ec1 1-22
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h"
+  s_05186c50002419::t_c0e4ccfa6273a3 1-19
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h"
+  s_05186c50002419::t_c00c86e11efbb8 1-40
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h"
+  s_05186c50002419::t_2488e8ea1eaae0 1-29
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h"
+  s_05186c50002419::t_b3465440afc347 1-50
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h"
+  s_05186c50002419::t_8ab4ba0ac0661e 1-37
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist"
+  s_05186c50002419::t_766790deaa15f9 1-48
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css"
+  s_05186c50002419::t_8c0ad59c905348 1-13
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist"
+  s_05186c50002419::t_dc5e5cdd90f27d 1-93
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo"
+  s_05186c50002419::t_74a8fedc8441d3 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_677fdb12c77fb5 1-115
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist"
+  s_05186c50002419::t_02b0e7144f7b17 1-62
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_e3240c0123fb7c 1-115
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist"
+  s_05186c50002419::t_bd866de69413c2 1-57
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_460b6903c8750f 1-115
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources"
+  s_05186c50002419::t_0feeca5d187836 1-1062
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/Current"
+  s_05186c50002419::t_3f66ba806115df 1
+"launcher/build/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/XPCServices"
+  s_05186c50002419::t_5c57a37cd87cad 1
+"launcher/build/Oh Kevin.app/Contents/Info.plist"
+  s_05186c50002419::t_7397b56c0a1967 1-21
+"launcher/build/Oh Kevin.app/Contents/Resources/call/approve.mjs"
+  s_05186c50002419::t_3da9962a711973 1-111
+"launcher/build/Oh Kevin.app/Contents/Resources/call/design/changes.md"
+  s_05186c50002419::t_2e1ff1604e6a34 1-135
+"launcher/build/Oh Kevin.app/Contents/Resources/call/design/proto.diff"
+  s_05186c50002419::t_aa9f383d04ef11 1-781
+"launcher/build/Oh Kevin.app/Contents/Resources/call/drive.mjs"
+  s_05186c50002419::t_bf0f4c49ba8203 1-55
+"launcher/build/Oh Kevin.app/Contents/Resources/call/ears.mjs"
+  s_05186c50002419::t_cde32026b2641d 1-82
+"launcher/build/Oh Kevin.app/Contents/Resources/call/handover.mjs"
+  s_05186c50002419::t_d55e56f4b3f33c 1-70
+"launcher/build/Oh Kevin.app/Contents/Resources/call/hear.mjs"
+  s_05186c50002419::t_91172016177ced 1-70
+"launcher/build/Oh Kevin.app/Contents/Resources/call/index.html"
+  s_05186c50002419::t_dc4ad76c934486 1-873
+"launcher/build/Oh Kevin.app/Contents/Resources/call/kokoro-requirements.in"
+  s_05186c50002419::t_7050b9e71b1dfe 1-2
+"launcher/build/Oh Kevin.app/Contents/Resources/call/kokoro-requirements.txt"
+  s_05186c50002419::t_dc24f259a5072d 1-599
+"launcher/build/Oh Kevin.app/Contents/Resources/call/limits.mjs"
+  s_05186c50002419::t_981b87e0be7703 1-59
+"launcher/build/Oh Kevin.app/Contents/Resources/call/package-lock.json"
+  s_05186c50002419::t_4211f74d053c1e 1-1550
+"launcher/build/Oh Kevin.app/Contents/Resources/call/package.json"
+  s_05186c50002419::t_474fb8eecb51c2 1-17
+"launcher/build/Oh Kevin.app/Contents/Resources/call/problem.md"
+  s_05186c50002419::t_0aece70a71de77 1-8
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-ask.json"
+  s_05186c50002419::t_a2c249243c7ae0 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-browser-voice.json"
+  s_05186c50002419::t_b90c498a985d78 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-errors.json"
+  s_05186c50002419::t_b7a00d88f0d9ea 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-f1.json"
+  s_05186c50002419::t_6707611fd1d67e 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-f2.json"
+  s_05186c50002419::t_ba17ec3abaf3bd 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-headphones.json"
+  s_05186c50002419::t_65300be1f27d8a 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-join.json"
+  s_05186c50002419::t_69b12bf8e451d4 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-mic-system.json"
+  s_05186c50002419::t_c1c07dc41089e0 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-mute-typed.json"
+  s_05186c50002419::t_5903378a9904c3 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-no-echo.json"
+  s_05186c50002419::t_2fa3e101936bac 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-speakers.json"
+  s_05186c50002419::t_20234152681def 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-stray.json"
+  s_05186c50002419::t_5f12deab731f6d 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-wait.json"
+  s_05186c50002419::t_9fa5330bac5313 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-fragment.json"
+  s_05186c50002419::t_43048b17fdc2b0 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-long.json"
+  s_05186c50002419::t_935573312231ad 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-names.json"
+  s_05186c50002419::t_e321b6bcdc8d1d 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-over.json"
+  s_05186c50002419::t_52666b2fea2e21 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-pause.json"
+  s_05186c50002419::t_6889e333349f41 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-short.json"
+  s_05186c50002419::t_e572bb6dd74b37 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-stop.json"
+  s_05186c50002419::t_a50a96c46c7189 1
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-ask.json"
+  s_05186c50002419::t_8b4c35d2b3ee55 1-347
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-browser-voice.json"
+  s_05186c50002419::t_989aa72ef6f215 1-172
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-errors.json"
+  s_05186c50002419::t_82eddcea8fad42 1-178
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-f1.json"
+  s_05186c50002419::t_86a1a28b2ffbc8 1-202
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-f2.json"
+  s_05186c50002419::t_838506b60c3af6 1-215
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-headphones.json"
+  s_05186c50002419::t_3c3a53b261ef10 1-311
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-join.json"
+  s_05186c50002419::t_f20bc24cf02e55 1-430
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-mic-system.json"
+  s_05186c50002419::t_3d1352809ea997 1-57
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-mute-typed.json"
+  s_05186c50002419::t_545302ef3e2daf 1-401
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-no-echo.json"
+  s_05186c50002419::t_984b4d4ad3547f 1-162
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-speakers.json"
+  s_05186c50002419::t_e76a1938d72fc6 1-274
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-stray.json"
+  s_05186c50002419::t_5e2de574cdd521 1-168
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-wait.json"
+  s_05186c50002419::t_6464cf27c23e26 1-279
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-fragment.json"
+  s_05186c50002419::t_843f7fe3f40dba 1-157
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-long.json"
+  s_05186c50002419::t_7199112a6cc71a 1-620
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-names.json"
+  s_05186c50002419::t_9cf2849b092dcd 1-520
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-over.json"
+  s_05186c50002419::t_bf466876b6df04 1-787
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-pause.json"
+  s_05186c50002419::t_6cc19cdfba0693 1-407
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-short.json"
+  s_05186c50002419::t_448da892f28472 1-279
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-stop.json"
+  s_05186c50002419::t_0d62f8dd16cd83 1-399
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/from-log.mjs"
+  s_05186c50002419::t_ca617c4a14a3b4 1-29
+"launcher/build/Oh Kevin.app/Contents/Resources/call/replay/stubs.js"
+  s_05186c50002419::t_32450d41c9998a 1-161
+"launcher/build/Oh Kevin.app/Contents/Resources/call/server.mjs"
+  s_05186c50002419::t_34f1b7c6b85704 1-612
+"launcher/build/Oh Kevin.app/Contents/Resources/call/speech.mjs"
+  s_05186c50002419::t_f09550245c97d3 1-48
+"launcher/build/Oh Kevin.app/Contents/Resources/call/stats.mjs"
+  s_05186c50002419::t_8b9d8be511aad2 1-21
+"launcher/build/Oh Kevin.app/Contents/Resources/call/tts.py"
+  s_05186c50002419::t_a92cbfb9ace33e 1-76
+"launcher/build/Oh Kevin.app/Contents/Resources/call/voice.mjs"
+  s_05186c50002419::t_811eebb182eae3 1-316
+"launcher/build/Oh Kevin.app/Contents/Resources/call/workers.mjs"
+  s_05186c50002419::t_453b4507bef9d1 1-91
+"launcher/build/Oh Kevin.app/Contents/Resources/privacy.html"
+  s_05186c50002419::t_25e23632242435 1-28
+"launcher/build/Oh Kevin.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_e100324c99a50a 1-841
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Autoupdate"
+  s_05186c50002419::t_b2738765e8a1bc 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Headers"
+  s_05186c50002419::t_d2f94fcd435425 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Modules"
+  s_05186c50002419::t_fd9d06fec5524d 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/PrivateHeaders"
+  s_05186c50002419::t_fa2a200cb62166 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Resources"
+  s_05186c50002419::t_9dc7c3ddafb315 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Sparkle"
+  s_05186c50002419::t_fec6d4dfecf5ce 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Updater.app"
+  s_05186c50002419::t_5dc716fccc2d45 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUAppcastSigningValidationStatus.h"
+  s_05186c50002419::t_9475bbe8a17958 1-32
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUDownloadData.h"
+  s_05186c50002419::t_0bf99e3a7f98ca 1-52
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUpdaterController.h"
+  s_05186c50002419::t_187f12e03418b3 1-127
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriver.h"
+  s_05186c50002419::t_0199a9edcbe094 1-47
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUStandardUserDriverDelegate.h"
+  s_05186c50002419::t_41eeee3076b3f2 1-209
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdateCheck.h"
+  s_05186c50002419::t_ee357545a9cacd 1-33
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdatePermissionRequest.h"
+  s_05186c50002419::t_0cd760dd529e81 1-42
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdater.h"
+  s_05186c50002419::t_7e2b4dfd69751a 1-403
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterDelegate.h"
+  s_05186c50002419::t_0a2b6e9ef4a7d0 1-485
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUpdaterSettings.h"
+  s_05186c50002419::t_9cb02d3c80445b 1-98
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserDriver.h"
+  s_05186c50002419::t_660ffa4cd15932 1-304
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SPUUserUpdateState.h"
+  s_05186c50002419::t_ac18249578d29a 1-85
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcast.h"
+  s_05186c50002419::t_6b2b8dff19abcc 1-54
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUAppcastItem.h"
+  s_05186c50002419::t_24fa395f701e44 1-448
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUErrors.h"
+  s_05186c50002419::t_0cbeaabe59cded 1-111
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUExport.h"
+  s_05186c50002419::t_4291a30a684aa8 1-18
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUStandardVersionComparator.h"
+  s_05186c50002419::t_636d6c458ad5d0 1-63
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdatePermissionResponse.h"
+  s_05186c50002419::t_50c485dbb78ab0 1-73
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdater.h"
+  s_05186c50002419::t_d4cdd41ce9567d 1-212
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUUpdaterDelegate.h"
+  s_05186c50002419::t_91faab7a3279bf 1-363
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionComparisonProtocol.h"
+  s_05186c50002419::t_49659aaeb7c1f7 1-42
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/SUVersionDisplayProtocol.h"
+  s_05186c50002419::t_6a78e9ef6045a9 1-78
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Headers/Sparkle.h"
+  s_05186c50002419::t_6e7e3052d81210 1-39
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.modulemap"
+  s_05186c50002419::t_2990ba9840639c 1-6
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Modules/module.private.modulemap"
+  s_05186c50002419::t_939137a9854440 1-38
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUAppcastItemStateResolver.h"
+  s_05186c50002419::t_daa769bda06e44 1-38
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUGentleUserDriverReminders.h"
+  s_05186c50002419::t_3e0d8bde53d607 1-22
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUInstallationType.h"
+  s_05186c50002419::t_fc0bac3e71527b 1-19
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUStandardUserDriver+Private.h"
+  s_05186c50002419::t_68177335be3474 1-40
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SPUUserAgent+Private.h"
+  s_05186c50002419::t_346be14c3b5109 1-29
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUAppcastItem+Private.h"
+  s_05186c50002419::t_1ab20ba0fc35a8 1-50
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/PrivateHeaders/SUInstallerLauncher+Private.h"
+  s_05186c50002419::t_ae1254111f792a 1-37
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/Info.plist"
+  s_05186c50002419::t_2f84ddbabfe511 1-48
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Resources/ReleaseNotesColorStyle.css"
+  s_05186c50002419::t_a666cdaa9c66e1 1-13
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/Info.plist"
+  s_05186c50002419::t_9ca8347a5d1a2d 1-93
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/PkgInfo"
+  s_05186c50002419::t_c7f6f804fc2c4f 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_72dcafba4b6d97 1-115
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/Info.plist"
+  s_05186c50002419::t_12ce2dddc5ef83 1-62
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_2e5d4117059957 1-115
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/Info.plist"
+  s_05186c50002419::t_1673d7f3982614 1-57
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_e778cc4b94fd7d 1-115
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/B/_CodeSignature/CodeResources"
+  s_05186c50002419::t_d1b8b8eff79f1d 1-1062
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/Versions/Current"
+  s_05186c50002419::t_4dba37c9b08c51 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Frameworks/Sparkle.framework/XPCServices"
+  s_05186c50002419::t_26610e3c099321 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Info.plist"
+  s_05186c50002419::t_9651662778bf2b 5-8,11-12,18-21
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/approve.mjs"
+  s_05186c50002419::t_3ebdac3212de5c 1-111
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/design/changes.md"
+  s_05186c50002419::t_b4f3da23f49b4b 1-135
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/design/proto.diff"
+  s_05186c50002419::t_8ec8616949fea1 1-781
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/drive.mjs"
+  s_05186c50002419::t_4ea3517d07ea7f 1-55
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/ears.mjs"
+  s_05186c50002419::t_7ebf2c52a51e5a 1-82
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/handover.mjs"
+  s_05186c50002419::t_63882eee606cf0 1-70
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/hear.mjs"
+  s_05186c50002419::t_9f518f45d7222c 1-70
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/index.html"
+  s_05186c50002419::t_8988a8d47b68a7 1-873
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/kokoro-requirements.in"
+  s_05186c50002419::t_4be01c49c50441 1-2
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/kokoro-requirements.txt"
+  s_05186c50002419::t_f5c171e5656155 1-599
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/limits.mjs"
+  s_05186c50002419::t_41df972394f651 1-59
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/package-lock.json"
+  s_05186c50002419::t_154a151e9f5cc4 1-1550
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/package.json"
+  s_05186c50002419::t_1aaed111e31764 1-17
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/problem.md"
+  s_05186c50002419::t_edf800385decd0 1-8
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-ask.json"
+  s_05186c50002419::t_ff351783a17889 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-browser-voice.json"
+  s_05186c50002419::t_a85e49e32d7df5 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-errors.json"
+  s_05186c50002419::t_6f290f2c85ec2c 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-f1.json"
+  s_05186c50002419::t_996e4151eba4ea 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-f2.json"
+  s_05186c50002419::t_3e4345aed0f286 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-headphones.json"
+  s_05186c50002419::t_e46b0373062290 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-join.json"
+  s_05186c50002419::t_0cf49bfb394754 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-mic-system.json"
+  s_05186c50002419::t_add89e77cc30a8 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-mute-typed.json"
+  s_05186c50002419::t_c14897090ccc6e 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-no-echo.json"
+  s_05186c50002419::t_cbad36f3345956 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-speakers.json"
+  s_05186c50002419::t_9d465ef23d63cb 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-stray.json"
+  s_05186c50002419::t_25720ace48faa2 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/hand-wait.json"
+  s_05186c50002419::t_0b4d33790827b6 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-fragment.json"
+  s_05186c50002419::t_4fd1a90b1a61bc 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-long.json"
+  s_05186c50002419::t_0772e0735aa26a 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-names.json"
+  s_05186c50002419::t_c81beb8e48da05 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-over.json"
+  s_05186c50002419::t_e825dc39c9bdfc 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-pause.json"
+  s_05186c50002419::t_40f31ca681012a 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-short.json"
+  s_05186c50002419::t_c2b12f81ed6305 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/cases/rec-stop.json"
+  s_05186c50002419::t_b3f2fcf430031d 1
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-ask.json"
+  s_05186c50002419::t_84ceb3323b0188 1-347
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-browser-voice.json"
+  s_05186c50002419::t_ac695f9ae1cd1c 1-172
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-errors.json"
+  s_05186c50002419::t_7550f903872483 1-178
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-f1.json"
+  s_05186c50002419::t_52187f2f33245a 1-202
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-f2.json"
+  s_05186c50002419::t_a6c5faa33e43e7 1-215
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-headphones.json"
+  s_05186c50002419::t_cde198ec2c9bcb 1-311
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-join.json"
+  s_05186c50002419::t_16fbb8d2c2908e 1-430
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-mic-system.json"
+  s_05186c50002419::t_9876ea3555390b 1-57
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-mute-typed.json"
+  s_05186c50002419::t_b13e9badeafb3d 1-401
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-no-echo.json"
+  s_05186c50002419::t_742e5c59ce2075 1-162
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-speakers.json"
+  s_05186c50002419::t_e34d85bd50c538 1-274
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-stray.json"
+  s_05186c50002419::t_0f4e6b3c899340 1-168
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/hand-wait.json"
+  s_05186c50002419::t_577e0890c04f40 1-279
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-fragment.json"
+  s_05186c50002419::t_9cf7bc5b90f06d 1-157
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-long.json"
+  s_05186c50002419::t_85631b3cf010be 1-620
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-names.json"
+  s_05186c50002419::t_dbb3dcef30823e 1-520
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-over.json"
+  s_05186c50002419::t_7f33cebe2ea95b 1-787
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-pause.json"
+  s_05186c50002419::t_5e62ab17852b2e 1-407
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-short.json"
+  s_05186c50002419::t_35f4c4ba44c851 1-279
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/expected/rec-stop.json"
+  s_05186c50002419::t_acf94f1928a170 1-399
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/from-log.mjs"
+  s_05186c50002419::t_8591a6eb5abb54 1-29
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/replay/stubs.js"
+  s_05186c50002419::t_f2cdfc8754bddd 1-161
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/server.mjs"
+  s_05186c50002419::t_d8878fb9a1a61a 1-612
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/speech.mjs"
+  s_05186c50002419::t_0a45f216d4afe4 1-48
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/stats.mjs"
+  s_05186c50002419::t_208bb3b3347e58 1-21
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/tts.py"
+  s_05186c50002419::t_b388f0d77bdb55 1-76
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/voice.mjs"
+  s_05186c50002419::t_169264442e9abe 1-316
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/call/workers.mjs"
+  s_05186c50002419::t_29477794e49e3c 1-91
+"launcher/rehearsal-install/Oh Kevin.app/Contents/Resources/privacy.html"
+  s_05186c50002419::t_dec1d5df2945da 1-28
+"launcher/rehearsal-install/Oh Kevin.app/Contents/_CodeSignature/CodeResources"
+  s_05186c50002419::t_600e5980a570cb 1-841
+launcher/releases-rehearsal/appcast.xml
+  s_05186c50002419::t_40acd4b78cb631 1-24
+launcher/releases-rehearsal/v0.1/appcast.xml
+  s_05186c50002419::t_72b68254d34f70 1-15
+launcher/releases-rehearsal/v0.2/appcast.xml
+  s_05186c50002419::t_a84c2c69ae4521 1-24
+launcher/releases/appcast.xml
+  s_05186c50002419::t_1694590ca7eee2 1-33
+launcher/releases/v0.1/appcast.xml
+  s_05186c50002419::t_74e76d00c496b3 1-15
+launcher/releases/v0.2/appcast.xml
+  s_05186c50002419::t_f1b27b88590977 1-24
+launcher/releases/v0.3/appcast.xml
+  s_05186c50002419::t_126957a2048bc0 1-33
+launcher/releases/v0.4/appcast.xml
+  s_05186c50002419::t_1ba7ce946355a2 1-33
+launcher/releases/v0.5/appcast.xml
+  s_05186c50002419::t_0f5dca8c06e943 1-33
+launcher/releases/v0.6/appcast.xml
+  s_05186c50002419::t_34d72726abaaa3 1-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c7d5e15f40a928e1108fee71d64799c94b850944",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
