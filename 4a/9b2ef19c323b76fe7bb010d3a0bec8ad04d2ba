@@ -1,0 +1,21 @@
+app/Sources/AppChecks/Offscreen.swift
+  s_05186c50002419::t_1e1090c57992d2 1-39
+app/Sources/AppChecks/main.swift
+  s_05186c50002419::t_5a0f01452b5586 12,28-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4a9b2ef19c323b76fe7bb010d3a0bec8ad04d2ba",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
