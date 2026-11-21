@@ -838,3 +838,31 @@ private func run(_ events: [UpdateEvent]) -> [UpdateState] {
     #expect(script.contains("<key>SUScheduledCheckInterval</key><integer>86400</integer>"))
     #expect(script.contains(#"-n "${FEED_URL:-}" && -n "${SPARKLE_PUBLIC_KEY:-}""#), "and only when there is a feed and a key")
 }
+
+// MARK: The Agent SDK, fetched from npm at first run
+
+@Test func theAgentSDKPinIsPackageLocksOwn() throws {
+    let lock = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(filePath: #filePath).deletingLastPathComponent()
+        .appending(path: "../../../call/package-lock.json"))) as? [String: Any]
+    let entry = try #require((lock?["packages"] as? [String: Any])?["node_modules/@anthropic-ai/claude-agent-sdk"] as? [String: Any])
+    #expect(entry["version"] as? String == AgentSDK.version && entry["integrity"] as? String == AgentSDK.integrity)
+    #expect(entry["resolved"] as? String == AgentSDK.url.absoluteString)
+}
+
+@Test func theAgentSDKIsTakenOnlyWhenItsIntegrityIsThePinnedOne() async throws {
+    let tmp = try scratch(), fm = FileManager.default
+    defer { try? fm.removeItem(at: tmp) }
+    let package = tmp.appending(path: "src/package")
+    try fm.createDirectory(at: package, withIntermediateDirectories: true)
+    for (name, text) in [("sdk.mjs", "export const query = 1"), ("package.json", "{}"), ("LICENSE.md", "terms"), ("README.md", "readme"), ("cli.js", "not taken")] {
+        try text.write(to: package.appending(path: name), atomically: true, encoding: .utf8)
+    }
+    let tgz = tmp.appending(path: "sdk.tgz")
+    #expect(run(URL(filePath: "/usr/bin/tar"), ["-czf", tgz.path, "-C", tmp.appending(path: "src").path, "package"])?.status == 0)
+    let call = tmp.appending(path: "call"), sdkFolder = call.appending(path: "node_modules/@anthropic-ai/claude-agent-sdk")
+    #expect(await installSDK(into: call, url: tgz, integrity: "sha512-wrong") == false)
+    #expect(!fm.fileExists(atPath: sdkFolder.path))
+    #expect(await installSDK(into: call, url: tgz, integrity: try #require(integrity(of: tgz))))
+    #expect(try String(contentsOf: sdkFolder.appending(path: "sdk.mjs"), encoding: .utf8) == "export const query = 1")
+    #expect(fm.fileExists(atPath: call.appending(path: sdk).path) && !fm.fileExists(atPath: sdkFolder.appending(path: "cli.js").path))
+}

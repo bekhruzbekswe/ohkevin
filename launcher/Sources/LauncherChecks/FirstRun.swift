@@ -50,7 +50,7 @@ enum FirstRun {
         try? fm.createDirectory(at: out, withIntermediateDirectories: true)
         let home = work.appending(path: "home"), bundle = work.appending(path: "bundle"), project = work.appending(path: "code/my-project")
         for d in [home, bundle, project] { try? fm.createDirectory(at: d, withIntermediateDirectories: true) }
-        // The "app's" call files, packed as build.sh packs them (pack-call.sh: the packages inside), with the stand-in server in place
+        // The "app's" call files, packed as build.sh packs them (pack-call.sh: no packages), with the stand-in server in place
         // of the real one (so no model is ever called).
         let launcherFolder = URL(filePath: #filePath).deletingLastPathComponent().appending(path: "../..").standardized
         guard VoiceCore.run(launcherFolder.appending(path: "pack-call.sh"), [bundle.path], timeout: 300)?.status == 0 else { say("pack-call.sh failed"); return 1 }
@@ -82,10 +82,13 @@ enum FirstRun {
             if !pictured, Date().timeIntervalSince(t) > 2 { pictured = true; picture(me, "04-installing") }
             return !me.installing && me.missingItems?.contains { $0.id == .packages } == false
         }
-        say("04  install (Node's program; the packages come inside the app): \(done ? "done" : "NOT DONE") in \(time(t))  (Node in place after \(nodeAt.map { String(format: "%.1f s", $0.timeIntervalSince(t)) } ?? "?"))  \(load())")
+        say("04  install (Node's program, then the Agent SDK from npm): \(done ? "done" : "NOT DONE") in \(time(t))  (Node in place after \(nodeAt.map { String(format: "%.1f s", $0.timeIntervalSince(t)) } ?? "?"))  \(load())")
         say("      what the panel said meanwhile: " + seen.joined(separator: "  →  "))
         let size = VoiceCore.run(URL(filePath: "/usr/bin/du"), ["-sk", support.path]).flatMap { Double(String(decoding: $0.output, as: UTF8.self).split(separator: "\t").first ?? "") } ?? 0
         say(String(format: "      the support folder now holds %.0f MB", size / 1024))
+        let sdkFile = support.appending(path: "Call/node_modules/@anthropic-ai/claude-agent-sdk/sdk.mjs")
+        let sdkSize = ((try? FileManager.default.attributesOfItem(atPath: sdkFile.path))?[.size] as? Int) ?? 0
+        say(String(format: "      the Agent SDK fetched from npm: %@ (sdk.mjs %.1f MB)", sdkSize > 0 ? "yes" : "NO", Double(sdkSize) / 1_048_576))
         picture(me, "05-installed-ready")
         say("      missing now: \(me.missingItems?.map(\.title) ?? [])")
 

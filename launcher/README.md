@@ -14,11 +14,12 @@ cd launcher
 ./build.sh --open        # build and open it
 ```
 
-The app carries only our own code: the Swift binary and a copy of `call/` (no packages, no tests). On first run the
-panel counts "N steps to go" and its marigold door is the next one; for the download it is "Install", which fetches a pinned Node from nodejs.org (sha256 checked) into
-`~/Library/Application Support/Claude Voice/Runtime`, copies `call/` to `…/Call` and runs `npm ci --omit=optional` there;
-the Agent SDK then runs the user's own Claude Code (`CLAUDE_PATH`), so Anthropic's 347 MB binary is never fetched or
-shipped. The files are copied again at every check, and the packages reinstalled only when `package-lock.json` changed.
+The app carries only our own code: the Swift binary, the voice runner and a copy of `call/` (no packages, no tests). On
+first run the download starts by itself: Node's program from nodejs.org (sha256 checked) into
+`~/Library/Application Support/Claude Voice/Node`, `call/` copied to `…/Call`, and the Agent SDK's `sdk.mjs` from npm
+(sha512 checked, no npm needed) into its `node_modules`. The SDK runs the user's own Claude Code (`CLAUDE_PATH`), so
+Anthropic's 347 MB binary is never fetched. The files are copied again at every check, and the SDK fetched again only when
+`package-lock.json` changed.
 Settings holds a second, optional download: the local voice (the app's own kokoro-runner, plus onnxruntime, espeak-ng and
 the model files, all pinned; about 381 MB to download, 365 MB on disk), deleted whole if any part fails.
 Run from the repository instead (`swift run`, or the checks), the app uses the repository's `call/` (`repoCallFolder`),

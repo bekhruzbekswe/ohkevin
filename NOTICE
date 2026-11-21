@@ -4,11 +4,11 @@ Copyright 2026 Bekhruzbek Mirzaliev
 Licensed under the Apache License 2.0 (LICENSE). call/problem.mp3 was made for Oh Kevin
 (call/tools/problem-sound.mjs) and is Apache 2.0 too. The apps also contain, each under its own licence:
 - Sparkle 2.10.1, the updater (MIT; https://sparkle-project.org).
-- Anthropic's Claude Agent SDK, its bundled sdk.mjs, copied in by launcher/pack-call.sh (© Anthropic PBC, all rights
-  reserved; use subject to Anthropic's terms, see its LICENSE.md beside it in the app).
 
-The local voice is not shipped with Oh Kevin. At install it is downloaded onto the
-user's Mac from its original sources, each under its own licence:
+Not shipped with Oh Kevin: at first run, or when the user asks for the local voice, these are downloaded onto the
+user's Mac from their original sources, each under its own licence or terms:
+- Node.js (MIT)
+- Anthropic's Claude Agent SDK, from npm (© Anthropic PBC, all rights reserved; under Anthropic's terms)
 - Kokoro-82M voice model (Apache 2.0)
 - ONNX Runtime (MIT)
 - espeak-ng, loaded at run time for pronunciation (GPL 3.0 or later)

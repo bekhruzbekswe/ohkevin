@@ -1,8 +1,8 @@
 import CryptoKit
 import Foundation
 
-// What a call runs on, fetched once into the app's own folder: a pinned Node and, when asked for, the local voice. The server's
-// packages come inside the app (pack-call.sh). Everything downloaded is checked against a sha256 pinned here before it is used.
+// What a call runs on, fetched once into the app's own folder: a pinned Node, the Agent SDK the server imports and, when asked for,
+// the local voice. Everything downloaded is checked against a hash pinned here before it is used.
 
 /// The pinned Node (nodejs.org, darwin-arm64) and where it lives under the app's support folder.
 public enum Runtime {
@@ -14,7 +14,7 @@ public enum Runtime {
     public static let minimumClaudeCode = "2.1.323"
 
     /// Only the Node program (bin/node and its licence) from nodejs.org's archive: no npm, headers, docs or corepack, which a call
-    /// never runs (the packages come inside the app). Under Node/, never Runtime/: an earlier version of either app empties Runtime/
+    /// never runs (the one package it needs is AgentSDK, fetched on its own). Under Node/, never Runtime/: an earlier version of either app empties Runtime/
     /// of every Node but its own, and still needs its full Node's npm.
     public static func folder(support: URL) -> URL { support.appending(path: "Node/\(name)", directoryHint: .isDirectory) }
     /// The full Node an earlier version installed (Runtime/): the same program, used as it is rather than fetched again.
@@ -25,6 +25,44 @@ public enum Runtime {
     }
     /// What is taken out of the archive: the program and its licence.
     static let members = ["\(name)/bin/node", "\(name)/LICENSE"]
+}
+
+/// Anthropic's Claude Agent SDK from npm, the one package the server imports: its bundled sdk.mjs needs nothing but Node's own
+/// modules (launcher/pack-call.sh checks that). Not shipped in the apps: fetched onto the user's Mac under Anthropic's terms. The
+/// version and integrity are call/package-lock.json's (a test keeps them equal).
+public enum AgentSDK {
+    public static let version = "0.3.325"
+    public static let integrity = "sha512-MhSm2Fhk3DA/hhjdCKXDZWlnykpPWJjX42SogllAHMplY9ZKT+Ltb8QPtQxpe225Imfs4A8IKaNE4biivA+fHg=="
+    public static let url = URL(string: "https://registry.npmjs.org/@anthropic-ai/claude-agent-sdk/-/claude-agent-sdk-\(version).tgz")!
+    /// What is taken out of the archive: the code, how Node finds it, and the terms.
+    static let members = ["package/sdk.mjs", "package/package.json", "package/LICENSE.md", "package/README.md"]
+    static let folder = "node_modules/@anthropic-ai/claude-agent-sdk"
+}
+
+/// The npm form of a sha512 ("sha512-" and base64), as package-lock.json writes it.
+func integrity(of file: URL) -> String? {
+    guard let handle = try? FileHandle(forReadingFrom: file) else { return nil }
+    defer { try? handle.close() }
+    var hash = SHA512()
+    while let chunk = try? handle.read(upToCount: 1 << 20), !chunk.isEmpty { hash.update(data: chunk) }
+    return "sha512-" + Data(hash.finalize()).base64EncodedString()
+}
+
+/// Puts the pinned Agent SDK into callFolder's node_modules: the tarball from npm, kept only if its integrity is the pinned one,
+/// unpacked beside and moved in whole. No npm is needed.
+func installSDK(into callFolder: URL, url: URL = AgentSDK.url, integrity pinned: String = AgentSDK.integrity) async -> Bool {
+    let fm = FileManager.default
+    guard let (file, response) = try? await URLSession.shared.download(from: url) else { return false }
+    defer { try? fm.removeItem(at: file) }
+    guard (response as? HTTPURLResponse).map({ $0.statusCode == 200 }) ?? true, integrity(of: file) == pinned else { return false }
+    let to = callFolder.appending(path: AgentSDK.folder), new = to.deletingLastPathComponent().appending(path: ".sdk.new")
+    try? fm.removeItem(at: new)
+    try? fm.createDirectory(at: new, withIntermediateDirectories: true)
+    guard run(URL(filePath: "/usr/bin/tar"), ["-xzf", file.path, "-C", new.path, "--strip-components=1"] + AgentSDK.members, timeout: 120)?.status == 0
+    else { try? fm.removeItem(at: new); return false }
+    try? fm.removeItem(at: to)
+    guard (try? fm.moveItem(at: new, to: to)) != nil else { try? fm.removeItem(at: new); return false }
+    return true
 }
 
 func sha256(of file: URL) -> String? {
@@ -60,8 +98,8 @@ func unpack(_ url: URL, sha256 pinned: String, flags: String, into folder: URL, 
 
 /// The server's files from the app, into the support folder's copy: a file (or folder) is swapped in whole only when it differs (so
 /// a check that finds nothing new changes nothing, and an install under way never sees one missing), and a file the app no longer
-/// has goes. The app's packages (node_modules, made by pack-call.sh) and their install mark come with it; an app without them (an
-/// earlier one) leaves the copy's own node_modules and mark where they are.
+/// has goes. The copy's own node_modules (the fetched SDK) and its install mark stay; an earlier app that carried them still
+/// brings them.
 public func syncCall(from bundled: URL, to call: URL) {
     let fm = FileManager.default
     try? fm.createDirectory(at: call, withIntermediateDirectories: true)
@@ -92,9 +130,9 @@ public func packagesCurrent(callFolder: URL, locked: Bool) -> Bool {
     return mark != nil && mark == sha256(of: callFolder.appending(path: "package-lock.json"))
 }
 
-/// Everything a call runs on: the pinned Node's program, then the server's files with their packages, both from the app
-/// (`bundledCall`, put in place first). Only a call folder whose packages are not there (a repository's own, or an earlier app's copy)
-/// runs `npm ci`, with the npm a terminal finds (or an earlier version's full Node's). True when all of it is there.
+/// Everything a call runs on: the pinned Node's program, the server's files from the app (`bundledCall`, put in place first), then
+/// the Agent SDK. The app's own copy (`locked`) fetches the pinned SDK from npm (installSDK); a repository's own call folder runs
+/// `npm ci` with the npm a terminal finds. True when all of it is there.
 public func installRuntime(support: URL, callFolder: URL, bundledCall: URL?, environment env: [String: String],
                            node: (url: URL, sha256: String) = (Runtime.url, Runtime.sha256)) async -> Bool {
     let fm = FileManager.default, runtime = Runtime.folder(support: support), all = runtime.deletingLastPathComponent(), new = all.appending(path: ".new")
@@ -106,16 +144,19 @@ public func installRuntime(support: URL, callFolder: URL, bundledCall: URL?, env
     if let bundledCall { syncCall(from: bundledCall, to: callFolder) }
     let locked = bundledCall != nil
     if packagesCurrent(callFolder: callFolder, locked: locked) { return true }
+    if locked {
+        guard await installSDK(into: callFolder) else { return false }
+        try? sha256(of: callFolder.appending(path: "package-lock.json"))?.write(to: callFolder.appending(path: installedMark), atomically: true, encoding: .utf8)
+        return true
+    }
     var env = env
     env["PATH"] = "\(Runtime.node(support: support).deletingLastPathComponent().path):\(env["PATH"] ?? "/usr/bin:/bin")"
     env["npm_config_cache"] = support.appending(path: "npm-cache").path
     env["npm_config_userconfig"] = "/dev/null" // the user's own ~/.npmrc (registry, prefix, scripts) is not ours to follow
-    let full = support.appending(path: "Runtime/\(Runtime.name)/lib/node_modules/npm/bin/npm-cli.js")
-    let npm: (URL, [String])? = fm.fileExists(atPath: full.path) ? (Runtime.node(support: support), [full.path]) : Shell.which("npm", path: env["PATH"]).map { ($0, []) }
-    guard let npm, run(npm.0, npm.1 + ["ci", "--ignore-scripts", "--no-audit", "--no-fund"] + (locked ? ["--omit=optional"] : []), environment: env, in: callFolder, timeout: 600)?.status == 0,
-          FileManager.default.fileExists(atPath: callFolder.appending(path: sdk).path) else { return false }
-    if locked { try? sha256(of: callFolder.appending(path: "package-lock.json"))?.write(to: callFolder.appending(path: installedMark), atomically: true, encoding: .utf8) }
-    return true
+    guard let npm = Shell.which("npm", path: env["PATH"]),
+          run(npm, ["ci", "--ignore-scripts", "--no-audit", "--no-fund"], environment: env, in: callFolder, timeout: 600)?.status == 0
+    else { return false }
+    return fm.fileExists(atPath: callFolder.appending(path: sdk).path)
 }
 
 // MARK: - The local voice
