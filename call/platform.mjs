@@ -44,9 +44,10 @@ export function openBrowser(link, platform = process.platform, env = process.env
   else run('xdg-open', [link])
 }
 
-/// The child processes of pid, as a list of pids. On Windows through PowerShell; elsewhere pgrep, which exits 1 when there are none.
+/// The child processes of pid, as a list of pids. On Windows through PowerShell (less itself: it is a child too); elsewhere pgrep,
+/// which exits 1 when there are none and never lists itself.
 export const children = (pid, platform = process.platform) => new Promise(r => platform === 'win32'
-  ? execFile('powershell', ['-NoProfile', '-Command', `(Get-CimInstance Win32_Process -Filter "ParentProcessId=${Number(pid)}").ProcessId`],
+  ? execFile('powershell', ['-NoProfile', '-Command', `(Get-CimInstance Win32_Process -Filter "ParentProcessId=${Number(pid)}" | Where-Object ProcessId -ne $PID).ProcessId`],
     (err, out) => r(err ? [] : out.split(/\r?\n/).map(s => s.trim()).filter(Boolean)))
   : execFile('pgrep', ['-P', String(pid)], (err, out) => r(err ? [] : out.split('\n').filter(Boolean))))
 
