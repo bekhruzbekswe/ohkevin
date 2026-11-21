@@ -1,0 +1,19 @@
+app/rehearse-update.sh
+  s_f9dcb370410d4f::t_6b4be9566c7cea 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4eaaed0b2d9550e8e60d1dd82feaaa1c443eab7a",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
