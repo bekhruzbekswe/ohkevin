@@ -12,6 +12,7 @@ What changed for people using Oh Kevin, newest first. Each release's section is 
 
 ### Added
 - Each release lists SHA256SUMS for its files.
+- Updates and the download come from the latest release on GitHub.
 
 ## Launcher 0.6 — 2026-11-21
 

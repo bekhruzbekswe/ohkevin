@@ -1,8 +1,7 @@
 #!/bin/bash
 # Makes one update release of the Mac app: builds it with its feed, signs it, zips it into app/releases/ and (re)writes the app's feed with
-# Sparkle's generate_appcast. It publishes NOTHING: you upload the zip and appcast-app.xml (made in releases/v<version>/) as assets of a
-# release; the app reads …/releases/download/app-feed/appcast-app.xml. Its file names (Oh-Kevin-App-<v>.zip, appcast-app.xml) never
-# meet the old launcher's, whose releases stay on GitHub.
+# Sparkle's generate_appcast. It publishes NOTHING: publish.sh uploads what it makes in releases/v<version>/ as the release
+# app-v<version>, GitHub's latest; the app reads …/releases/latest/download/appcast-app.xml.
 #
 #   ./release.sh <version> [build]
 #
@@ -10,7 +9,7 @@
 #   [build]     the number Sparkle compares: must be higher than the last release's. Default: the commit count.
 #
 # Environment (all optional):
-#   FEED_URL            the feed built into the app (default: https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/appcast-app.xml)
+#   FEED_URL            the feed built into the app (default: https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast-app.xml)
 #   DOWNLOAD_URL_PREFIX where the zips will be (default: https://github.com/bekhruzbekswe/ohkevin/releases/download/app-v<version>/)
 #   SPARKLE_PUBLIC_KEY  overrides SPARKLE_PUBLIC_KEY beside this script (the app only accepts updates signed by its private half)
 #   SIGN_ID             the code-signing identity, e.g. "Oh Kevin": needed for a real release, so macOS keeps the microphone and
@@ -27,7 +26,7 @@ cd "$(dirname "$0")"
 VERSION="${1:?usage: ./release.sh <version> [build]}"
 BUILD="${2:-$(git rev-list --count HEAD 2>/dev/null || echo 1)}"
 REPO_URL="https://github.com/bekhruzbekswe/ohkevin"
-export FEED_URL="${FEED_URL:-$REPO_URL/releases/download/app-feed/appcast-app.xml}"
+export FEED_URL="${FEED_URL:-$REPO_URL/releases/latest/download/appcast-app.xml}"
 DOWNLOAD_URL_PREFIX="${DOWNLOAD_URL_PREFIX:-$REPO_URL/releases/download/app-v$VERSION/}"
 # The release notes: the annotated tag's message (the version's CHANGELOG.md section), shown in the update prompt and on GitHub.
 # RELEASE_NOTES=<file> gives them instead (the rehearsal, which has no tag).

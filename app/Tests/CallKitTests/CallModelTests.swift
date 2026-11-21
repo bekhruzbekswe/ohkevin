@@ -266,8 +266,6 @@ final class Rig {
     @Test func whatsNewOpensTheAppsOwnRelease() {
         let feed = "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast-app.xml"
         #expect(releaseNotesURL(feed: feed, version: "0.2")?.absoluteString == "https://github.com/bekhruzbekswe/ohkevin/releases/tag/app-v0.2")
-        let fixed = "https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/appcast-app.xml" // the app's feed, on its fixed release
-        #expect(releaseNotesURL(feed: fixed, version: "0.2")?.absoluteString == "https://github.com/bekhruzbekswe/ohkevin/releases/tag/app-v0.2")
     }
 
     @Test func stopOnACardNamesThatWorkerOnly() {

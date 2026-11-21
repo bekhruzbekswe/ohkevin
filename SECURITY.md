@@ -17,7 +17,7 @@ Reports about any of these are welcome:
 - the microphone and what is sent where (see the README's "What leaves your Mac");
 - what a spoken "yes" may approve, and anything that gets Claude Code to act beyond your settings;
 - the local call server and its page (`call/`), which listen only on this Mac;
-- updates: the Sparkle feeds, their EdDSA signatures and the downloads they point to;
+- updates: the Sparkle feed, its EdDSA signatures and the downloads it points to;
 - what the apps download on first run (Node, the Agent SDK, the local voice), each checked against a pinned hash.
 
 Claude Code's own behaviour belongs to Anthropic: report that to them.

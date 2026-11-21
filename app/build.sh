@@ -6,7 +6,7 @@
 #     must rise with every release. Either can be given (VERSION=0.2 BUILD=7 ./build.sh).
 #   Updates: FEED_URL=<appcast URL> ./build.sh gives the app its Sparkle updater (a daily check, "Check for Updates…",
 #     "Update automatically" in Settings), trusting the owner's public key in SPARKLE_PUBLIC_KEY (SPARKLE_PUBLIC_KEY overrides
-#     it). Without a feed, no updater. The app's own feed: …/releases/download/app-feed/appcast-app.xml (release.sh), never the old launcher's.
+#     it). Without a feed, no updater. The app's feed: …/releases/latest/download/appcast-app.xml (release.sh).
 #   Signing: ad-hoc by default. SIGN_ID="Oh Kevin" ./build.sh signs with that identity from your keychain, Sparkle's parts inside-out,
 #     with no hardened runtime and no timestamp. A stable identity is what lets macOS keep the microphone and
 #     speech recognition permissions across an update; an ad-hoc build loses them at every rebuild.
@@ -29,7 +29,7 @@ cp "$(swift build -c release --show-bin-path)/OhKevin" "$APP/Contents/MacOS/$NAM
 ditto ".build/artifacts/app/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/$NAME"
 cp ../call/problem.mp3 "$APP/Contents/Resources/" # the problem sound, inside the app
-# The call server's files (pack-call.sh). At first run and after each update the app copies them to Application Support/Oh Kevin/Call-App.
+# The call server's files (pack-call.sh). At first run and after each update the app copies them to Application Support/Oh Kevin/Call.
 ./pack-call.sh "$APP/Contents/Resources/call"
 # The local voice without Python: kokoro-runner, run from Contents/Helpers.
 swift build -c release --product kokoro-runner >/dev/null

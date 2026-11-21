@@ -15,7 +15,7 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
 - The app is called **Oh Kevin** (`Product.name` in VoiceCore's `Product.swift`, read by `build.sh`). Licensed under the
   Apache License 2.0 (`LICENSE`, `NOTICE` at the repository's root).
 - It carries the call server's files (`Contents/Resources/call`, packed by `pack-call.sh`) and the voice runner
-  (`Contents/Helpers/kokoro-runner`). At first run it copies the server to `~/Library/Application Support/Oh Kevin/Call-App`
+  (`Contents/Helpers/kokoro-runner`). At first run it copies the server to `~/Library/Application Support/Oh Kevin/Call`
   and downloads what a call needs behind one bar: Node, the Agent SDK, the local voice, Apple's speech model. `OH_KEVIN_CALL_FOLDER` (or the
   `DeveloperCallFolder` default) points it at a repository's `call/` instead; off unless set.
 - macOS asks for the microphone and speech recognition on first use; an ad-hoc build asks again after each rebuild.
@@ -25,7 +25,7 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
 
 ## Updates and releases
 
-The app updates itself (Sparkle 2, `Sources/Updating`), from its own fixed feed `app-feed` (`appcast-app.xml`). Releases
+The app updates itself (Sparkle 2, `Sources/Updating`) from the latest release's `appcast-app.xml`. Releases
 follow the repository's `AGENTS.md`: `release.sh` builds, signs, zips and writes
 the feed from the main checkout; `publish.sh` uploads, only on the owner's go. `rehearse-update.sh` tries an update on this Mac and
 asks the installed app `--permissions` before and after.

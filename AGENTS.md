@@ -36,10 +36,12 @@ Release history (the zips and feeds `generate_appcast` reads) lives outside git,
    the disk image. Publishes nothing; it refuses without the tag on the commit it builds.
 4. The owner tries that build on a real call. Not right: fix it through a normal branch, move the unpushed tag to the
    new commit (`git tag -f -a`), and rebuild the same number.
-5. Publish, only on the owner's own go in that session: `git push origin main app-v0.4`, then `app/publish.sh 0.4`. It uploads the files, SHA256SUMS over them, and the tag's message as the release notes.
+5. Publish, only on the owner's own go in that session: `git push origin main app-v0.4`, then `app/publish.sh 0.4`. It
+   makes the release `app-v0.4`, GitHub's "latest", with the zip, the disk image (also as `Oh-Kevin-App.dmg`),
+   `appcast-app.xml`, SHA256SUMS over them, and the tag's message as the release notes.
 
-- The Mac app reads the fixed release `app-feed` (`appcast-app.xml`), which publish.sh replaces. Its newest
-  `app-v*` release is GitHub's "latest". Earlier releases stay, with their files.
+- The app reads `releases/latest/download/appcast-app.xml`; the download link is `releases/latest/download/Oh-Kevin-App.dmg`.
+  Earlier releases stay, with their files.
 - Version numbers only go up. Sparkle never installs a lower version, so a bad release is fixed by a revert on main and
   a higher number; untick "latest" on the bad one meanwhile.
 
