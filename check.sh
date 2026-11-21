@@ -7,5 +7,6 @@ cd "$(dirname "$0")"
 echo "== paths"; node check-paths.mjs # every path a doc or comment cites exists
 echo "== call"; (cd call && node --test --test-timeout=120000)
 echo "== launcher"; (cd launcher && swift test)
+echo "== launcher snapshots"; (cd launcher && SNAPS="$(mktemp -d)" && swift run LauncherChecks --snapshots "$SNAPS" && rm -rf "$SNAPS") # every panel state drawn offscreen, nothing opens
 echo "== Mac app"; (cd app && ./build.sh) # builds the app, then its replays and the differential against the page
 echo "All checks passed."
