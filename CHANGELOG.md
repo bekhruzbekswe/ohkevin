@@ -18,6 +18,16 @@ What changed for people using Oh Kevin, newest first. Each release's section is 
 - The sound for a problem in a call is Oh Kevin's own.
 - Updates and the download come from the latest release on GitHub, which lists SHA256SUMS for its files.
 
+## Browser 0.1 — 2026-11-22
+
+### Added
+- `npx ohkevin` starts a voice call with Claude Code about the folder you are in (or the one you name), in Chrome.
+- Before the call starts it checks Node, Claude Code (installed, recent enough, signed in) and Chrome, and says how to fix
+  what is missing.
+- It runs on macOS, Linux and Windows, with your own Claude Code and account; the call stays on your computer.
+- It downloads one file of Anthropic's Agent SDK once, checked against a pinned hash, never a copy of Claude Code.
+- Your speech becomes text through Chrome's speech recognition, which sends it to Google.
+
 ## Launcher 0.6 — 2026-11-21
 
 ### Added
