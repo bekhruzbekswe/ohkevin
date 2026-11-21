@@ -1,6 +1,6 @@
 # 3. Chrome's speech recognition for the launcher's calls
 
-Status: decided, November 2026.
+Status: superseded by [decision 8](0008-one-mac-app.md), November 2026: the launcher is gone.
 
 ## Context
 
