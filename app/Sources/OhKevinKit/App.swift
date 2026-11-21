@@ -2,6 +2,7 @@ import AppKit
 import AVFoundation
 import Speech
 import CallKit
+import VoiceCore
 
 /// The app's command line: `--call <link>` uses a running call server instead of starting one; `--log <file>` writes the call's
 /// log (every word heard, sent and said); `--permissions` prints what macOS lets this copy do. The checks and measurements live
@@ -10,7 +11,11 @@ let args = CommandLine.arguments
 func arg(_ name: String) -> String? { args.firstIndex(of: name).flatMap { $0 + 1 < args.count ? args[$0 + 1] : nil } }
 
 /// The app: its window, menus and menu-bar item. AppChecks runs it with a window that draws pictures instead.
-public func runApp() { runApp(window: Window()) }
+public func runApp() {
+    // The old Claude Voice folders become Oh Kevin's, once, before anything here makes or reads them (an empty new folder would strand them)
+    for line in FolderMove.run(home: FileManager.default.homeDirectoryForCurrentUser) { NSLog("%@", line) }
+    runApp(window: Window())
+}
 
 func runApp(window: Window) {
     // What macOS lets this copy of the app do, without asking and without opening anything: the update rehearsal compares it before and
