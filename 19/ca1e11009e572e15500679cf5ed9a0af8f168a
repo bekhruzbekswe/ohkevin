@@ -1,0 +1,23 @@
+call/tools/drive.mjs
+  s_05186c50002419::t_8bfc82b464f405 6
+call/tools/hear.mjs
+  s_05186c50002419::t_70aa396a1fac47 3,7-8
+launcher/pack-call.sh
+  s_05186c50002419::t_5b3b4c55cccc38 3,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "19ca1e11009e572e15500679cf5ed9a0af8f168a",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
