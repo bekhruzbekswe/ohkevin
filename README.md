@@ -2,9 +2,9 @@
 
 **Kevin is a voice you call on your Mac.** Tell him what you need, and he runs several Claude Code jobs at once while you keep working.
 
-<a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
-
 https://github.com/user-attachments/assets/140a2374-d065-4b47-b776-a7fc1cbc85db
+
+<a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
 ## How it works
 
