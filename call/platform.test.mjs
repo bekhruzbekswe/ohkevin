@@ -23,7 +23,7 @@ test('Chrome, found where each platform installs it', () => {
 
 test('the CLI gets a terminal of its own: script on macOS and Linux, none needed on Windows', () => {
   assert.deepEqual(withTerminal('claude', ['--desktop', '--resume', 'x'], 'darwin'), ['/usr/bin/script', ['-q', '/dev/null', 'claude', '--desktop', '--resume', 'x']])
-  assert.deepEqual(withTerminal('/opt/my claude', ['--resume', "it's"], 'linux'), ['script', ['-q', '-c', `'/opt/my claude' '--resume' 'it'\\''s'`, '/dev/null']])
+  assert.deepEqual(withTerminal('/opt/my claude', ['--resume', "it's"], 'linux'), ['script', ['-q', '-e', '-c', `'/opt/my claude' '--resume' 'it'\\''s'`, '/dev/null']])
   assert.deepEqual(withTerminal('claude.cmd', ['--resume', 'x'], 'win32'), ['claude.cmd', ['--resume', 'x']])
 })
 

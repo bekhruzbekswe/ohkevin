@@ -36,7 +36,7 @@ test('recorded and hand-written calls replay through the page exactly as before'
   t.after(async () => {
     chrome.kill('SIGKILL'); server.close()
     if (chrome.exitCode === null && chrome.signalCode === null) await once(chrome, 'exit')
-    rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 })
+    try { rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }) } catch {} // on Linux Chrome's helper processes may still write into its profile for a moment
   })
   let ws
   for (let i = 0; i < 150 && !ws; i++) {

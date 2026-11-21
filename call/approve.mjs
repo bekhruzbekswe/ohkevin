@@ -27,10 +27,10 @@ export function words(command) {
 
 const SECRET = /secret|credential|passw|token|\.pem$|\.key$|\.p12$|\.pfx$|^id_(rsa|dsa|ecdsa|ed25519)/i
 // Inside the project after symlinks, with no hidden part (.git, .env, .github, ..) and nothing that looks like a secret.
-function inside(p, { project, real }) {
+function inside(p, { project, real, path: P = path }) {
   if (typeof p !== 'string' || !p) return false
-  const rel = path.relative(project, real(path.resolve(project, p)))
-  return !path.isAbsolute(rel) && rel.split(path.sep).every(part => !part.startsWith('.') && !SECRET.test(part))
+  const rel = P.relative(project, real(P.resolve(project, p)))
+  return !P.isAbsolute(rel) && rel.split(P.sep).every(part => !part.startsWith('.') && !SECRET.test(part))
 }
 
 const BRANCH = /^[\w./-]+$/
@@ -55,12 +55,13 @@ function bashOk(w, at) {
 }
 
 // May a spoken yes approve this step? Only the short list of recoverable steps inside the project; anything else needs the click.
-// at: { project: the project's real path, real(p): p's real path through symlinks, exists(p): is anything at p (lstat) }
+// at: { project: the project's real path, real(p): p's real path through symlinks, exists(p): is anything at p (lstat),
+//       path: node's path module for this system (tests give path.posix, so their /p paths mean the same on Windows) }
 export function voiceOk(tool, input, at) {
   if (!input || typeof input !== 'object') return false
   if (tool === 'Edit') return inside(input.file_path, at)
   if (tool === 'NotebookEdit') return inside(input.notebook_path, at)
-  if (tool === 'Write') return inside(input.file_path, at) && !at.exists(path.resolve(at.project, input.file_path)) // a new file only: overwriting may not be undoable
+  if (tool === 'Write') return inside(input.file_path, at) && !at.exists((at.path ?? path).resolve(at.project, input.file_path)) // a new file only: overwriting may not be undoable
   if (tool === 'Bash') return bashOk(words(input.command), at)
   return false
 }

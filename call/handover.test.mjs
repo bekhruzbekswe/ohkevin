@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process'
 import { command, childrenGone, handOver, handOverAll, lendTerminal, openOne } from './handover.mjs'
 
 const ID = '0b5a2c9e-1f4d-4c1e-9a7b-3c2d1e0f9a8b'
-const PRINT = `log To open this call in the Claude app:  cd '/p' && claude --desktop --resume ${ID}`
+const PRINT = `log To open this call in the Claude app:  ${command(ID, '/p')}` // in this system's shell (platform.test.mjs has each)
 // A pretend hang-up that records each step instead of starting the CLI or the app.
 async function hangUp({ open = true, tty = true, free = true, code = 0, renameFails = false, ...o } = {}) {
   const steps = []
@@ -20,7 +20,7 @@ async function hangUp({ open = true, tty = true, free = true, code = 0, renameFa
 
 test('command is the CLI hand-over line', () => {
   assert.equal(command(ID), `claude --desktop --resume ${ID}`)
-  assert.equal(command(ID, "/Users/me/it's here"), `cd '/Users/me/it'\\''s here' && claude --desktop --resume ${ID}`) // from its own folder, quoted for the shell
+  assert.equal(command(ID, "/Users/me/it's here", 'darwin'), `cd '/Users/me/it'\\''s here' && claude --desktop --resume ${ID}`) // from its own folder, quoted for the shell
 })
 
 test('a call with no work hands nothing over', async () => {
@@ -55,7 +55,7 @@ test('childrenGone waits until the server has no child processes, and gives up i
 })
 
 test('childrenGone sees a real child process', async () => {
-  const kid = spawn('sleep', ['5'])
+  const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 5000)'])
   assert.equal(await childrenGone({ tries: 1, wait: async () => {} }), false)
   kid.kill()
   await new Promise(r => kid.once('exit', r))
@@ -75,13 +75,13 @@ test('handOverAll hands every worker with a session over in turn, each from its 
   assert.deepEqual(results, ['opened', 'none', 'printed', 'opened'])
   assert.deepEqual(steps, [
     'gone', `rename ${A}`, `run ${A} in /api`,
-    'gone', `rename ${B}`, `run ${B} in /api`, `log To open this call in the Claude app:  cd '/api' && claude --desktop --resume ${B}`,
+    'gone', `rename ${B}`, `run ${B} in /api`, `log To open this call in the Claude app:  ${command(B, '/api')}`,
     'gone', `rename ${C}`, `run ${C} in /docs`,
   ])
   assert.deepEqual(await handOverAll([], { open: true, tty: true }), [])
 })
 
-test('lendTerminal gives the CLI a terminal when the server has none, and passes its exit code back', async () => {
+test('lendTerminal gives the CLI a terminal when the server has none, and passes its exit code back', { skip: process.platform === 'win32' && 'Windows has no script: the CLI runs as it is' }, async () => {
   assert.equal(await lendTerminal(['-c', 'test -t 0 && test -t 1'], '/', '/bin/sh'), 0)
   assert.equal(await lendTerminal(['-c', 'exit 3'], '/', '/bin/sh'), 3)
 })

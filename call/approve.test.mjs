@@ -1,9 +1,11 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import path from 'node:path'
 import { words, voiceOk, askLine, spokenAnswer, answerAloud } from './approve.mjs'
 
 // A pretend project at /p: /p/link is a symlink to /elsewhere, and /p/README.md and /p/dangling exist.
 const AT = {
+  path: path.posix, // the pretend project's paths are POSIX on every system
   project: '/p',
   real: p => (p === '/p/link' || p.startsWith('/p/link/') ? p.replace('/p/link', '/elsewhere') : p),
   exists: p => ['/p/README.md', '/p/dangling', '/p/src'].includes(p),

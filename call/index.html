@@ -498,16 +498,16 @@ new ResizeObserver(() => { stick(); layout() }).observe(chat)
 // it and, on a launcher call, tells the server, so the panel shows the button that opens the right settings: its window
 // has no address bar. null until the recogniser first hears or is refused.
 let blockedBy = null
-// Where this computer's own setting is ('mac' above means the system's, on any computer)
-const OS = navigator.userAgentData?.platform ?? navigator.platform ?? ''
-const SYSTEM_MIC = /win/i.test(OS) ? 'Turn the microphone on in Windows Settings › Privacy & security › Microphone, then press Allow.'
-  : /mac/i.test(OS) ? 'Turn the microphone on in System Settings › Privacy & Security, then press Allow.'
+// Where this computer's own setting is ('mac' above means the system's, on any computer): the server says which system it is
+let os = 'darwin'
+const systemMic = () => os === 'win32' ? 'Turn the microphone on in Windows Settings › Privacy & security › Microphone, then press Allow.'
+  : os === 'darwin' ? 'Turn the microphone on in System Settings › Privacy & Security, then press Allow.'
   : 'Turn the microphone on in your system’s sound or privacy settings, then press Allow.'
 async function micBlocked(deniedBySystem) {
   const site = await navigator.permissions?.query({ name: 'microphone' }).catch(() => null)
   blockedBy = deniedBySystem || site?.state === 'granted' ? 'mac' : 'chrome'
   render()
-  note(blockedBy === 'mac' ? SYSTEM_MIC
+  note(blockedBy === 'mac' ? systemMic()
     : GO ? 'Chrome blocked the microphone. Press Allow microphone in the Oh Kevin panel in the menu bar.'
     : 'Chrome blocked the microphone. Allow it in the address bar, then press Allow.')
   if (GO) post('/mic', { blocked: blockedBy }).catch(() => {})
@@ -713,8 +713,8 @@ const on = {
     if (boot && e.boot && e.boot !== boot) restarted() // another server process answered on this address
     boot = e.boot ?? boot
     if (e.first) document.querySelector('.cv-greeting').textContent = 'Say hello.' // the first call on this Mac: the app's own line asks for one word
-    hintable = !!e.hint
-    call.server(e); setVoices(e.voices); project = e.project.split('/').pop(); $('projVal').textContent = project; $('projRow').hidden = !project; title() },
+    hintable = !!e.hint; if (e.os) os = e.os
+    call.server(e); setVoices(e.voices); project = e.project.split(/[\\/]/).pop(); $('projVal').textContent = project; $('projRow').hidden = !project; title() },
   voices: e => { call.server(e); setVoices(e.names) },
   say: e => {
     row('voice', e.text)

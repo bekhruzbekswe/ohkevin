@@ -511,7 +511,7 @@ const server = http.createServer(async (req, res) => {
       send('pages', { n: callPages() }) // how many call pages are open, for the launcher
       const tell = (type, data) => res.write(`data: ${JSON.stringify({ type, ...data })}\n\n`)
       tell('board', pageBoard(workers))
-      tell('hello', { boot: BOOT, project: PROJECT, projects: PROJECTS, voices: voice.names, spokenYes: VOICE_ALL ? 'all' : VOICE_APPROVE ? 'safe' : 'none', first: !first.greeted, hint: !first.hinted })
+      tell('hello', { boot: BOOT, project: PROJECT, projects: PROJECTS, voices: voice.names, spokenYes: VOICE_ALL ? 'all' : VOICE_APPROVE ? 'safe' : 'none', os: process.platform, first: !first.greeted, hint: !first.hinted })
       if (micBlocked) tell('mic', { blocked: micBlocked })
       tellVoice(line => tell('voice', line))
       for (const w of workers) { // a page that reloads mid-call gets its sessions and open approval cards back

@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url'
 import { once } from 'node:events'
 import { createServer } from 'node:net'
 import { chmodSync } from 'node:fs'
-import { findBrowser } from './platform.mjs'
+import { dataDir, findBrowser } from './platform.mjs'
 import { findClaude } from './claude-path.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -24,7 +24,7 @@ const DONE = path.join(mkdtempSync(path.join(tmpdir(), 'call-first-')), 'first-c
 writeFileSync(DONE, JSON.stringify({ greeted: true, hinted: true }))
 process.env.FIRST_CALL_FILE = DONE
 
-test('Claude Code: CLAUDE_PATH wins, else the first executable claude on PATH as an absolute path, else the SDK\'s own', () => {
+test('Claude Code: CLAUDE_PATH wins, else the first executable claude on PATH as an absolute path, else the SDK\'s own', { skip: process.platform === 'win32' && 'POSIX executable bits; Windows is the next test' }, () => {
   const root = mkdtempSync(path.join(tmpdir(), 'call-claude-')), bin = path.join(root, 'bin'), other = path.join(root, 'other')
   mkdirSync(bin); mkdirSync(other)
   writeFileSync(path.join(other, 'claude'), '#!/bin/sh\n'); chmodSync(path.join(other, 'claude'), 0o644) // not executable: passed over
@@ -85,10 +85,18 @@ test('a running server: the old-link page, the short word for scripts, and defau
   assert.match(out, /Claude Code: +haiku, auto mode/)
   assert.match(out, new RegExp(`Projects: +${root.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} `))
   for (let i = 0; i < 100 && !out.includes('Voice:'); i++) await new Promise(r => setTimeout(r, 100)) // a voice that is installed says so once it is ready
-  assert.match(out, /Voice: .*(Library\/Application Support\/Oh Kevin\/Kokoro|Kokoro, on this Mac)/) // checked while no Kokoro is at the default place, or it is running
+  assert.ok(out.includes(`Voice:       the browser's built-in voice. For the local voice, install Kokoro in ${path.join(dataDir(), 'Kokoro')}`) || /Voice: +Kokoro, on this Mac/.test(out), out) // checked while no Kokoro is at the default place, or it is running
 })
 
-test('the voice folder\'s kokoro-runner is started, with the folder as its one argument', async t => {
+test('Claude Code on Windows: claude.cmd or claude.exe on PATH, by PATHEXT', { skip: process.platform !== 'win32' && 'Windows only' }, () => {
+  const root = mkdtempSync(path.join(tmpdir(), 'call-claude-')), bin = path.join(root, 'bin'); mkdirSync(bin)
+  writeFileSync(path.join(bin, 'claude.cmd'), '@echo off\r\n')
+  assert.equal(findClaude({ PATH: bin, PATHEXT: '.COM;.EXE;.BAT;.CMD' }).toLowerCase(), path.join(bin, 'claude.cmd').toLowerCase())
+  assert.equal(findClaude({ PATH: root, PATHEXT: '.EXE;.CMD' }), undefined)
+  rmSync(root, { recursive: true, force: true })
+})
+
+test('the voice folder\'s kokoro-runner is started, with the folder as its one argument', { skip: process.platform === 'win32' && 'the local voice is the Mac app\'s' }, async t => {
   const root = mkdtempSync(path.join(tmpdir(), 'call-server-test-'))
   const project = path.join(root, 'app'); mkdirSync(project)
   const kokoro = path.join(root, 'kokoro'); mkdirSync(kokoro)
@@ -234,7 +242,7 @@ async function launcherPage(t) {
   const chrome = spawn(CHROME, ['--headless=new', `--user-data-dir=${path.join(root, 'profile')}`, '--remote-debugging-port=0', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--mute-audio', '--no-first-run', 'about:blank'], { stdio: 'ignore' })
   t.after(async () => {
     chrome.kill('SIGKILL'); server.kill('SIGTERM'); await Promise.all([chrome, server].map(p => p.exitCode === null && p.signalCode === null ? once(p, 'exit') : 0)) // the server may be gone already
-    rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 })
+    try { rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }) } catch {} // on Linux Chrome's helper processes may still write into its profile for a moment
   })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await sleep(100)
   let ws
@@ -330,7 +338,7 @@ test('a blocked microphone on a launcher page: the words for a window with no ad
   // Refused while the page's own permission is granted (as here): macOS keeps the microphone from Chrome.
   await run(`${rec}.onerror({ error: 'not-allowed' })`)
   await sleep(200)
-  assert.match(await note(), /System Settings › Privacy & Security, then press Allow/)
+  assert.match(await note(), { win32: /Windows Settings › Privacy & security › Microphone/, darwin: /System Settings › Privacy & Security/ }[process.platform] ?? /sound or privacy settings/) // the server says which system
   assert.deepEqual(await mics(), ['', 'mac'])
   await run(`${rec}.onaudiostart()`) // it hears again
   assert.deepEqual(await mics(), ['', 'mac', ''])

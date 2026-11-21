@@ -56,7 +56,7 @@ const sh = s => `'${String(s).replaceAll("'", `'\\''`)}'`
 export function withTerminal(cli, args, platform = process.platform) {
   if (platform === 'darwin') return ['/usr/bin/script', ['-q', '/dev/null', cli, ...args]]
   if (platform === 'win32') return [cli, args]
-  return ['script', ['-q', '-c', [cli, ...args].map(sh).join(' '), '/dev/null']]
+  return ['script', ['-q', '-e', '-c', [cli, ...args].map(sh).join(' '), '/dev/null']] // -e: the CLI's own exit code
 }
 
 /// The line a person types to reopen a session in the Claude app, from its own folder.
