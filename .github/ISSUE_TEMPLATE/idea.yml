@@ -1,0 +1,8 @@
+name: An idea
+description: Something Oh Kevin could do better.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes: {label: The idea, description: "What you'd like, and the moment in a call where you missed it."}
+    validations: {required: true}

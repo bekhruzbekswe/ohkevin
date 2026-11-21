@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Something went wrong? Read this first
+    url: https://github.com/bekhruzbekswe/ohkevin#when-something-goes-wrong
+    about: The fixes for the common problems.
+  - name: A security problem
+    url: https://github.com/bekhruzbekswe/ohkevin/security/advisories/new
+    about: Report it privately, please.

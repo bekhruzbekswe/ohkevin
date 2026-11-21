@@ -1,0 +1,36 @@
+name: Something is wrong
+description: A bug in the launcher or the Mac app.
+labels: [bug]
+body:
+  - type: dropdown
+    id: app
+    attributes:
+      label: Which app
+      options: [Oh Kevin (menu bar launcher), Oh Kevin for Mac (native app)]
+    validations: {required: true}
+  - type: input
+    id: version
+    attributes: {label: App version, description: "In the app's About or Settings.", placeholder: "0.6"}
+    validations: {required: true}
+  - type: input
+    id: macos
+    attributes: {label: macOS version, placeholder: "15.2"}
+    validations: {required: true}
+  - type: input
+    id: claude
+    attributes: {label: Claude Code version, description: "`claude --version` in a terminal."}
+  - type: dropdown
+    id: voice
+    attributes:
+      label: Which voice speaks
+      options: [The voice on this Mac, Chrome's voice, Don't know]
+  - type: textarea
+    id: what
+    attributes: {label: What happened, description: "What you did, what you expected, what happened instead."}
+    validations: {required: true}
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: "Show Details in the panel opens it. Paste only what matters: it can contain your words and file names."
+      render: text
