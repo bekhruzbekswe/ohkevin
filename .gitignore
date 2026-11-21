@@ -3,3 +3,6 @@ node_modules/
 .DS_Store
 reports/
 design/logo/build/
+call/LICENSE
+call/NOTICE
+call/*.tgz

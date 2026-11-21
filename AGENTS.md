@@ -45,6 +45,27 @@ Release history (the zips and feeds `generate_appcast` reads) lives outside git,
 - Version numbers only go up. Sparkle never installs a lower version, so a bad release is fixed by a revert on main and
   a higher number; untick "latest" on the bad one meanwhile.
 
+### The browser version (`npx ohkevin`)
+
+The npm package `ohkevin` is `call/` itself: its `files` list is what ships (about 90 kB; `npm pack --dry-run` in `call/`
+shows it), with the root LICENSE and NOTICE copied in while it packs. It fetches the pinned Agent SDK file at first run.
+
+1. Bump: one commit on main, `release: the browser version 0.1` (`call/package.json`'s `version`). In the same commit,
+   `CHANGELOG.md` gets the release's section ("Browser 0.1 — <date>").
+2. Tag that commit, locally: `git tag -a npm-v0.1`, the message being that section. It is the release notes.
+3. Try it as a user would: `npm pack` in `call/`, then, in a project folder, `npx --package <path>/ohkevin-0.1.0.tgz ohkevin`
+   on a real call. Not right: fix it through a normal branch, move the unpushed tag, and pack again.
+4. Publish, only on the owner's own go in that session: `git push origin main npm-v0.1`, then, in `call/`,
+   `npm publish --access public` (npm asks for his 2FA code). Only the owner is signed in to npm; an agent never logs in
+   or publishes. Provenance (`--provenance`) is signed by a CI's identity, so it cannot come from a laptop: it needs a
+   publish workflow and npm's trusted publishing, set up after the first release.
+
+- `"private": true` in `call/package.json` makes npm refuse to publish it, so nothing goes out by accident. It is removed in
+  the first release's bump commit, and stays removed: from then on every version on main is publishable, and only the
+  owner's `npm publish` sends one.
+- npm never takes a version back after 72 hours, and a number is never reused: a bad release is fixed by a higher one
+  (`npm deprecate ohkevin@<bad> "<why>"` meanwhile).
+
 ## What needs the owner
 
 Pushing to origin, publishing a release, deleting releases and changing the repository's settings each need the
