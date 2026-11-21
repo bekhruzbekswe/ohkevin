@@ -68,10 +68,9 @@ struct CallPlaceTests {
         #expect(installsByItself(missing: [packages])) // the download takes it up by itself (Download, at launch)
     }
 
-    /// The slimmer Node (pack-call.sh, installRuntime): the packages come inside the app, so a first run with Node in place fetches
-    /// nothing and runs no npm; an earlier version's full Node is used as it is; an update swaps the copy's npm-installed packages
-    /// for the app's.
-    @Test func thePackagesComeInsideTheAppAndNothingIsFetchedOrInstalled() async throws {
+    /// An app that carries its packages (as 0.3 did) and a full Node from an earlier version (Runtime/): nothing is fetched and no
+    /// npm runs; an update swaps the copy's npm-installed packages for the app's. Today's apps fetch the Agent SDK instead (installSDK).
+    @Test func anAppThatCarriesItsPackagesFetchesNothing() async throws {
         let fm = FileManager.default, root = fm.temporaryDirectory.appending(path: "slim-\(UUID().uuidString)")
         defer { try? fm.removeItem(at: root) }
         let support = root.appending(path: "support"), app = root.appending(path: "bundle/call"), copy = support.appending(path: "Call-App")

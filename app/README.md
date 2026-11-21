@@ -14,9 +14,9 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
 
 - The app is called **Oh Kevin** (`Product.name` in VoiceCore's `Product.swift`, read by `build.sh`). Licensed under the
   Apache License 2.0 (`LICENSE`, `NOTICE` at the repository's root).
-- It carries the call server (`Contents/Resources/call`, packed by `launcher/pack-call.sh`) and the voice runner
+- It carries the call server's files (`Contents/Resources/call`, packed by `launcher/pack-call.sh`) and the voice runner
   (`Contents/Helpers/kokoro-runner`). At first run it copies the server to `~/Library/Application Support/Claude Voice/Call-App`
-  and downloads what a call needs behind one bar: Node, the local voice, Apple's speech model. `OH_KEVIN_CALL_FOLDER` (or the
+  and downloads what a call needs behind one bar: Node, the Agent SDK, the local voice, Apple's speech model. `OH_KEVIN_CALL_FOLDER` (or the
   `DeveloperCallFolder` default) points it at a repository's `call/` instead; off unless set.
 - macOS asks for the microphone and speech recognition on first use; an ad-hoc build asks again after each rebuild.
 - Nothing is written about a call unless asked: `--log <file>` writes every word heard, sent and said (JSON lines, the shape

@@ -4,7 +4,7 @@ import CallKit
 import VoiceCore
 
 /// The download that starts by itself at launch (design/onboarding.html): everything a call runs on that this Mac does not
-/// have yet, behind one bar. Its parts, in order: Node's program (installRuntime; the packages come inside the app), the local voice
+/// have yet, behind one bar. Its parts, in order: Node's program and the Agent SDK the server imports (installRuntime), the local voice
 /// (installKokoro into Application Support/Claude Voice/Kokoro), Apple's English speech model (AssetInventory). A part this Mac
 /// already has is left out, and the bar is over what is left, by size.
 @Observable final class Download {
@@ -30,7 +30,7 @@ import VoiceCore
     init(place: CallPlace) { self.place = place }
 
     /// What each part adds on disk, measured on this Mac (MB): what the bar is measured against.
-    static let size: [Part: Double] = [.runtime: 117, .voice: 380, .speech: 150] // runtime: Node's program alone; the packages come inside the app
+    static let size: [Part: Double] = [.runtime: 117, .voice: 380, .speech: 150] // runtime: Node's program and the Agent SDK
     var kokoroFolder: URL { CallSettings.defaultKokoro(home: home) }
 
     /// Runs what is missing, one part after the other; `done` on the main queue, with whether all of it is there now.
