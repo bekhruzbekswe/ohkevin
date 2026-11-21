@@ -1,0 +1,19 @@
+README.md
+  s_f9dcb370410d4f::t_15e574eea973b0 1,3,5,7,10-12,14,16,18,20,22,24,26,28,30,32,34-52,54-62,66-69,71-72,74-75,77-78,80,82-87,89-90,92-93,95,97,99-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d5fc30128184ff0c5565e0812d6e341fcb9f3487",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
