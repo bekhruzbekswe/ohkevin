@@ -1,7 +1,7 @@
 // What differs between macOS, Windows and Linux (platform.mjs), every case on any machine.
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { spawn } from 'node:child_process'
+import { spawn, spawnSync } from 'node:child_process'
 import { browsers, children, dataDir, findBrowser, resumeLine, withTerminal } from './platform.mjs'
 
 test('Oh Kevin keeps its files where each platform expects them', () => {
@@ -35,5 +35,16 @@ test('the line that reopens a session, for each shell', () => {
 
 test('a process\'s children are listed on this machine', async () => {
   const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 3000)'])
-  try { const list = await children(process.pid); assert.ok(list.includes(String(kid.pid)), `children of ${process.pid}: ${JSON.stringify(list)}; the child: ${kid.pid}`) } finally { kid.kill() }
+  try {
+    const list = await children(process.pid)
+    assert.ok(list.includes(String(kid.pid)), `children of ${process.pid}: ${JSON.stringify(list)}; the child: ${kid.pid}` + (process.platform === 'win32' ? windowsDiagnosis(process.pid, kid.pid) : ''))
+  } finally { kid.kill() }
 })
+
+// shortcut: a diagnostic for the Windows CI run, printed only when the children test fails there; drop it once Windows is green.
+function windowsDiagnosis(parent, child) {
+  const ps = command => { const r = spawnSync('powershell', ['-NoProfile', '-Command', command], { encoding: 'utf8' }); return `\n  $ powershell -NoProfile -Command ${command}\n  status ${r.status}, error ${r.error?.message}\n  stdout: ${JSON.stringify(r.stdout)}\n  stderr: ${JSON.stringify(r.stderr)}` }
+  return ps(`(Get-CimInstance Win32_Process -Filter "ParentProcessId=${parent}").ProcessId`)
+    + ps(`Get-CimInstance Win32_Process -Filter "ProcessId=${child}" | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List`)
+    + ps(`Get-CimInstance Win32_Process -Filter "ProcessId=${parent}" | Select-Object ProcessId,ParentProcessId,Name | Format-List`)
+}
