@@ -11,6 +11,7 @@ import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { gunzipSync } from 'node:zlib'
 import { dataDir } from './platform.mjs'
+import { look, problems } from './preflight.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 // The pin: package-lock.json's own entry for the SDK (a test keeps them equal).
@@ -62,6 +63,11 @@ export async function prepare({ here = HERE, data = path.join(dataDir(), 'npx', 
 }
 
 if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) { // run (npx runs it through a link), not imported by a test
+  const missing = problems(look()) // first what this computer still needs (preflight.mjs)
+  if (missing.length) {
+    console.error(`Before a call, ${missing.length === 1 ? 'one thing' : `${missing.length} things`} to fix:\n` + missing.map(m => `  ${m.what}\n    ${m.fix}`).join('\n'))
+    process.exit(1)
+  }
   let from
   try { from = await prepare() }
   catch (e) { console.error(`Could not get Anthropic's Agent SDK: ${e.message}. Check the internet connection and try again.`); process.exit(1) }

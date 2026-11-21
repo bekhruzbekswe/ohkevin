@@ -17,6 +17,7 @@
     "handover.mjs",
     "limits.mjs",
     "platform.mjs",
+    "preflight.mjs",
     "speech.mjs",
     "stats.mjs",
     "voice.mjs",
