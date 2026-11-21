@@ -1,0 +1,23 @@
+design/logo/make-icons.sh
+  s_8264812eb9e3f3::t_549ec258704240 9-10
+design/onboarding.html
+  s_8264812eb9e3f3::t_f2fdc5685937ab 7
+design/updates.html
+  s_8264812eb9e3f3::t_6f73d0723b38df 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a69928864251abf1f9f0eb269079c9dba2ffd367",
+  "prompts": {},
+  "sessions": {
+    "s_8264812eb9e3f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac956f26-7197-4b91-a7e8-4852d6fbc8d0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
