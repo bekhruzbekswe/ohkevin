@@ -1,0 +1,22 @@
+{"t":1794982861208.6,"k":"sse","e":{"type":"pages","n":1}}
+{"t":1794982861208.7002,"k":"sse","e":{"type":"board","state":"idle","task":"","step":"","model":"haiku","title":"Voice call / project","workers":[{"name":"project","state":"idle","task":"","step":"","model":"haiku","title":"Voice call / project"}]}}
+{"t":1794982861209.2002,"k":"sse","e":{"type":"hello","project":"<scratch>/project","voices":["af_alloy","af_aoede","af_bella","af_heart","af_jessica","af_kore","af_nicole","af_nova","af_river","af_sarah","af_sky","am_adam","am_echo","am_eric","am_fenrir","am_liam","am_michael","am_onyx","am_puck","am_santa","bf_alice","bf_emma","bf_isabella","bf_lily","bm_daniel","bm_fable","bm_george","bm_lewis"]}}
+{"t":1794982863845.4001,"k":"mic","recogniser":"Chrome (webkitSpeechRecognition)"}
+{"t":1794982863856.1,"k":"sr-start"}
+{"t":1794982863866,"k":"sr-audiostart"}
+{"t":1794982864907.5,"k":"vad","on":true}
+{"t":1794982864986.1,"k":"sr-speechstart"}
+{"t":1794982865617.2002,"k":"vad","on":false}
+{"t":1794982865751.2002,"k":"result","i":0,"r":[["so",false]]}
+{"t":1794982865751.9001,"k":"post","path":"/live","body":{"you":true}}
+{"t":1794982866038.5,"k":"result","i":0,"r":[["so they",false]]}
+{"t":1794982866348.6,"k":"result","i":0,"r":[["so",false],[" they",false]]}
+{"t":1794982866608.3,"k":"result","i":0,"r":[["so they",true]]}
+{"t":1794982866609.1,"k":"post","path":"/live","body":{"you":false}}
+{"k":"log","t":1794982866609.576,"text":"[turn] usual"}
+{"t":1794982866620.6,"k":"post","path":"/say","body":{"text":"so they"}}
+{"t":1794982872724.7002,"k":"sse","e":{"type":"wait"}}
+{"k":"log","t":1794982872725.066,"text":"[turn] held: the voice waits for the rest"}
+{"t":1794982872725.3,"k":"sse","e":{"type":"turn_end"}}
+{"k":"log","t":1794982875727.462,"text":"[turn] nothing more came: it answers what it has"}
+{"t":1794982875728.7002,"k":"post","path":"/say","body":{"text":"so they","done":true}}

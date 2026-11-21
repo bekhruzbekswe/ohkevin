@@ -1,0 +1,172 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 500,
+  "k": "speak",
+  "text": "Hello there."
+ },
+ {
+  "t": 500,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Hello there."
+   ]
+  ]
+ },
+ {
+  "t": 500,
+  "k": "speak-start",
+  "text": "Hello there."
+ },
+ {
+  "t": 500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 600,
+  "k": "speak",
+  "text": "All good."
+ },
+ {
+  "t": 600,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Hello there. All good."
+   ]
+  ]
+ },
+ {
+  "t": 1000,
+  "k": "speak-cancel"
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": ""
+  }
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 1000,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4500,
+  "k": "post",
+  "path": "/hush",
+  "body": {}
+ },
+ {
+  "t": 4500,
+  "k": "tts",
+  "voice": "am_adam",
+  "text": "This is how I sound now."
+ },
+ {
+  "t": 4500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 4500,
+  "k": "play",
+  "text": "This is how I sound now.",
+  "dur": 1.5
+ },
+ {
+  "t": 4500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 6000,
+  "k": "ended"
+ },
+ {
+  "t": 6250,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 6250,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ }
+]

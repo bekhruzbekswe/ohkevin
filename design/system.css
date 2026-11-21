@@ -1,0 +1,596 @@
+/* ==========================================================================
+   claude-voice · shared visual system (round 2)
+   One file for the Mac app, the Chrome call page and the menu-bar launcher.
+   Names are stable: add new ones, never rename.
+
+   HOW TO USE
+     <link rel="stylesheet" href="system.css">
+     Put class "cv" on the root of anything drawn with this system.
+     Theme: follows the OS; force with data-theme="light" | "dark" on any
+     ancestor (or on the .cv element itself).
+
+   THE RULES THE TOKENS ENFORCE
+     Colour    Warm paper, ink, and ONE accent (marigold). Marigold appears
+               only where the person must act: Start call, Approve, the card
+               that is asking. Never on a state that needs nothing (the
+               speaking mark is ink). Green and red only as a state word.
+     Surfaces  A window is ground (app window, page, panel, Settings).
+               On it sit raised things (voice bubbles, the call bar) and sunk
+               things (resting cards, fields, quiet buttons). Two levels.
+               Parts of the call bar have no fill of their own.
+     Type      Four sizes, no others: display 48, title 22, body 17, small 14.
+               Small is only the exact command and fine print; nothing a
+               glance must read is small.
+     The serif The serif is the voice. Whatever the voice says or asks is
+               serif: its bubbles, its first line, the question on an asking
+               card, its state word. You, the workers and every control are
+               sans. No italic turn in headlines; italic is the state word only.
+     Space     One unit of 8: 4 · 8 · 16 · 24 · 40 · 64, plus one half step
+               of 12 used only inside a bubble and between mark and word.
+     Shape     Two radii: 20 for surfaces (cards, bubbles), pill for controls.
+     Buttons   One height (48). Quiet, primary (one per view), danger (red
+               words). Inside the call bar a quiet button has no fill until
+               pointed at. Nothing else, nothing inline.
+     State     A word at body size. Working is the quiet one; Waiting, Done
+               and Stuck carry weight and colour. Each fact once.
+     Persona   Ours alone: the mark (chevron + three bars) alive at real
+               size, the voice set in the serif, and the marigold.
+
+   RULES BOTH SURFACES FOLLOW (rulings on the round-2 critique, table C)
+     Mute            A labelled Mute button in the bar, always. The capsule
+                     only shows state and is never pressed.
+     Bar parts       capsule · field · Mute · End (one word each; the tooltip
+                     says "End call"), in that order, divided by hairlines, in one
+                     .cv-bar. Narrow: .cv-bar--two (field on its own row).
+                     Labels never shorten.
+     Fixed slots     Capsule and the Mute slot have fixed widths. Nothing in
+                     the bar moves when the state changes.
+     Mic blocked     Capsule says "Mic blocked" (red), the field stays, the
+                     Mute slot becomes the primary "Allow".
+     Muted           The whole bar inverts (.cv-bar.is-muted); the Mute slot
+                     reads "Unmute".
+     Call lost       Capsule "Reconnecting"; if it fails, capsule "Call lost"
+                     and the Mute slot becomes the primary "Call again".
+     Capsule words   Listening · Speaking · Thinking · Muted · Mic blocked ·
+                     Reconnecting · Call lost. No others.
+     Worker actions  A card is a button. Pressing it (click, tap, Return)
+                     opens it in place: name, state and sentence stay, and a
+                     row is added: "Open in Claude" (quiet, wide) and "Stop"
+                     (danger). A chevron at rest says it opens. No hover-only
+                     actions anywhere. One pressed card open at a time.
+     Card buttons    Working: Open in Claude / Stop. Done: Open in Claude /
+                     Close.
+     Asking card     Defined once here (.cv-card--ask): name is a 17 label,
+                     the question is 22 serif semibold and leads, the command
+                     is 14 mono 8 below it (.cv-command), Deny small,
+                     Approve wide. A gold outline, no gold fill.
+     Spoken yes      If a spoken yes counts, the primary button carries the
+                     mark (.cv-btn .cv-mark) and reads "Approve". If only a
+                     click counts it reads "Click to approve" and has no mark.
+     Card and rail   Rail 400 wide (--cv-w-rail), cards 16 apart, resting
+                     card 88 tall, no heading over the rail. Rail and chat
+                     share one top line.
+     Rail full       Resting cards drop their sentence (.cv-card--line),
+                     newest-asked last; the asking card never shrinks; then
+                     the rail scrolls. Margins never give.
+     Chat width      Chat is everything left of the rail: 40 margin, 40
+                     gutter. With no rail it is capped at 720 and centred.
+                     A turn is at most 76% of it (86% under 600 wide).
+     Chat top        Fills from the top line down. When full it scrolls with
+                     the newest at the bottom and the top 32 fades
+                     (.cv-chat--full). A bubble is never cut by a hard edge.
+     Greeting        "Hi. What shall we do?" is the app's own line at the start
+                     of a call: centred, at display size, until the first
+                     words. It is never a chat bubble and never spoken; when
+                     the talk begins it simply goes.
+     Three dots      At the window's top right (.cv-more), in every state. One
+                     press drops Settings open right beside them, as a card
+                     inside the window. No Done button, no scrim, no second
+                     window: a click anywhere else, or on the dots, closes it.
+     Mic note        When the microphone is blocked, one grey how-to line sits
+                     above the bar, left aligned (.cv-note).
+     No stuck state  A worker that stops is told by the voice; the rail does
+                     not draw a stuck card.
+     Problems        What the call server reports as a problem is said by the
+                     voice where it still can be, and shown in the chat as the
+                     voice's bubble with red words (.cv-bubble--wrong). Nowhere else.
+     Empty call      No mark in the chat. The voice's first line is drawn at
+                     display size (.cv-greeting), centred, until answered.
+     Idle            The brand mark (bars arcing to a marigold ball) 72 high, "Oh Kevin" in the serif (upright) with one
+                     quiet line, "A voice call with Claude Code.", then a 320 stack: project picker, Start call. No Settings
+                     button here: Settings is behind the three dots.
+     Picker          .cv-btn--pick: value left, up/down arrows right.
+     Words           Placeholder "Type instead". Greeting "Hi. What shall we
+                     do?". The sentence agrees with the state word.
+
+   CONTENTS
+     1 tokens (light, dark)   2 root + type   3 buttons    4 field
+     5 bubbles                6 cards         7 state      8 the mark
+     9 capsule               10 call bar     11 chip, panel
+   ========================================================================== */
+
+/* 1 · TOKENS ------------------------------------------------------------- */
+:root, [data-theme="light"] {
+  /* surfaces */
+  --cv-ground:  #F6F3EC;   /* any window: app, page, panel, Settings */
+  --cv-raised:  #FFFFFF;   /* voice bubbles, the call bar */
+  --cv-sunk:    #ECE8DF;   /* resting cards, fields, quiet buttons */
+  --cv-hair:    rgba(27, 26, 23, .12);   /* the one hairline */
+
+  /* ink */
+  --cv-ink:     #1B1A17;   /* text */
+  --cv-ink-2:   #57534B;   /* secondary text */
+  --cv-ink-3:   #6B665D;   /* placeholders (AA on every surface) */
+  --cv-on-ink:  #F6F3EC;   /* text on an ink fill */
+  --cv-you:     #36332D;   /* fill of YOUR bubble: the one solid, strongest shape in the chat. A warm charcoal, not black */
+  --cv-on-you:  #F6F3EC;   /* text on it */
+  --cv-voice:   #E9E4DA;   /* fill of the VOICE's bubble: a quiet grey that sits back */
+
+  /* the one accent: "your move" */
+  --cv-accent:      #F4A62A;
+  --cv-accent-down: #E2951A;   /* pressed / hover */
+  --cv-on-accent:   #1B1A17;   /* text on accent */
+  --cv-ask:         #FBE8BF;   /* fill of the card that is asking */
+  --cv-accent-word: #D98E0B;   /* marigold as words on a light surface: a little deeper, still marigold */
+  --cv-accent-ink:  #8A5000;   /* accent used as TEXT ("Asking", "Waiting") */
+  --cv-accent-on-ink: #F4A62A; /* kept for old markup; no longer used (the speaking mark is ink) */
+
+  /* state words */
+  --cv-done:   #256B42;
+  --cv-wrong:  #B82E24;
+  --cv-wrong-on-ink: #FF8073;  /* red words on an ink fill (End call on the muted bar) */
+
+  --cv-shadow: 0 1px 2px rgba(27,26,23,.06), 0 8px 24px rgba(27,26,23,.08);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --cv-ground:  #181715;
+  --cv-raised:  #38352F;
+  --cv-sunk:    #262421;
+  --cv-hair:    rgba(246, 243, 236, .14);
+  --cv-ink:     #F6F3EC;
+  --cv-ink-2:   #B5B0A6;
+  --cv-ink-3:   #9A958B;
+  --cv-on-ink:  #1B1A17;
+  --cv-you:     #D6D0C3;   /* yours: a soft cream, not white */
+  --cv-on-you:  #1B1A17;
+  --cv-voice:   #2E2B27;
+  --cv-accent:      #F4A62A;
+  --cv-accent-down: #FFB84A;
+  --cv-on-accent:   #1B1A17;
+  --cv-ask:         #3B2E14;
+  --cv-accent-word: #F4A62A;
+  --cv-accent-ink:  #F4B551;
+  --cv-accent-on-ink: #B86E00;
+  --cv-done:   #73C795;
+  --cv-wrong:  #FF8073;
+  --cv-wrong-on-ink: #B82E24;
+  --cv-shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cv-ground:#181715; --cv-raised:#38352F; --cv-sunk:#262421;
+    --cv-hair:rgba(246,243,236,.14);
+    --cv-ink:#F6F3EC; --cv-ink-2:#B5B0A6; --cv-ink-3:#9A958B; --cv-on-ink:#1B1A17;
+    --cv-you:#D6D0C3; --cv-on-you:#1B1A17; --cv-voice:#2E2B27;
+    --cv-accent:#F4A62A; --cv-accent-down:#FFB84A; --cv-on-accent:#1B1A17;
+    --cv-ask:#3B2E14; --cv-accent-word:#F4A62A; --cv-accent-ink:#F4B551; --cv-accent-on-ink:#B86E00;
+    --cv-done:#73C795; --cv-wrong:#FF8073; --cv-wrong-on-ink:#B82E24;
+    --cv-shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+
+:root {
+  /* type: families (system only; native app: New York + SF Pro + SF Mono) */
+  --cv-font-display: ui-serif, "New York", "Iowan Old Style", "Palatino", Georgia, serif;
+  --cv-font-text:    -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", sans-serif;
+  --cv-font-mono:    ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* type: the four sizes */
+  --cv-t-display: 48px;   /* one line per view at most; serif. Wraps, never shrinks. */
+  --cv-t-title:   22px;   /* worker name, the question, the capsule word */
+  --cv-t-body:    17px;   /* bubbles, sentences, state words, buttons */
+  --cv-t-small:   14px;   /* the exact command, fine print. Floor. */
+
+  /* space: one unit of 8 */
+  --cv-s-0: 4px;    /* between bubbles of one turn */
+  --cv-s-1: 8px;
+  --cv-s-h: 12px;   /* the half step: inside a bubble; between mark and word */
+  --cv-s-2: 16px;   /* inside controls; between cards */
+  --cv-s-3: 24px;   /* card padding; between turns */
+  --cv-s-4: 40px;   /* window margins; between regions */
+  --cv-s-5: 64px;   /* around a hero */
+
+  /* shape */
+  --cv-r-surface: 20px;    /* cards, bubbles */
+  --cv-r-tail:    6px;     /* the bubble corner nearest its speaker */
+  --cv-r-pill:    999px;   /* every control */
+
+  /* controls and fixed widths */
+  --cv-h-control: 48px;    /* every button and field */
+  --cv-h-bar:     64px;    /* the call bar */
+  --cv-w-capsule: 200px;   /* capsule slot: fits the longest word */
+  --cv-w-slot:    120px;   /* the Mute slot: Mute, Unmute, Allow, Call again */
+  --cv-w-rail:    400px;   /* the worker rail */
+  --cv-ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* 2 · ROOT + TYPE --------------------------------------------------------- */
+.cv {
+  background: var(--cv-ground);
+  color: var(--cv-ink);
+  font: 400 var(--cv-t-body)/24px var(--cv-font-text);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+.cv *, .cv *::before, .cv *::after { box-sizing: border-box; }
+
+.cv-display { font: 400 var(--cv-t-display)/1.1 var(--cv-font-display); letter-spacing: -0.02em; margin: 0; }
+.cv-display em { font-style: normal; }           /* the italic turn is retired; old markup renders upright */
+.cv-title   { font: 600 var(--cv-t-title)/28px var(--cv-font-text); letter-spacing: -0.02em; margin: 0; }
+.cv-body    { font: 400 var(--cv-t-body)/24px var(--cv-font-text); margin: 0; }
+.cv-small   { font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; margin: 0; }
+.cv-eyebrow { font: 600 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); margin: 0; }  /* a plain small label; no capitals, no tracking. Not for naming regions of the UI. */
+.cv-mono    { font: 400 var(--cv-t-small)/20px var(--cv-font-mono); letter-spacing: 0; }
+.cv-quiet   { color: var(--cv-ink-2); }
+.cv-greeting { font: 400 var(--cv-t-display)/1.1 var(--cv-font-display); letter-spacing: -0.02em; margin: 0; text-align: center; }  /* the voice's first line, until answered */
+
+/* a quiet how-to line above the call bar (a blocked microphone). Left aligned, grey, never a banner. */
+.cv-note { font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); text-align: left; margin: 0 0 var(--cv-s-h) var(--cv-s-3); }
+
+/* 3 · BUTTONS --------------------------------------------------------------
+   .cv-btn            quiet (default): sunk fill, ink words
+   .cv-btn--primary   THE primary: accent. One per view.
+   .cv-btn--danger    quiet with red words (End call, Stop). Never the same
+                      width as a primary beside it.
+   .cv-btn--wide      fills its row
+   .cv-btn--pick      a chooser: value left, .cv-arrows right
+   [disabled]         cannot be used yet                                     */
+.cv-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--cv-s-1);
+  height: var(--cv-h-control); padding: 0 var(--cv-s-3);
+  border: 0; border-radius: var(--cv-r-pill);
+  background: var(--cv-sunk); color: var(--cv-ink);
+  font: 600 var(--cv-t-body)/1 var(--cv-font-text); letter-spacing: -0.01em;
+  white-space: nowrap; cursor: pointer;
+  transition: background .15s var(--cv-ease), transform .15s var(--cv-ease);
+}
+.cv-btn:active { transform: scale(.98); }
+.cv-btn:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.cv-btn--primary { background: var(--cv-accent); color: var(--cv-on-accent); }
+.cv-btn--primary:hover { background: var(--cv-accent-down); }
+.cv-btn--danger  { color: var(--cv-wrong); }
+.cv-btn--wide    { width: 100%; }
+.cv-btn[disabled] { opacity: .35; cursor: default; }
+.cv-btn--pick { justify-content: space-between; padding: 0 20px 0 var(--cv-s-3); font-weight: 400; }
+.cv-arrows { width: 10px; height: 16px; flex: none; color: var(--cv-ink-3);   /* the up/down arrows of a chooser */
+             position: relative; display: inline-block; }
+.cv-arrows::before, .cv-arrows::after { content: ""; position: absolute; left: 1px; width: 6px; height: 6px;
+             border-left: 2px solid currentColor; border-top: 2px solid currentColor; }
+.cv-arrows::before { top: 1px; transform: rotate(45deg); }
+.cv-arrows::after  { bottom: 1px; transform: rotate(225deg); }
+.cv-btn .cv-mark { font-size: 16px; }   /* the voice can press this: a spoken yes counts */
+/* a quiet button on a raised surface or on a card needs its own contrast */
+.cv-on-raised .cv-btn:not(.cv-btn--primary),
+.cv-card .cv-btn:not(.cv-btn--primary),
+.cv-card--ask .cv-btn:not(.cv-btn--primary) { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); }
+
+/* retired: hover-only text action. Kept so old markup still renders; do not use (see Worker actions). */
+.cv-link { border: 0; background: none; padding: 0; cursor: pointer; color: var(--cv-ink);
+           font: 600 var(--cv-t-body)/1 var(--cv-font-text); text-decoration: underline; text-underline-offset: 3px; }
+
+/* 4 · FIELD (type instead of speaking) ----------------------------------- */
+.cv-field {
+  height: var(--cv-h-control); padding: 0 var(--cv-s-3);
+  border: 0; border-radius: var(--cv-r-pill);
+  background: var(--cv-sunk); color: var(--cv-ink);
+  font: 400 var(--cv-t-body)/1 var(--cv-font-text);
+  min-width: 0;
+}
+.cv-field::placeholder { color: var(--cv-ink-3); opacity: 1; }
+.cv-field:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+
+/* 5 · BUBBLES --------------------------------------------------------------
+   .cv-chat             the column of turns; fills from the top
+   .cv-chat--full       it has overflowed: newest pinned to the bottom, the
+                        top 32 fades (set by script when content overflows)
+   .cv-turn             one speaker's run of bubbles (--you right, --voice left)
+   .cv-bubble           one thing said. The voice's are serif; yours are sans.
+   No sender labels, no timestamps: side, fill and face say who.              */
+.cv-chat { display: flex; flex-direction: column; gap: var(--cv-s-3); }
+.cv-chat--full { justify-content: flex-end; overflow: hidden;
+                 -webkit-mask-image: linear-gradient(to bottom, transparent 8px, #000 32px);
+                         mask-image: linear-gradient(to bottom, transparent 8px, #000 32px); }
+.cv-turn { display: flex; flex-direction: column; gap: var(--cv-s-0); max-width: 76%; flex: none; }
+.cv-turn--voice { align-self: flex-start; align-items: flex-start; }
+.cv-turn--you   { align-self: flex-end;   align-items: flex-end; }
+.cv-bubble {
+  padding: var(--cv-s-h) var(--cv-s-3); border-radius: var(--cv-r-surface);
+  font: 400 var(--cv-t-body)/24px var(--cv-font-text);
+  overflow-wrap: anywhere;
+}
+.cv-turn--voice .cv-bubble { background: var(--cv-voice); color: var(--cv-ink); font-family: var(--cv-font-display); letter-spacing: 0; }
+.cv-turn--you   .cv-bubble { background: var(--cv-you);    color: var(--cv-on-you); }
+.cv-turn--voice .cv-bubble:last-child { border-bottom-left-radius:  var(--cv-r-tail); }
+.cv-turn--you   .cv-bubble:last-child { border-bottom-right-radius: var(--cv-r-tail); }
+/* words still being heard / said: the bubble keeps its fill, only the words are lighter */
+.cv-bubble--live { opacity: 1; }
+.cv-turn--voice .cv-bubble--live { color: var(--cv-ink-3); }
+/* a problem the call server reports (the voice could not answer, Stop failed, a part of the call stopped):
+   the voice says it where it still can, and it stays in the chat as the voice's bubble with red words */
+.cv-turn--voice .cv-bubble--wrong { color: var(--cv-wrong); }
+.cv-turn--you   .cv-bubble--live { color: color-mix(in srgb, var(--cv-on-you) 65%, var(--cv-you)); }
+
+/* 6 · CARDS ----------------------------------------------------------------
+   .cv-card          a worker at rest: name, state word, one sentence. 88 tall.
+                     It is a button: give it tabindex="0".
+   .cv-card.is-open  pressed: a .cv-card__actions row is added under the
+                     sentence (Open in Claude, Stop). Nothing is replaced.
+   .cv-card--line    name and state only (the rail is full)
+   .cv-card--ask     the ONE card being asked now. The card IS the request;
+                     never a box inside it.
+   .cv-card__head    name left; state (and .cv-chev) right
+   .cv-chev          the chevron that says "this opens"                      */
+.cv-card {
+  background: var(--cv-sunk); border-radius: var(--cv-r-surface);
+  box-shadow: inset 0 0 0 1px var(--cv-hair);
+  padding: var(--cv-s-2) var(--cv-s-3);
+  display: flex; flex-direction: column; gap: var(--cv-s-0); flex: none;
+}
+.cv-card:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.cv-card--line > :not(.cv-card__head) { display: none; }
+.cv-card--ask { background: var(--cv-sunk); padding: var(--cv-s-3); gap: var(--cv-s-2);   /* no gold fill: the gold outline alone marks it */
+                box-shadow: inset 0 0 0 2px var(--cv-accent); }
+.cv-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--cv-s-2); }
+.cv-card__head .cv-state { margin-left: auto; }
+.cv-card--ask .cv-card__head .cv-title { font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; }  /* the name is the label here */
+.cv-question { font: 600 var(--cv-t-title)/28px var(--cv-font-display); letter-spacing: -0.01em; margin: 0; }  /* the voice is asking: serif, and the heaviest text on the card */
+.cv-command  { display: block; font: 400 var(--cv-t-small)/20px var(--cv-font-mono); letter-spacing: 0;
+               color: var(--cv-ink-2); margin: var(--cv-s-1) 0 0; overflow-wrap: anywhere; }
+.cv-card__actions { display: flex; gap: var(--cv-s-1); }
+.cv-card__actions .cv-btn--primary, .cv-card__actions .cv-btn--wide { flex: 1; width: auto; }   /* Approve is the biggest control on screen */
+.cv-card.is-open .cv-card__actions { margin-top: var(--cv-s-h); }
+.cv-chev { width: 9px; height: 9px; flex: none; border-right: 2px solid var(--cv-ink-3); border-bottom: 2px solid var(--cv-ink-3);
+           transform: rotate(-45deg); transition: transform .2s var(--cv-ease); }
+.cv-card.is-open .cv-chev { transform: rotate(45deg) translate(-2px, -2px); }
+
+/* 7 · STATE ------------------------------------------------------------------
+   A word at body size, with a mark after it. Exactly these words:
+   Working · Asking · Waiting · Done · Stuck
+   Working is quiet (regular, grey, three moving bars). The rest are heavy.   */
+.cv-state { display: inline-flex; align-items: center; gap: var(--cv-s-1);
+            font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; color: var(--cv-ink-2); white-space: nowrap; }
+.cv-state::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+.cv-state--working { font-weight: 400; }
+.cv-state--working::after { width: 3px; height: 14px; border-radius: 2px; margin: 0 6px;
+                            box-shadow: -6px 0 0 0 currentColor, 6px 0 0 0 currentColor;
+                            animation: cv-pulse 1.4s var(--cv-ease) infinite; }
+.cv-state--asking, .cv-state--waiting { color: var(--cv-accent-ink); }
+.cv-state--done  { color: var(--cv-done); }
+.cv-state--done::after { width: 7px; height: 13px; border-radius: 0; background: none;
+                         border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor;
+                         transform: rotate(45deg) translate(-2px, -2px); margin: 0 4px 0 2px; }
+.cv-state--wrong { color: var(--cv-wrong); }
+@keyframes cv-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* 8 · THE MARK ----------------------------------------------------------------
+   Chevron + three bars. The product's one motif; it is the voice.
+   Markup:  <span class="cv-mark"><b></b><i></i><i></i><i></i></span>
+   Size with font-size (1em = its height). Colour with color.
+   .is-speaking  bars move tall      .is-listening  bars breathe
+   .is-thinking  bars light in turn  .is-muted      bars become dots
+   .is-waiting   dots blink (reconnecting)          (none) still             */
+.cv-mark { display: inline-flex; align-items: center; gap: .14em; height: 1em; color: inherit; flex: none; }
+.cv-mark b { width: .42em; height: .42em; margin-right: .06em;
+             border-top: .13em solid currentColor; border-right: .13em solid currentColor;
+             border-radius: .03em; transform: rotate(45deg) translate(-.06em, .06em); }
+.cv-mark i { width: .13em; border-radius: .1em; background: currentColor; height: .55em; transform-origin: center; }
+.cv-mark i:nth-of-type(2) { height: 1em; }
+.cv-mark i:nth-of-type(3) { height: .7em; }
+.cv-mark.is-listening i { animation: cv-breathe 2.4s ease-in-out infinite; }
+.cv-mark.is-speaking  i { animation: cv-speak .7s ease-in-out infinite; }
+.cv-mark.is-thinking  i { height: .55em; animation: cv-pulse 1.2s ease-in-out infinite; }
+.cv-mark.is-speaking  i:nth-of-type(2), .cv-mark.is-listening i:nth-of-type(2), .cv-mark.is-thinking i:nth-of-type(2) { animation-delay: -.25s; }
+.cv-mark.is-speaking  i:nth-of-type(3), .cv-mark.is-listening i:nth-of-type(3), .cv-mark.is-thinking i:nth-of-type(3) { animation-delay: -.5s; }
+.cv-mark.is-muted i, .cv-mark.is-waiting i { height: .13em !important; animation: none; }
+.cv-mark.is-waiting i { animation: cv-pulse 1.2s ease-in-out infinite; }
+@keyframes cv-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.8); } }
+@keyframes cv-speak   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.45); } }
+
+/* 9 · CAPSULE ------------------------------------------------------------------
+   The voice's state, said once: the mark at real size and one word in the
+   serif italic. No fill of its own; it is a label, never a button.
+   Lives at the left end of the call bar, in a slot of fixed width.
+   .is-wrong   the word turns red (Mic blocked, Call lost)                    */
+.cv-capsule { display: inline-flex; align-items: center; gap: var(--cv-s-h); height: var(--cv-h-control);
+              min-width: var(--cv-w-capsule); padding: 0 var(--cv-s-2);
+              background: none; color: inherit; white-space: nowrap; flex: none; }
+.cv-capsule .cv-mark { font-size: 28px; }
+.cv-capsule__word { font: italic 400 var(--cv-t-title)/1 var(--cv-font-display); letter-spacing: 0; }
+.cv-capsule.is-wrong { color: var(--cv-wrong); }
+
+/* 10 · CALL BAR ------------------------------------------------------------------
+   Everything you do to the call, as ONE object: capsule · field · Mute · End call.
+   The bar is the only surface; its parts have no fill until pointed at.
+   Markup: <div class="cv-bar"> .cv-capsule  input.cv-field  .cv-btn  .cv-btn.cv-btn--danger </div>
+   .is-muted   the bar inverts. Unmistakable in both themes.
+   .cv-bar--two  narrow windows: state, Mute and End call on the first row, the field below.  */
+.cv-bar { display: flex; align-items: center; gap: var(--cv-s-1); height: var(--cv-h-bar); padding: 0 var(--cv-s-1);
+          background: var(--cv-raised); color: var(--cv-ink); border-radius: var(--cv-r-pill); box-shadow: var(--cv-shadow); flex: none; }
+.cv-bar .cv-field { flex: 1; height: 32px; padding: 0 var(--cv-s-3); border-radius: 0; background: none; color: inherit;
+                    border-left: 1px solid var(--cv-hair); border-right: 1px solid var(--cv-hair); }
+.cv-bar .cv-field:focus-visible { outline: none; }
+.cv-bar:focus-within { box-shadow: var(--cv-shadow), 0 0 0 3px var(--cv-accent); }
+.cv-bar .cv-btn { padding: 0 var(--cv-s-2); flex: none; }
+.cv-bar .cv-btn:not(.cv-btn--primary) { background: none; }
+.cv-bar .cv-btn:not(.cv-btn--primary):hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.cv-bar .cv-btn:not(.cv-btn--danger) { width: var(--cv-w-slot); }          /* the Mute slot */
+/* The bar is one board divided by hairlines. Mute and End are segments of it: a segment has no
+   shape of its own, and pointing at it fills the whole part between the lines, top to bottom. */
+.cv-bar { padding: 0 0 0 var(--cv-s-1); gap: 0; overflow: hidden; }
+.cv-bar .cv-btn:not(.cv-btn--primary) { align-self: stretch; height: auto; border-radius: 0; position: relative; }
+.cv-bar .cv-field { border-right: 0; }   /* each segment draws its own left line, so a fill can swallow it */
+.cv-bar .cv-btn:not(.cv-btn--primary):active { transform: none; }
+.cv-bar .cv-btn[disabled] { opacity: 1; color: color-mix(in srgb, var(--cv-ink) 35%, transparent); }   /* Reconnecting: only the word Mute fades; the hairline keeps its strength */
+.cv-bar .cv-btn--danger { padding: 0 28px 0 var(--cv-s-3); }       /* the extra on the right clears the bar's round end */
+.cv-bar .cv-btn:not(.cv-btn--primary)::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 1px; background: var(--cv-hair); transition: opacity .15s var(--cv-ease); }
+/* pointing at a segment: its two lines go, and the fill runs edge to edge */
+.cv-bar .cv-btn:not([disabled]):hover::before, .cv-bar .cv-btn:not([disabled]):hover + .cv-btn::before { opacity: 0; }
+.cv-bar.is-muted .cv-btn:not(.cv-btn--primary)::before { background: color-mix(in srgb, var(--cv-on-ink) 25%, transparent); }
+/* Allow, Call again: exactly the End segment, in gold. Gold words only; a light wash of them on hover. */
+.cv-bar .cv-btn--primary { margin: 0; align-self: stretch; height: auto; border-radius: 0; position: relative; background: none; color: var(--cv-accent-word); }   /* marigold words: the brand colour in dark, a little deeper on a light bar */
+.cv-bar .cv-btn--primary:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.cv-bar .cv-btn--primary::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 1px; background: var(--cv-hair); transition: opacity .15s var(--cv-ease); }
+.cv-bar--two .cv-btn--primary::before { top: 12px; bottom: 12px; }
+.cv-bar .cv-btn--primary:active { transform: none; }
+.cv-bar.is-muted { background: var(--cv-ink); color: var(--cv-on-ink); }
+.cv-bar.is-muted .cv-btn { color: var(--cv-on-ink); }
+.cv-bar.is-muted .cv-btn--danger { color: var(--cv-wrong-on-ink); }
+.cv-bar.is-muted .cv-field { border-color: color-mix(in srgb, var(--cv-on-ink) 25%, transparent); }
+.cv-bar.is-muted .cv-field::placeholder { color: color-mix(in srgb, var(--cv-on-ink) 65%, var(--cv-ink)); }
+.cv-bar--two { flex-wrap: wrap; height: auto; padding: var(--cv-s-1); border-radius: var(--cv-r-surface); }
+.cv-bar--two .cv-field { order: 1; flex: 0 0 100%; height: var(--cv-h-control); border: 0; border-top: 1px solid var(--cv-hair); }
+.cv-bar--two { padding: 0; }
+.cv-bar--two .cv-capsule { margin-right: auto; min-width: 0; height: 56px; padding-left: var(--cv-s-3); }
+.cv-bar--two .cv-btn { height: 56px; align-self: auto; }
+.cv-bar--two .cv-btn--danger { padding: 0 var(--cv-s-3); }
+.cv-bar--two .cv-btn:not(.cv-btn--primary)::before { top: 12px; bottom: 12px; }
+.cv-bar--two .cv-field { padding: 0 var(--cv-s-3); height: 52px; }
+
+/* 11 · CHIP, PANEL -----------------------------------------------------------------
+   .cv-chip   a short pill of text (a filter, a tag). Not a worker: a worker
+              always shows its sentence, at every width (use .cv-card).
+   .cv-panel  the menu-bar panel. It is a window, so it is ground.             */
+.cv-chip { display: inline-flex; align-items: center; gap: var(--cv-s-1);
+           height: var(--cv-h-control); padding: 0 var(--cv-s-2);
+           border-radius: var(--cv-r-pill); background: var(--cv-sunk);
+           font: 600 var(--cv-t-body)/1 var(--cv-font-text); white-space: nowrap; }
+.cv-panel { width: 320px; padding: var(--cv-s-2); border-radius: var(--cv-r-surface);
+            background: var(--cv-ground); box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-mark i, .cv-state::after { animation: none !important; }
+}
+
+/* a rail with more cards than room scrolls, and its cut edge fades */
+.cv-rail--full { -webkit-mask-image: linear-gradient(to top, transparent 8px, #000 32px); mask-image: linear-gradient(to top, transparent 8px, #000 32px); }
+
+/* 13 · THE MENU-BAR LAUNCHER -----------------------------------------------------
+   One launcher for both tracks.
+   One object, three rows, one inset of 16, one size (320 × 228):
+     head   52   what only the panel knows. Line 1 at title size, line 2 at body.
+     pill   64   the hero. The call bar's small sibling (same height, same code):
+                 raised when live, inverted when muted, flat when nothing is live.
+                 Before a call the same object holds the project.
+     door   48   one button, always here. Marigold only when it is your move.
+   Sizes used: 22 and 17 for text; 64, 48 and 28 for controls. No new ones.
+   The serif appears twice only: italic for the voice's word in the pill (and
+   "Call lost"), upright for the system's own lines "Oh Kevin" and
+   "Call ended.". Sentences end in a full stop; state words do not.               */
+:root, [data-theme="light"] { --cv-pill: #FFFFFF; --cv-pill-well: rgba(27,26,23,.10);
+  --cv-shadow-pill: 0 1px 2px rgba(27,26,23,.10), 0 3px 10px rgba(27,26,23,.08); }   /* short: it must not fall on the door */
+[data-theme="dark"]         { --cv-pill: #4D4941; --cv-pill-well: rgba(0,0,0,.30);                                   /* lifted from raised (#38352F): 1.47 is too little at this size */
+  --cv-shadow-pill: 0 1px 2px rgba(0,0,0,.5), 0 3px 10px rgba(0,0,0,.35); }
+
+.cv-panel--mix { width: 320px; height: 228px; padding: var(--cv-s-2); position: relative; display: flex; flex-direction: column; text-align: left; }
+.cv-head { height: 52px; flex: none; }
+.cv-head p { margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv-head__1 { font: 600 var(--cv-t-title)/28px var(--cv-font-text); letter-spacing: -0.02em; margin-right: 36px !important; }   /* 36: the corner control's place */
+.cv-head__1.is-ours  { font: 400 var(--cv-t-title)/28px var(--cv-font-display); letter-spacing: -0.01em; }   /* the system's own line */
+.cv-head__1.is-wrong { font: italic 400 var(--cv-t-title)/28px var(--cv-font-display); letter-spacing: 0; color: var(--cv-wrong); }
+.cv-head__2 { font: 400 var(--cv-t-body)/24px var(--cv-font-text); color: var(--cv-ink-2); font-variant-numeric: tabular-nums; }
+.cv-panel--mix > .cv-pill, .cv-panel--mix > .cv-btn { margin-top: var(--cv-s-2); flex: none; }
+
+/* the corner: Settings and Quit behind one small button. Its dots end on the content's right edge. */
+.cv-more { position: absolute; top: var(--cv-s-2); right: 10px; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; cursor: pointer;
+           display: grid; place-items: center; color: var(--cv-ink-2); }
+.cv-more:hover, .cv-more.is-open { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); color: var(--cv-ink); }
+.cv-more:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.cv-more i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: -6px 0 0 currentColor, 6px 0 0 currentColor; }
+
+/* THE PILL. Markup: .cv-pill > .cv-round--mute · .cv-wave · .cv-pill__word · .cv-round--end
+   (none)     live: raised, as the call bar
+   .is-muted  the same object turned over, as .cv-bar.is-muted. Same shadow, same shape.
+   .is-flat   nothing is live (Reconnecting, Mic blocked): sunk, no shadow
+   .cv-pill--pick  before a call: the whole pill is the project chooser                */
+.cv-pill { --p-bg: var(--cv-pill); --p-fg: var(--cv-ink); --p-end: var(--cv-wrong); --p-well: var(--cv-pill-well);
+           display: flex; align-items: center; gap: var(--cv-s-1); width: 100%; height: var(--cv-h-bar); padding: 0 var(--cv-s-1); border: 0;
+           border-radius: var(--cv-r-pill); background: var(--p-bg); color: var(--p-fg); text-align: left;
+           box-shadow: var(--cv-shadow-pill), inset 0 0 0 1px var(--cv-hair); }
+.cv-pill.is-muted { --p-bg: var(--cv-ink); --p-fg: var(--cv-on-ink); --p-end: var(--cv-wrong-on-ink); --p-well: color-mix(in srgb, var(--cv-on-ink) 10%, transparent); box-shadow: var(--cv-shadow-pill); }
+.cv-pill.is-flat  { --p-bg: var(--cv-sunk); box-shadow: inset 0 0 0 1px var(--cv-hair); }
+.cv-pill__word { font: italic 400 var(--cv-t-title)/1 var(--cv-font-display); letter-spacing: 0; white-space: nowrap; flex: none; margin-right: 2px; }
+.cv-pill.is-wrong .cv-pill__word { color: var(--cv-wrong); }
+.cv-pill--pick { gap: 0; cursor: pointer; font: 600 var(--cv-t-title)/28px var(--cv-font-text); letter-spacing: -0.02em; }
+.cv-pill--pick { --p-bg: transparent; box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); }   /* before a call the chooser is outlined and the button below it is the one filled thing */
+.cv-pill--pick:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.cv-pill__glyph { width: var(--cv-h-control); height: var(--cv-h-control); flex: none; display: grid; place-items: center; }
+.cv-pill__name { padding-left: var(--cv-s-1); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv-pill__name.is-none { font-weight: 400; color: var(--cv-ink-2); }
+.cv-folder { width: 20px; height: 15px; border-radius: 3px; background: var(--cv-ink-2); position: relative; margin-top: 3px; }
+.cv-folder::before { content: ""; position: absolute; left: 0; top: -4px; width: 9px; height: 6px; border-radius: 2.5px 2.5px 0 0; background: inherit; }
+
+/* the round ends. Mute is the strong one (the one you use); End call is quiet, with the system's red on its glyph only. */
+.cv-round { width: var(--cv-h-control); height: var(--cv-h-control); flex: none; border: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+            transition: transform .15s var(--cv-ease); }
+.cv-round:active { transform: scale(.94); }
+.cv-round:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.cv-round svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cv-round--mute { background: var(--p-fg); color: var(--p-bg); }                       /* always the pill's opposite: it turns over with it */
+.cv-round--end  { background: var(--p-well); color: var(--p-end); }
+.cv-round--end svg { width: 26px; height: 26px; fill: currentColor; stroke: none; }
+.cv-round[disabled] { background: none; color: var(--cv-ink-3); cursor: default; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--cv-ink-3) 45%, transparent); }   /* keeps its own glyph, AA */
+
+/* THE WAVE: the mark's chevron, and its bars running on. Markup: .cv-wave > b + i[style="--h:N; --i:n"]
+   In the app the bars are driven by sound, not by a loop:
+     listening  bar i = max(3, base[i] × mic level, 0..1), smoothed over 80 ms; silence settles to the low swell drawn here
+     speaking   the same from the voice's output level; full height on loud syllables
+     thinking   no sound: a bump of three bars (10, 18, 10) walks left to right, one bar every 120 ms, and comes round again
+     muted      dots, still        reconnecting  dots, lit in turn        mic blocked  dots, still
+   The loops below stand in for that on this page: a bar moves through 45% of its height when listening (11 px on the tallest), 70% when speaking (25 px).     */
+.cv-wave { flex: 1; min-width: 0; height: 36px; display: flex; align-items: center; gap: 2px; overflow: hidden; font-size: 28px; padding-left: 2px; }
+.cv-wave b { width: .42em; height: .42em; flex: none; margin-right: .16em; border-top: .13em solid currentColor; border-right: .13em solid currentColor;
+             border-radius: .03em; transform: rotate(45deg) translate(-.06em, .06em); }
+.cv-wave i { width: 3px; height: calc(var(--h) * 1px); flex: none; border-radius: 2px; background: currentColor; transform-origin: center; }
+.cv-wave.is-listening i { animation: cv-hear 1.7s ease-in-out infinite; animation-delay: calc(var(--i) * -.06s); }   /* a slow ripple: neighbours stay in step, so the swell keeps its shape */
+.cv-wave.is-speaking  i { animation: cv-say .62s ease-in-out infinite; animation-delay: calc(var(--i) * -.23s); }
+.cv-wave.is-thinking  i { height: 3px; animation: cv-think 1.08s ease-in-out infinite; animation-delay: calc(var(--i) * .12s - 2.16s); }   /* nine bars a lap: the bump is always in view */
+.cv-wave.is-waiting   i { animation: cv-pulse 1.2s ease-in-out infinite; animation-delay: calc(var(--i) * .15s - 1.2s); }
+@keyframes cv-hear  { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.55); } }
+@keyframes cv-say   { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.3); } }
+@keyframes cv-think { 0%, 36%, 100% { height: 3px; } 12%, 24% { height: 10px; } 18% { height: 18px; } }
+.is-still .cv-wave i { animation: none !important; height: calc(var(--h) * 1px) !important; }   /* stills for screenshots */
+@media (prefers-reduced-motion: reduce) { .cv-wave i { animation: none !important; height: calc(var(--h) * 1px) !important; } }
+
+/* the door when it is not your move: quiet, but never faint. No fill, a real edge. */
+.cv-btn--door { background: none; box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); }
+.cv-btn--door.is-move { box-shadow: inset 0 0 0 2px var(--cv-accent); }   /* your move: marigold as an edge, never a slab. The pill stays the one hero. */
+.cv-head__1 em { font-style: normal; color: var(--cv-accent); }   /* the one marigold word: it is your move */
+.cv-btn--door:hover { background: color-mix(in srgb, var(--cv-ink) 6%, transparent); }
+
+/* THE MENU-BAR ITEM. One box, 52 × 22, in every state; nothing beside it ever moves.
+   No call: the bare mark (>_ ; with a ring during setup; >! when it broke; dots while reconnecting).
+   A call: the same pill, small, in the same code: light = live, turned over = muted.
+   Someone asks: a marigold dot at the pill's right end. No count: the bar signals, the call window tells.
+   Drawn in whole pixels: bars 2 wide, 2 apart. The count is the one text under 14 (11), as before. */
+.cv-menu { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 22px; border-radius: 6px; color: var(--cv-ink); flex: none; }
+.cv-menu.is-open { background: color-mix(in srgb, var(--cv-ink) 12%, transparent); }
+.cv-menu > .cv-wave, .cv-menu > .cv-mark { flex: none; }
+.cv-menu > .cv-mark { font-size: 15px; }
+.cv-menu.is-setup::after { content: ""; width: 7px; height: 7px; margin-left: 5px; border: 1.5px solid currentColor; border-radius: 50%; }
+.cv-menu .cv-wave { flex: none; height: 14px; gap: 2px; padding: 0; overflow: visible; }
+.cv-menu .cv-wave b { width: 6px; height: 6px; margin-right: 2px; border-width: 2px; border-radius: 0; transform: rotate(45deg) translate(-1px, 1px); }
+.cv-menu .cv-wave i { width: 2px; border-radius: 1px; }
+.cv-menu__pill { display: flex; align-items: center; width: 44px; height: 18px; padding: 0 2px 0 6px; border-radius: 9px;
+                 background: var(--cv-pill); color: var(--cv-ink); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cv-ink) 40%, transparent); }
+.cv-menu__pill.is-muted { background: var(--cv-ink); color: var(--cv-on-ink); box-shadow: none; }
+.cv-menu__n { margin-left: auto; width: 8px; height: 8px; margin-right: 4px; border-radius: 50%; background: var(--cv-accent); color: var(--cv-on-accent);
+              font: 700 11px/14px var(--cv-font-text); text-align: center; letter-spacing: 0; font-style: normal; }
+/* two more shapes for the small mark (carried over): no call, and it broke */
+.cv-mark.is-resting i, .cv-mark.is-lost i { animation: none; }
+.cv-mark.is-resting i:nth-of-type(1), .cv-mark.is-resting i:nth-of-type(3), .cv-mark.is-lost i:nth-of-type(1), .cv-mark.is-lost i:nth-of-type(3) { display: none; }
+.cv-mark.is-resting i:nth-of-type(2) { width: .5em; height: .13em; align-self: flex-end; margin-bottom: .1em; }
+.cv-mark.is-lost i:nth-of-type(2) { width: .14em; height: .92em; border-radius: 0; margin-left: .1em; background: linear-gradient(currentColor 0 60%, transparent 60% 82%, currentColor 82%); }

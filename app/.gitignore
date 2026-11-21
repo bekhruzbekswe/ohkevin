@@ -1,0 +1,6 @@
+.build/
+build/
+results/trial-*
+releases/
+releases-rehearsal/
+rehearsal-install/

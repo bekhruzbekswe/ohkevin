@@ -1,0 +1,311 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": false
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 1000,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 1000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "hello there"
+   ]
+  ]
+ },
+ {
+  "t": 1000,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "hello there"
+  }
+ },
+ {
+  "t": 2000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Hi. How can I help you today?"
+ },
+ {
+  "t": 2000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "hello there"
+   ],
+   [
+    "voice",
+    "Hi. How can I help you today?"
+   ]
+  ]
+ },
+ {
+  "t": 2000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 2000,
+  "k": "log",
+  "text": "[stats] 1 reply, median 1.0 s, slowest 1.0 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 2000,
+  "k": "play",
+  "text": "Hi. How can I help you today?",
+  "dur": 3
+ },
+ {
+  "t": 2000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 3000,
+  "k": "stop"
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": "Hi. How"
+  }
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 3000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "hello there"
+   ],
+   [
+    "voice",
+    "Hi. How can I help you today?"
+   ],
+   [
+    "ghost",
+    "hi how"
+   ]
+  ]
+ },
+ {
+  "t": 3000,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 3500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 3500,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 3500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 3500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "hello there"
+   ],
+   [
+    "voice",
+    "Hi. How can I help you today?"
+   ],
+   [
+    "you",
+    "hi how are you"
+   ]
+  ]
+ },
+ {
+  "t": 3500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 3500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "hi how are you"
+  }
+ },
+ {
+  "t": 3600,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 6000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "I am fine."
+ },
+ {
+  "t": 6000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "hello there"
+   ],
+   [
+    "voice",
+    "Hi. How can I help you today?"
+   ],
+   [
+    "you",
+    "hi how are you"
+   ],
+   [
+    "voice",
+    "I am fine."
+   ]
+  ]
+ },
+ {
+  "t": 6000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 6000,
+  "k": "log",
+  "text": "[stats] 2 replies, median 1.8 s, slowest 2.5 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 6000,
+  "k": "play",
+  "text": "I am fine.",
+  "dur": 1.5
+ },
+ {
+  "t": 6000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 7500,
+  "k": "ended"
+ },
+ {
+  "t": 7750,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 7750,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ }
+]

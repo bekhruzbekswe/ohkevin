@@ -1,0 +1,279 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 1000,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "I want to"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 1500,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 1500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 1500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "I want to"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "I want to"
+  }
+ },
+ {
+  "t": 1800,
+  "k": "log",
+  "text": "[turn] held: the voice waits for the rest"
+ },
+ {
+  "t": 1800,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 2500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "I want to"
+   ],
+   [
+    "ghost",
+    "refactor the"
+   ]
+  ]
+ },
+ {
+  "t": 3500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 3500,
+  "k": "log",
+  "text": "[turn] joined while the voice waited"
+ },
+ {
+  "t": 3500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 3500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "I want to refactor the parser"
+   ]
+  ]
+ },
+ {
+  "t": 3500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 3500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "I want to refactor the parser"
+  }
+ },
+ {
+  "t": 6000,
+  "k": "log",
+  "text": "[turn] held: the voice waits for the rest"
+ },
+ {
+  "t": 6000,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 9000,
+  "k": "log",
+  "text": "[turn] nothing more came: it answers what it has"
+ },
+ {
+  "t": 9000,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 9000,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "I want to refactor the parser",
+   "done": true
+  }
+ },
+ {
+  "t": 9500,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Okay."
+ },
+ {
+  "t": 9500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "I want to refactor the parser"
+   ],
+   [
+    "voice",
+    "Okay."
+   ]
+  ]
+ },
+ {
+  "t": 9500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 9500,
+  "k": "log",
+  "text": "[stats] 1 reply, median 6.0 s, slowest 6.0 s, joined 1, waited 2, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 9500,
+  "k": "play",
+  "text": "Okay.",
+  "dur": 1
+ },
+ {
+  "t": 9500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 10500,
+  "k": "ended"
+ },
+ {
+  "t": 10750,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 10750,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ }
+]

@@ -1,0 +1,399 @@
+<!doctype html>
+<!-- Status: living. The approved look of both apps; change it only with the owner. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin · the design</title>
+<link rel="stylesheet" href="system.css">
+<style>
+/* the call page: layout only. Same measures as the Mac window: 40 margin, 40 gutter, 400 rail. */
+.cw-page { position: relative; display: flex; gap: var(--cv-s-4); padding: var(--cv-s-4); width: 100%; height: 100%; }
+.cw-talk { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.cw-talk.alone { max-width: 720px; margin: 0 auto; }
+.cw-talk .cv-chat { flex: 1; min-height: 0; padding-bottom: var(--cv-s-3); overflow: hidden; }
+.cw-hero .cv-greeting { text-wrap: balance; }
+.cw-hero { flex: 1; display: flex; align-items: center; justify-content: center; padding-bottom: var(--cv-s-3); }
+.cw-crew { width: var(--cv-w-rail); flex: none; display: flex; flex-direction: column; gap: var(--cv-s-2); overflow: hidden; }
+
+/* before a call / ended: the same window, the start in the middle */
+.cw-idle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.cv-brand { height: 100px; width: auto; aspect-ratio: 90 / 68; margin-bottom: 56px; fill: currentColor; flex: none; }   /* the brand mark: ink bars arcing to a marigold ball; design/logo */
+.cv-brand circle { fill: var(--cv-accent); }
+.cw-idle .cv-display { margin-bottom: var(--cv-s-4); }
+.cw-idle .cv-display:has(+ .cw-sub) { margin-bottom: var(--cv-s-1); }
+.cw-sub { margin-bottom: var(--cv-s-4); }
+.cw-stack { width: 320px; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+
+/* narrow window: the rail goes on top, same cards; the talk keeps at least 144 of chat.
+   If the rail needs more: sentences give first, then the rail scrolls (system rule "Rail full"). */
+.cw-page.n { flex-direction: column; gap: var(--cv-s-2); padding: var(--cv-s-4) var(--cv-s-2) var(--cv-s-2); }   /* 40 at the top: room for the corner menu */
+/* the three dots live in the window's top margin, clear of the rail. One press opens Settings. */
+.cw-more { top: 6px; right: 34px; }   /* the dots' glyph ends on the content edge: 40 from the window's right */
+.cw-page.n .cw-more { right: 10px; }   /* narrow: 16 */
+.cw-page.n .cw-crew { order: -1; width: auto; flex: 0 1 auto; min-height: 0; }
+.cw-page.n .cw-talk { flex: 1 1 0; min-height: 272px; }
+.cw-page.n .cw-talk .cv-chat { padding-bottom: var(--cv-s-2); }
+.cw-page.n .cv-turn { max-width: 86%; }
+
+/* ── the report page around the mockups ──────────────────────────────────── */
+html { background: var(--cv-sunk); }
+body { margin: 0; background: var(--cv-sunk); }
+.rp { max-width: 1344px; margin: 0 auto; padding: var(--cv-s-5) var(--cv-s-3) 120px; background: transparent; }
+.rp > header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--cv-s-3); margin-bottom: var(--cv-s-5); }
+.rp h2.cv-display { margin: 96px 0 var(--cv-s-4); }
+figure { margin: 0 0 var(--cv-s-5); }
+figcaption { display: flex; align-items: baseline; gap: var(--cv-s-2); margin-bottom: var(--cv-s-2); }
+figcaption b { font-weight: 400; color: var(--cv-ink-3); }
+.frame { border-radius: 12px; overflow: hidden; box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); }
+.frame.w { width: 1280px; height: 800px; }
+.frame.n { width: 480px; height: 760px; }
+.cell { border-radius: 20px; display: flex; flex-direction: column; gap: var(--cv-s-2); margin-top: var(--cv-s-2); }
+.cell.w { width: 840px; padding: var(--cv-s-4); }       /* bar 760 wide, as in the page beside a rail */
+.cell.n { width: 480px; padding: var(--cv-s-2); }
+.grid { display: flex; flex-wrap: wrap; gap: var(--cv-s-5) var(--cv-s-4); align-items: flex-start; }
+.grid figure { margin: 0; }
+.idea { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--cv-s-3); }
+.idea > div { background: var(--cv-ground); border-radius: var(--cv-r-surface); padding: var(--cv-s-3); display: flex; flex-direction: column; gap: var(--cv-s-2); }
+.mini { position: relative; flex: 1; aspect-ratio: 16 / 10; background: var(--cv-sunk); border-radius: 6px; overflow: hidden; }
+.mini i { position: absolute; border-radius: 3px; background: color-mix(in srgb, var(--cv-ink) 16%, transparent); }
+.mini i.k { background: var(--cv-ink); }
+.mini i.a { background: var(--cv-accent); }
+.mini i.r { border-radius: 99px; }
+
+.lead { margin: calc(-1 * var(--cv-s-3)) 0 var(--cv-s-4); }
+/* narrow: on the 16 edge, as wide as the content */
+.cw-page.n .cw-sheet { right: 16px; width: calc(100% - 32px); }
+/* settings: a card that drops from the three dots, at the window's top right. Clicking elsewhere, or the dots again, closes it. */
+.cw-sheet { position: absolute; z-index: 3; top: 40px; right: 40px; width: 400px;   /* exactly over the rail: same edge, same width */
+            border-radius: var(--cv-r-surface); padding: var(--cv-s-3); box-shadow: var(--cv-shadow), 0 12px 40px rgba(0,0,0,.18), 0 0 0 1px var(--cv-hair);
+            display: flex; flex-direction: column; gap: var(--cv-s-2); }
+.cw-sheet .row { display: flex; flex-direction: column; gap: var(--cv-s-0); }
+.cw-sheet .row > span { color: var(--cv-ink-2); font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; padding-left: var(--cv-s-1); }
+.cw-sheet .cv-btn--pick { width: 100%; }
+/* the launcher section of this page */
+#launcher section { margin-top: var(--cv-s-4); }
+#launcher section > h3 { margin-bottom: var(--cv-s-3); }
+#launcher figure { margin: 0; display: flex; flex-direction: column; gap: var(--cv-s-h); }
+#launcher figcaption { display: block; margin: 0; color: var(--cv-ink-2); }
+#launcher .grid { gap: var(--cv-s-4) var(--cv-s-3); }
+.desk { display: flex; flex-direction: column; gap: 6px; width: 320px; }
+.menubar { height: 24px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 0 10px; border-radius: 6px; background: color-mix(in srgb, var(--cv-ink) 7%, transparent); }
+.menubar u { width: 14px; height: 14px; border-radius: 50%; background: color-mix(in srgb, var(--cv-ink) 22%, transparent); }
+.menubar u.clock { width: 56px; height: 8px; border-radius: 4px; }
+.icons { display: flex; gap: var(--cv-s-2); flex-wrap: wrap; align-items: flex-start; }
+#launcher .icons figure { align-items: center; gap: var(--cv-s-1); }
+.icons .menubar { width: 88px; justify-content: center; }
+.named { margin-top: var(--cv-s-4); gap: var(--cv-s-4); align-items: flex-start; }
+.named .cv-pill { width: auto; }
+.tip { font: 400 var(--cv-t-small)/24px var(--cv-font-text); letter-spacing: 0; padding: 0 10px; border-radius: 6px; background: var(--cv-ink); color: var(--cv-on-ink); }
+.drop { width: 200px; padding: 6px; border-radius: 12px; background: var(--cv-ground); box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); text-align: left; }
+.drop div { height: 32px; display: flex; align-items: center; padding: 0 12px; border-radius: 7px; }
+.drop hr { border: 0; border-top: 1px solid var(--cv-hair); margin: 5px 12px; }
+.cv-panel--mix .drop { position: absolute; top: 48px; right: 10px; z-index: 1; }
+#check { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<div class="cv rp" id="rp">
+  <header>
+    <h1 class="cv-display">The call is a chat.<br>Everything else steps back.</h1>
+    <button class="cv-btn" id="theme" style="background:var(--cv-ground)">Dark</button>
+  </header>
+
+  <div class="idea" id="idea"></div>
+
+  <h2 class="cv-display">The app</h2>
+  <p class="cv-body cv-quiet lead">One design for the Mac app and the browser. Drawn at 1280 × 800.</p>
+  <div id="wide"></div>
+
+  <h2 class="cv-display">The app, narrow</h2>
+  <p class="cv-body cv-quiet lead">The same parts in a 480 wide window.</p>
+  <div class="grid" id="narrow"></div>
+
+  <div id="launcher">
+  <h2 class="cv-display">The launcher</h2>
+  <p class="cv-body cv-quiet lead">One menu-bar launcher for both. One living pill, one door. 320 × 228 in every state.</p>
+  <section id="states"><div class="grid" id="all"></div></section>
+  <section id="icons"><h3 class="cv-title">The menu bar alone</h3><div class="icons" id="iconrow"></div><div class="icons named" id="named"></div></section>
+  <section id="stress"><h3 class="cv-title">Long names</h3><div class="grid" id="hard"></div></section>
+  <pre class="cv-mono" id="check" hidden></pre>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id)
+const q = new URLSearchParams(location.search)
+const root = document.documentElement
+if (q.get('theme')) root.dataset.theme = q.get('theme')
+const themeBtn = $('theme')
+const syncTheme = () => themeBtn.textContent = root.dataset.theme === 'dark' ? 'Light' : 'Dark'
+themeBtn.onclick = () => { root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark'; syncTheme() }
+syncTheme()
+
+// ── parts: the same builders as the Mac app, so both surfaces are made of the same things ──
+const BRAND = '<svg class="cv-brand" viewBox="4 18 90 68" aria-hidden="true"><rect x="6" y="77" width="4" height="6" rx="2"/><rect x="13.6" y="59.6" width="4" height="10" rx="2"/><rect x="21" y="44.9" width="4" height="14" rx="2"/><rect x="28.4" y="33" width="4" height="18" rx="2"/><rect x="35.8" y="24.9" width="4" height="20" rx="2"/><rect x="43" y="21.5" width="4" height="18" rx="2"/><rect x="50.2" y="21.9" width="4" height="14" rx="2"/><rect x="57.2" y="25" width="4" height="10" rx="2"/><rect x="64.2" y="29.9" width="4" height="8" rx="2"/><rect x="71.2" y="37.6" width="4" height="6" rx="2"/><circle cx="82.2" cy="54.8" r="10"/></svg>'
+const mark = s => `<span class="cv-mark ${s ? 'is-' + s : ''}"><b></b><i></i><i></i><i></i></span>`
+const turn = ([who, ...said]) => `<div class="cv-turn cv-turn--${who}">${said.map(x =>
+  `<div class="cv-bubble${x[0] === '~' ? ' cv-bubble--live' : x[0] === '!' ? ' cv-bubble--wrong' : ''}">${x.replace(/^[~!]/, '')}</div>`).join('')}</div>`
+const chat = turns => `<div class="cv-chat">${turns.map(turn).join('')}</div>`
+const WORD = { working: 'Working', asking: 'Asking', waiting: 'Waiting', done: 'Done', wrong: 'Stuck' }
+
+// a worker: [name, state, sentence, options]
+function card([name, state, line, o = {}]) {
+  const st = `<span class="cv-state cv-state--${state}">${WORD[state]}</span>`
+  if (o.ask) return `<div class="cv-card cv-card--ask">
+      <div class="cv-card__head"><h3 class="cv-title">${name}</h3>${st}</div>
+      <div><p class="cv-question">${line}</p>${o.cmd ? `<code class="cv-command">${o.cmd}</code>` : ''}</div>
+      <div class="cv-card__actions"><button class="cv-btn">${o.no || 'Deny'}</button>
+        <button class="cv-btn cv-btn--primary">${o.voice ? mark('listening') : ''}${o.yes || (o.voice ? 'Approve' : 'Click to approve')}</button></div>
+    </div>`
+  return `<div class="cv-card${o.open ? ' is-open' : ''}" tabindex="0">
+      <div class="cv-card__head"><h3 class="cv-title">${name}</h3>${st}<span class="cv-chev"></span></div>
+      <p class="cv-body cv-quiet">${line}</p>
+      ${o.open ? `<div class="cv-card__actions"><button class="cv-btn cv-btn--wide">Open in Claude</button><button class="cv-btn cv-btn--danger">${state === 'working' ? 'Stop' : 'Close'}</button></div>` : ''}
+    </div>`
+}
+
+// the call bar: [capsule word, mark state, slot label, slot is primary, capsule is red]
+const BAR = {
+  listening: ['Listening', 'listening', 'Mute'], speaking: ['Speaking', 'speaking', 'Mute'], thinking: ['Thinking', 'thinking', 'Mute'],
+  muted: ['Muted', 'muted', 'Unmute'], mic: ['Mic blocked', 'muted', 'Allow', 1, 1],
+  reconnecting: ['Reconnecting', 'waiting', 'Mute'], lost: ['Call lost', 'muted', 'Call again', 1, 1],
+}
+function bar(s = 'listening', narrow) {
+  const [word, m, slot, primary, red] = BAR[s]
+  return `<div class="cv-bar${narrow ? ' cv-bar--two' : ''}${s === 'muted' ? ' is-muted' : ''}">
+      <span class="cv-capsule${red ? ' is-wrong' : ''}">${mark(m)}<span class="cv-capsule__word">${word}</span></span>
+      <input class="cv-field" placeholder="Type instead">
+      <button class="cv-btn${primary ? ' cv-btn--primary' : ''}"${s === 'reconnecting' ? ' disabled' : ''}>${slot}</button>
+      <button class="cv-btn cv-btn--danger" title="End call" aria-label="End call">End</button></div>`
+}
+const pick = (v, more = '') => `<button class="cv-btn cv-btn--pick cv-btn--wide"${more}>${v}<span class="cv-arrows"></span></button>`
+
+const more = d => `<button class="cv-more cw-more${d.settings ? ' is-open' : ''}" title="Settings" aria-label="Settings"><i></i></button>`   // one press opens Settings itself; there is no menu in between
+const sheet = () => `<div class="cw-sheet cv" role="dialog" aria-label="Settings">
+    ${[['Project folder', 'shop'], ['Model', 'Opus'], ['Voice', 'Michael']].map(([k, v]) => `<div class="row"><span>${k}</span><button class="cv-btn cv-btn--pick">${v}<span class="cv-arrows"></span></button></div>`).join('')}</div>`
+function page(d, narrow) {
+  const cls = `cw-page cv${narrow ? ' n' : ''}`
+  if (d.idle) return `<div class="${cls}"><div class="cw-idle">${BRAND}<h3 class="cv-display">${d.idle}</h3>${d.idle.startsWith('Oh') ? '<p class="cv-body cv-quiet cw-sub">A voice call with Claude Code.</p>' : ''}
+      <div class="cw-stack">${pick('shop')}<button class="cv-btn cv-btn--primary cv-btn--wide">Start call</button></div></div>
+      ${more(d)}</div>`
+  const crew = d.workers ? `<div class="cw-crew">${d.workers.map(card).join('')}</div>` : ''
+  const talk = d.greeting ? `<div class="cw-hero"><p class="cv-greeting">${d.greeting}</p></div>` : chat(d.chat)
+  const note = d.note ? `<p class="cv-note">${d.note}</p>` : ''
+  return `<div class="${cls}"><div class="cw-talk${d.workers ? '' : ' alone'}">${talk}${note}${bar(d.bar, narrow)}</div>${crew}${more(d)}${d.settings ? sheet() : ''}</div>`
+}
+
+// ── the conversation, the same one the Mac app tells ─────────────────────
+const HI = 'Hi. What shall we do?'
+const A = [['you', 'Run the tests and tell me what fails.'], ['voice', 'On it. I’ve opened a worker in api.']]   // the greeting is the app's, never a bubble: it is gone once the talk begins
+const B = [
+  ...A,
+  ['you', 'Open web and docs too.', 'Shrink the bundle in web, then push.'],
+  ['voice', 'Opening web and docs.', 'api found three failing date tests. It’s fixing them.'],
+  ['you', 'Good. What’s docs doing?'],
+  ['voice', 'Rewriting the setup page. About halfway.'],
+  ['you', 'Tell me when it’s done.'],
+]
+const say = (...lines) => [...B, ['voice', ...lines]]
+const api  = ['api', 'working', 'Fixing three failing date tests']
+const web  = ['web', 'working', 'Shrinking the bundle']
+const docs = ['docs', 'working', 'Rewriting the setup page']
+const app  = ['app', 'working', 'Adding the sign-in screen']
+const data = ['data', 'working', 'Checking last night’s import']
+const webAsk = ['web', 'asking', 'Push your commits?', { ask: 1, voice: 1, cmd: 'git push origin main' }]
+
+// [id, caption, frame data, a loose bar shown under the frame]
+const FRAMES = [
+  ['before', 'Before a call', { idle: 'Oh Kevin' }],
+  ['start', 'The call starts: a line on the screen, not spoken, until the first words', { greeting: HI }],
+  ['one', 'One worker', { chat: A, workers: [['api', 'working', 'Running the tests']], bar: 'speaking' }],
+  ['three', 'Three workers. Press a card and it opens; nothing is replaced', { chat: say('I will.'), workers: [api, ['web', 'working', 'Shrinking the bundle', { open: 1 }], docs] }],
+  ['settings', 'Settings drops from the three dots. Click anywhere else and it closes', { chat: say('I will.'), workers: [api, web, docs], settings: 1 }],
+  ['five', 'Five workers', { chat: say('I will.'), workers: [api, web, docs, app, data] }],
+  ['ask1', 'One approval. The mark on the button: a spoken yes counts', { chat: say('web wants to push your commits. Shall it go ahead?'), workers: [api, webAsk, docs] }],
+  ['ask2', 'Two approvals. No mark: this one needs a click. The next one waits', { chat: say('data wants to delete the old build files. That one needs a click.', 'web has a question after that.'),
+    workers: [api, ['data', 'asking', 'Delete the old build files?', { ask: 1, cmd: 'rm -rf dist build' }], docs, ['web', 'waiting', 'Wants to push your commits']] }],
+  ['fiveask', 'Five workers, one asking, long words', { chat: say('data-pipeline wants to copy last night’s import. Shall it go ahead?'),
+    workers: [api, web, ['data-pipeline', 'asking', 'Copy last night’s import into the test database?', { ask: 1, voice: 1, cmd: 'pg_dump --data-only imports_2026_11_18 | psql test_db' }], docs, app] }],
+  ['voice', 'The voice: one word changes, nothing moves. Muted turns the whole bar over', null, ['listening', 'speaking', 'thinking', 'muted']],
+  ['done', 'A worker finished', { chat: say('docs is done. The setup page is rewritten.'), workers: [api, web, ['docs', 'done', 'Rewrote the setup page']], bar: 'speaking' }],
+  ['mic', 'Microphone blocked: the field stays, one button fixes it', { chat: A, workers: [['api', 'working', 'Running the tests']], bar: 'mic', note: 'Turn the microphone on in System Settings › Privacy & Security, then press Allow.' }],
+  ['lost', 'Call lost: it tries again by itself. If it can’t, one button', { chat: say('I will.'), workers: [api, web, docs], bar: 'reconnecting' }, ['lost']],
+  ['ended', 'Call ended: back where it began', { idle: 'Call ended.' }],
+]
+
+let n = 0
+const num = () => String(++n).padStart(2, '0')
+const fig = (id, cap, body) => `<figure id="${id}"><figcaption><b>${num()}</b><span class="cv-body">${cap}</span></figcaption>${body}</figure>`
+const draw = narrow => FRAMES.map(([id, cap, d, bars]) => fig(id + (narrow ? '-n' : ''), narrow ? cap.split(/[.:]/)[0] : cap,
+  (d ? `<div class="frame ${narrow ? 'n' : 'w'}">${page(d, narrow)}</div>` : '')
+  + (bars ? `<div class="cell cv ${narrow ? 'n' : 'w'}" ${d ? '' : 'style="margin-top:0"'}>${bars.map(s => bar(s, narrow)).join('')}</div>` : ''))).join('')
+$('wide').innerHTML = draw(false)
+$('narrow').innerHTML = draw(true)
+
+// ── fit, as the product would: full rail → sentences give, then it scrolls; full chat → newest at the bottom, top fades ──
+document.querySelectorAll('.cw-page').forEach(pg => {
+  const rail = pg.querySelector('.cw-crew'), over = () => rail.scrollHeight > rail.clientHeight + 1
+  if (rail && over()) {
+    rail.querySelectorAll('.cv-card:not(.cv-card--ask):not(.is-open)').forEach(c => c.classList.add('cv-card--line'))
+    if (over() && pg.classList.contains('n')) {   // narrow: the list ends on a whole card, no fade at the seam with the chat's own fade
+      const cs = [...rail.children], keep = c => c.classList.contains('cv-card--ask') || c.querySelector('.cv-state--waiting')
+      for (const c of cs) { if (!over()) break; if (!keep(c)) c.style.display = 'none' }
+    } else if (over()) rail.classList.add('cv-rail--full')
+  }
+  const c = pg.querySelector('.cv-chat')
+  if (c && c.scrollHeight > c.clientHeight + 1) {
+    c.classList.add('cv-chat--full')
+    // a turn that starts inside the top fade is drawn as scrolled away, not as a cut sliver (the page does the same)
+    const top = c.getBoundingClientRect().top
+    c.querySelectorAll('.cv-turn').forEach(t => { if (t.getBoundingClientRect().top < top + 32) t.style.visibility = 'hidden' })
+  }
+})
+
+// ── the idea ───────────────────────────────────────────
+const mini = bl => `<div class="mini">${bl.map(([x, y, w, h, c = '']) => `<i class="${c}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join('')}</div>`
+const rail = [[66, 8, 30, 16], [66, 28, 30, 16], [66, 48, 30, 16]]
+const talkBl = [[6, 8, 30, 12], [28, 26, 32, 12, 'k'], [6, 44, 36, 12], [24, 62, 36, 12, 'k'], [6, 84, 54, 10, 'r']]
+$('idea').innerHTML = [
+  ['The talk is the page', mini([...talkBl, ...rail])],
+  ['Workers wait at the side', mini([[6, 84, 54, 10, 'r'], ...rail.map(b => [...b, 'k'])])],
+  ['Marigold means your move', mini([[6, 84, 54, 10, 'r'], [66, 8, 30, 38, 'a'], [66, 50, 30, 16], [66, 70, 30, 16]])],
+].map(([t, m]) => `<div>${m}<p class="cv-title">${t}</p></div>`).join('')
+
+
+// ── the launcher (its own scope) ─────────────────────────────────────────
+{
+if (q.has('still')) document.documentElement.classList.add('is-still')
+
+const mark = (c = '') => `<span class="cv-mark ${c}"><b></b><i></i><i></i><i></i></span>`
+const ICON = {
+  mic: '<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>',
+  off: '<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3M4 3.500l16 17"/></svg>',
+  end: '<svg viewBox="0 0 24 24"><path transform="translate(0 -2)" d="M2.6 14.2c5.2-5 13.6-5 18.8 0 .5.5.5 1.2 0 1.7l-1.5 1.5c-.4.4-1 .5-1.5.2l-2.6-1.4c-.4-.2-.7-.7-.7-1.100v-1.500a9.500 9.500 0 0 0-6.200 0v1.500c0 .5-.3.9-.7 1.100l-2.600 1.400c-.5.300-1.100.200-1.500-.200l-1.500-1.500c-.500-.500-.500-1.200 0-1.700z"/></svg>',
+}
+
+// naming rules: no name can break a row, and a cut never lands inside a word
+const SEP = /(?<=[-_./ ])/
+const whole = (parts, room) => { let out = ''; for (const p of parts) { if ((out + p).length > room) break; out += p } return out.replace(/[-_./ ]$/, '') }
+const end = (s, n = 15) => s.length <= n ? s : (whole(s.split(SEP), n) || s.slice(0, n - 1)) + '…'                    // worker: keep the start
+const mid = (s, n = 16) => { if (s.length <= n) return s                                                               // project: keep both ends
+  const parts = s.split(SEP), tail = parts.at(-1)
+  if (parts.length < 2 || tail.length > n - 4) return s.slice(0, n - 6) + '…' + s.slice(-5)
+  return (whole(parts.slice(0, -1), n - tail.length - 1) || s.slice(0, n - tail.length - 1)) + '…' + tail }
+const asking = a => 'We need <em>you</em>'   // a signal only: no names, no counts; the call window has the rest
+
+// the wave's shapes, in px. Panel: 3 wide on a 5 pitch, as many as fit. Menu bar: 2 wide on a 4 pitch, six (three beside a count).
+const WAVE = {
+  'is-listening': [6, 10, 14, 20, 24, 20, 14, 10, 8, 6, 4, 4, 4, 4, 4, 4],       // a low swell: it hears you
+  'is-speaking':  [12, 24, 16, 34, 20, 36, 14, 28, 18, 32, 10, 22, 8, 14, 6, 10], // tall and uneven: the voice
+  'is-thinking':  [3, 3, 3, 10, 18, 10, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],            // dots, and a bump that walks
+  dots:           Array(18).fill(3),
+}
+const SMALL = { 'is-listening': [4, 6, 8, 8, 6, 4], 'is-speaking': [6, 12, 8, 12, 5, 10], 'is-thinking': [2, 2, 10, 2, 2, 2], dots: Array(6).fill(2) }
+const SMALL3 = { 'is-listening': [5, 8, 5], 'is-speaking': [8, 12, 6], 'is-thinking': [2, 10, 2], dots: [2, 2, 2] }
+const wave = (mk, hs) => `<span class="cv-wave ${mk}"><b></b>${(hs[mk] || hs.dots).map((h, i) => `<i style="--h:${h};--i:${i}"></i>`).join('')}</span>`
+
+// l1, l2 = the head · word = the voice's word, in the pill · live / muted / flat = the pill · door, p (your move)
+const call = { call: 1, l1: 'On a call', l2: '12:04', /* how long the call has lasted, minutes:seconds, counting up */ door: 'Show the call' }   // the head is about the call itself, as a phone: no folders, no workers
+const N = {
+  idle:      { cap: 'Idle', mk: 'is-resting', l1: 'Oh Kevin', ours: 1, l2: 'A voice call with Claude Code.', door: 'Start call', p: 1 },
+  first:     { cap: 'First run: no project', mk: 'is-resting', setup: 1, l1: '3 steps to go', l2: 'Then: sign in to Claude.', none: 1, door: 'Choose project', p: 1 },
+  setup2:    { cap: 'Setup, two steps left', mk: 'is-resting', setup: 1, l1: '2 steps to go', l2: 'Then: allow the microphone.', door: 'Sign in to Claude', p: 1 },
+  setup1:    { cap: 'Setup, one step left', mk: 'is-resting', setup: 1, l1: '1 step to go', l2: 'Then you can call.', door: 'Allow microphone', p: 1 },
+  listening: { cap: 'Call: listening', mk: 'is-listening', word: 'Listening', ...call },
+  speaking:  { cap: 'Call: speaking', mk: 'is-speaking', word: 'Speaking', ...call },
+  thinking:  { cap: 'Call: thinking', mk: 'is-thinking', word: 'Thinking', ...call },
+  muted:     { cap: 'Muted', mk: 'is-muted', word: 'Muted', muted: 1, ...call },
+  ask1:      { cap: 'Something needs you', mk: 'is-listening', word: 'Listening', ...call, ask: ['api'] },
+  mutedask:  { cap: 'Muted, and something needs you', mk: 'is-muted', word: 'Muted', muted: 1, ...call, ask: ['api'] },
+  mic:       { cap: 'Mic blocked', mk: 'is-blocked', bare: 'is-lost', word: 'Mic blocked', wrong: 1, flat: 1, ...call, l2: 'Claude Code can’t hear you.', door: 'Allow microphone', p: 1 },
+  recon:     { cap: 'Reconnecting', mk: 'is-waiting', bare: 'is-waiting', word: 'Reconnecting', flat: 1, ...call, l2: 'The call dropped. Trying again.' },
+  lost:      { cap: 'Call lost', mk: 'is-lost', l1: 'Call lost', wrong: 1, l2: 'The connection dropped.', door: 'Call again', p: 1 },
+  ended:     { cap: 'Call ended', mk: 'is-resting', l1: 'Call ended.', ours: 1, l2: 'The call window has closed.', door: 'Start call', p: 1 },
+}
+
+// the menu-bar item: one fixed box. A pill only while the call is really on.
+const menu = (s, open = 1) => { const n = s.ask && s.ask.length, on = s.call && !s.flat
+  return `<span class="cv-menu${open ? ' is-open' : ''}${s.setup ? ' is-setup' : ''}">${
+    on ? `<span class="cv-menu__pill${s.muted ? ' is-muted' : ''}">${wave(s.mk, n ? { [s.mk]: (SMALL3[s.mk] || SMALL3.dots) } : SMALL)}${n ? `<b class="cv-menu__n"></b>` : ''}</span>`
+       : s.bare === 'is-waiting' ? wave('is-waiting', { dots: [2, 2, 2] }) : mark(s.bare || s.mk)}</span>` }
+const bar = item => `<div class="menubar"><u></u><u></u>${item}<u></u><u class="clock"></u></div>`
+const round = (kind, label, c, dis = '') => `<button class="cv-round cv-round--${c}" title="${label}" aria-label="${label}" ${dis}>${ICON[kind]}</button>`
+const pillClass = s => `cv-pill${s.muted ? ' is-muted' : ''}${s.flat ? ' is-flat' : ''}${s.wrong ? ' is-wrong' : ''}`
+const pill = s => `<div class="${pillClass(s)}">${
+  s.muted ? round('off', 'Unmute', 'mute') : round('mic', s.flat ? 'Mute (not available)' : 'Mute', 'mute', s.flat ? 'disabled' : '')}${
+  wave(s.mk, WAVE)}<span class="cv-pill__word">${s.word}</span>${round('end', 'End call', 'end')}</div>`
+const picker = (project, none) => `<button class="cv-pill cv-pill--pick" title="Choose the project folder"><span class="cv-pill__glyph"><i class="cv-folder"></i></span>
+  <span class="cv-pill__name${none ? ' is-none' : ''}">${none ? 'No project yet' : mid(project)}</span><span class="cv-pill__glyph"><span class="cv-arrows"></span></span></button>`
+
+const P = (s, project = 'shop', extra = '') => {
+  const ask = s.ask && asking(s.ask)
+  const l1 = ask || s.l1 || mid(project, 20), l2 = s.l2
+  return `<div class="desk">${bar(menu(s))}<div class="cv-panel cv-panel--mix cv">
+  <div class="cv-head"><p class="cv-head__1${s.ours ? ' is-ours' : ''}${s.wrong && !s.call ? ' is-wrong' : ''}${ask ? ' is-ask' : ''}">${l1}</p><p class="cv-head__2">${l2}</p></div>
+  <button class="cv-more${extra ? ' is-open' : ''}" title="Settings and Quit" aria-label="Settings and Quit"><i></i></button>${extra}
+  ${s.call ? pill(s) : picker(project, s.none)}
+  <button class="cv-btn cv-btn--wide ${s.call ? 'cv-btn--door' + (s.p || ask ? ' is-move' : '') : 'cv-btn--primary'}">${ask ? 'Answer in the call' : s.door}</button></div></div>`
+}
+const fig = (cap, body) => `<figure><figcaption class="cv-small">${cap}</figcaption>${body}</figure>`
+const DROP = `<div class="drop cv-body"><div>Settings…</div><hr><div>Quit claude-voice</div></div>`
+
+// 2 · every state
+const all = Object.values(N), sl = (q.get('slice') || '').split('-').map(Number)
+$('all').innerHTML = (q.get('slice') ? all.slice(sl[0], sl[1]) : all).map(s => fig(s.cap, P(s))).join('')
+
+// 3 · the menu-bar item alone, then the small buttons with their names, and the corner menu open in place
+$('iconrow').innerHTML = [['No call', N.idle], ['Setup', N.setup1], ['Listening', N.listening], ['Speaking', N.speaking], ['Thinking', N.thinking], ['Muted', N.muted], ['Asking', N.ask1], ['Muted, asking', N.mutedask], ['Mic blocked', N.mic], ['Reconnecting', N.recon], ['Call lost', N.lost]]
+  .map(([cap, s]) => fig(cap, `<div class="menubar">${menu(s, 0)}</div>`)).join('')
+const named = (b, name) => `<figure>${b}<span class="tip">${name}</span></figure>`
+$('named').innerHTML = named(`<div class="cv-pill">${round('mic', 'Mute', 'mute')}</div>`, 'Mute') + named(`<div class="cv-pill is-muted">${round('off', 'Unmute', 'mute')}</div>`, 'Unmute')
+  + named(`<div class="cv-pill">${round('end', 'End call', 'end')}</div>`, 'End call')
+  + `<figure style="margin-left:24px">${P(N.listening, 'shop', DROP)}</figure>`
+
+// 4 · stress
+const LONG = 'storefront-checkout-redesign-2026'
+$('hard').innerHTML = [
+  ['Long project, idle', P(N.idle, LONG)],
+  ['A name with no breaks', P(N.idle, 'supercalifragilisticexpialidocious')],
+].map(([c, b]) => fig(c, b)).join('')
+
+// for screenshots: ?only=mix|states|icons|stress|choices  (&slice=0-8 for the states, &still to freeze the wave)
+if (q.get('only')) { document.querySelectorAll('#launcher section').forEach(s => { if (s.id !== q.get('only')) s.remove() }); document.querySelectorAll('#rp > :not(#launcher)').forEach(e => e.remove()); document.querySelectorAll('#launcher > h2, #launcher > p').forEach(e => e.remove()) }
+
+// the wave shows as many bars as fit before the word. shortcut: trimmed in the DOM here; the app computes the count from the word's width.
+document.querySelectorAll('.cv-pill .cv-wave').forEach(w => { while (w.scrollWidth > w.clientWidth && w.children.length > 2) w.lastElementChild.remove() })
+
+// self-check (?check): one panel size; head, pill and door in identical boxes in every panel (the pill's own box, not a slot);
+// the discs in identical places; one menu-bar item width; nothing clipped; nothing outside the 16 inset.
+if (q.has('check')) {
+  const out = [], seen = {}, same = (k, v, cap) => { if ((seen[k] ??= v) !== v) out.push(`MOVED ${k} ${v} (was ${seen[k]}) ${cap}`) }
+  const panels = document.querySelectorAll('.cv-panel--mix')
+  panels.forEach(p => {
+    const r = p.getBoundingClientRect(), cap = (p.closest('figure')?.querySelector('figcaption')?.textContent || 'unnamed').slice(0, 30)
+    const box = e => { const b = e.getBoundingClientRect(); return [b.left - r.left, b.top - r.top, b.width, b.height].map(Math.round).join(' ') }
+    if (Math.round(r.width) !== 320 || Math.round(r.height) !== 228) out.push(`SIZE ${r.width}x${r.height} ${cap}`)
+    for (const k of ['.cv-head', '.cv-head__1', '.cv-head__2', '.cv-pill', '.cv-panel--mix > .cv-btn', '.cv-more']) same(k, box(p.querySelector(k)), cap)
+    p.querySelectorAll('.cv-round, .cv-pill__glyph').forEach((e, i) => same('end ' + i, box(e), cap))
+    p.querySelectorAll('.cv-head p, .cv-pill__name').forEach(e => { if (e.scrollWidth > e.clientWidth + 1) out.push(`CLIPPED ${e.className}: ${e.textContent} · ${cap}`) })
+    const w = p.querySelector('.cv-pill__word'); if (w && w.getBoundingClientRect().left < p.querySelector('.cv-wave').lastElementChild.getBoundingClientRect().right + 4) out.push(`WORD meets wave ${cap}`)
+    p.querySelectorAll('.cv-head, .cv-head p, .cv-pill, .cv-pill *, .cv-panel--mix > .cv-btn, .cv-more i').forEach(e => { const b = e.getBoundingClientRect()
+      if (b.width && (b.right > r.right - 15.5 || b.left < r.left + 15.5 || b.top < r.top + 15.5 || b.bottom > r.bottom - 15.5)) out.push(`INSET ${e.className} ${cap}`) })
+  })
+  document.querySelectorAll('.cv-menu').forEach(m => { const b = m.getBoundingClientRect(); same('menu item', b.width + ' x ' + b.height, 'menu bar')
+    const pl = m.querySelector('.cv-menu__pill'); if (pl && pl.scrollWidth > pl.clientWidth) out.push(`MENU PILL overflows: ${pl.textContent}`) })
+  $('check').hidden = false
+  $('check').textContent = (out.length ? [...new Set(out)].join('\n') : 'ok') + `\n${panels.length} panels, ${document.querySelectorAll('.cv-menu').length} menu-bar items (${seen['menu item']})\npill ${seen['.cv-pill']} · door ${seen['.cv-panel--mix > .cv-btn']}`
+}
+}
+
+// ?f=id,id shows only those figures (or sections), side by side, for checking renders
+if (q.get('f')) {
+  const keep = q.get('f').split(',').map($)
+  const rp = $('rp'); rp.innerHTML = ''; rp.style.cssText = 'padding:24px;max-width:none;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start'
+  keep.forEach(k => { k.style.margin = 0; rp.appendChild(k) })
+}
+</script>
+</body>
+</html>

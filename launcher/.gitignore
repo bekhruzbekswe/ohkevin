@@ -1,0 +1,7 @@
+.build/
+build/
+.sparkle/
+releases/
+releases-rehearsal/
+rehearsal-install/
+.dmg-venv/

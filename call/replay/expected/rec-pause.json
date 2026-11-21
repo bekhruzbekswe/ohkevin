@@ -1,0 +1,407 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2634.2,
+  "k": "audio"
+ },
+ {
+  "t": 2634.2,
+  "k": "mic"
+ },
+ {
+  "t": 2634.2,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2634.2,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2634.2,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4113.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4113.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me"
+   ]
+  ]
+ },
+ {
+  "t": 4290.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 4693.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "about"
+   ]
+  ]
+ },
+ {
+  "t": 4926.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 4945,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "Clos"
+   ]
+  ]
+ },
+ {
+  "t": 5080.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "closures"
+   ]
+  ]
+ },
+ {
+  "t": 5592.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "closures and"
+   ]
+  ]
+ },
+ {
+  "t": 5666,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and"
+   ]
+  ]
+ },
+ {
+  "t": 6171.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 6171.3,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 6171.3,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 6171.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ]
+  ]
+ },
+ {
+  "t": 6171.3,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 6171.3,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me about closures and"
+  }
+ },
+ {
+  "t": 8602.1,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 8602.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "how"
+   ]
+  ]
+ },
+ {
+  "t": 8801.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "how they"
+   ]
+  ]
+ },
+ {
+  "t": 9048.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "they use"
+   ]
+  ]
+ },
+ {
+  "t": 9399.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "use"
+   ]
+  ]
+ },
+ {
+  "t": 9453.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "use mem"
+   ]
+  ]
+ },
+ {
+  "t": 9518.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "use memory"
+   ]
+  ]
+ },
+ {
+  "t": 9643.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and"
+   ],
+   [
+    "ghost",
+    "memory"
+   ]
+  ]
+ },
+ {
+  "t": 10159.7,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 10159.7,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": ""
+  }
+ },
+ {
+  "t": 10159.7,
+  "k": "log",
+  "text": "[turn] joined before its answer started"
+ },
+ {
+  "t": 10159.7,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 10159.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and how they use memory"
+   ]
+  ]
+ },
+ {
+  "t": 10159.7,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me about closures and how they use memory"
+  }
+ },
+ {
+  "t": 11764.6,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 13418.3,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "A closure is a function that keeps references to variables from the scope it was created in, so those variables stay alive as long as the function does."
+ },
+ {
+  "t": 13418.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and how they use memory"
+   ],
+   [
+    "voice",
+    "A closure is a function that keeps references to variables from the scope it was created in, so those variables stay alive as long as the function does."
+   ]
+  ]
+ },
+ {
+  "t": 15409.6,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 15409.6,
+  "k": "log",
+  "text": "[stats] 1 reply, median 5.2 s, slowest 5.2 s, joined 1, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 15409.6,
+  "k": "play",
+  "text": "A closure is a function that keeps references to variables from the scope it was created in, so those variables stay alive as long as the function does.",
+  "dur": 8.981333333333334
+ },
+ {
+  "t": 15409.6,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 15806.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "That's why closures hold memory: the captured variables aren't freed when the outer function returns, so if you keep a closure around, you keep its captured data around too."
+ },
+ {
+  "t": 15806.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures and how they use memory"
+   ],
+   [
+    "voice",
+    "A closure is a function that keeps references to variables from the scope it was created in, so those variables stay alive as long as the function does. That's why closures hold memory: the captured variables aren't freed when the outer function returns, so if you keep a closure around, you keep its captured data around too."
+   ]
+  ]
+ },
+ {
+  "t": 24390.933,
+  "k": "ended"
+ },
+ {
+  "t": 24390.933,
+  "k": "play",
+  "text": "That's why closures hold memory: the captured variables aren't freed when the outer function returns, so if you keep a closure around, you keep its captured data around too.",
+  "dur": 10.112
+ }
+]

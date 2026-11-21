@@ -1,0 +1,319 @@
+<!doctype html>
+<!-- Status: living. The approved update line, built in both apps. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin · updates</title>
+<link rel="stylesheet" href="system.css">
+<style>
+/* ── NEW, and all of it: the line. It lives inside the card, under the last button. ─────────────────────────────────
+   .cv-line        a 1 px hairline with 16 above it and 12 below, then one row at body size. The card grows by this row only
+                   when there is something to say (228 → 281), and goes back when there is not.
+                   The sentence left, in ink-2; at most one word right, on the card's content edge.
+   .cv-line--ask   a question with two answers that does not fit one row: the sentence, then the two words right-aligned below.
+   .up-word        a word you can press: text only, no outline, no fill. Ink when it is an offer (What's new, Not now);
+                   marigold when it is your move (Update, Try again, Move). A light wash of its own colour on hover only.
+   .up-line        the thin progress line in that row: 2 high, ink-2 on the hairline. Never marigold: it asks nothing. */
+.cv-panel--mix.has-line { height: auto; }
+.cv-line { margin-top: var(--cv-s-2); padding-top: var(--cv-s-h); border-top: 1px solid var(--cv-hair); flex: none;
+           display: flex; align-items: center; color: var(--cv-ink-2); font: 400 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; white-space: nowrap; text-align: left; }
+.cv-line--ask { flex-direction: column; align-items: stretch; gap: var(--cv-s-0); }
+.cv-line--ask > div { display: flex; justify-content: flex-end; gap: var(--cv-s-1); }
+.cv-line--ask .up-word { margin-left: 0; }
+.up-word { margin: 0 calc(-1 * var(--cv-s-1)) 0 auto; flex: none; height: 24px; padding: 0 var(--cv-s-1); border: 0; border-radius: var(--cv-r-pill); background: none; cursor: pointer;
+           font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; color: var(--cv-ink); }
+.up-word.is-move { color: var(--cv-accent-word); }
+.up-word:hover { background: color-mix(in srgb, currentColor 10%, transparent); }
+.up-word:focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+.up-line { flex: 1; height: 2px; margin-left: var(--cv-s-2); border-radius: 1px; background: var(--cv-hair); overflow: hidden; }
+.up-line b { display: block; height: 100%; border-radius: 1px; background: var(--cv-ink-2); }
+.drop .is-off { color: color-mix(in srgb, var(--cv-ink) 35%, transparent); }
+/* the Mac window: the same line under Start call, in the start stack's own 320 column */
+.cw-stack .cv-line { margin-top: var(--cv-s-1); padding-left: var(--cv-s-3); justify-content: flex-start; }   /* the stack's gap is 8: 16 in all. In the window the words start where the buttons' own labels start (24) and sit together on the left */
+.cw-stack .cv-line .up-word { margin: 0 0 0 var(--cv-s-0); }   /* 4 + the word's own 8 = one word-space of 12 */
+
+/* Settings, "This Mac": the app's own rows and its ink switch (48 × 28, knob 20). One new row, nothing else. */
+.set { width: 320px; padding: var(--cv-s-1) var(--cv-s-3); border-radius: var(--cv-r-surface); background: var(--cv-ground); box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); text-align: left; }
+.set p { margin: 0; height: 48px; display: flex; align-items: center; font: 600 var(--cv-t-body)/24px var(--cv-font-text); }
+.set div { height: 56px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--cv-hair); white-space: nowrap; }
+.set p + div { border-top: 0; }
+.sw { width: 48px; height: 28px; border-radius: 14px; background: var(--cv-ink); position: relative; flex: none; }
+.sw::after { content: ""; position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: var(--cv-on-ink); }
+.sw.is-off { background: none; box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); }
+.sw.is-off::after { right: auto; left: 4px; background: var(--cv-ink-3); }
+/* ── carried over from final.html, unchanged: the Mac window's idle layout and the launcher's desk ── */
+.cw-page { position: relative; display: flex; gap: var(--cv-s-4); padding: var(--cv-s-4); width: 100%; height: 100%; }
+.cw-idle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.cv-brand { height: 100px; width: auto; aspect-ratio: 90 / 68; margin-bottom: 56px; fill: currentColor; flex: none; }
+.cv-brand circle { fill: var(--cv-accent); }
+.cw-idle .cv-display { margin-bottom: var(--cv-s-1); }
+.cw-sub { margin-bottom: var(--cv-s-4); }
+.cw-stack { width: 320px; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+.cw-more { top: 6px; right: 34px; }
+.desk { display: flex; flex-direction: column; gap: 6px; width: 320px; }
+.menubar { height: 24px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 0 10px; border-radius: 6px; background: color-mix(in srgb, var(--cv-ink) 7%, transparent); }
+.menubar u { width: 14px; height: 14px; border-radius: 50%; background: color-mix(in srgb, var(--cv-ink) 22%, transparent); }
+.menubar u.clock { width: 56px; height: 8px; border-radius: 4px; }
+.menubar .gap { width: 52px; height: 22px; flex: none; }
+.drop { width: 200px; padding: 6px; border-radius: 12px; background: var(--cv-ground); box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); text-align: left; }
+.drop div { height: 32px; display: flex; align-items: center; padding: 0 12px; border-radius: 7px; white-space: nowrap; }
+.drop div.is-on { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); }
+.drop hr { border: 0; border-top: 1px solid var(--cv-hair); margin: 5px 12px; }
+.cv-panel--mix .drop { position: absolute; top: 48px; right: 10px; z-index: 1; }
+
+/* ── the report page ─────────────────────────────────────────────────────── */
+html, body { margin: 0; background: var(--cv-sunk); }
+.rp { max-width: 1568px; margin: 0 auto; padding: var(--cv-s-5) var(--cv-s-3) 120px; background: transparent; }
+.rp h2.cv-display { margin: 96px 0 var(--cv-s-4); }
+.rp h1 + p { margin-top: var(--cv-s-2); }
+.grid { display: flex; flex-wrap: wrap; gap: var(--cv-s-5) var(--cv-s-4); align-items: flex-start; }
+figure { margin: 0; display: flex; flex-direction: column; gap: var(--cv-s-2); }
+figcaption { display: flex; align-items: baseline; gap: var(--cv-s-2); }
+figcaption b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; }
+.pair { display: flex; gap: var(--cv-s-1); align-items: stretch; }
+.side { padding: var(--cv-s-3); border-radius: var(--cv-r-surface); background: #DDD8CD; box-shadow: inset 0 0 0 1px var(--cv-hair); color: var(--cv-ink); }
+.side[data-theme="dark"] { background: #0E0D0C; }
+.closed { height: 228px; border-radius: var(--cv-r-surface); border: 1px dashed var(--cv-hair); }
+.win { width: 736px; height: 528px; border-radius: 12px; overflow: hidden; box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); }
+.win > div { width: 920px; height: 660px; zoom: .8; }
+
+/* the flow, small */
+.flow { display: flex; flex-direction: column; gap: var(--cv-s-3); margin-top: var(--cv-s-4); }
+.flow .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--cv-s-2); }
+.flow .step { display: flex; flex-direction: column; gap: var(--cv-s-1); }
+.flow .step > .desk { zoom: .5; pointer-events: none; }
+.flow .lab { display: flex; gap: var(--cv-s-1); align-items: baseline; }
+.flow .lab b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; }
+.flow .to { color: var(--cv-ink-3); padding-top: 88px; }
+
+/* the choices: three small pictures */
+.idea { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--cv-s-3); }
+.idea > div { background: var(--cv-ground); border-radius: var(--cv-r-surface); padding: var(--cv-s-3); display: flex; flex-direction: column; gap: var(--cv-s-2); }
+.idea p { margin: 0; }
+.mini { position: relative; aspect-ratio: 16 / 9; background: var(--cv-sunk); border-radius: 6px; overflow: hidden; }
+.mini i { position: absolute; border-radius: 3px; background: color-mix(in srgb, var(--cv-ink) 16%, transparent); }
+.mini i.t { border-radius: 8px; background: var(--cv-sunk); box-shadow: 0 0 0 1px var(--cv-hair); }
+.mini i.k { background: var(--cv-ink); } .mini i.a { background: var(--cv-accent); } .mini i.r { border-radius: 99px; }
+.mini i.o { background: none; box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); }
+.mini i.e { background: none; box-shadow: inset 0 0 0 2px var(--cv-accent); }
+.mini i.g { background: var(--cv-ground); box-shadow: 0 0 0 1px var(--cv-hair); border-radius: 8px; }
+.mini { background: color-mix(in srgb, var(--cv-sunk) 90%, var(--cv-ink)); }
+.fixed { max-width: 720px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+.fixed li { display: flex; gap: var(--cv-s-2); }
+.fixed li b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; flex: none; }
+
+/* BEFORE: Sparkle's stock window. Deliberately not ours: system grey, system blue, 13 px. */
+.spk { width: 480px; padding: 20px; border-radius: 10px; background: #ECECEC; color: #262626; font: 400 13px/16px -apple-system, system-ui, sans-serif; letter-spacing: 0;
+       box-shadow: 0 0 0 1px rgba(0,0,0,.2), 0 18px 40px rgba(0,0,0,.28); display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 0 16px; text-align: left; }
+.spk .ico { width: 64px; height: 64px; border-radius: 14px; background: #1B1A17; display: grid; place-items: center; }
+.spk .ico svg { width: 40px; fill: #F6F3EC; } .spk .ico circle { fill: #F4A62A; }
+.spk b { display: block; font-weight: 700; margin-bottom: 6px; }
+.spk .notes { margin: 10px 0; height: 88px; padding: 8px; background: #fff; border: 1px solid #C8C8C8; font-size: 11px; line-height: 15px; color: #444; overflow: hidden; }
+.spk label { display: flex; gap: 6px; align-items: center; font-size: 12px; }
+.spk label i { width: 14px; height: 14px; border-radius: 3px; background: #fff; border: 1px solid #B0B0B0; flex: none; }
+.spk .btns { display: flex; gap: 8px; margin-top: 14px; }
+.spk .btns span { height: 22px; padding: 0 8px; border-radius: 6px; background: #fff; box-shadow: 0 0 0 .5px rgba(0,0,0,.25), 0 1px 1px rgba(0,0,0,.12); display: grid; place-items: center; white-space: nowrap; }
+.spk .btns span:nth-child(2) { margin-left: auto; }
+.spk .btns span:last-child { background: #0A7AFF; color: #fff; }
+</style>
+</head>
+<body>
+<div class="cv rp" id="rp">
+  <h1 class="cv-display">Updates, in one line under Start call.</h1>
+  <p class="cv-body cv-quiet">It updates by itself. The line is there only when there is something to say. Never during a call.</p>
+
+  <div class="flow" id="flow"></div>
+
+  <h2 class="cv-display">First run, outside Applications</h2>
+  <div class="grid" id="move"></div>
+
+  <h2 class="cv-display">By itself, by default</h2>
+  <div class="grid" id="auto"></div>
+
+  <h2 class="cv-display">You ask</h2>
+  <div class="grid" id="ask"></div>
+
+  <h2 class="cv-display">With the switch off</h2>
+  <div class="grid" id="off"></div>
+
+  <h2 class="cv-display">The Mac app</h2>
+  <div class="grid" id="mac"></div>
+
+  <h2 class="cv-display">Four choices</h2>
+  <div class="idea" id="idea"></div>
+
+  <h2 class="cv-display">Changed after critique</h2>
+  <ol class="fixed cv-body" id="fixed"></ol>
+</div>
+
+<script>
+const $ = id => document.getElementById(id)
+const q = new URLSearchParams(location.search)
+if (q.get('theme')) document.documentElement.dataset.theme = q.get('theme')
+if (q.has('still')) document.documentElement.classList.add('is-still')
+if (q.get('top')) document.body.style.marginTop = -q.get('top') + 'px'   // for screenshots: start the page N px down
+
+// ── parts, as in final.html ────────────────────────────────────────────────
+const BRAND = '<svg class="cv-brand" viewBox="4 18 90 68" aria-hidden="true"><rect x="6" y="77" width="4" height="6" rx="2"/><rect x="13.6" y="59.6" width="4" height="10" rx="2"/><rect x="21" y="44.9" width="4" height="14" rx="2"/><rect x="28.4" y="33" width="4" height="18" rx="2"/><rect x="35.8" y="24.9" width="4" height="20" rx="2"/><rect x="43" y="21.5" width="4" height="18" rx="2"/><rect x="50.2" y="21.9" width="4" height="14" rx="2"/><rect x="57.2" y="25" width="4" height="10" rx="2"/><rect x="64.2" y="29.9" width="4" height="8" rx="2"/><rect x="71.2" y="37.6" width="4" height="6" rx="2"/><circle cx="82.2" cy="54.8" r="10"/></svg>'
+const mark = (c = '') => `<span class="cv-mark ${c}"><b></b><i></i><i></i><i></i></span>`
+const ICON = {
+  mic: '<svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3"/></svg>',
+  end: '<svg viewBox="0 0 24 24"><path transform="translate(0 -2)" d="M2.6 14.2c5.2-5 13.6-5 18.8 0 .5.5.5 1.2 0 1.7l-1.5 1.5c-.4.4-1 .5-1.5.2l-2.6-1.4c-.4-.2-.7-.7-.7-1.100v-1.500a9.500 9.500 0 0 0-6.200 0v1.500c0 .5-.3.9-.7 1.100l-2.600 1.400c-.5.300-1.100.200-1.500-.200l-1.500-1.500c-.500-.500-.500-1.200 0-1.700z"/></svg>',
+}
+const WAVE = [6, 10, 14, 20, 24, 20, 14, 10, 8, 6, 4, 4, 4, 4, 4, 4], SMALL = [4, 6, 8, 8, 6, 4]
+const wave = hs => `<span class="cv-wave is-listening"><b></b>${hs.map((h, i) => `<i style="--h:${h};--i:${i}"></i>`).join('')}</span>`
+const round = (kind, label, c) => `<button class="cv-round cv-round--${c}" title="${label}" aria-label="${label}">${ICON[kind]}</button>`
+
+// ── the line: a sentence, and at most one word. ask = a question with two answers ───
+const word = (t, move) => `<button class="up-word${move ? ' is-move' : ''}">${t}</button>`
+const VER = '0.2'
+const TAG = 'A voice call with Claude Code.'
+const T = {
+  move:     ['Move to Applications?', word('Move', 1)],   // one line: no Not now; ignoring it is not now, and it asks again next start
+  moving:   ['Moving', '<i class="up-line"><b style="width:62%"></b></i>'],
+  moved:    ['Now in Applications.'],
+  ready:    [`Oh Kevin ${VER} is out.`, word('Update', 1)],
+  updating: ['Updating', '<i class="up-line"><b style="width:62%"></b></i>'],
+  updated:  [`Updated to ${VER}.`, word('What’s new')],
+  failed:   ['Couldn’t update.', word('Try again', 1)],
+  checking: ['Checking…'],
+  current:  ['You’re up to date.'],
+  nocheck:  ['Couldn’t check. Try again later.'],
+}
+const line = k => { const t = T[k]; if (!t) return ''
+  return t.ask ? `<div class="cv-line cv-line--ask"><span>${t.ask}</span><div>${word(t.no)}${word(t.yes, 1)}</div></div>`
+               : `<div class="cv-line"><span>${t[0]}</span>${t[1] || ''}</div>` }
+
+const DROP = (on, off) => `<div class="drop cv-body"><div>Settings…</div><div class="${on ? 'is-on' : ''}${off ? 'is-off' : ''}">Check for Updates…</div><hr><div>Quit Oh Kevin</div></div>`
+const FIRST = { setup: 1, l1: '3 steps to go', l2: 'Then: sign in to Claude.', none: 1, door: 'Choose project' }
+// a panel: { l1, l2, call, setup, none, door, drop, line (a key of T), gone (the app is restarting) }
+function P(s) {
+  const item = s.gone ? '<span class="gap"></span>' : `<span class="cv-menu is-open${s.setup ? ' is-setup' : ''}">${s.call ? `<span class="cv-menu__pill">${wave(SMALL)}</span>` : mark('is-resting')}</span>`
+  const bar = `<div class="menubar"><u></u><u></u>${item}<u></u><u class="clock"></u></div>`
+  if (s.gone) return `<div class="desk">${bar}<div class="closed"></div></div>`
+  return `<div class="desk">${bar}<div class="cv-panel cv-panel--mix cv${s.line ? ' has-line' : ''}">
+  <div class="cv-head"><p class="cv-head__1${s.call || s.setup ? '' : ' is-ours'}">${s.l1 || 'Oh Kevin'}</p><p class="cv-head__2">${s.l2 || TAG}</p></div>
+  <button class="cv-more${s.drop ? ' is-open' : ''}" title="Settings and Quit" aria-label="Settings and Quit"><i></i></button>${s.drop || ''}
+  ${s.call ? `<div class="cv-pill">${round('mic', 'Mute', 'mute')}${wave(WAVE)}<span class="cv-pill__word">Listening</span>${round('end', 'End call', 'end')}</div>`
+           : `<button class="cv-pill cv-pill--pick"><span class="cv-pill__glyph"><i class="cv-folder"></i></span><span class="cv-pill__name${s.none ? ' is-none' : ''}">${s.none ? 'No project yet' : 'shop'}</span><span class="cv-pill__glyph"><span class="cv-arrows"></span></span></button>`}
+  <button class="cv-btn cv-btn--wide ${s.call ? 'cv-btn--door' : 'cv-btn--primary'}">${s.call ? 'Show the call' : s.door || 'Start call'}</button>${line(s.line)}</div></div>`
+}
+
+// the states, in the order a person meets them: [caption, panel, short name for the strip]
+const sw = on => `<span class="sw${on ? '' : ' is-off'}" role="switch" aria-checked="${!!on}"></span>`
+const SET = on => ({ html: `<div class="desk"><div class="set cv cv-body"><p>This Mac</p><div><span>Speaks with</span><span class="cv-quiet">A voice on this Mac</span></div><div><span>Open at login</span>${sw(1)}</div><div><span>Update automatically</span>${sw(on)}</div></div></div>` })
+const S = [
+  ['Opened from Downloads: one line, one word. Ignore it and it asks again at the next start', { ...FIRST, line: 'move' }, 'Outside Applications'],
+  ['Move pressed: it moves, then restarts from Applications', { ...FIRST, line: 'moving' }, 'Moving'],
+  ['Back, open, in Applications. The line goes after four seconds', { ...FIRST, line: 'moved' }, 'Moved'],
+  ['Settings, This Mac: one new row, on. It updates when no call is on and the panel is closed', SET(1), 'On by default'],
+  ['The next time you open the panel: once. The line goes when the panel closes', { line: 'updated' }, 'Updated'],
+  ['It couldn’t: the same line, no red', { line: 'failed' }, 'Couldn’t update'],
+  ['On a call: no line, no restart. It waits', { call: 1, l1: 'On a call', l2: '12:04' }, 'On a call'],
+  ['Check for Updates… lives behind the three dots', { drop: DROP(1) }, 'You ask'],
+  ['Checking. If it finds one, you are at 13: the panel is open, so it asks', { line: 'checking' }, 'Checking'],
+  ['Up to date. The line goes after four seconds', { line: 'current' }, 'Up to date'],
+  ['No answer. Plain words; gone after four seconds', { line: 'nocheck' }, 'Couldn’t check'],
+  ['The switch, off', SET(0), 'Switch off'],
+  ['A new version: one line, one marigold word', { line: 'ready' }, 'New version'],
+  ['Update pressed: the thin line runs in that row. Nothing dims', { line: 'updating' }, 'Updating'],
+  ['It restarts by itself, about two seconds, and comes back at 05', { gone: 1 }, 'Restarts'],
+  ['After a call it waits for the end, then the line appears', { l1: 'Call ended.', l2: 'The call window has closed.', line: 'ready' }, 'Call ended'],
+]
+const body = s => s.html || P(s)
+let n = 0
+const num = () => String(++n).padStart(2, '0')
+const side = (t, body) => `<div class="side" data-theme="${t}">${body}</div>`
+const pair = body => `<div class="pair">${side('light', body)}${side('dark', body)}</div>`
+const fig = (cap, body) => `<figure><figcaption><b>${num()}</b><span class="cv-body">${cap}</span></figcaption>${body}</figure>`
+
+const SPARKLE = `<div class="spk"><div class="ico">${BRAND.replace('class="cv-brand"', '')}</div><div>
+  <b>A new version of Oh Kevin is available!</b>Oh Kevin 0.2 is now available. You have 0.1. Would you like to download it now?
+  <div class="notes"><b>Release Notes:</b>Version 0.2<br>• Fixed a crash when the microphone was unplugged<br>• Faster start<br>• Other fixes and improvements</div>
+  <label><i></i>Automatically download and install updates in the future</label>
+  <div class="btns"><span>Skip This Version</span><span>Remind Me Later</span><span>Install Update</span></div></div></div>`
+
+const figs = (a, b) => S.slice(a, b).map(([cap, s]) => fig(cap, pair(body(s)))).join('')
+const BEFORE = `<figure><figcaption><b>&nbsp;</b><span class="cv-body cv-quiet">Before: Sparkle’s window</span></figcaption><div class="side" style="display:grid;place-items:center;width:528px;flex:none;height:336px;background:#C9C6BF">${SPARKLE}</div></figure>`
+$('move').innerHTML = figs(0, 3)
+$('auto').innerHTML = figs(3, 5) + BEFORE + figs(5, 7)
+$('ask').innerHTML = figs(7, 11)
+$('off').innerHTML = figs(11, 16)
+
+// the whole flow, small. Same panels, half size.
+const step = i => `<div class="step"><div class="lab cv-small"><b>${String(i + 1).padStart(2, '0')}</b><span>${S[i][2]}</span></div>${body(S[i][1])}</div>`
+const to = '<span class="to cv-body">→</span>'
+const or = '<span class="to cv-small">or</span>'
+const gap = '<span style="width:40px"></span>'
+$('flow').innerHTML = `<div class="row">${[0, 1, 2].map(step).join(to)}</div>
+  <div class="row">${step(3)}${to}${step(4)}${or}${step(5)}${gap}${step(6)}</div>
+  <div class="row">${[7, 8, 9].map(step).join(to)}${or}${step(10)}</div>
+  <div class="row">${[11, 12, 13, 14].map(step).join(to)}${gap}${step(15)}</div>`
+
+// the Mac app: the same line, under Start call, in the start stack. On a call: no line, as in the panel.
+const win = k => `<div class="win"><div><div class="cw-page cv"><div class="cw-idle">${BRAND}<h3 class="cv-display">Oh Kevin</h3>
+  <p class="cv-body cv-quiet cw-sub">${TAG}</p>
+  <div class="cw-stack"><button class="cv-btn cv-btn--pick cv-btn--wide">shop<span class="cv-arrows"></span></button><button class="cv-btn cv-btn--primary cv-btn--wide">Start call</button>${line(k)}</div></div>
+  <button class="cv-more cw-more" title="Settings" aria-label="Settings"><i></i></button></div></div></div>`
+const wpair = k => `<div class="pair"><div data-theme="light">${win(k)}</div><div data-theme="dark">${win(k)}</div></div>`
+const APPMENU = `<div class="drop cv-body" style="width:224px"><div>About Oh Kevin</div><div class="is-on">Check for Updates…</div><hr><div>Settings…</div><hr><div>Quit Oh Kevin</div></div>`
+$('mac').innerHTML = fig('The first window, opened from Downloads (920 × 660, drawn at 80%): one run on the left, starting where the buttons’ labels start', wpair('move'))
+  + fig('After a quiet update: once. On a call: no line', wpair('updated'))
+  + fig('With the switch off: the same line, the same word', wpair('ready'))
+  + fig('Its menu has the same command; the answer lands on the same line', `<div class="pair">${['light', 'dark'].map(t => `<div class="side" data-theme="${t}">${APPMENU}</div>`).join('')}</div>`)
+
+// three choices, as pictures
+const mini = bl => `<div class="mini">${bl.map(([x, y, w, h, c = '']) => `<i class="${c}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join('')}</div>`
+const pn = (x, l) => [[x, 8, 32, l ? 84 : 64, 'g'], [x + 3, 16, 14, 6, 'k'], [x + 3, 36, 26, 12, 'o r'], [x + 3, 54, 26, 11, 'a r'], ...(l ? [[x + 3, 71, 26, .8], ...l] : [])]
+$('idea').innerHTML = [
+  ['A line inside the card', 'Under Start call, after a hairline. The card grows by one row, only when there is something to say.',
+    mini(pn(34, [[37, 79, 12, 4], [55, 79, 6, 4, 'a']]))],
+  ['A word, not a button', 'No outline, no fill. Marigold when it is your move, ink when it is an offer. The gold fill stays Start call’s alone.',
+    mini([[20, 44, 34, 10], [66, 44, 14, 10, 'a']])],
+  ['It restarts by itself', 'Only when no call is on and the panel is closed. “Restart to finish” never appears.',
+    mini([...pn(6, [[9, 79, 8, 4], [19, 80.200, 16, 1.5, 'k']]), [46, 40, 8, 2, 'r'], ...pn(62, [[65, 79, 12, 4]])])],
+  ['The menu bar stays silent', 'Its marigold dot means someone needs you. An update never does.',
+    mini([[6, 16, 88, 14, 'r'], [58, 20, 4, 6, 'r'], [66, 19, 10, 8, 'k r'], [80, 20, 4, 6, 'r'], [66, 40, 28, 44, 'o']])],
+].map(([t, d, m]) => `<div>${m}<p class="cv-title">${t}</p><p class="cv-body cv-quiet">${d}</p></div>`).join('')
+
+const FIXED = [
+  'In the tray drawing the words were 32 high, as buttons. As plain words the row is 24, so the card grows by 53 (16, the hairline, 12, the row) and not 61.',
+  'On hover the tray drawing underlined the word. The standing rule for marigold words is a light wash of their own colour, so the word does that.',
+  'Light and dark cards of one state stood on tiles of different heights. Each pair now shares the taller one.',
+  'The Mac window had a foot along its bottom edge. Gone: the same line sits under Start call, in the same 320 column.',
+  'In the Mac window the sentence sat left and its word far right. Now one run on the left, 12 between sentence and word, starting 24 in, where the buttons’ own labels start. The panel is unchanged.',
+  'Weighed and kept as approved: “Not now” in ink is heavier than “Move” in marigold. An offer is ink; the owner may want it quieter.',
+  'Kept from earlier rounds: nothing dims while updating; “Couldn’t update.” and “Couldn’t check.” are twins; the menu bar never signals an update; Start call is the only gold fill.',
+]
+$('fixed').innerHTML = FIXED.map((t, i) => `<li><b>${i + 1}</b><span>${t}</span></li>`).join('')
+
+// the wave shows as many bars as fit before the word (as final.html)
+document.querySelectorAll('.cv-pill .cv-wave').forEach(w => { while (w.scrollWidth > w.clientWidth && w.children.length > 2) w.lastElementChild.remove() })
+
+// self-check (?check): every panel 320 × 228, head / pill / door / dots in identical boxes, no clipped line, the word ends on the content edge
+if (q.has('check')) {
+  const out = [], seen = {}
+  document.querySelectorAll('.grid .cv-panel--mix').forEach(p => {
+    const r = p.getBoundingClientRect(), cap = p.closest('figure').querySelector('figcaption').textContent.slice(0, 28)
+    const box = e => { const b = e.getBoundingClientRect(); return [b.left - r.left, b.top - r.top, b.width, b.height].map(Math.round).join(' ') }
+    if (Math.round(r.width) !== 320) out.push(`WIDTH ${cap}`)
+    for (const k of ['.cv-head', '.cv-head__1', '.cv-head__2', '.cv-pill', '.cv-panel--mix > .cv-btn', '.cv-more']) { const v = box(p.querySelector(k)); if ((seen[k] ??= v) !== v) out.push(`MOVED ${k} ${v} (was ${seen[k]}) ${cap}`) }
+    p.querySelectorAll('.cv-head p').forEach(e => { if (e.scrollWidth > e.clientWidth + 1) out.push(`CLIPPED ${e.textContent} · ${cap}`) })
+    const t = p.querySelector('.cv-line'), h = Math.round(r.height), door = p.querySelector('.cv-panel--mix > .cv-btn').getBoundingClientRect()
+    if (!t && h !== 228) out.push(`SIZE ${h} ${cap}`)
+    if (t) { const b = t.getBoundingClientRect(), ask = t.classList.contains('cv-line--ask')
+      if (h !== (ask ? 309 : 281) || Math.round(b.top - door.bottom) !== 16 || Math.round(r.bottom - b.bottom) !== 16 || Math.round(b.left - r.left) !== 16 || Math.round(r.right - b.right) !== 16) out.push(`LINE ${h} ${b.top - door.bottom} ${r.bottom - b.bottom} ${cap}`)
+      if (t.querySelector('span').scrollWidth > t.querySelector('span').clientWidth) out.push(`LINE CLIPPED ${cap}`)
+      const w = [...t.querySelectorAll('.up-word, .up-line')].pop(); if (w && Math.round(r.right - w.getBoundingClientRect().right) !== (w.classList.contains('up-line') ? 16 : 8)) out.push(`LINE EDGE ${cap}`) }
+    const d = p.querySelector('.drop'); if (d && d.querySelector('div').scrollWidth > d.querySelector('div').clientWidth) out.push('DROP clipped')
+  })
+  document.querySelectorAll('.cw-stack .cv-line').forEach(t => { const z = t.getBoundingClientRect().width / t.offsetWidth, sp = t.querySelector('span').getBoundingClientRect(), w = t.querySelector('.up-word').getBoundingClientRect()
+    const rg = document.createRange(); rg.selectNode(t.parentElement.querySelector('.cv-btn--pick').firstChild); const lx = rg.getBoundingClientRect().left
+    if (Math.abs(sp.left - lx) > .6 * z) out.push(`WIN LEFT ${((sp.left - lx) / z).toFixed(1)}`)
+    if (Math.abs((w.left - sp.right) / z + 8 - 12) > .6) out.push(`WIN GAP ${((w.left - sp.right) / z + 8).toFixed(1)}`) })
+  document.title = out.length ? [...new Set(out)].join(' | ') : 'ok ' + JSON.stringify(seen)
+}
+</script>
+</body>
+</html>

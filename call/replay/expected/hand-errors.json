@@ -1,0 +1,178 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "mic-stop"
+ },
+ {
+  "t": 1000,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "Speech recognition lost its connection. Start the call again. Typing still works.",
+  "mute": "Mute"
+ },
+ {
+  "t": 2000,
+  "k": "mic"
+ },
+ {
+  "t": 2000,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2000,
+  "k": "sr-start",
+  "n": 4,
+  "track": true
+ },
+ {
+  "t": 2000,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 3000,
+  "k": "mic-stop"
+ },
+ {
+  "t": 3000,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 3000,
+  "k": "ui",
+  "state": "Mic blocked",
+  "note": "Turn the microphone on in System Settings › Privacy & Security, then press Allow.",
+  "mute": "Allow"
+ },
+ {
+  "t": 4000,
+  "k": "mic"
+ },
+ {
+  "t": 4000,
+  "k": "ui",
+  "state": "Mic blocked",
+  "note": "",
+  "mute": "Allow"
+ },
+ {
+  "t": 4000,
+  "k": "sr-start",
+  "n": 6,
+  "track": true
+ },
+ {
+  "t": 4000,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4500,
+  "k": "sr-start",
+  "n": 6,
+  "track": true
+ },
+ {
+  "t": 5000,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 5000,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 5000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "still here"
+   ]
+  ]
+ },
+ {
+  "t": 5000,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 5000,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "still here"
+  }
+ },
+ {
+  "t": 5500,
+  "k": "sr-start",
+  "n": 6,
+  "track": true
+ },
+ {
+  "t": 5600,
+  "k": "mic-stop"
+ },
+ {
+  "t": 5600,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "Speech recognition stopped (audio-capture). Start the call again. Typing still works.",
+  "mute": "Mute"
+ }
+]

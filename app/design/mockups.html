@@ -1,0 +1,386 @@
+<!doctype html>
+<!-- Status: frozen. The first native-window mockups; the current look is design/final.html. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Oh Kevin call window: first mockups</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 13px/1.38 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; padding: 40px 40px 80px; -webkit-font-smoothing: antialiased;
+    background: var(--page); color: var(--page-ink); transition: background .2s; }
+
+  /* ── themes: macOS system colours, the launcher's own values ── */
+  body { --label: rgba(0,0,0,.85); --secondary: rgba(0,0,0,.5); --tertiary: rgba(0,0,0,.26); --sep: rgba(0,0,0,.1);
+    --fill: rgba(0,0,0,.05); --fill2: rgba(0,0,0,.09); --panel: #F1F1F3; --panel-edge: rgba(0,0,0,.14);
+    --control: #fff; --control-edge: rgba(0,0,0,.14); --green: #28CD41; --orange: #FF9500; --red: #FF3B30; --blue: #007AFF;
+    --ask-fill: rgba(255,149,0,.11); --ask-edge: rgba(255,149,0,.34); --end-fill: rgba(255,59,48,.13); --end-ink: #C4001A;
+    --window: #ECECEE; --field: #fff; --menu: #F6F6F6; --page: #DCDDE2; --page-ink: #1d1d1f; --page-2: #5d5d66; --call-green: #248A3D; }
+  body.dark { --label: rgba(255,255,255,.85); --secondary: rgba(255,255,255,.55); --tertiary: rgba(255,255,255,.25); --sep: rgba(255,255,255,.1);
+    --fill: rgba(255,255,255,.06); --fill2: rgba(255,255,255,.11); --panel: #2A2A2C; --panel-edge: rgba(255,255,255,.16);
+    --control: rgba(255,255,255,.15); --control-edge: rgba(255,255,255,.06); --green: #32D74B; --orange: #FF9F0A; --red: #FF453A; --blue: #0A84FF;
+    --ask-fill: rgba(255,159,10,.15); --ask-edge: rgba(255,159,10,.38); --end-fill: rgba(255,69,58,.2); --end-ink: #FF6961;
+    --window: #252527; --field: rgba(255,255,255,.07); --menu: #2E2E30; --page: #131315; --page-ink: #ececf0; --page-2: #9a9aa4; }
+
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -.02em; }
+  h2 { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin: 64px 0 4px; }
+  .lede { font-size: 15px; color: var(--page-2); max-width: 820px; margin-top: 8px; }
+  .sub { color: var(--page-2); max-width: 820px; }
+  .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+  .toggle { display: inline-flex; background: var(--fill2); border-radius: 8px; padding: 2px; flex: none; }
+  .toggle button { border: 0; background: none; font: 500 12px -apple-system, sans-serif; color: var(--page-ink); padding: 4px 12px; border-radius: 6px; cursor: pointer; }
+  .toggle button[aria-pressed=true] { background: var(--control); box-shadow: 0 0 0 .5px var(--control-edge), 0 1px 2px rgba(0,0,0,.12); }
+  .legend { display: flex; gap: 22px; margin-top: 18px; flex-wrap: wrap; font-size: 12px; color: var(--page-2); }
+  .legend div { display: flex; align-items: center; gap: 8px; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  .grid { display: flex; flex-wrap: wrap; gap: 44px 36px; margin-top: 22px; align-items: flex-start; }
+  .state { width: 400px; }
+  .cap { min-height: 52px; margin-bottom: 10px; }
+  .cap b { display: block; font-size: 14px; }
+  .cap span { display: block; color: var(--page-2); font-size: 12px; margin-top: 2px; }
+
+  /* ── the window: 400 × 600 pt ── */
+  .win { width: 400px; height: 600px; background: var(--window); border-radius: 16px; color: var(--label); position: relative; overflow: hidden;
+    display: flex; flex-direction: column; box-shadow: 0 0 0 .5px var(--panel-edge), 0 22px 60px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.12); }
+  .tb { height: 32px; flex: none; display: flex; align-items: center; padding: 0 10px 0 13px; position: relative; }
+  .lights { display: flex; gap: 8px; } .lights i { width: 12px; height: 12px; border-radius: 50%; background: #FF5F57; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.12); }
+  .lights i:nth-child(2) { background: #FEBC2E; } .lights i:nth-child(3) { background: #28C840; }
+  .win.bg .lights i { background: var(--fill2); }
+  .tb .title { position: absolute; left: 0; right: 0; text-align: center; font-weight: 600; pointer-events: none; }
+  .tb .time { margin-left: auto; font-size: 12px; color: var(--secondary); font-variant-numeric: tabular-nums; position: relative; }
+  .more { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: var(--secondary); margin-left: 6px; position: relative; }
+  .more.on { background: var(--fill2); }
+
+  .now { flex: none; display: flex; align-items: center; gap: 12px; padding: 6px 16px 14px; border-bottom: .5px solid var(--sep); }
+  .now .g { flex: 1; min-width: 0; }
+  .now .word { font-size: 20px; line-height: 24px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .now .s { font-size: 12px; line-height: 16px; color: var(--secondary); min-height: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mic { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--control); color: var(--label);
+    box-shadow: 0 0 0 .5px var(--control-edge), 0 1px 1.5px rgba(0,0,0,.1); }
+  .mic.off { background: var(--label); color: var(--window); box-shadow: none; }
+  .mic.dim { opacity: .4; }
+
+  .body { flex: 1; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .pin { flex: none; display: flex; flex-direction: column; gap: 10px; padding: 12px 16px 0; max-height: 62%; overflow: hidden; }
+  .pin.full { -webkit-mask-image: linear-gradient(to top, transparent 0, #000 18px); mask-image: linear-gradient(to top, transparent 0, #000 18px); }
+  .pin:empty { display: none; }
+  .talk { flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 12px 16px;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22px); mask-image: linear-gradient(to bottom, transparent 0, #000 22px); }
+  .v { font-size: 14px; line-height: 1.42; max-width: 94%; }
+  .v .un { color: var(--tertiary); }
+  .y { font-size: 14px; line-height: 1.42; align-self: flex-end; max-width: 80%; background: var(--fill2); border-radius: 12px; padding: 6px 10px; }
+  .y.form { background: none; box-shadow: inset 0 0 0 1px var(--tertiary); color: var(--secondary); }
+  .y .caret { display: inline-block; width: 1.5px; height: 15px; background: var(--secondary); vertical-align: -2px; margin-left: 1px; }
+
+  .foot { flex: none; display: flex; flex-direction: column; gap: 8px; padding: 4px 16px 16px; }
+  .field { height: 32px; border-radius: 8px; background: var(--field); box-shadow: inset 0 0 0 .5px var(--control-edge); display: flex; align-items: center; gap: 6px; padding: 0 4px 0 10px; font-size: 13px; }
+  .field .ph { color: var(--tertiary); flex: 1; }
+  .field .tx { flex: 1; white-space: nowrap; overflow: hidden; }
+  .field.focus { box-shadow: 0 0 0 3.5px color-mix(in srgb, var(--blue) 45%, transparent), inset 0 0 0 .5px var(--blue); }
+  .field.dis { opacity: .5; }
+  .send { width: 24px; height: 24px; display: grid; place-items: center; color: var(--blue); }
+  .row2 { display: flex; gap: 8px; }
+  .b36 { flex: 1; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 13px; font-weight: 600; }
+  .end { background: var(--end-fill); color: var(--end-ink); }
+  .plain { background: var(--control); box-shadow: 0 0 0 .5px var(--control-edge), 0 1px 1.5px rgba(0,0,0,.1); }
+  .green { background: var(--call-green); color: #fff; }
+  .accentb { background: var(--blue); color: #fff; }
+  .off { background: var(--fill2); color: var(--tertiary); }
+
+  /* the launcher's parts, unchanged */
+  .group { border-radius: 10px; background: var(--fill); padding: 0 12px; }
+  .w { display: grid; grid-template-columns: 18px 1fr auto; column-gap: 8px; padding: 8px 0; align-items: start; }
+  .w + .w { border-top: .5px solid var(--sep); }
+  .w .dot { width: 18px; height: 18px; display: grid; place-items: center; }
+  .w .dot i { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+  .w .dot i.wait { background: var(--orange); }
+  .w .n { font-size: 13px; font-weight: 600; }
+  .w .m { font-size: 11px; color: var(--tertiary); padding-top: 2px; }
+  .w .task { grid-column: 2 / 4; font-size: 12px; margin-top: 1px; }
+  .w .step { grid-column: 2 / 4; font-size: 12px; color: var(--secondary); margin-top: 1px; }
+  .ask { border-radius: 10px; background: var(--ask-fill); box-shadow: inset 0 0 0 .5px var(--ask-edge); padding: 12px; }
+  .ask .who { font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--secondary); margin-bottom: 3px; }
+  .ask .q { font-size: 13px; font-weight: 600; }
+  .ask code { display: block; font: 11px/1.45 ui-monospace, "SF Mono", Menlo, monospace; margin-top: 4px; color: var(--label); word-break: break-all; }
+  .ask .row2 { margin-top: 10px; }
+  .b28 { flex: 1; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; }
+  .accent { background: var(--blue); color: #fff; }
+  .ask .hint { margin-top: 8px; font-size: 11px; color: var(--secondary); display: flex; align-items: center; gap: 5px; }
+  .ask .hint.armed { color: var(--label); font-weight: 600; }
+  .banner { border-radius: 10px; background: var(--fill); padding: 10px 12px; display: flex; gap: 8px; align-items: center; font-size: 12px; }
+  .banner .g { flex: 1; }
+  .banner svg { flex: none; }
+  .small { height: 24px; padding: 0 10px; border-radius: 6px; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; flex: none; }
+
+  /* menus */
+  .menu { position: absolute; width: 200px; background: var(--menu); border-radius: 9px; padding: 5px; font-size: 13px; z-index: 3;
+    box-shadow: 0 0 0 .5px var(--panel-edge), 0 10px 30px rgba(0,0,0,.3); }
+  .menu div { height: 22px; border-radius: 5px; padding: 0 9px 0 22px; display: flex; align-items: center; justify-content: space-between; position: relative; white-space: nowrap; }
+  .menu .hi { background: var(--blue); color: #fff; }
+  .menu .ck::before { content: "✓"; position: absolute; left: 8px; font-size: 11px; }
+  .menu .h { font-size: 11px; font-weight: 600; color: var(--secondary); padding-left: 9px; height: 20px; margin-top: 3px; }
+  .menu hr { border: 0; border-top: .5px solid var(--sep); margin: 5px 9px; }
+  .menu kbd, .menu em { font: inherit; font-style: normal; opacity: .5; }
+
+  /* the launcher panel, for "before the call" */
+  .panel { width: 320px; background: var(--panel); border-radius: 14px; padding: 16px; color: var(--label); box-shadow: 0 0 0 .5px var(--panel-edge), 0 14px 40px rgba(0,0,0,.28); }
+  .hdr { display: flex; align-items: center; height: 24px; gap: 8px; } .hdr .t { font-size: 13px; font-weight: 600; flex: 1; }
+  .pbody { margin-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .project { height: 52px; border-radius: 10px; background: var(--fill); display: flex; align-items: center; gap: 10px; padding: 0 12px 0 10px; }
+  .tile { width: 32px; height: 32px; border-radius: 8px; background: var(--fill2); display: grid; place-items: center; color: var(--secondary); }
+  .project .n { font-weight: 600; } .project .p { font-size: 11px; color: var(--secondary); } .project .gg { flex: 1; }
+  .big { height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 600; color: #fff; background: var(--call-green); }
+  .menubar { height: 24px; background: color-mix(in srgb, var(--panel) 60%, transparent); display: flex; align-items: center; justify-content: flex-end; gap: 14px; padding: 0 12px; font-size: 13px; font-weight: 500; border-radius: 8px 8px 0 0; }
+  .slot { height: 22px; min-width: 30px; padding: 0 6px; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+  .slot.open { background: var(--fill2); }
+  .arrow { font-size: 26px; color: var(--page-2); align-self: center; }
+
+  /* where things live */
+  .split { display: grid; grid-template-columns: repeat(3, 300px); gap: 28px; margin-top: 22px; }
+  .lane { background: var(--fill); border-radius: 14px; padding: 18px; }
+  .lane b { display: block; font-size: 14px; margin-bottom: 2px; color: var(--page-ink); }
+  .lane .when { font-size: 12px; color: var(--page-2); margin-bottom: 14px; }
+  .lane ul { list-style: none; padding: 0; display: grid; gap: 7px; font-size: 12.5px; color: var(--page-ink); }
+  .lane li { display: flex; gap: 8px; align-items: center; }
+  .lane li i { width: 6px; height: 6px; border-radius: 50%; background: var(--page-2); flex: none; }
+  .lane li.no { color: var(--page-2); text-decoration: line-through; }
+  .icons { display: flex; gap: 12px; margin-bottom: 14px; color: var(--page-ink); }
+  .icons span { width: 34px; height: 26px; border-radius: 6px; background: var(--fill2); display: grid; place-items: center; }
+  .icons span.pill { background: var(--orange); }
+
+  /* anatomy */
+  .anat { display: flex; gap: 36px; align-items: flex-start; margin-top: 22px; flex-wrap: wrap; }
+  .zones { font-size: 12px; color: var(--page-2); display: grid; gap: 0; width: 360px; }
+  .zones div { display: grid; grid-template-columns: 90px 1fr; gap: 10px; padding: 8px 0; border-top: .5px solid var(--sep); }
+  .zones b { color: var(--page-ink); font-weight: 600; }
+
+  @keyframes wave { 0%,100% { transform: scaleY(.38); } 50% { transform: scaleY(1); } }
+  .mk-work rect { transform-box: fill-box; transform-origin: center; animation: wave 1.2s ease-in-out infinite; }
+  .mk-work rect:nth-of-type(2) { animation-delay: .2s; } .mk-work rect:nth-of-type(3) { animation-delay: .4s; }
+  @keyframes pulse { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+  .mk-pulse { animation: pulse 1.2s ease-in-out infinite; }
+  @keyframes blink { 50% { opacity: 0; } } .caret { animation: blink 1s steps(1) infinite; }
+  @media (prefers-reduced-motion: reduce) { .mk-work rect, .mk-pulse, .caret { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div>
+    <h1>The call gets its own window</h1>
+    <p class="lede">The native call window that replaces the Chrome page. The launcher's language, unchanged: one mark, green live, orange needs you, red broke, plain words. Every window is drawn at true size, 400 × 600 pt.</p>
+  </div>
+  <div class="toggle" role="group" aria-label="Appearance"><button id="tl" aria-pressed="true">Light</button><button id="td" aria-pressed="false">Dark</button></div>
+</div>
+<div class="legend">
+  <div><i style="background:var(--green)"></i>Green: the call is live</div>
+  <div><i style="background:var(--orange)"></i>Orange: it needs you</div>
+  <div><i style="background:var(--red)"></i>Red: it broke</div>
+  <div><i style="background:var(--page-2)"></i>Motion: Claude Code is working</div>
+  <div>Symbols are stand-ins for the SF Symbols named in spec.md</div>
+</div>
+
+<h2>Anatomy</h2>
+<p class="sub">Four zones. The top says where the turn is; the bottom is how you act; between them, what needs you, then what was said.</p>
+<div class="anat" id="anat"></div>
+
+<h2>Starting</h2>
+<div class="grid" id="g-start"></div>
+<h2>The turn: the heart of the call</h2>
+<p class="sub">One word for whose turn it is. Your words appear as you say them, in an outline; they settle into a bubble once heard. What the voice never got to say stays faint.</p>
+<div class="grid" id="g-turn"></div>
+<h2>Claude Code at work</h2>
+<div class="grid" id="g-work"></div>
+<h2>It needs your answer</h2>
+<p class="sub">The launcher's card, unchanged. Blue Approve: a spoken yes does it too. Two equal buttons: a click only, and the window comes forward by itself, without taking the keyboard.</p>
+<div class="grid" id="g-ask"></div>
+<h2>Your controls</h2>
+<div class="grid" id="g-you"></div>
+<h2>When something breaks</h2>
+<div class="grid" id="g-fail"></div>
+<h2>The end of the call</h2>
+<div class="grid" id="g-end"></div>
+
+<h2>The launcher and this window</h2>
+<p class="sub">One app. The menu bar is where a call starts and where its state is glanced at; the window is the call. Nothing shows in both places.</p>
+<div class="split" id="split"></div>
+
+<script>
+// ── the mark: chevron + three bars on an 18 × 18 grid (launcher spec 4) ─────
+function mark(kind, size, color) {
+  if (kind === 'warn') return `<svg width="${size * .75}" height="${size * .75}" viewBox="0 0 24 24" fill="${color}" style="margin:${size * .125}px"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>`
+  const h = { idle: [1.8, 1.8, 1.8], live: [6, 12, 8], work: [10, 12, 10], pulse: [6, 12, 8] }[kind]
+  const bars = [9.5, 12.5, 15.5].map((x, i) => `<rect x="${x - .9}" y="${9 - h[i] / 2}" width="1.8" height="${h[i]}" rx=".9"/>`).join('')
+  return `<svg class="${kind === 'work' ? 'mk-work' : kind === 'pulse' ? 'mk-pulse' : ''}" width="${size}" height="${size}" viewBox="0 0 18 18" fill="${color}" style="flex:none">
+    <path d="M2.4 5.2 6.2 9 2.4 12.8" fill="none" stroke="${color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>${bars}</svg>`
+}
+const wbars = (size, color) => `<svg class="mk-work" width="${size}" height="${size}" viewBox="0 0 12 12" fill="${color}"><rect x="1.6" y="1.5" width="1.8" height="9" rx=".9"/><rect x="5.1" y="1" width="1.8" height="10" rx=".9"/><rect x="8.6" y="1.5" width="1.8" height="9" rx=".9"/></svg>`
+const sym = {
+  more: '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="5" cy="8" r="1" fill="currentColor"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="11" cy="8" r="1" fill="currentColor"/></svg>',
+  mic: s => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>`,
+  micOff: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 11h-1.7c0 .74-.16 1.43-.43 2.05l1.23 1.23c.56-.98.9-2.09.9-3.28zm-4.02.17c0-.06.02-.11.02-.17V5c0-1.66-1.34-3-3-3S9 3.34 9 5v.18l5.98 5.99zM4.27 3 3 4.27l6.01 6.01V11c0 1.66 1.33 3 2.99 3 .22 0 .44-.03.65-.08l1.66 1.66c-.71.33-1.5.52-2.31.52-2.76 0-5.3-2.1-5.3-5.1H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c.91-.13 1.77-.45 2.54-.9L19.73 21 21 19.73 4.27 3z"/></svg>',
+  click: '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 3l12.5 9.2-5.4.9 3.2 6.3-2.5 1.2-3.2-6.3L7 18.5z"/></svg>',
+  stop: '<svg width="10" height="10" viewBox="0 0 10 10"><rect width="10" height="10" rx="2.2" fill="currentColor"/></svg>',
+  down: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 9c-1.6 0-3.15.25-4.6.72v3.1c0 .39-.23.74-.56.9-.98.49-1.87 1.12-2.66 1.85-.18.18-.43.28-.7.28-.28 0-.53-.11-.71-.29L.29 13.08a.99.99 0 0 1 0-1.41C3.34 8.78 7.46 7 12 7s8.66 1.78 11.71 4.67c.18.18.29.43.29.71 0 .28-.11.53-.29.71l-2.48 2.48c-.18.18-.43.29-.71.29-.27 0-.52-.11-.7-.28a11.27 11.27 0 0 0-2.67-1.85.996.996 0 0 1-.56-.9v-3.1C15.15 9.25 13.6 9 12 9z"/></svg>',
+  warn: c => `<svg width="14" height="14" viewBox="0 0 24 24" fill="${c}"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>`,
+  gauge: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="color:var(--secondary)"><path d="M4.5 17a8.5 8.5 0 1 1 15 0"/><path d="M12 13.5 16 9"/><circle cx="12" cy="13.5" r="1.2" fill="currentColor"/></svg>',
+  up: '<svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 17V7.5M7.8 11.5 12 7.3l4.2 4.2" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  out: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  folder: '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>',
+  phone: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>',
+}
+const G = 'var(--green)', O = 'var(--orange)', R = 'var(--red)', Q = 'var(--secondary)'
+
+// ── parts ────────────────────────────────────────────────────────────────────
+const worker = (name, model, lines, state = 'idle') => `<div class="w"><div class="dot">${state === 'work' ? wbars(14, 'var(--green)') : `<i class="${state === 'wait' ? 'wait' : ''}"></i>`}</div><div class="n">${name}</div><div class="m">${model}</div>${lines}</div>`
+const task = t => `<div class="task">${t}</div>`, step = t => `<div class="step">${t}</div>`
+const ask = (q, cmd, how, who = '') => `<div class="ask">${who ? `<div class="who">${who}</div>` : ''}<div class="q">${q}</div><code>${cmd}</code>
+  <div class="row2"><div class="b28 plain">Deny</div><div class="b28 ${how === 'click' ? 'plain' : 'accent'}">Approve</div></div>
+  <div class="hint ${how === 'armed' ? 'armed' : ''}">${how === 'click' ? sym.click + 'Needs a click, not a spoken yes.' : how === 'armed' ? sym.mic(12) + 'Say “yes” or “no” now.' : sym.mic(12) + 'Or just say “yes”.'}</div></div>`
+const banner = (icon, text, btn = '') => `<div class="banner">${icon}<div class="g">${text}</div>${btn}</div>`
+const sbtn = (t, accent = true) => `<div class="small ${accent ? 'accentb' : 'plain'}">${t}</div>`
+
+// talk items: ['v', said, unsaid?] the voice · ['y', text] you · ['f', text] you, still talking
+const line = ([k, a, b]) => k === 'v' ? `<div class="v">${a}${b ? `<span class="un"> ${b}</span>` : ''}</div>`
+  : `<div class="y ${k === 'f' ? 'form' : ''}">${a}${k === 'f' ? '<span class="caret"></span>' : ''}</div>`
+
+function win(o) {
+  const [mk, mc] = o.mark
+  const mic = o.mic === 'none' ? '' : `<div class="mic ${o.mic || ''}" title="Mute">${o.mic === 'off' ? sym.micOff : sym.mic(15)}</div>`
+  const field = o.field === null ? '' : o.field === 'typing'
+    ? `<div class="field focus"><span class="tx">${o.typed}</span><span class="send">${sym.up}</span></div>`
+    : `<div class="field ${o.field === 'dis' ? 'dis' : ''}"><span class="ph">Type instead of speaking</span></div>`
+  const work = o.work ? `<div class="group">${o.work.join('')}</div>` : ''
+  return `<div class="win ${o.bg ? 'bg' : ''}">
+    <div class="tb"><div class="lights"><i></i><i></i><i></i></div><div class="title">${o.title || 'api'}</div><div class="time">${o.time ?? '4:12'}</div><div class="more ${o.menu ? 'on' : ''}">${sym.more}</div></div>
+    <div class="now">${mark(mk, 28, mc)}<div class="g"><div class="word">${o.word}</div><div class="s">${o.sub || ''}</div></div>${mic}</div>
+    <div class="body"><div class="pin ${o.full ? 'full' : ''}">${(o.banners || []).join('')}${(o.cards || []).join('')}${work}</div>
+      <div class="talk">${(o.talk || []).map(line).join('')}</div></div>
+    <div class="foot">${field}${o.foot ?? `<div class="row2">${o.stop ? `<div class="b36 plain">${sym.stop}${o.stop}</div>` : ''}<div class="b36 end">${sym.down}${o.end || 'End Call'}</div></div>`}</div>
+    ${o.menu || ''}</div>`
+}
+const put = (id, title, cap, html) => document.getElementById(id).insertAdjacentHTML('beforeend',
+  `<div class="state"><div class="cap"><b>${title}</b><span>${cap}</span></div>${html}</div>`)
+
+// a conversation that has been going a little while
+const before = [['y', 'Run the tests in api and tell me what fails.'], ['v', 'On it. I’ve asked Claude Code to run them.']]
+const api = (lines, s = 'work') => worker('api', 'Opus', lines, s)
+const fix = 'Run the tests and tell me what fails'
+
+// ── anatomy ──────────────────────────────────────────────────────────────────
+document.getElementById('anat').innerHTML = win({ mark: ['work', G], word: 'Speaking', time: '4:12',
+  cards: [ask('Commit these changes?', 'git commit -m "Fix the date test"', 'voice')],
+  work: [api(task(fix) + step('Running the tests'))],
+  talk: [...before, ['v', 'Two tests fail, both in the date helper. Should I commit the fix it made?']], stop: 'Stop' }) +
+  `<div class="zones">
+    <div><b>Title bar</b><span>The project you called, the call's time, ⋯ (Voice, Settings, End Call).</span></div>
+    <div><b>Now</b><span>The mark (the menu-bar icon, coloured), one word for the turn, one line when there is something to know, and the microphone.</span></div>
+    <div><b>Needs you</b><span>Pinned, never scrolls away: problems, questions, then the workers. Each appears only when it has something to say.</span></div>
+    <div><b>Talk</b><span>What was said, newest at the bottom. Your words right, in a bubble; the voice's left, plain.</span></div>
+    <div><b>Act</b><span>Type instead of speaking. Stop (only while Claude Code works) and End Call: the launcher's own row.</span></div>
+  </div>`
+
+// ── starting ─────────────────────────────────────────────────────────────────
+put('g-start', 'Before the call', 'No window yet. The menu-bar panel picks the project; Start Call opens the window.',
+  `<div style="width:400px"><div class="menubar"><div class="slot open">${mark('idle', 18, 'currentColor')}</div><span style="color:var(--page-2)">Wed 23:41</span></div>
+   <div class="panel" style="margin:6px 0 0 40px"><div class="hdr">${mark('idle', 20, Q)}<div class="t">Claude Voice</div><div style="color:var(--secondary)">${sym.more}</div></div>
+   <div class="pbody"><div class="project"><div class="tile">${sym.folder}</div><div class="gg"><div class="n">api</div><div class="p">~/Lab/api</div></div></div><div class="big">${sym.phone}Start Call</div></div></div></div>`)
+put('g-start', 'Connecting', 'The window opens at once and is the progress. The panel closes. Cancel ends it.',
+  win({ mark: ['pulse', G], word: 'Connecting…', sub: 'The voice is warming up.', time: '', mic: 'dim', field: 'dis', end: 'Cancel' }))
+put('g-start', 'Listening', 'Live. The one hint shows until you first speak, then the line stays empty.',
+  win({ mark: ['live', G], word: 'Listening', sub: 'Just talk. It answers when you pause.', time: '0:04' }))
+
+// ── the turn ─────────────────────────────────────────────────────────────────
+put('g-turn', 'Hearing you', 'Your words, live, in an outline: you can see what it hears before it answers.',
+  win({ mark: ['live', G], word: 'Hearing you', time: '0:21', talk: [['f', 'Run the tests in api and tell me']] }))
+put('g-turn', 'Thinking', 'The outline settles into a bubble: this is exactly what was heard.',
+  win({ mark: ['live', G], word: 'Thinking', time: '0:24', talk: [['y', 'Run the tests in api and tell me what fails.']] }))
+put('g-turn', 'Speaking', 'Each sentence appears as it starts playing.',
+  win({ mark: ['live', G], word: 'Speaking', time: '0:26', talk: before }))
+put('g-turn', 'Paused: you talked over it', 'It stops mid-word. The part not yet said turns faint. If it was only a noise, it carries on from that word.',
+  win({ mark: ['work', G], word: 'Paused', sub: 'It stopped mid-word to hear you.', time: '2:03', work: [api(task(fix) + step('Reading date.test.ts'))], stop: 'Stop',
+    talk: [...before, ['v', 'Two tests fail. Both expect the time zone to be', 'UTC, but the setup file sets it to the Mac’s own.'], ['f', 'wait, which']] }))
+put('g-turn', 'Cut off, and what you heard', 'Your words were real: the faint rest is what you never heard, and the voice is told so.',
+  win({ mark: ['work', G], word: 'Hearing you', time: '2:05', work: [api(task(fix) + step('Reading date.test.ts'))], stop: 'Stop',
+    talk: [...before, ['v', 'Two tests fail. Both expect the time zone to be', 'UTC, but the setup file sets it to the Mac’s own.'], ['f', 'wait, which setup file']] }))
+put('g-turn', 'Waiting for the rest of your thought', 'You paused mid-sentence. It waits; what you say next joins this same bubble.',
+  win({ mark: ['live', G], word: 'Listening', sub: 'Waiting for the rest of your thought.', time: '6:40',
+    talk: [...before, ['v', 'All green now.'], ['y', 'Good. Rename the date helper to']] }))
+
+// ── work ─────────────────────────────────────────────────────────────────────
+put('g-work', 'One worker', 'The launcher\'s worker row: your request in your words, its step in plain words. The bars move only while it works. Stop appears.',
+  win({ mark: ['work', G], word: 'Listening', time: '1:12', work: [api(task(fix) + step('Running the tests'))], stop: 'Stop', talk: before }))
+put('g-work', 'Several workers', 'The same row per project. Stop becomes Stop All.',
+  win({ mark: ['work', G], word: 'Speaking', time: '12:04', stop: 'Stop All',
+    work: [api(task(fix) + step('Editing date.ts')), worker('web', 'Sonnet', task('Check the bundle size') + step('Building the project'), 'work')],
+    talk: [...before, ['y', 'Also open a worker on web and check the bundle size.'], ['v', 'Opening web.']] }))
+put('g-work', 'Done', 'When a worker finishes, its row stays as the launcher\'s idle row; the voice tells you the result.',
+  win({ mark: ['live', G], word: 'Speaking', time: '3:30', work: [api(step('Ready when you are.'), 'idle')],
+    talk: [...before, ['v', 'Done. Two tests failed on the time zone. It fixed the setup file and all 48 pass now.']] }))
+
+// ── asks ─────────────────────────────────────────────────────────────────────
+put('g-ask', 'A spoken yes may answer it', 'The voice has just asked: the hint says a yes counts now. Before and after that window it reads “Or just say “yes”.”',
+  win({ mark: ['live', O], word: 'Listening', time: '4:40', cards: [ask('Commit these changes?', 'git commit -m "Fix the date test"', 'armed')],
+    work: [api(task(fix), 'wait')], talk: [...before, ['v', 'It wants to commit the fix. Should it go ahead?']] }))
+put('g-ask', 'It needs a click', 'Two equal buttons, no default. The window comes to the front by itself for this one, without taking the keyboard.',
+  win({ mark: ['live', O], word: 'Speaking', time: '5:02', cards: [ask('Push your commits?', 'git push origin main', 'click')],
+    work: [api(task(fix), 'wait')], talk: [...before, ['v', 'It wants to push your commits. That needs a click on screen.']] }))
+put('g-ask', 'Two at once', 'Oldest first, each named by its project. Past 62% of the window the pinned zone scrolls; the talk keeps the rest.',
+  win({ mark: ['live', O], word: 'Listening', time: '12:31', full: true, cards: [ask('Delete files?', 'rm -rf dist coverage', 'click', 'api'), ask('Edit package.json?', 'web/package.json', 'voice', 'web')],
+    work: [api(task(fix), 'wait'), worker('web', 'Sonnet', task('Check the bundle size'), 'wait')], talk: [['v', 'Two questions. First, api wants to delete dist and coverage.']] }))
+
+// ── you ──────────────────────────────────────────────────────────────────────
+put('g-you', 'Mic off', 'M or the microphone button. The button fills: the one control whose state is yours. The voice still speaks.',
+  win({ mark: ['live', G], word: 'Mic off', sub: 'Press M to talk again. Typing works.', mic: 'off', time: '8:15', talk: before }))
+put('g-you', 'Typing', 'Return sends; the words go in as yours, as if spoken.',
+  win({ mark: ['live', G], word: 'Listening', time: '8:30', field: 'typing', typed: 'Also check the time zone in the CI config', talk: before }))
+put('g-you', 'Voice, and settings', 'The ⋯ menu. Picking a voice says “This is how I sound now.” in it. Settings is the launcher\'s window.',
+  win({ mark: ['live', G], word: 'Listening', time: '8:41', talk: before, menu:
+    `<div class="menu" style="top:30px;right:8px"><div class="hi">Voice<em style="opacity:.8">Heart ›</em></div><hr><div>Settings…<kbd>⌘,</kbd></div><hr><div>End Call</div></div>
+     <div class="menu" style="top:30px;right:212px;width:170px"><div class="h">US female</div><div class="ck">Heart</div><div>Bella</div><div>Nicole</div>
+       <div class="h">US male</div><div>Michael</div><div>Adam</div><div class="h">British female</div><div>Emma</div><div class="h">British male</div><div>George</div></div>` }))
+put('g-you', 'A usage limit', 'Said once by the voice, then kept at the top for the rest of the call. Not a conversation line.',
+  win({ mark: ['live', G], word: 'Listening', time: '41:07', banners: [banner(sym.gauge, 'You’ve used 80 percent of your weekly limit; it resets on Wednesday at 9 AM.')], talk: before }))
+put('g-you', 'A usage limit, hit', 'Claude Code cannot work until it resets: orange, the launcher\'s problem banner.',
+  win({ mark: ['live', G], word: 'Listening', time: '52:40', banners: [banner(sym.warn('var(--orange)'), 'You’ve hit your five-hour limit; it resets at 3:40 PM.')], talk: before }))
+
+// ── broke ────────────────────────────────────────────────────────────────────
+put('g-fail', 'The call server stopped', 'Red, the launcher\'s words. The conversation stays readable; nothing else can be done here.',
+  win({ mark: ['warn', R], word: 'The call stopped', sub: 'Claude Code’s work so far is saved.', time: '9:02', mic: 'none', field: null, talk: before,
+    foot: `<div class="row2"><div class="b36 plain">Close</div><div class="b36 green">${sym.phone}Call Again</div></div>` }))
+put('g-fail', 'Speech recognition stopped', 'Orange: one click fixes it, and the call goes on. Typing still works.',
+  win({ mark: ['live', O], word: 'Can’t hear you', time: '9:40', banners: [banner('', 'Speech recognition stopped.', sbtn('Listen Again'))], talk: before }))
+put('g-fail', 'Microphone not allowed', 'Asked once by macOS at the first call. The button opens the right pane of System Settings.',
+  win({ mark: ['live', O], word: 'Can’t hear you', sub: 'Typing still works.', time: '0:02', mic: 'dim', banners: [banner('', 'Claude Voice isn’t allowed to use the microphone.', sbtn('Open Settings'))] }))
+put('g-fail', 'A problem during the call', 'The server\'s own sentence, until the conversation moves on. The call carries on.',
+  win({ mark: ['live', G], word: 'Listening', time: '3:08', banners: [banner(sym.warn('var(--orange)'), 'The voice could not answer. Say it again in a moment.')], talk: before }))
+
+// ── end ──────────────────────────────────────────────────────────────────────
+put('g-end', 'Ending', 'The red button becomes the progress. The microphone is already closed.',
+  win({ mark: ['pulse', Q], word: 'Ending the call…', sub: 'Then its work opens in the Claude app.', time: '12:48', mic: 'none', field: null, talk: before,
+    foot: `<div class="row2"><div class="b36 off">Ending…</div></div>` }))
+put('g-end', 'Call ended, handed over', 'The Claude app has the work. The conversation stays until you close the window.',
+  win({ mark: ['idle', Q], word: 'Call ended', sub: 'Its work is open in the Claude app.', time: '12 min', mic: 'none', field: null, bg: true,
+    talk: [...before, ['v', 'Done. All 48 pass. Talk soon.']], foot: `<div class="row2"><div class="b36 plain">Close</div></div>` }))
+put('g-end', 'Call ended, not handed over', 'The hand-over was off or did not open: one button does it, no command to copy.',
+  win({ mark: ['idle', Q], word: 'Call ended', sub: 'Its work is saved in Claude Code.', time: '12 min', mic: 'none', field: null,
+    talk: [...before, ['v', 'Done. All 48 pass. Talk soon.']], foot: `<div class="row2"><div class="b36 plain">Close</div><div class="b36 accentb">${sym.out}Open in Claude</div></div>` }))
+
+// ── where things live ────────────────────────────────────────────────────────
+const li = (t, no) => `<li class="${no ? 'no' : ''}"><i></i>${t}</li>`
+document.getElementById('split').innerHTML = `
+  <div class="lane"><b>Menu-bar icon</b><div class="when">Always</div>
+    <div class="icons">${['idle', 'live', 'work'].map(k => `<span>${mark(k, 18, 'currentColor')}</span>`).join('')}<span class="pill">${mark('live', 18, '#fff')}</span><span>${mark('warn', 18, 'var(--page-ink)')}</span></div>
+    <ul>${li('The state at a glance, the launcher\'s five forms')}${li('Click on a call: brings the call window forward')}${li('Click off a call: the panel')}</ul></div>
+  <div class="lane"><b>Panel</b><div class="when">Before and after a call</div>
+    <ul>${li('Project and Start Call')}${li('Something missing, with its one-click fix')}${li('Settings…, Quit')}${li('Worker rows and approval cards', 1)}${li('Show Call Window', 1)}${li('“The call can’t hear you”, Reopen', 1)}</ul></div>
+  <div class="lane"><b>Call window</b><div class="when">From Start Call to Close</div>
+    <ul>${li('The turn, the words, the conversation')}${li('Worker rows and approval cards')}${li('Mute, typing, Stop, End Call')}${li('Voice')}${li('Every problem: didn’t start, can’t hear, stopped')}${li('Call ended and the hand-over')}</ul></div>`
+
+// ── light / dark ─────────────────────────────────────────────────────────────
+const setTheme = dark => { document.body.classList.toggle('dark', dark); tl.setAttribute('aria-pressed', !dark); td.setAttribute('aria-pressed', dark) }
+tl.onclick = () => setTheme(false); td.onclick = () => setTheme(true)
+setTheme(matchMedia('(prefers-color-scheme: dark)').matches)
+</script>
+</body>
+</html>

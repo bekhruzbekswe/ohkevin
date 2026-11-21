@@ -1,0 +1,57 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": false
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 500,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 500,
+  "k": "ui",
+  "state": "Mic blocked",
+  "note": "Turn the microphone on in System Settings › Privacy & Security, then press Allow.",
+  "mute": "Allow"
+ }
+]

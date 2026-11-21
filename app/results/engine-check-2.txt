@@ -1,0 +1,47 @@
+engine check 2026-11-18 07:27:33 +0000
+default input: MacBook Pro Microphone at 48000 Hz; default output: MacBook Pro Speakers at 48000 Hz
+microphone permission: not asked yet
+asking: macOS shows "SwiftTest would like to access the microphone" now; waiting for the answer
+answer: allowed
+— the order of 13927a6: VP, sink from the input, players into the mixer at 24 kHz mono
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 0 Hz 0 ch
+  FAILED: Error Domain=com.apple.coreaudio.avfaudio Code=-10875 "(null)" UserInfo={failed call=err = PerformCommand(*outputNode, kAUInitialize, NULL, 0)}
+— the same without voice processing
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 48000 Hz 2 ch
+  STARTED; the microphone delivered 57856 frames in 1.2 s, level -46 dBFS
+— VP, the input into the sink, no mixer or players
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 0 Hz 0 ch
+  FAILED: Error Domain=com.apple.coreaudio.avfaudio Code=-10875 "(null)" UserInfo={failed call=err = PerformCommand(*outputNode, kAUInitialize, NULL, 0)}
+— VP, players into the mixer, nothing connected from the input
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 0 Hz 0 ch
+  FAILED: Error Domain=com.apple.coreaudio.avfaudio Code=-10875 "(null)" UserInfo={failed call=err = PerformCommand(*outputNode, kAUInitialize, NULL, 0)}
+— VP, a tap on the input instead of the sink
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 0 Hz 0 ch
+  FAILED: Error Domain=com.apple.coreaudio.avfaudio Code=-10875 "(null)" UserInfo={failed call=err = PerformCommand(*outputNode, kAUInitialize, NULL, 0)}
+— players and mixer connected first, voice processing enabled after (the fix)
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 48000 Hz 2 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  STARTED; the microphone delivered 57344 frames in 1.2 s, level -47 dBFS
+— as built without the ducking setting
+  before VP: in.in 48000 Hz 1 ch, in.out 48000 Hz 1 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  after VP:  in.in 48000 Hz 9 ch, in.out 48000 Hz 9 ch, out.in 48000 Hz 2 ch, out.out 48000 Hz 2 ch
+  connected: mixer.out 44100 Hz 2 ch, out.in 44100 Hz 2 ch, out.out 0 Hz 0 ch
+  FAILED: Error Domain=com.apple.coreaudio.avfaudio Code=-10875 "(null)" UserInfo={failed call=err = PerformCommand(*outputNode, kAUInitialize, NULL, 0)}
+— the prototype's own Sound, as a call uses it, output muted
+  STARTED: microphone through voice processing: 48000 Hz, 9 channel(s), the first one heard; output volume 0.0
+  the microphone delivered 96000 frames in 2 s; level per 20 ms: quietest fifth -52, median -51, loudest tenth -44 dBFS
+  a Kokoro sentence of 14.2 s: played 0.63 s, then 1.27 s; paused 1.27 s, still 1.27 s after 0.5 s; resumed, 1.78 s after 0.5 s
+  stop: the sentence ended
+  close: engine stopped, voice processing off
+done

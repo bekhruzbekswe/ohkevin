@@ -1,0 +1,279 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2630.3,
+  "k": "audio"
+ },
+ {
+  "t": 2630.3,
+  "k": "mic"
+ },
+ {
+  "t": 2630.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2630.3,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2630.3,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4300.7,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4300.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me"
+   ]
+  ]
+ },
+ {
+  "t": 4641.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me a"
+   ]
+  ]
+ },
+ {
+  "t": 4726.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me a joke"
+   ]
+  ]
+ },
+ {
+  "t": 4838.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a joke"
+   ]
+  ]
+ },
+ {
+  "t": 5253.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "joke"
+   ]
+  ]
+ },
+ {
+  "t": 6455.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me a joke"
+   ]
+  ]
+ },
+ {
+  "t": 6456.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 6456.5,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 6456.5,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 6456.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke"
+   ]
+  ]
+ },
+ {
+  "t": 6456.5,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 6456.5,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me a joke"
+  }
+ },
+ {
+  "t": 8531,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Why don't scientists trust atoms?"
+ },
+ {
+  "t": 8531,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke"
+   ],
+   [
+    "voice",
+    "Why don't scientists trust atoms?"
+   ]
+  ]
+ },
+ {
+  "t": 8942.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 8942.3,
+  "k": "log",
+  "text": "[stats] 1 reply, median 2.5 s, slowest 2.5 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 8942.3,
+  "k": "play",
+  "text": "Why don't scientists trust atoms?",
+  "dur": 1.856
+ },
+ {
+  "t": 8942.3,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 10798.3,
+  "k": "ended"
+ },
+ {
+  "t": 11048.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 11048.3,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 16281.5,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Because they make up everything."
+ },
+ {
+  "t": 16281.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke"
+   ],
+   [
+    "voice",
+    "Why don't scientists trust atoms? Because they make up everything."
+   ]
+  ]
+ },
+ {
+  "t": 16281.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 16281.5,
+  "k": "play",
+  "text": "Because they make up everything.",
+  "dur": 2
+ },
+ {
+  "t": 16281.5,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 18281.5,
+  "k": "ended"
+ },
+ {
+  "t": 18531.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 18531.5,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ }
+]

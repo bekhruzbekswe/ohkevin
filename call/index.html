@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin</title>
+<style>
+  /* The page is the chat. Tokens and rules follow design/system.css (copied, so this page stays one file):
+     one accent (marigold) only where it is your move; four sizes 48/22/17/14; space 4 8 16 24 40 64 (+12); radii 20 and pill. */
+  :root {
+    --cv-ground: #F6F3EC; --cv-raised: #FFFFFF; --cv-sunk: #ECE8DF; --cv-hair: rgba(27, 26, 23, .12);
+    --cv-ink: #1B1A17; --cv-ink-2: #57534B; --cv-ink-3: #6B665D; --cv-on-ink: #F6F3EC; --cv-you: #36332D; --cv-on-you: #F6F3EC; --cv-voice: #E9E4DA;
+    --cv-accent: #F4A62A; --cv-accent-down: #E2951A; --cv-on-accent: #1B1A17; --cv-accent-ink: #8A5000; --cv-accent-word: #D98E0B;
+    --cv-done: #256B42; --cv-wrong: #B82E24; --cv-wrong-on-ink: #FF8073;
+    --cv-shadow: 0 1px 2px rgba(27,26,23,.06), 0 8px 24px rgba(27,26,23,.08);
+    --cv-font-display: ui-serif, "New York", "Iowan Old Style", "Palatino", Georgia, serif;
+    --cv-font-text: -apple-system, BlinkMacSystemFont, system-ui, "Helvetica Neue", sans-serif;
+    --cv-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+    --cv-t-display: 48px; --cv-t-title: 22px; --cv-t-body: 17px; --cv-t-small: 14px;
+    --cv-s-0: 4px; --cv-s-1: 8px; --cv-s-h: 12px; --cv-s-2: 16px; --cv-s-3: 24px; --cv-s-4: 40px;
+    --cv-r-surface: 20px; --cv-r-tail: 6px; --cv-r-pill: 999px;
+    --cv-h-control: 48px; --cv-h-bar: 64px; --cv-w-capsule: 200px; --cv-w-slot: 120px; --cv-w-rail: 400px;
+    --cv-ease: cubic-bezier(.2, .7, .2, 1); --edge: 40px; /* the content's edge: the dots and the Settings card sit on it */
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cv-ground: #181715; --cv-raised: #38352F; --cv-sunk: #262421; --cv-hair: rgba(246, 243, 236, .14);
+      --cv-ink: #F6F3EC; --cv-ink-2: #B5B0A6; --cv-ink-3: #9A958B; --cv-on-ink: #1B1A17; --cv-you: #D6D0C3; --cv-on-you: #1B1A17; --cv-voice: #2E2B27;
+      --cv-accent-down: #FFB84A; --cv-accent-ink: #F4B551; --cv-accent-word: #F4A62A;
+      --cv-done: #73C795; --cv-wrong: #FF8073; --cv-wrong-on-ink: #B82E24;
+      --cv-shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--cv-ground); color: var(--cv-ink); font: 400 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; }
+  button, input { font: inherit; color: inherit; }
+  [hidden] { display: none !important; }
+  h1, h2, h3, p { margin: 0; }
+  .sr { position: fixed; top: 0; left: 0; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* buttons: quiet, primary (one per view), danger (red words); one height */
+  .cv-btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--cv-s-1); height: var(--cv-h-control); padding: 0 var(--cv-s-3);
+    border: 0; border-radius: var(--cv-r-pill); background: var(--cv-sunk); color: var(--cv-ink); font: 600 var(--cv-t-body)/1 var(--cv-font-text); letter-spacing: -0.01em;
+    white-space: nowrap; cursor: pointer; transition: background .15s var(--cv-ease), transform .15s var(--cv-ease); }
+  .cv-btn:active { transform: scale(.98); }
+  :focus-visible { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+  .cv-btn--primary { background: var(--cv-accent); color: var(--cv-on-accent); }
+  .cv-btn--primary:hover { background: var(--cv-accent-down); }
+  .cv-btn--danger { color: var(--cv-wrong); }
+  .cv-btn--wide { width: 100%; }
+  .cv-btn[disabled] { opacity: .35; cursor: default; }
+  .cv-btn.ro { cursor: default; pointer-events: none; }
+  .cv-btn.ro:active { transform: none; }
+  .cv-btn--pick { justify-content: space-between; padding: 0 20px 0 var(--cv-s-3); font-weight: 400; }
+  .cv-arrows { width: 10px; height: 16px; flex: none; color: var(--cv-ink-3); position: relative; display: inline-block; transition: transform .15s var(--cv-ease); }
+  .cv-arrows::before, .cv-arrows::after { content: ""; position: absolute; left: 1px; width: 6px; height: 6px; border-left: 2px solid currentColor; border-top: 2px solid currentColor; }
+  .cv-arrows::before { top: 1px; transform: rotate(45deg); }
+  .cv-arrows::after { bottom: 1px; transform: rotate(225deg); }
+  .cv-btn .cv-mark { font-size: 16px; }
+  .cv-card .cv-btn:not(.cv-btn--primary) { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); }
+
+  /* the mark: chevron + three bars. It is the voice. */
+  .cv-mark { display: inline-flex; align-items: center; gap: .14em; height: 1em; color: inherit; flex: none; }
+  .cv-mark b { width: .42em; height: .42em; margin-right: .06em; border-top: .13em solid currentColor; border-right: .13em solid currentColor; border-radius: .03em; transform: rotate(45deg) translate(-.06em, .06em); }
+  .cv-mark i { width: .13em; border-radius: .1em; background: currentColor; height: .55em; transform-origin: center; }
+  .cv-mark i:nth-of-type(2) { height: 1em; } .cv-mark i:nth-of-type(3) { height: .7em; }
+  .cv-mark.is-listening i { animation: cv-breathe 2.4s ease-in-out infinite; }
+  .cv-mark.is-speaking i { animation: cv-speak .7s ease-in-out infinite; }
+  .cv-mark.is-thinking i { height: .55em; animation: cv-pulse 1.2s ease-in-out infinite; }
+  .cv-mark.is-speaking i:nth-of-type(2), .cv-mark.is-listening i:nth-of-type(2), .cv-mark.is-thinking i:nth-of-type(2) { animation-delay: -.25s; }
+  .cv-mark.is-speaking i:nth-of-type(3), .cv-mark.is-listening i:nth-of-type(3), .cv-mark.is-thinking i:nth-of-type(3) { animation-delay: -.5s; }
+  .cv-mark.is-muted i, .cv-mark.is-waiting i { height: .13em !important; animation: none; }
+  .cv-mark.is-waiting i { animation: cv-pulse 1.2s ease-in-out infinite; }
+  @keyframes cv-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.8); } }
+  @keyframes cv-speak { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.45); } }
+  @keyframes cv-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+  /* the chat: both sides in bubbles; the voice's are serif */
+  .cv-chat { display: flex; flex-direction: column; gap: var(--cv-s-3); overflow-y: auto; scrollbar-width: none; }
+  .cv-chat--full { -webkit-mask-image: linear-gradient(to bottom, transparent 8px, #000 32px); mask-image: linear-gradient(to bottom, transparent 8px, #000 32px); }
+  .cv-turn { display: flex; flex-direction: column; gap: var(--cv-s-0); max-width: 76%; flex: none; }
+  .cv-turn--voice { align-self: flex-start; align-items: flex-start; }
+  .cv-turn--you { align-self: flex-end; align-items: flex-end; }
+  .cv-bubble { padding: var(--cv-s-h) var(--cv-s-3); border-radius: var(--cv-r-surface); overflow-wrap: anywhere; }
+  .cv-turn--voice .cv-bubble { background: var(--cv-voice); font-family: var(--cv-font-display); letter-spacing: 0; }
+  .cv-turn--you .cv-bubble { background: var(--cv-you); color: var(--cv-on-you); }
+  .cv-turn--voice .cv-bubble:last-child { border-bottom-left-radius: var(--cv-r-tail); }
+  .cv-turn--you .cv-bubble:last-child { border-bottom-right-radius: var(--cv-r-tail); }
+  /* a problem the call server reports: the voice's bubble with red words; nowhere else */
+  .cv-turn--voice .cv-bubble--wrong { color: var(--cv-wrong); }
+  .cv-turn--you .cv-bubble--live { color: color-mix(in srgb, var(--cv-on-you) 65%, var(--cv-you)); }
+  /* the start of a call: a line on the screen, until the first words. Never spoken. */
+  .cv-greeting { display: none; flex: 1; align-items: center; justify-content: center; padding-bottom: var(--cv-s-3); text-align: center; font: 400 var(--cv-t-display)/1.1 var(--cv-font-display); letter-spacing: -0.02em; text-wrap: balance; }
+  .empty .cv-greeting { display: flex; } .empty .cv-chat { display: none; }
+
+  /* workers: a quiet rail of cards; a card is a button; the asking card is the request */
+  .cv-card { background: var(--cv-sunk); border-radius: var(--cv-r-surface); box-shadow: inset 0 0 0 1px var(--cv-hair); padding: var(--cv-s-2) var(--cv-s-3);
+    display: flex; flex-direction: column; gap: var(--cv-s-0); flex: none; cursor: pointer; }
+  .cv-card:has(> .cv-card__head:focus-visible) { outline: 3px solid var(--cv-accent); outline-offset: 2px; }
+  .cv-card--line > :not(.cv-card__head) { display: none; }
+  .cv-card--ask { padding: var(--cv-s-3); gap: var(--cv-s-2); box-shadow: inset 0 0 0 2px var(--cv-accent); cursor: default; }
+  .cv-card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--cv-s-2); }
+  button.cv-card__head { width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-align: left; cursor: pointer; }
+  button.cv-card__head:focus-visible { outline: none; }
+  .cv-card__head .cv-state { margin-left: auto; }
+  .cv-title { font: 600 var(--cv-t-title)/28px var(--cv-font-text); letter-spacing: -0.02em; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cv-card--ask .cv-title { font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; }
+  .cv-quiet { color: var(--cv-ink-2); overflow-wrap: anywhere; min-height: 24px; }
+  .cv-question { font: 600 var(--cv-t-title)/28px var(--cv-font-display); letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .cv-command { display: block; font: 400 var(--cv-t-small)/20px var(--cv-font-mono); letter-spacing: 0; color: var(--cv-ink-2); margin: var(--cv-s-1) 0 0; overflow-wrap: anywhere; white-space: pre-wrap; max-height: 10em; overflow-y: auto; }
+  .cv-card--ask .cv-btn:focus-visible { outline-color: var(--cv-ink); }
+  .cv-card--ask .cv-command { max-height: none; overflow: visible; }
+  .cv-card__actions { display: flex; gap: var(--cv-s-1); }
+  .cv-card__actions .cv-btn--primary, .cv-card__actions .cv-btn--wide { flex: 1; width: auto; }
+  .cv-card.is-open .cv-card__actions { margin-top: var(--cv-s-h); }
+  .cv-chev { width: 9px; height: 9px; flex: none; border-right: 2px solid var(--cv-ink-3); border-bottom: 2px solid var(--cv-ink-3); transform: rotate(-45deg); transition: transform .2s var(--cv-ease); }
+  .cv-card.is-open .cv-chev { transform: rotate(45deg) translate(-2px, -2px); }
+  .cv-state { display: inline-flex; align-items: center; gap: var(--cv-s-1); font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; color: var(--cv-ink-2); white-space: nowrap; }
+  .cv-state::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+  .cv-state--working { font-weight: 400; }
+  .cv-state--working::after { width: 3px; height: 14px; border-radius: 2px; margin: 0 6px; box-shadow: -6px 0 0 0 currentColor, 6px 0 0 0 currentColor; animation: cv-pulse 1.4s var(--cv-ease) infinite; }
+  .cv-state--asking, .cv-state--waiting { color: var(--cv-accent-ink); }
+  .cv-state--done { color: var(--cv-done); }
+  .cv-state--done::after { width: 7px; height: 13px; border-radius: 0; background: none; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); margin: 0 4px 0 2px; }
+
+  /* the call bar: one board, divided by hairlines: capsule · field · Mute · End */
+  .cv-capsule { display: inline-flex; align-items: center; gap: var(--cv-s-h); height: var(--cv-h-control); min-width: var(--cv-w-capsule); padding: 0 var(--cv-s-2); white-space: nowrap; flex: none; }
+  .cv-capsule .cv-mark { font-size: 28px; }
+  .cv-capsule__word { font: italic 400 var(--cv-t-title)/1 var(--cv-font-display); letter-spacing: 0; }
+  .cv-capsule.is-wrong { color: var(--cv-wrong); }
+  .cv-bar { display: flex; align-items: center; height: var(--cv-h-bar); padding: 0 0 0 var(--cv-s-1); background: var(--cv-raised); color: var(--cv-ink); border-radius: var(--cv-r-pill); box-shadow: var(--cv-shadow); flex: none; overflow: hidden; }
+  .cv-bar:focus-within { box-shadow: var(--cv-shadow), 0 0 0 3px var(--cv-accent); }
+  .cv-field { flex: 1; min-width: 0; height: 32px; padding: 0 var(--cv-s-3); border: 0; border-left: 1px solid var(--cv-hair); border-radius: 0; background: none; color: inherit; font: 400 var(--cv-t-body)/1 var(--cv-font-text); }
+  .cv-field::placeholder { color: var(--cv-ink-3); opacity: 1; }
+  .cv-field:focus-visible { outline: none; }
+  .cv-bar .cv-btn { align-self: stretch; height: auto; flex: none; position: relative; border-radius: 0; background: none; padding: 0 var(--cv-s-2); }
+  .cv-bar .cv-btn:not(.cv-btn--danger) { width: var(--cv-w-slot); }
+  .cv-bar .cv-btn--danger { padding: 0 28px 0 var(--cv-s-3); }
+  .cv-bar .cv-btn:hover:not([disabled]) { background: color-mix(in srgb, currentColor 10%, transparent); }
+  .cv-bar .cv-btn:active { transform: none; }
+  .cv-bar .cv-btn[disabled] { opacity: 1; color: color-mix(in srgb, var(--cv-ink) 35%, transparent); } /* only the word fades: the hairline keeps its strength */
+  .cv-bar .cv-btn::before { content: ""; position: absolute; left: 0; top: 16px; bottom: 16px; width: 1px; background: var(--cv-hair); transition: opacity .15s var(--cv-ease); }
+  .cv-bar .cv-btn:hover:not([disabled])::before, .cv-bar .cv-btn:hover:not([disabled]) + .cv-btn::before { opacity: 0; }
+  .cv-bar .cv-btn--primary { color: var(--cv-accent-word); }
+  .cv-bar.is-muted { background: var(--cv-ink); color: var(--cv-on-ink); }
+  .cv-bar.is-muted .cv-btn { color: var(--cv-on-ink); }
+  .cv-bar.is-muted .cv-btn--danger { color: var(--cv-wrong-on-ink); }
+  .cv-bar.is-muted .cv-btn::before { background: color-mix(in srgb, var(--cv-on-ink) 25%, transparent); }
+  .cv-bar.is-muted .cv-field { border-color: color-mix(in srgb, var(--cv-on-ink) 25%, transparent); }
+  .cv-bar.is-muted .cv-field::placeholder { color: color-mix(in srgb, var(--cv-on-ink) 65%, var(--cv-ink)); }
+  /* narrow: the field goes below the state row */
+  .cv-bar--two { flex-wrap: wrap; height: auto; padding: 0; border-radius: var(--cv-r-surface); }
+  .cv-bar--two .cv-field { order: 1; flex: 0 0 100%; height: 52px; border: 0; border-top: 1px solid var(--cv-hair); }
+  .cv-bar--two .cv-capsule { margin-right: auto; min-width: 0; height: 56px; padding-left: var(--cv-s-3); }
+  .cv-bar--two .cv-btn { height: 56px; align-self: auto; }
+  .cv-bar--two .cv-btn--danger { padding: 0 var(--cv-s-3); }
+  .cv-bar--two .cv-btn::before { top: 12px; bottom: 12px; }
+
+  /* layout: chat left, workers at the right (on top when narrow) */
+  .cw-page { display: flex; gap: var(--cv-s-4); padding: var(--cv-s-4); height: 100%; }
+  .cw-talk { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+  .cw-talk.alone { max-width: 720px; margin: 0 auto; width: 100%; }
+  .cw-talk .cv-chat { flex: 1; min-height: 0; padding-bottom: var(--cv-s-3); }
+  .cw-talk .cv-bar { margin-top: 0; }
+  .cw-crew { width: calc(var(--cv-w-rail) + 12px); flex: none; display: flex; flex-direction: column; gap: var(--cv-s-2); overflow-y: auto; scrollbar-width: none; position: relative; padding: 6px; margin: -6px; scroll-padding-bottom: 40px; }
+  .cw-crew:empty, .alone + .cw-crew { display: none; }
+  /* a rail that scrolls fades only the edge that has more behind it */
+  .cw-crew.cv-rail--full { --t: 0px; --b: 0px; -webkit-mask-image: linear-gradient(transparent calc(var(--t) / 4), #000 var(--t), #000 calc(100% - var(--b)), transparent calc(100% - var(--b) / 4)); mask-image: linear-gradient(transparent calc(var(--t) / 4), #000 var(--t), #000 calc(100% - var(--b)), transparent calc(100% - var(--b) / 4)); }
+  .cw-crew.is-scrolled { --t: 24px; } .cw-crew.more { --b: 24px; }
+  .cw-page.n .cw-crew.is-scrolled { --t: 0px; } .cw-page.n .cw-crew.more { --b: 0px; } /* stacked, it ends on whole cards: no fade over a card's edge */
+  .cw-page.n { flex-direction: column; gap: var(--cv-s-2); padding: var(--cv-s-4) var(--cv-s-2) var(--cv-s-2); } /* 40 at the top: room for the corner menu */
+  .cw-page.n .cw-crew { order: -1; width: min(calc(100% + 12px), 732px); align-self: center; flex: 0 1 auto; min-height: 0; }
+  .cw-page.n .cw-talk { flex: 1 1 0; min-height: 272px; width: 100%; max-width: 720px; align-self: center; }
+  .cw-page.n .cw-talk .cv-chat { padding-bottom: var(--cv-s-2); }
+  .cw-page.n .cv-turn { max-width: 86%; }
+  .ob-hint { margin: calc(-1 * var(--cv-s-1)) 0 0 var(--cv-s-3); font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); } /* under the first finished card, the first call only */
+  .cv-note { font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); text-align: left; margin: 0 0 var(--cv-s-h) var(--cv-s-3); }
+  .cv-note:empty { display: none; }
+
+  /* before a call / after it */
+  .demo #callview, .demo #idle { height: calc(100% - 36px); }
+  .cw-idle { position: relative; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--cv-s-4); }
+  /* the brand mark: ink bars arcing to a marigold ball (design/logo). Ink and paper follow the theme through currentColor. */
+  .cv-brand { height: 100px; width: auto; aspect-ratio: 90 / 68; margin-bottom: 56px; fill: currentColor; flex: none; }
+  .cv-brand circle { fill: var(--cv-accent); }
+  .cw-idle h1 { font: 400 var(--cv-t-display)/1.1 var(--cv-font-display); letter-spacing: -0.02em; margin-bottom: var(--cv-s-4); text-wrap: balance; }
+  .cw-idle h1:has(+ .cv-quiet:not([hidden])) { margin-bottom: var(--cv-s-1); }
+  .cw-idle .cv-quiet { margin-bottom: var(--cv-s-4); }
+  .cw-stack { width: 320px; max-width: 100%; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+  .cw-idle .cv-note { position: absolute; left: var(--cv-s-4); right: var(--cv-s-4); bottom: calc(var(--cv-s-4) + var(--cv-h-control) + var(--cv-s-2)); margin: 0 auto; width: fit-content; max-width: 560px; }
+
+  /* the three dots at the window's top right, in every state: one press opens Settings */
+  .cv-more { position: fixed; top: 6px; right: calc(var(--edge) - 6px); z-index: 3; width: 28px; height: 28px; border: 0; border-radius: 50%; background: none; cursor: pointer; display: grid; place-items: center; color: var(--cv-ink-2); }
+  .cv-more:hover, .cv-more.is-open { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); color: var(--cv-ink); }
+  .cv-more i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: -6px 0 0 currentColor, 6px 0 0 currentColor; }
+  /* Settings */
+  /* Settings: a card that drops from the three dots, at the window's top right. A click elsewhere, the dots again or Escape closes it. */
+  .cw-sheet { position: fixed; z-index: 3; top: 40px; right: var(--edge); width: min(400px, calc(100% - 2 * var(--edge))); max-height: calc(100% - 48px); overflow-y: auto; background: var(--cv-ground); color: var(--cv-ink);
+    border-radius: var(--cv-r-surface); padding: var(--cv-s-3); box-shadow: var(--cv-shadow), 0 12px 40px rgba(0,0,0,.18), 0 0 0 1px var(--cv-hair); display: flex; flex-direction: column; gap: var(--cv-s-2); }
+  .set { display: flex; flex-direction: column; gap: var(--cv-s-0); }
+  .set > .lbl { color: var(--cv-ink-2); font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; padding-left: var(--cv-s-1); }
+  .set input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--cv-ink); flex: none; }
+  .small { font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); }
+  #vbtn small { margin: 0 var(--cv-s-1) 0 auto; font: 400 var(--cv-t-small)/20px var(--cv-font-text); color: var(--cv-ink-3); }
+  #vbtn[aria-expanded=true] .cv-arrows { transform: rotate(180deg); }
+  #vlist { max-height: 240px; overflow-y: auto; border-radius: var(--cv-r-surface); background: var(--cv-sunk); padding: var(--cv-s-1); }
+  #vlist:focus-visible { outline-offset: 0; }
+  .vh { font: 600 var(--cv-t-small)/20px var(--cv-font-text); color: var(--cv-ink-2); padding: var(--cv-s-1) var(--cv-s-2) var(--cv-s-0); }
+  .vopt { display: flex; align-items: center; justify-content: space-between; padding: var(--cv-s-1) var(--cv-s-2); border-radius: var(--cv-s-2); cursor: pointer; }
+  .vopt.act { background: color-mix(in srgb, var(--cv-ink) 9%, transparent); }
+  .vopt svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; visibility: hidden; }
+  .vopt[aria-selected=true] { font-weight: 600; } .vopt[aria-selected=true] svg { visibility: visible; }
+
+  #demobar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 4px; z-index: 9; background: var(--cv-ink); color: var(--cv-on-ink); border-radius: var(--cv-r-pill); padding: 2px 8px 2px 16px; display: flex; align-items: center; gap: 4px; font: 400 var(--cv-t-small)/24px var(--cv-font-text); max-width: calc(100vw - 20px); overflow-x: auto; white-space: nowrap; }
+  #demobar a { color: inherit; text-decoration: none; padding: 0 10px; border-radius: var(--cv-r-pill); }
+  #demobar a:hover, #demobar a[aria-current] { background: color-mix(in srgb, var(--cv-on-ink) 16%, transparent); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<main id="idle" class="cw-idle">
+  <svg class="cv-brand" viewBox="4 18 90 68" aria-hidden="true"><rect x="6" y="77" width="4" height="6" rx="2"/><rect x="13.6" y="59.6" width="4" height="10" rx="2"/><rect x="21" y="44.9" width="4" height="14" rx="2"/><rect x="28.4" y="33" width="4" height="18" rx="2"/><rect x="35.8" y="24.9" width="4" height="20" rx="2"/><rect x="43" y="21.5" width="4" height="18" rx="2"/><rect x="50.2" y="21.9" width="4" height="14" rx="2"/><rect x="57.2" y="25" width="4" height="10" rx="2"/><rect x="64.2" y="29.9" width="4" height="8" rx="2"/><rect x="71.2" y="37.6" width="4" height="6" rx="2"/><circle cx="82.2" cy="54.8" r="10"/></svg>
+  <h1 id="idleH">Oh Kevin</h1>
+  <p class="cv-quiet" id="idleSub">A voice call with Claude Code.</p>
+  <div class="cw-stack"><button id="call" class="cv-btn cv-btn--primary cv-btn--wide" type="button">Start call</button></div>
+  <div class="cv-note" id="note0" role="status"></div>
+</main>
+
+<div class="cw-page" id="callview" hidden>
+  <div class="cw-talk alone empty" id="talkcol">
+    <p class="cv-greeting">Hi. What shall we do?</p>
+    <div class="cv-chat" id="talk" role="log" aria-live="off" aria-label="The conversation"></div>
+    <div class="cv-note" id="note" role="status"></div>
+    <form class="cv-bar" id="typed" autocomplete="off">
+      <span class="cv-capsule" id="capsule"><span class="cv-mark is-listening" id="cmark" aria-hidden="true"><b></b><i></i><i></i><i></i></span><span class="cv-capsule__word" id="state">Listening</span></span>
+      <input class="cv-field" id="box" type="text" aria-label="Type instead of speaking" placeholder="Type instead" autocomplete="off">
+      <button class="cv-btn" id="mute" type="button">Mute</button>
+      <button class="cv-btn cv-btn--danger" id="end" type="button" title="End call" aria-label="End call">End</button>
+    </form>
+  </div>
+  <div class="cw-crew" id="crew" role="group" aria-label="Workers on this call"></div>
+</div>
+<button class="cv-more" id="more" type="button" title="Settings" aria-label="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="setD"><i></i></button>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<div class="cw-sheet" id="setD" role="dialog" aria-label="Settings" hidden>
+  <div class="set" id="projRow" hidden><span class="lbl">Project folder</span><div class="cv-btn cv-btn--pick cv-btn--wide ro" id="projVal"></div></div>
+  <div class="set" id="modelRow" hidden><span class="lbl">Model</span><div class="cv-btn cv-btn--pick cv-btn--wide ro" id="modelVal"></div></div>
+  <div class="set" id="pick" hidden>
+    <span class="lbl" id="vlab">Voice</span>
+    <button id="vbtn" class="cv-btn cv-btn--pick cv-btn--wide" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="vlab vbtn"><span id="vcur"></span><span class="cv-arrows"></span></button>
+    <div id="vlist" role="listbox" aria-labelledby="vlab" tabindex="0" hidden></div>
+  </div>
+  <div class="set" id="phoneopt" hidden>
+    <span class="lbl" id="hlab">Headphones</span>
+    <label class="cv-btn cv-btn--pick cv-btn--wide" aria-labelledby="hlab"><span>I'm wearing them</span><input type="checkbox" id="phones"></label>
+    <p class="small">Lets you talk over the voice. Leave it off on speakers, or the microphone will hear the voice.</p>
+  </div>
+  <p class="small" id="noset" hidden>Voice choices appear when the local voice is running.</p>
+</div>
+
+<script>
+const $ = id => document.getElementById(id)
+const q = new URLSearchParams(location.search)
+const K = q.get('k'), LANG = q.get('lang') || 'en-US'
+const DEMO = q.has('demo') // replays a made-up call: nothing is fetched, posted or heard
+const GO = q.get('go') === '1' // opened by the menu-bar launcher: the call starts on load, and End call ends it for good
+// A send that fails says so (unless the page already says the call ended), and still rejects for the callers that handle it. /hangup is the one that ends the server mid-answer; /mic is only for the launcher.
+const post = DEMO ? (path, body = {}) => { demoPost(path, body); return Promise.resolve() }
+  : (path, body = {}) => fetch(path, { method: 'POST', headers: { 'content-type': 'application/json', 'x-key': K }, body: JSON.stringify(body) })
+    .then(r => { if (!r.ok) throw new Error(r.status) })
+    .catch(err => { if (!['/hangup', '/mic'].includes(path) && !gone) note('That did not reach the call server. Check that the call is still running.'); throw err })
+const now = () => performance.now()
+
+let gone = false // the call server cannot be reached: the call is over on this side too
+let link = '' // while it cannot: 'retry' (the browser is trying again), 'closed' (it gave up), 'over' (it did not come back in time)
+let audio = null, started = false
+// The listening and speaking (voice.mjs, frozen) with the helpers it uses for talking over the voice (ears.mjs). The page
+// only shows what it does: `v` is its state, read at any time. ears.mjs stays out when the server does not serve it yet.
+let call = null, v = null
+const ready = DEMO ? Promise.resolve(wire(demoCall()))
+  : Promise.all([import(`/voice.mjs?k=${encodeURIComponent(K)}`), import(`/ears.mjs?k=${encodeURIComponent(K)}`).catch(() => null)]).then(([{ createCall }, ears]) => {
+    wire(createCall({
+      ears, lang: LANG, voice: localStorage.getItem('voice') || 'bm_fable', headphones: $('phones').checked,
+      now, setTimeout: (f, ms) => setTimeout(f, ms), clearTimeout: id => clearTimeout(id), setInterval: (f, ms) => setInterval(f, ms), clearInterval: id => clearInterval(id),
+      post, tts: (voice, text) => fetch(`/tts?k=${encodeURIComponent(K)}&voice=${voice}&text=${encodeURIComponent(text)}`), audioContext: () => (audio ??= new AudioContext()),
+      Recognition: window.SpeechRecognition || window.webkitSpeechRecognition, getUserMedia: c => navigator.mediaDevices.getUserMedia(c),
+      speech: speechSynthesis, Utterance: britishMale(SpeechSynthesisUtterance),
+    }))
+  }, () => fetch('/').then(() => note('This page is newer than the running call server. Restart the call server.'), () => note("The call server isn't running."))) // the page loaded from somewhere else, or the server is gone
+let sentMuted = null // what the server last heard about Mute: the launcher's pill shows it and can press it
+let mutedOnItsWay = null
+const tellMuted = () => { // sent again until it gets through
+  if (DEMO || !call || sentMuted === v.muted || mutedOnItsWay === v.muted) return
+  const m = mutedOnItsWay = v.muted
+  post('/live', { muted: m }).then(() => { sentMuted = m }, () => {}).finally(() => { mutedOnItsWay = null })
+}
+// Chrome's own voice, when the local one isn't installed: a British male voice if Chrome has one (the product is Kevin),
+// else Chrome's default for the call's language, as before. The voice is set on each sentence; nothing else changes.
+function britishMale(Base) {
+  const pick = () => { const vs = speechSynthesis.getVoices?.() ?? [], gb = vs.filter(v => /^en[-_]GB/i.test(v.lang))
+    return gb.find(v => /UK English Male/i.test(v.name)) ?? gb.find(v => /^(Daniel|Arthur|Oliver)\b/.test(v.name)) ?? null }
+  return class extends Base { constructor(text) { super(text); const v = pick(); if (v) this.voice = v } }
+}
+function wire(c) {
+  call = c; v = c.state
+  call.on('state', () => { refresh(); showSettings(); tellMuted() })
+  call.on('interim', ghost)
+  call.on('heard', ({ text, replaces }) => { if (replaces) retract(); row('you', text); tone(700, 70) })
+  call.on('floor', mark)
+  call.on('tally', tally)
+  call.on('problem', (code, d) => {
+    if (code === 'mic-ok') { if (blockedBy !== '') { blockedBy = ''; render(); if (GO) post('/mic', { blocked: '' }).catch(() => {}) } } // it hears: the launcher's banner goes, also one an earlier page (a reload) left
+    else if (code === 'recognition') d.error === 'not-allowed' ? micBlocked(d.bySystem)
+      : note(d.error === 'network' ? 'Speech recognition lost its connection. Start the call again. Typing still works.' : `Speech recognition stopped (${d.error}). Start the call again. Typing still works.`)
+    else note({ 'old-server': `This page is newer than the running call server. ${GO ? 'Start a new call' : 'Restart the call server'} to be able to talk over the voice.`,
+      'no-talk-over': NO_TALK_OVER, 'no-recognition': 'This browser has no speech recognition. Open this page in Chrome. Typing still works here.' }[code])
+  })
+}
+// What this call has measured (helpers in stats.mjs); purely observational, and silent if the module does not load.
+let S = null
+const entries = []
+if (!DEMO) import(`/stats.mjs?k=${encodeURIComponent(K)}`).then(m => { S = m }, () => {})
+function tally(entry) {
+  if (!S) return
+  try { S.record(entries, entry); if (entry.kind === 'reply') console.info('[stats] ' + S.line(S.summary(entries))) } catch {}
+}
+const NO_TALK_OVER = 'This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.'
+
+// ── what the call shows: the idle screen or the call, and the bar ───────────────
+// The word is the voice's state, said once. Hearing you is still Listening.
+function render() {
+  if (!v) return
+  started ||= v.live
+  const inCall = v.live || !!blockedBy || (gone && link !== 'over')
+  $('idle').hidden = inCall; $('callview').hidden = !inCall
+  $('idleH').textContent = started || gone ? 'Call ended.' : 'Oh Kevin'; $('idleSub').hidden = started || gone
+  $('call').disabled = $('call').hidden = gone
+  const word = link === 'closed' ? 'Call lost' : link === 'retry' ? 'Reconnecting' : blockedBy ? 'Mic blocked' : v.speaking ? 'Speaking' : v.thinking ? 'Thinking' : v.muted ? 'Muted' : 'Listening'
+  $('state').textContent = word
+  const off = !!blockedBy || link === 'closed', down = !!link
+  $('cmark').className = 'cv-mark is-' + (link === 'retry' ? 'waiting' : off || word === 'Muted' ? 'muted' : word.toLowerCase())
+  $('capsule').classList.toggle('is-wrong', off)
+  $('typed').classList.toggle('is-muted', v.muted && !off && !down)
+  const mute = $('mute')
+  mute.textContent = link === 'closed' ? 'Call again' : blockedBy ? 'Allow' : v.muted ? 'Unmute' : 'Mute'
+  mute.disabled = link === 'retry'; mute.style.visibility = GO && link === 'closed' ? 'hidden' : '' // on a launcher call the way back is the menu bar's: the slot keeps its room, empty
+  mute.classList.toggle('cv-btn--primary', off)
+  layout()
+}
+function refresh() { render(); showCrew(); title() }
+// Headphones only matter when the recogniser cannot use the echo-cancelled track (known once the ears have opened).
+function showSettings() {
+  $('phoneopt').hidden = v.trackPath !== false
+  $('noset').hidden = !($('pick').hidden && $('phoneopt').hidden)
+}
+const note = text => { $('note').textContent = $('note0').textContent = text }
+
+// The server holds its own lines (limit warnings) while you talk or the voice plays, so it is told when either starts or stops.
+const told = { you: false, voice: false }
+function mark(lane, on) { if (lane in told && told[lane] !== on) { told[lane] = on; post('/live', { [lane]: on }).catch(() => {}) } }
+
+// ── sounds: short tones stand in for words ───────────────────────────────────
+function tone(freq, ms, gain = 0.05, delay = 0) {
+  if (!audio || DEMO) return
+  const o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + delay
+  o.frequency.value = freq; g.gain.setValueAtTime(gain, t); g.gain.exponentialRampToValueAtTime(0.0001, t + ms / 1000)
+  o.connect(g).connect(audio.destination); o.start(t); o.stop(t + ms / 1000)
+}
+
+// The problem sound: once per problem, through the same audio as the tones (so the echo guard covers it), and like
+// them it plays while muted and never in the demo. The same line again within 5 s is the same problem.
+let problemAudio, lastProblem = '', lastProblemAt = 0
+async function problemSound(text) {
+  if (!audio || DEMO || (text === lastProblem && Date.now() - lastProblemAt < 5000)) return
+  lastProblem = text; lastProblemAt = Date.now()
+  try {
+    problemAudio ??= await audio.decodeAudioData(await (await fetch('/problem.mp3?k=' + encodeURIComponent(K))).arrayBuffer())
+    const src = audio.createBufferSource(), g = audio.createGain()
+    src.buffer = problemAudio; g.gain.value = 0.3; src.connect(g).connect(audio.destination); src.start()
+  } catch { problemAudio = undefined } // no sound: the red bubble still says it
+}
+
+// ── Settings: the voice, and headphones ──────────────────────────────────────
+const VOICE_GROUPS = [['af_', 'US female'], ['am_', 'US male'], ['bf_', 'British female'], ['bm_', 'British male']]
+const niceName = n => `${n[3].toUpperCase()}${n.slice(4)}`
+const groupOf = n => VOICE_GROUPS.find(([p]) => n.startsWith(p))?.[1] ?? 'Other'
+let opts = [], act = -1
+function setVoices(names) { // the menu; which voice is used is the call's (voice.mjs)
+  $('pick').hidden = !names.length; showSettings()
+  closeList()
+  const list = $('vlist'); list.replaceChildren(); opts = []
+  for (const g of [...VOICE_GROUPS.map(([, t]) => t), 'Other']) {
+    const mine = names.filter(n => groupOf(n) === g)
+    if (!mine.length) continue
+    const grp = document.createElement('div'), h = document.createElement('div')
+    grp.setAttribute('role', 'group'); h.className = 'vh'; h.id = 'vg-' + g.replace(/\W/g, ''); h.textContent = g; grp.setAttribute('aria-labelledby', h.id)
+    grp.append(h)
+    for (const n of mine) {
+      const o = document.createElement('div')
+      o.className = 'vopt'; o.id = 'vo-' + n; o.dataset.v = n; o.setAttribute('role', 'option')
+      o.innerHTML = '<span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'
+      o.firstChild.textContent = niceName(n)
+      o.onclick = () => choose(n)
+      grp.append(o); opts.push(o)
+    }
+    list.append(grp)
+  }
+  markVoice()
+}
+function markVoice() {
+  const voiceName = v.voice
+  if (!voiceName) return
+  $('vcur').textContent = niceName(voiceName)
+  for (const o of opts) o.setAttribute('aria-selected', o.dataset.v === voiceName)
+}
+function openList() {
+  $('vlist').hidden = false; $('vbtn').setAttribute('aria-expanded', 'true')
+  $('vlist').focus(); setAct(Math.max(0, opts.findIndex(o => o.dataset.v === v.voice)))
+}
+function closeList(refocus) {
+  if ($('vlist').hidden) return
+  $('vlist').hidden = true; $('vbtn').setAttribute('aria-expanded', 'false')
+  if (refocus) $('vbtn').focus()
+}
+function setAct(i) {
+  act = Math.min(opts.length - 1, Math.max(0, i))
+  opts.forEach((o, j) => o.classList.toggle('act', j === act))
+  $('vlist').setAttribute('aria-activedescendant', opts[act].id); opts[act].scrollIntoView({ block: 'nearest' })
+}
+function choose(name) {
+  localStorage.setItem('voice', name); call.set({ voice: name }); markVoice(); closeList(true) // it says "This is how I sound now."
+}
+$('vbtn').onclick = () => ($('vlist').hidden ? openList() : closeList(true))
+$('vbtn').onkeydown = e => { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if ($('vlist').hidden) openList() } }
+$('vlist').onkeydown = e => {
+  const step = { ArrowDown: act + 1, ArrowUp: act - 1, Home: 0, End: opts.length - 1 }[e.key]
+  if (step != null) { e.preventDefault(); setAct(step) }
+  else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (opts[act]) choose(opts[act].dataset.v) }
+  else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); closeList(true) }
+  else if (e.key === 'Tab') closeList()
+}
+addEventListener('pointerdown', e => { if (!$('pick').contains(e.target)) closeList() })
+function settings(open = $('setD').hidden, back = true) {
+  $('setD').hidden = !open; $('more').setAttribute('aria-expanded', open); $('more').classList.toggle('is-open', open)
+  if (open) ($('vbtn').offsetParent ? $('vbtn') : $('phones').offsetParent ? $('phones') : $('setD')).focus?.() // focus moves into the card
+  else if (back) $('more').focus()
+}
+$('more').onclick = () => settings()
+addEventListener('pointerdown', e => { if (!$('setD').hidden && !$('setD').contains(e.target) && !$('more').contains(e.target)) settings(false, false) })
+
+// ── the chat ─────────────────────────────────────────────────────────────────
+const chat = $('talk')
+let voiceBubble = null // the voice's bubble for this turn; its next sentences join it
+const drop = b => { const t = b.parentElement; b.remove(); if (!t.children.length) t.remove() }
+// The bubble of your first words goes, with anything after it (an answer you never heard): the joined words replace it.
+function retract() {
+  const all = [...chat.querySelectorAll('.cv-bubble')]
+  const i = all.findLastIndex(b => b.parentElement.classList.contains('cv-turn--you') && !b.classList.contains('cv-bubble--live'))
+  if (i >= 0) all.slice(i).forEach(drop)
+}
+function row(who, text, live, wrong) { // wrong: a problem the call server reports, in the voice's bubble with red words
+  if (who === 'voice' && voiceBubble && !wrong) { voiceBubble.textContent += ' ' + text; return }
+  let turn = chat.lastElementChild
+  if (!turn?.classList.contains('cv-turn--' + who)) { turn = Object.assign(document.createElement('div'), { className: 'cv-turn cv-turn--' + who }); chat.append(turn) }
+  const b = Object.assign(document.createElement('div'), { className: 'cv-bubble' + (live ? ' cv-bubble--live' : '') + (wrong ? ' cv-bubble--wrong' : ''), textContent: text })
+  turn.append(b)
+  if (who === 'you') away = false // your own words always come into view
+  if (!live) voiceBubble = who === 'voice' && !wrong ? b : null
+}
+function ghost(text) { // your words so far, '' to clear them
+  const g = chat.querySelector('.cv-bubble--live'); if (g) drop(g)
+  if (text) row('you', text, true)
+}
+// New lines keep the chat at its end only if you were there: reading back is not yanked away. Only when it has scrolled does its top fade.
+let away = false, lastTop = 0
+const stick = () => { if (!away) chat.scrollTop = chat.scrollHeight }
+chat.onscroll = () => {
+  if (chat.scrollHeight - chat.scrollTop - chat.clientHeight < 80) away = false; else if (chat.scrollTop < lastTop) away = true
+  lastTop = chat.scrollTop; chat.classList.toggle('cv-chat--full', chat.scrollTop > 4); layout()
+}
+function layout() {
+  const bs = chat.querySelectorAll('.cv-bubble')
+  $('talkcol').classList.toggle('empty', !bs.length && !link && !blockedBy); // the greeting only while the call can hear
+  $('talkcol').classList.toggle('alone', !railRows)
+  // Pinned to the bottom with older lines above: a bubble that starts inside the top fade is scrolled away, not drawn cut. (Reading back, the fade itself does it.)
+  const top = chat.getBoundingClientRect().top, cut = !away && chat.scrollTop > 4
+  for (const b of bs) b.style.visibility = cut && b.getBoundingClientRect().top < top + 32 ? 'hidden' : ''
+}
+new MutationObserver(() => { stick(); layout() }).observe(chat, { childList: true, subtree: true, characterData: true })
+new ResizeObserver(() => { stick(); layout() }).observe(chat)
+
+// A refused microphone (not-allowed): macOS keeping it from Chrome when the page's own permission is granted (or
+// getUserMedia said "Permission denied by system"), otherwise Chrome's permission for this page. The page says how to fix
+// it and, on a launcher call, tells the server, so the panel shows the button that opens the right settings: its window
+// has no address bar. null until the recogniser first hears or is refused.
+let blockedBy = null
+async function micBlocked(deniedBySystem) {
+  const site = await navigator.permissions?.query({ name: 'microphone' }).catch(() => null)
+  blockedBy = deniedBySystem || site?.state === 'granted' ? 'mac' : 'chrome'
+  render()
+  note(blockedBy === 'mac' ? 'Turn the microphone on in System Settings › Privacy & Security, then press Allow.'
+    : GO ? 'Chrome blocked the microphone. Press Allow microphone in the Oh Kevin panel in the menu bar.'
+    : 'Chrome blocked the microphone. Allow it in the address bar, then press Allow.')
+  if (GO) post('/mic', { blocked: blockedBy }).catch(() => {})
+  if (GO && site && blockedBy === 'chrome') site.onchange = () => { if (site.state === 'granted' && !v.live) $('call').click() } // allowed in Chrome's settings
+}
+
+// ── the controls ─────────────────────────────────────────────────────────────
+async function toggleCall() {
+  await ready
+  const on = !v.live
+  note('')
+  call.set({ headphones: $('phones').checked })
+  const done = call.start(on)
+  if (!on && GO && !gone) post('/hangup').catch(() => {}) // a dropped stream must not end a server that is still there
+  await done
+}
+$('call').onclick = toggleCall
+// End when the microphone is blocked: the call is not live, so there is nothing to stop; the screen goes back, and a launcher call ends.
+$('end').onclick = () => { if (v?.live) return toggleCall(); blockedBy = ''; note(''); if (gone) { link = 'over'; endedByPerson = true; showOver() } else if (GO) post('/hangup').catch(() => {}); render() }
+$('mute').onclick = async () => { // Allow, when the microphone is blocked: start listening again
+  await ready
+  if (link === 'closed') return location.reload() // the stream gave up: a page that loads again is a new try
+  if (blockedBy) return toggleCall()
+  await call.mute(!v.muted); render()
+}
+if (GO) addEventListener('load', () => ready.finally(() => setTimeout(() => $('call').click())), { once: true }) // once the call's modules are in, as when a person clicks
+$('phones').onchange = () => call?.set({ headphones: $('phones').checked })
+$('typed').onsubmit = async e => { e.preventDefault(); await ready; const t = $('box').value.trim(); $('box').value = ''; call.typed(t) }
+addEventListener('keydown', e => {
+  if (e.key === ',' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); return settings() }
+  if (e.key === 'Escape' && !$('setD').hidden) { settings(false); return }
+  if (e.key === 'Escape' && openName) { openName = ''; showCrew(); return }
+  if (e.target === $('box') && e.key === 'Escape') { $('box').blur(); return }
+  if (!$('setD').hidden || e.target.closest('input, textarea, select, [role=listbox]')) return
+  if (e.code === 'Space' && !e.target.closest('button, [role=button]')) { e.preventDefault(); call?.hush() }
+  else if (e.code === 'KeyM' && !e.ctrlKey && !e.metaKey && !e.altKey && v?.live) $('mute').click()
+})
+
+// ── the workers on this call ─────────────────────────────────────────────────
+// The board event carries every worker's own board (workers.mjs pageBoard): name, state, task, title. Nothing is read from text.
+let project = ''
+const crew = [] // { name, topic, state, doing, session, used, closed }
+function readBoard(e) { // by name: a worker the server dropped (Close) takes its flags with it
+  const old = new Map(crew.map(w => [w.name, w]))
+  crew.length = 0
+  for (const b of e.workers) {
+    const topic = b.title.replace(/^Voice call \/ /, ''), w = old.get(b.name) ?? {}
+    crew.push(Object.assign(w, { name: b.name, topic: topic.startsWith(b.name + ' / ') ? topic.slice(b.name.length + 3) : topic === b.name ? '' : topic, state: b.state, doing: b.task, model: b.model }))
+  }
+  const models = [...new Set(crew.map(w => w.model).filter(Boolean))].map(m => m[0].toUpperCase() + m.slice(1)) // read-only: a worker's model is fixed for its call
+  $('modelVal').textContent = models.join(', '); $('modelRow').hidden = !models.length
+}
+
+// A worker shows once it has had work. Its card: Working, Waiting (an approval is queued), Done (idle again); the one being asked is the request.
+const WORD = { working: 'Working', asking: 'Asking', waiting: 'Waiting', done: 'Done' }
+let openName = '', railSig = '', railRows = 0
+let hintable = false, hintFor = '' // the first call's one-time line under the first finished card; the server remembers it was shown
+const pressed = new Set() // workers whose Open in Claude was just pressed
+const rail = $('crew'), el = (tag, cls, text) => Object.assign(document.createElement(tag), { className: cls, ...(text != null && { textContent: text }) })
+const MARK = '<span class="cv-mark is-listening"><b></b><i></i><i></i><i></i></span>'
+function showCrew() {
+  const rows = crew.filter(w => { w.used ||= !!w.state && w.state !== 'idle'; if (w.state === 'working' || w.state === 'waiting') w.closed = w.stopped = false; return w.used && !w.closed && !(w.stopped && w.state === 'idle') }) // a stopped worker leaves: it did not finish
+  const model = rows.map(w => {
+    const a = asks.find(x => x.w === w), first = a && a === asks[0]
+    const kind = first ? 'asking' : a || w.state === 'waiting' ? 'waiting' : w.state === 'working' ? 'working' : 'done'
+    return { w, a, kind, line: kind === 'working' ? w.doing || w.topic || '' : kind === 'done' ? w.doing || (w.topic ? w.topic[0].toUpperCase() + w.topic.slice(1) : '') : kind === 'waiting' && a?.step ? `Wants to ${a.step}` : '', open: kind !== 'asking' && openName === w.name }
+  })
+  railRows = rows.length
+  if (hintable && !hintFor) { const d = model.find(m => m.kind === 'done'); if (d) { hintFor = d.w.name; post('/hinted', {}).catch(() => {}) } }
+  const sig = JSON.stringify(model.map(m => [m.w.name, m.kind, m.line, m.open, !!m.w.session, pressed.has(m.w.name), m.a?.full, m.a?.voice, m.w.name === hintFor]))
+  layout()
+  if ((asks[0]?.id ?? '') !== announced) { announced = asks[0]?.id ?? ''; if (announced && !asks[0].quiet) announce(`${asks[0].w.name} is asking.`) }
+  if (sig === railSig) return
+  railSig = sig
+  const had = document.activeElement?.closest?.('#crew [data-name]')?.dataset.name
+  rail.replaceChildren(...model.flatMap(m => m.w.name === hintFor ? [card(m), el('p', 'ob-hint', 'Press a card to open its work in Claude.')] : [card(m)]))
+  if (had) rail.querySelector(`[data-name="${CSS.escape(had)}"] > button.cv-card__head`)?.focus()
+  fit()
+}
+function card({ w, a, kind, line, open }) {
+  const c = el('div', 'cv-card'); c.dataset.name = w.name
+  const state = el('span', 'cv-state cv-state--' + kind, WORD[kind])
+  if (kind === 'asking') { // the card is the request: the question in the voice's serif, the exact command, Deny and Approve
+    c.classList.add('cv-card--ask'); c.setAttribute('role', 'group'); c.setAttribute('aria-label', `${w.name} is asking`)
+    const head = el('div', 'cv-card__head'), q = el('div'), no = el('button', 'cv-btn', 'Deny'), yes = el('button', 'cv-btn cv-btn--primary'), acts = el('div', 'cv-card__actions')
+    head.append(el('h3', 'cv-title', w.name), state)
+    q.append(el('p', 'cv-question', `${a.step ? a.step[0].toUpperCase() + a.step.slice(1) : 'Run this'}?`), el('code', 'cv-command', a.full))
+    yes.innerHTML = a.voice ? MARK + 'Approve' : 'Click to approve' // the mark: a spoken yes counts. Without it only a click does.
+    no.type = yes.type = 'button'; yes.onclick = () => post('/permit', { id: a.id, allow: true }); no.onclick = () => post('/permit', { id: a.id, allow: false })
+    acts.append(no, yes); c.append(head, q, acts)
+    return c
+  }
+  const head = el('button', 'cv-card__head'); head.type = 'button'; head.setAttribute('aria-expanded', open)
+  head.append(el('span', 'cv-title', w.name), state, el('span', 'cv-chev'))
+  c.append(head, el('p', 'cv-quiet', line))
+  const toggle = () => { openName = open ? '' : w.name; showCrew() }
+  head.onclick = toggle
+  c.onclick = e => { if (e.target === c || e.target.tagName === 'P') toggle() } // the whole card presses; the head is what a keyboard and a screen reader find
+  if (open) {
+    c.classList.add('is-open')
+    const acts = el('div', 'cv-card__actions'), end = el('button', 'cv-btn cv-btn--danger', kind === 'done' ? 'Close' : 'Stop')
+    end.type = 'button'
+    end.onclick = () => {
+      if (kind !== 'done') { w.stopped = true; return void post('/stop', { name: w.name }).catch(() => { w.stopped = false }) } // a failed send says so itself
+      const names = [...rail.querySelectorAll('[data-name]')].map(x => x.dataset.name), i = names.indexOf(w.name), next = names[i + 1] ?? names[i - 1]
+      w.closed = true; openName = ''; post('/close', { name: w.name }).catch(() => {}); showCrew() // the card is gone: focus goes to its neighbour, else the field
+      const to = next && rail.querySelector(`[data-name="${CSS.escape(next)}"] > button.cv-card__head`); to ? to.focus() : $('box').focus()
+    }
+    const go = el('button', 'cv-btn cv-btn--wide', 'Open in Claude'); go.type = 'button'
+    go.disabled = !w.session || pressed.has(w.name)
+    go.onclick = () => { post('/open', { name: w.name }).catch(() => {}); go.disabled = true; pressed.add(w.name); setTimeout(() => { pressed.delete(w.name); showCrew() }, 2000) } // one press at a time
+    acts.append(go)
+    acts.append(end); c.append(acts)
+  }
+  return c
+}
+// Rail full: resting cards drop their sentence, then the rail scrolls (the edge with more behind it fades). The asking card never shrinks, and stays in view.
+// Stacked, the rail takes at most 45% of the page and ends on a whole card, so there is no sliver at the fade.
+function fit() {
+  rail.classList.remove('cv-rail--full'); rail.style.maxHeight = ''; rail.querySelectorAll('.cv-card--line').forEach(c => c.classList.remove('cv-card--line'))
+  const over = () => rail.scrollHeight > rail.clientHeight + 1
+  if (over()) {
+    rail.querySelectorAll('.cv-card:not(.cv-card--ask):not(.is-open)').forEach(c => c.classList.add('cv-card--line'))
+    if (over()) rail.classList.add('cv-rail--full')
+  }
+  const page = $('callview'), cap = page.clientHeight * 0.45, cards = [...rail.querySelectorAll(':scope > .cv-card')]
+  if (page.classList.contains('n') && rail.scrollHeight > cap && cards.length) {
+    // stacked: resting cards shrink to a line, then a window of whole cards holds the asking one and the first waiting one after it, and as many more as fit
+    cards.forEach(c => { if (!c.classList.contains('cv-card--ask') && !c.classList.contains('is-open')) c.classList.add('cv-card--line') })
+    const top = c => c.offsetTop - 6, end = c => c.offsetTop + c.offsetHeight + 6
+    let lo = cards.findIndex(c => c.classList.contains('cv-card--ask')); if (lo < 0) lo = 0
+    let hi = cards.findIndex((c, i) => i > lo && c.querySelector('.cv-state--waiting')); if (hi < 0) hi = lo
+    const room = Math.max(cap, Math.min(end(cards[hi]) - top(cards[lo]), page.clientHeight * 0.6))
+    let best = [lo, hi]
+    for (let i = 0; i <= lo; i++) for (let j = hi; j < cards.length; j++) if (end(cards[j]) - top(cards[i]) <= room && (j - i >= best[1] - best[0])) best = [i, j]
+    rail.style.maxHeight = end(cards[best[1]]) - top(cards[best[0]]) + 'px'
+    rail.classList.add('cv-rail--full')
+    rail.scrollTop = top(cards[best[0]])
+  } else rail.querySelector('.cv-card--ask')?.scrollIntoView({ block: 'nearest' })
+  edges()
+}
+const edges = () => { rail.classList.toggle('is-scrolled', rail.scrollTop > 0); rail.classList.toggle('more', rail.scrollTop + rail.clientHeight < rail.scrollHeight - 1) }
+rail.onscroll = edges
+// The layout follows the room, not a device. The chat needs CHAT to keep a one-row bar; the workers sit beside it only when that room is left
+// (margin, chat, gutter, rail, margin), otherwise they go on top and the chat has the whole width. The field drops below only when the chat itself is under CHAT.
+const CHAT = 640, BESIDE = 40 + CHAT + 40 + 400 + 40
+const shape = () => {
+  const page = $('callview'), talk = $('talkcol')
+  page.classList.toggle('n', page.clientWidth < BESIDE)
+  $('typed').classList.toggle('cv-bar--two', talk.clientWidth < CHAT)
+  fit()
+}
+const edge = () => document.documentElement.style.setProperty('--edge', innerWidth < BESIDE ? '16px' : '40px')
+edge(); addEventListener('resize', edge)
+const fitter = new ResizeObserver(shape); fitter.observe($('callview')); fitter.observe($('talkcol')) // the chat's own width changes when the workers appear
+
+// ── approvals: the asking worker's card; the rest wait their turn, in the order the voice asks them ──
+const asks = [] // { id, w, full, step, voice }
+function askCard({ id, worker, voice, full, step }) {
+  if (asks.some(a => a.id === id)) return // sent again while the page is still showing it
+  const again = known.has(id); known.add(id) // sent again after a reconnect cleared the list: shown, but not chimed or announced again
+  const w = crew.find(c => c.name === worker)
+  if (!w) return
+  asks.push({ id, w, full, step, voice: voice === true, quiet: again }) // the server says whether a spoken yes will do
+  w.used = true
+  showCrew(); title()
+  if (!again) { tone(520, 120, 0.06); tone(520, 120, 0.06, 0.18) }
+}
+const known = new Set()
+// For screen readers, in one place. Never the command or the voice's words: they can contain "yes", "no" or "stop".
+const announce = text => { $('live').textContent = ''; setTimeout(() => { $('live').textContent = text }, 50) }
+let announced = ''
+function title() { document.title = `${asks.length ? `(${asks.length}) ` : ''}Oh Kevin${project ? ` · ${project}` : ''}` }
+function asked(e) {
+  const i = asks.findIndex(a => a.id === e.id); if (i < 0) return
+  asks.splice(i, 1)
+  call.server(e)
+  showCrew(); title()
+}
+
+// ── the end of the call ──────────────────────────────────────────────────────
+// The server hands each worker's session to the Claude app as it stops (handover.mjs); the page shows only the design's
+// ended screen. Started from a terminal with the server gone, Start call can't work: one plain line says how to call again.
+let hadWork = false // a worker has had a session: the restart line says the work is saved
+function showOver() { if (!GO && gone) note('Run the call again in the terminal.') }
+
+// ── events from the server ───────────────────────────────────────────────────
+let boot = ''
+// The server is a new process: it starts fresh. Its board has already arrived (the server sends it before hello). The chat above stays; the rail and any open approvals are the new server's.
+function restarted() {
+  const had = hadWork || crew.some(w => w.used) // anything of the old call to be sorry about
+  crew.forEach(w => Object.assign(w, { session: '', used: false, closed: false, stopped: false }))
+  asks.length = 0; known.clear(); openName = ''; railSig = ''
+  voiceBubble = null
+  row('voice', "The call restarted. I don't remember what we said." + (had ? ' The workers stopped; their work is saved in Claude Code.' : '')); voiceBubble = null
+  announce('The call restarted.')
+  showCrew(); title()
+}
+let hungUp = false // the launcher ended the call for good
+const on = {
+  hangup: () => { hungUp = true },
+  hello: e => {
+    if (boot && e.boot && e.boot !== boot) restarted() // another server process answered on this address
+    boot = e.boot ?? boot
+    if (e.first) document.querySelector('.cv-greeting').textContent = 'Say hello.' // the first call on this Mac: the app's own line asks for one word
+    hintable = !!e.hint
+    call.server(e); setVoices(e.voices); project = e.project.split('/').pop(); $('projVal').textContent = project; $('projRow').hidden = !project; title() },
+  voices: e => { call.server(e); setVoices(e.names) },
+  say: e => {
+    row('voice', e.text)
+    call.server(e)
+  },
+  turn_end: e => { voiceBubble = null; call.server(e) },
+  wait: e => { call.server(e) },
+  step: () => tone(330, 40, 0.025), // what it does is for the voice to say, not for this page
+  ask: askCard,
+  asked,
+  board: e => {
+    if (crew.some(w => w.state && w.state !== 'idle') && e.state === 'idle') { tone(660, 110, 0.05); tone(880, 160, 0.05, 0.12) }
+    readBoard(e)
+    showCrew()
+  },
+  session: e => { // the server names the worker
+    const w = crew.find(c => c.name === e.worker)
+    if (w) w.session = e.id
+    hadWork = true
+    showCrew()
+  },
+  error: e => { row('voice', e.text, false, true); voiceBubble = null; announce('The call server reported a problem.'); problemSound(e.text) }, // a problem the server reports: in the chat, in red, nowhere else
+  mute: e => { if (e.on !== v.muted && !blockedBy && !$('mute').disabled) $('mute').click() }, // Mute pressed in the launcher
+}
+if (!DEMO) ready.then(() => { if (!call) return
+  const events = new EventSource('/events?k=' + encodeURIComponent(K))
+  events.onmessage = m => { const e = JSON.parse(m.data); on[e.type]?.(e) }
+  // The server hung up, quit or crashed: end the call here the way End call does, and say so. The browser keeps trying to
+  // reconnect: the same server coming back (a sleep, a hiccup) makes the page ready again; a new one has a new key and refuses it.
+  events.onerror = () => {
+    const was = link
+    link = hungUp ? 'over' : events.readyState === 2 || gaveUp ? 'closed' : 'retry'
+    if (link !== was && link !== 'over') announce(link === 'closed' ? 'Call lost.' : 'Reconnecting.')
+    if (!gone) {
+      gone = true
+      wasLive = v.live
+      if (v.live) $('call').click() // the call ends here the way End call does; a drop never hangs up the server (gone is set first)
+      note('')
+      call.server({ type: 'gone' })
+      $('box').disabled = true
+      // Not back in time, the call is over. On a launcher call the launcher may be starting the server again: the browser's retries go on until it says it ended the call.
+      clearTimeout(lostTimer)
+      if (hungUp) link = 'over'
+      else lostTimer = setTimeout(() => {
+        if (!gone || link !== 'retry') return
+        // Chrome keeps trying while the server is down. A browser page gives up; a launcher page says so but keeps the stream, so a restart still reaches it.
+        if (GO) { gaveUp = true; link = 'closed'; announce('Call lost.'); note('Press Call again in the menu bar.') } else { link = 'over'; showOver() }
+        refresh()
+      }, 15000)
+      if (link === 'over') showOver()
+    }
+    if (link === 'closed' && GO) note('Press Call again in the menu bar.') // the page cannot reach the launcher: no button of its own
+    refresh()
+  }
+  events.onopen = () => {
+    if (GO && blockedBy) post('/mic', { blocked: blockedBy }).catch(() => {}) // the server forgets it when the stream drops
+    sentMuted = null; tellMuted()
+    asks.length = 0; showCrew(); title() // the server sends the open approvals again
+    if (!gone) return
+    const resume = wasLive && link !== 'over' // the call was on when the stream dropped: it comes back on
+    if (GO && endedByPerson) post('/hangup').catch(() => {}) // End was pressed while it was down: the server that came back ends too
+    clearTimeout(lostTimer); gaveUp = false; gone = false; link = ''; call.server({ type: 'gone' }); note('')
+    $('box').disabled = false
+    refresh()
+    if (resume && !v.live) $('call').click()
+  }
+})
+let lostTimer = 0, wasLive = false, gaveUp = false, endedByPerson = false
+
+// ── demo: ?demo=1 replays a made-up call through the handlers above ──────────
+// &at=<scene> jumps straight to a scene and stays there. Nothing reaches a server and no microphone is opened.
+// The demo plays the call's part (voice.mjs) through the same interface: each sentence "plays" for a while, and the
+// scenes say what was heard.
+function demoCall() {
+  const fns = {}, emit = (type, ...a) => { for (const fn of fns[type] ?? []) fn(...a) }
+  let timer = 0, askNext = '', askHeard = '', askHeardAt = 0
+  const s = { live: false, muted: false, speaking: false, hearing: false, thinking: false, trackPath: null, voice: localStorage.getItem('voice') || 'bm_fable' }
+  Object.defineProperty(s, 'armed', { get: () => (!s.speaking && now() - askHeardAt < 20000 ? askHeard : '') })
+  const state = () => emit('state', s)
+  const end = () => { clearTimeout(timer); if (!s.speaking) return; s.speaking = false; emit('floor', 'voice', false); if (askNext) { askHeard = askNext; askHeardAt = now(); askNext = '' } state() }
+  const say = text => { clearTimeout(timer); askHeard = ''; s.speaking = true; s.thinking = false; emit('floor', 'voice', true); state(); emit('spoken', text); timer = setTimeout(end, 600 + text.length * 55) }
+  const heard = text => { emit('interim', ''); emit('heard', { text, replaces: false }); s.thinking = true; state() }
+  return {
+    state: s, on: (type, fn) => (fns[type] ??= []).push(fn),
+    start: on => { s.live = on; s.muted = false; audio ??= new AudioContext(); if (!on) end(); state() },
+    mute: on => { s.muted = on; state() },
+    hush: end,
+    typed: t => { audio ??= new AudioContext(); if (t) { end(); heard(t) } },
+    set: ({ voice } = {}) => { if (voice) { s.voice = voice; audio ??= new AudioContext(); end(); say('This is how I sound now.') } },
+    server: e => {
+      if (e.type === 'hello' && !e.voices.includes(s.voice)) s.voice = e.voices.includes('bm_fable') ? 'bm_fable' : e.voices[0]
+      if (e.type === 'say') say(e.text)
+      if (e.type === 'turn_end') { s.thinking = false; state(); if (e.ask) { if (s.speaking) askNext = e.ask; else { askHeard = e.ask; askHeardAt = now() } } }
+      if (e.type === 'asked') { if (askHeard === e.id) askHeard = ''; if (askNext === e.id) askNext = '' }
+      return false
+    },
+    hear: text => { s.hearing = true; emit('floor', 'you', true); emit('interim', text); state() }, // the scenes' own: words so far, and words for a turn
+    said: text => { s.hearing = false; emit('floor', 'you', false); heard(text) },
+  }
+}
+// What the server sends, made up: every worker's board, in the order they were opened.
+const dboard = [] // { name, state, task, title }
+const emitBoard = () => on.board({ type: 'board', state: dboard.some(w => w.state === 'waiting') ? 'waiting' : dboard.some(w => w.state === 'working') ? 'working' : 'idle', model: 'opus', title: 'Voice call', workers: dboard.map(w => ({ ...w, step: '', model: 'opus' })) })
+const dset = (name, state, task, topic) => { const w = dboard.find(x => x.name === name) ?? dboard[dboard.push({ name }) - 1]; Object.assign(w, { state, task: task ?? w.task ?? '', title: `Voice call / ${name}${topic ?? w.topic ? ' / ' + (topic ?? w.topic) : ''}` }); if (topic) w.topic = topic; emitBoard() }
+function demoPost(path, body) {
+  if (path === '/permit') setTimeout(() => on.asked({ type: 'asked', id: body.id, allow: body.allow }))
+  if (path === '/stop') setTimeout(() => { for (const w of dboard) if (!body.name || w.name === body.name) { for (const a of asks.filter(x => x.w.name === w.name)) on.asked({ type: 'asked', id: a.id, allow: false }); dset(w.name, 'idle') } })
+}
+function demo() {
+  document.body.classList.add('demo') // room for the scene bar
+  const at = q.get('at'), sleep = ms => new Promise(r => setTimeout(r, ms))
+  const ev = (type, data = {}) => () => on[type]({ type, ...data })
+  const hear = text => () => call.hear(text)
+  const youSay = text => () => call.said(text)
+  const scenes = [ // [scene name, wait before it in ms, what happens]
+    ['', 0, () => {
+      dset('api', 'idle', '')
+      on.hello({ type: 'hello', project: '/Users/you/Code/api', projects: '/Users/you/Code', voices: ['bm_fable', 'af_heart', 'af_bella', 'am_michael', 'bf_emma', 'bm_george'], spokenYes: 'safe', first: q.has('first'), hint: q.has('first') })
+      call.start(true)
+    }],
+    ['start', 300, () => {}], // the greeting is on the screen already, until the first words
+    ['hearing', 1500, hear('Run the tests in api and tell me')],
+    ['', 1200, hear('Run the tests in api and tell me what fails')],
+    ['thinking', 700, youSay('Run the tests in api and tell me what fails.')],
+    ['', 900, () => { on.say({ type: 'say', text: 'On it.' }); dset('api', 'working', 'Run the tests and tell me what fails.', 'failing date tests'); on.session({ id: '3f9c2a71-5d1e-4b7a-9c02-demo0000api1', worker: 'api' }) }],
+    ['', 300, ev('turn_end')],
+    ['', 900, ev('step', { text: 'Bash npm test' })],
+    ['working', 1200, ev('step', { text: 'Read src/date.js' })],
+    ['', 1500, hear('Open a worker on web and check the bundle size')],
+    ['', 900, youSay('Open a worker on web and check the bundle size.')],
+    ['', 800, () => { on.say({ type: 'say', text: 'Opening web.' }); dset('web', 'working', 'Check the bundle size.', 'bundle size'); on.session({ id: '8b14e6d0-2a3f-4c55-b1d9-demo0000web1', worker: 'web' }) }],
+    ['', 300, ev('turn_end')],
+    ['speaking', 3500, ev('say', { text: 'api found two failing tests, both in the date parser, and fixed them.' })],
+    ['', 300, ev('turn_end')],
+    ['', 4500, () => { dset('api', 'waiting'); on.ask({ id: 'a1', worker: 'api', step: 'run git commit', full: 'git commit -am "fix: read dates day first"', voice: true }) }],
+    ['', 500, () => { dset('web', 'waiting'); on.ask({ id: 'a2', worker: 'web', step: 'run npm install', full: 'npm install --save-dev source-map-explorer', voice: false }) }],
+    ['asking', 500, ev('say', { text: 'api wants to run git commit. Should it go ahead?' })],
+    ['approval', 300, ev('turn_end', { ask: 'a1' })],
+    ['', 5200, hear('Yes')],
+    ['', 600, youSay('Yes.')],
+    ['', 500, () => { on.asked({ type: 'asked', id: 'a1', allow: true, by: 'voice' }); dset('api', 'working'); on.say({ type: 'say', text: 'Approved. web wants to run npm install, and that needs a click on screen.' }) }],
+    ['click', 300, ev('turn_end', { ask: 'a2' })],
+    ['', 6000, () => { on.asked({ type: 'asked', id: 'a2', allow: true }); dset('web', 'working') }],
+    ['', 1500, () => { dset('api', 'idle'); on.say({ type: 'say', text: 'web says the bundle is four hundred twelve kilobytes, and most of it is moment.' }) }],
+    ['', 300, () => { on.turn_end({ type: 'turn_end' }); dset('web', 'idle') }],
+    ['', 7000, ev('say', { text: "You've used 75 percent of your weekly limit, and it resets on Wednesday at 9 AM." })],
+    ['limit', 300, ev('turn_end')],
+    ['problem', 3000, ev('error', { text: 'The voice could not answer. Say it again in a moment.' })],
+    ['handover', 7000, () => { call.start(false); showOver() }],
+  ]
+  const bar = document.createElement('nav'); bar.id = 'demobar'; bar.setAttribute('aria-label', 'Demo scenes')
+  const sceneLink = (label, scene) => { const a = document.createElement('a'), p = new URLSearchParams(q); scene ? p.set('at', scene) : p.delete('at'); a.href = '?' + p; a.textContent = label; if ((at || '') === scene) a.setAttribute('aria-current', 'true'); return a }
+  bar.append('Demo, a made-up call', sceneLink('Play', ''), ...scenes.filter(s => s[0]).map(s => sceneLink(s[0], s[0])))
+  document.body.append(bar)
+  ;(async () => {
+    for (const [name, wait, run] of scenes) {
+      if (at) call.hush(); else await sleep(wait)
+      run()
+      if (at && name === at) return
+    }
+  })()
+}
+if (DEMO) demo()
+</script>
+</body>
+</html>

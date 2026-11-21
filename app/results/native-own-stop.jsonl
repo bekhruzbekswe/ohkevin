@@ -1,0 +1,105 @@
+{"t":1794983062166.2822,"e":{"type":"pages","n":1},"k":"sse"}
+{"t":1794983062166.4529,"e":{"step":"","type":"board","task":"","model":"haiku","workers":[{"title":"Voice call / project","state":"idle","task":"","name":"project","step":"","model":"haiku"}],"state":"idle","title":"Voice call / project"},"k":"sse"}
+{"t":1794983062166.498,"e":{"project":"<scratch>/project","type":"hello","voices":["af_alloy","af_aoede","af_bella","af_heart","af_jessica","af_kore","af_nicole","af_nova","af_river","af_sarah","af_sky","am_adam","am_echo","am_eric","am_fenrir","am_liam","am_michael","am_onyx","am_puck","am_santa","bf_alice","bf_emma","bf_isabella","bf_lily","bm_daniel","bm_fable","bm_george","bm_lewis"]},"k":"sse"}
+{"recogniser":"DictationTranscriber","k":"mic","echoCancelled":false,"rate":24000,"endpointMs":0,"t":1794983062316.7761}
+{"t":1794983063398.5879,"k":"vad","on":true}
+{"r":[["Tell",false]],"k":"result","t":1794983063863.9932,"i":0}
+{"k":"post","t":1794983063864.2749,"body":{"you":true},"path":"/live"}
+{"k":"result","i":0,"r":[["Tell me",false]],"t":1794983064093.062}
+{"t":1794983064340.7869,"k":"vad","on":false}
+{"t":1794983064380.113,"k":"vad","on":true}
+{"k":"result","i":0,"r":[["Tell me three",false]],"t":1794983064578.98}
+{"k":"vad","on":false,"t":1794983064800.9199}
+{"k":"result","i":0,"r":[["Tell me three fact",false]],"t":1794983064815.4612}
+{"k":"result","i":0,"r":[["Tell me three facts",false]],"t":1794983064817.749}
+{"k":"vad","on":true,"t":1794983064859.9041}
+{"k":"vad","on":false,"t":1794983065021.168}
+{"k":"result","i":0,"r":[["Tell me three facts about",false]],"t":1794983065060.144}
+{"t":1794983065099.3728,"k":"vad","on":true}
+{"t":1794983065181.427,"k":"vad","on":false}
+{"t":1794983065217.5979,"k":"vad","on":true}
+{"k":"result","i":0,"r":[["Tell me three facts about op",false]],"t":1794983065541.1169}
+{"t":1794983065619.3572,"k":"vad","on":false}
+{"t":1794983065659.9441,"k":"vad","on":true}
+{"t":1794983065745.0317,"k":"vad","on":false}
+{"k":"result","i":0,"r":[["Tell me three facts about Octa",false]],"t":1794983065770.9331}
+{"k":"result","i":0,"r":[["Tell me three facts about octopus",false]],"t":1794983065772.0618}
+{"k":"result","i":0,"r":[["Tell me three facts about octopuses",false]],"t":1794983066015.9851}
+{"k":"result","i":0,"r":[["Tell me three facts about octopuses",true]],"t":1794983067699.281}
+{"body":{"you":false},"path":"/live","k":"post","t":1794983067699.3689}
+{"text":"[turn] usual","k":"log","t":1794983067699.4409}
+{"body":{"text":"Tell me three facts about octopuses"},"path":"/say","k":"post","t":1794983067699.5391}
+{"t":1794983069639.3899,"k":"sse","e":{"type":"say","text":"Three facts: octopuses have three hearts, and their blood is blue because it uses copper-based hemocyanin."}}
+{"k":"sse","e":{"text":"They have nine brains, one central and one in each arm.","type":"say"},"t":1794983069807.571}
+{"text":"Three facts: octopuses have three hearts, and their blood is blue because it uses copper-based hemocyanin.","k":"tts","t":1794983070908.6399,"dur":6.5706666666666669}
+{"body":{"voice":true},"k":"post","path":"/live","t":1794983070908.7371}
+{"t":1794983070908.842,"k":"play","dur":6.5706666666666669}
+{"db":-59.264330647842421,"k":"level","t":1794983070919.0823}
+{"db":-59.421047039227666,"k":"level","t":1794983070940.7671}
+{"db":-59.541723012485818,"k":"level","t":1794983070960.5259}
+{"db":-59.802727771642125,"k":"level","t":1794983070980.7581}
+{"db":-59.43860907890781,"k":"level","t":1794983070997.4189}
+{"db":-59.542341508576172,"k":"level","t":1794983071018.8149}
+{"db":-59.466458651017831,"k":"level","t":1794983071041.0591}
+{"db":-59.572104751104263,"k":"level","t":1794983071061.2231}
+{"db":-59.268934557692873,"k":"level","t":1794983071080.7952}
+{"db":-59.227230989246529,"k":"level","t":1794983071100.0261}
+{"db":-59.503822085485218,"k":"level","t":1794983071120.939}
+{"db":-59.146102969636488,"k":"level","t":1794983071140.9331}
+{"db":-59.612935163924746,"k":"level","t":1794983071161.3159}
+{"db":-59.666374934442963,"k":"level","t":1794983071181.428}
+{"db":-59.70671724410758,"k":"level","t":1794983071201.4199}
+{"db":-59.345123085296798,"k":"level","t":1794983071219.387}
+{"db":-59.209085750144759,"k":"level","t":1794983071240.8491}
+{"db":-59.5128655910665,"k":"level","t":1794983071263.4858}
+{"db":-59.69918481122113,"k":"level","t":1794983071277.665}
+{"db":-59.781544287840369,"k":"level","t":1794983071301.853}
+{"db":-59.393809145957704,"k":"level","t":1794983071319.5242}
+{"db":-59.3055521025967,"k":"level","t":1794983071341.364}
+{"db":-59.325701709821843,"k":"level","t":1794983071362.364}
+{"db":-59.449020443757583,"k":"level","t":1794983071381.8701}
+{"db":-59.616296632164534,"k":"level","t":1794983071400.073}
+{"db":-59.616643770628798,"k":"level","t":1794983071419.6838}
+{"db":-72.491788499163249,"k":"level","t":1794983071440.833}
+{"db":-64.395383751836391,"k":"level","t":1794983071460.76}
+{"db":-52.517466648605868,"k":"level","t":1794983071481.0881}
+{"on":true,"k":"vad","t":1794983071500.8599}
+{"db":-37.702745042963805,"k":"level","t":1794983071501.1379}
+{"db":-29.942823591338431,"k":"level","t":1794983071521.9661}
+{"db":-25.433465548628369,"k":"level","t":1794983071540.7271}
+{"db":-21.022724877534227,"k":"level","t":1794983071560.7559}
+{"db":-21.676970399101926,"k":"level","t":1794983071581.801}
+{"db":-28.664155897885234,"k":"level","t":1794983071600.9189}
+{"on":false,"k":"vad","t":1794983071618.2061}
+{"db":-46.247780673731349,"k":"level","t":1794983071618.3062}
+{"k":"tts","text":"They have nine brains, one central and one in each arm.","t":1794983071629.9792,"dur":3.2000000000000002}
+{"on":true,"k":"vad","t":1794983071640.1902}
+{"k":"level","t":1794983071640.2922,"db":-34.850420868761645}
+{"k":"level","t":1794983071659.9221,"db":-27.967384027986167}
+{"k":"level","t":1794983071680.7949,"db":-12.151076129974559}
+{"k":"level","t":1794983071697.4092,"db":-10.983143902975909}
+{"k":"level","t":1794983071718.2852,"db":-13.91528613280393}
+{"k":"level","t":1794983071740.519,"db":-15.242031413574352}
+{"k":"level","t":1794983071759.9622,"db":-15.778299484424799}
+{"k":"level","t":1794983071780.7588,"db":-16.047936843561981}
+{"k":"suspend","t":1794983071780.8252}
+{"body":{"you":true},"k":"post","path":"/live","t":1794983071780.853}
+{"text":"[ears] paused at -16.0 dB","k":"log","t":1794983071780.968}
+{"t":1794983071961.4082,"k":"vad","on":false}
+{"t":1794983072018.2231,"k":"vad","on":true}
+{"t":1794983072099.457,"k":"vad","on":false}
+{"t":1794983072249.5242,"e":{"type":"say","text":"Their arms can taste and sense touch on their own, without needing to check with the central brain."},"k":"sse"}
+{"t":1794983072249.6089,"k":"sse","e":{"type":"turn_end"}}
+{"k":"result","r":[["Tell me three facts about octopuses",true],[" stop",false]],"t":1794983072492.2231,"i":1}
+{"k":"log","t":1794983072492.4141,"text":"[ears] cut off by \"stop\""}
+{"k":"stop","t":1794983072492.4478}
+{"k":"resume","t":1794983072502.4241}
+{"body":{"you":false},"k":"post","path":"/live","t":1794983072502.5581}
+{"body":{"heard":"Three facts:"},"k":"post","path":"/hush","t":1794983072502.6379}
+{"body":{"voice":false},"k":"post","path":"/live","t":1794983072502.6631}
+{"body":{"you":true},"k":"post","path":"/live","t":1794983072502.6931}
+{"t":1794983072502.7141,"k":"ended"}
+{"text":"Their arms can taste and sense touch on their own, without needing to check with the central brain.","k":"tts","t":1794983073174.738,"dur":5.2266666666666666}
+{"k":"result","r":[["Tell me three facts about octopuses",true],[" stop",true]],"t":1794983074221.146,"i":1}
+{"body":{"you":false},"k":"post","path":"/live","t":1794983074221.408}
+{"t":1794983084257.7461,"k":"done"}

@@ -1,0 +1,787 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2640.8,
+  "k": "audio"
+ },
+ {
+  "t": 2640.8,
+  "k": "mic"
+ },
+ {
+  "t": 2640.8,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2640.8,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2640.8,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4330.1,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4330.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me"
+   ]
+  ]
+ },
+ {
+  "t": 4712.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me a"
+   ]
+  ]
+ },
+ {
+  "t": 4792.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me a joke"
+   ]
+  ]
+ },
+ {
+  "t": 4891.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a joke"
+   ]
+  ]
+ },
+ {
+  "t": 5523.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a joke about"
+   ]
+  ]
+ },
+ {
+  "t": 5526.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "joke about"
+   ]
+  ]
+ },
+ {
+  "t": 5527.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "about"
+   ]
+  ]
+ },
+ {
+  "t": 5584.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "program"
+   ]
+  ]
+ },
+ {
+  "t": 6255.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "programmers"
+   ]
+  ]
+ },
+ {
+  "t": 6493.9,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 6493.9,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 6493.9,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 6493.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ]
+  ]
+ },
+ {
+  "t": 6493.9,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 6493.9,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me a joke about programmers"
+  }
+ },
+ {
+  "t": 8547.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Why did the programmer quit his job?"
+ },
+ {
+  "t": 8547.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ]
+  ]
+ },
+ {
+  "t": 9002.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 9002.5,
+  "k": "log",
+  "text": "[stats] 1 reply, median 2.5 s, slowest 2.5 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 9002.5,
+  "k": "play",
+  "text": "Why did the programmer quit his job?",
+  "dur": 2.005333333333333
+ },
+ {
+  "t": 9002.5,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 10960.8,
+  "k": "suspend"
+ },
+ {
+  "t": 10960.8,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 10960.8,
+  "k": "log",
+  "text": "[ears] paused at -23.1 dB"
+ },
+ {
+  "t": 11691,
+  "k": "log",
+  "text": "[ears] cut off by \"actually\""
+ },
+ {
+  "t": 11691,
+  "k": "stop"
+ },
+ {
+  "t": 11691,
+  "k": "resume"
+ },
+ {
+  "t": 11691,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 11691,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": "Why did the programmer quit his"
+  }
+ },
+ {
+  "t": 11691,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 11691,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 11691,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "actually"
+   ]
+  ]
+ },
+ {
+  "t": 11691,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 13022.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "actually tell"
+   ]
+  ]
+ },
+ {
+  "t": 13023.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "actually tell me"
+   ]
+  ]
+ },
+ {
+  "t": 13023.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "tell me"
+   ]
+  ]
+ },
+ {
+  "t": 13023.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 13024.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "me about"
+   ]
+  ]
+ },
+ {
+  "t": 13188.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "about"
+   ]
+  ]
+ },
+ {
+  "t": 13189.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "actually tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 13743.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "o"
+   ]
+  ]
+ },
+ {
+  "t": 13744.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "OCT"
+   ]
+  ]
+ },
+ {
+  "t": 13744.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "octop"
+   ]
+  ]
+ },
+ {
+  "t": 13745.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "octopus"
+   ]
+  ]
+ },
+ {
+  "t": 13745.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "octopuses"
+   ]
+  ]
+ },
+ {
+  "t": 13794.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "octopuses instead"
+   ]
+  ]
+ },
+ {
+  "t": 14066.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "instead"
+   ]
+  ]
+ },
+ {
+  "t": 14963.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "ghost",
+    "actually tell me about octopuses instead"
+   ]
+  ]
+ },
+ {
+  "t": 15237.5,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 15237.5,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 15237.5,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 15237.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "you",
+    "actually tell me about octopuses instead"
+   ]
+  ]
+ },
+ {
+  "t": 15237.5,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 15237.5,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "actually tell me about octopuses instead"
+  }
+ },
+ {
+  "t": 16855.3,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Sure, switching to octopuses."
+ },
+ {
+  "t": 16855.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "you",
+    "actually tell me about octopuses instead"
+   ],
+   [
+    "voice",
+    "Sure, switching to octopuses."
+   ]
+  ]
+ },
+ {
+  "t": 17043.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "They have three hearts, blue blood, and nine brains, one in each arm plus a central one."
+ },
+ {
+  "t": 17043.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "you",
+    "actually tell me about octopuses instead"
+   ],
+   [
+    "voice",
+    "Sure, switching to octopuses. They have three hearts, blue blood, and nine brains, one in each arm plus a central one."
+   ]
+  ]
+ },
+ {
+  "t": 17308.8,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 17308.8,
+  "k": "log",
+  "text": "[stats] 2 replies, median 2.3 s, slowest 2.5 s, joined 0, waited 0, paused for nothing 0, cut off 1"
+ },
+ {
+  "t": 17308.8,
+  "k": "play",
+  "text": "Sure, switching to octopuses.",
+  "dur": 1.9626666666666666
+ },
+ {
+  "t": 17308.8,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 17357.4,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Want a fact about their camouflage next?"
+ },
+ {
+  "t": 17357.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me a joke about programmers"
+   ],
+   [
+    "voice",
+    "Why did the programmer quit his job?"
+   ],
+   [
+    "you",
+    "actually tell me about octopuses instead"
+   ],
+   [
+    "voice",
+    "Sure, switching to octopuses. They have three hearts, blue blood, and nine brains, one in each arm plus a central one. Want a fact about their camouflage next?"
+   ]
+  ]
+ },
+ {
+  "t": 19271.467,
+  "k": "ended"
+ },
+ {
+  "t": 19271.467,
+  "k": "play",
+  "text": "They have three hearts, blue blood, and nine brains, one in each arm plus a central one.",
+  "dur": 4.8853333333333335
+ },
+ {
+  "t": 24156.8,
+  "k": "ended"
+ },
+ {
+  "t": 24156.8,
+  "k": "play",
+  "text": "Want a fact about their camouflage next?",
+  "dur": 2.2186666666666666
+ },
+ {
+  "t": 26375.467,
+  "k": "ended"
+ },
+ {
+  "t": 26625.467,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 26625.467,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ }
+]

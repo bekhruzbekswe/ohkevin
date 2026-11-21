@@ -1,0 +1,6 @@
+node_modules/
+.playwright-mcp/
+.scratch-*/
+*.log
+.DS_Store
+checkpoints/

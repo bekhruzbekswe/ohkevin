@@ -1,0 +1,399 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2643.3,
+  "k": "audio"
+ },
+ {
+  "t": 2643.3,
+  "k": "mic"
+ },
+ {
+  "t": 2643.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2643.3,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2643.3,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4338,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4338,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me"
+   ]
+  ]
+ },
+ {
+  "t": 4918.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "three"
+   ]
+  ]
+ },
+ {
+  "t": 5166.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "three fact"
+   ]
+  ]
+ },
+ {
+  "t": 5279.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "three facts"
+   ]
+  ]
+ },
+ {
+  "t": 5322.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "three facts about"
+   ]
+  ]
+ },
+ {
+  "t": 5508.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "facts about"
+   ]
+  ]
+ },
+ {
+  "t": 5861.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "about"
+   ]
+  ]
+ },
+ {
+  "t": 5898.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me three facts about"
+   ]
+  ]
+ },
+ {
+  "t": 6034.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "o"
+   ]
+  ]
+ },
+ {
+  "t": 6142.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "OCT"
+   ]
+  ]
+ },
+ {
+  "t": 6177.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "octop"
+   ]
+  ]
+ },
+ {
+  "t": 6363.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "octopus"
+   ]
+  ]
+ },
+ {
+  "t": 6459.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "octopuses"
+   ]
+  ]
+ },
+ {
+  "t": 7061.2,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 7061.2,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 7061.2,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 7061.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me three facts about octopuses"
+   ]
+  ]
+ },
+ {
+  "t": 7061.2,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7061.2,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me three facts about octopuses"
+  }
+ },
+ {
+  "t": 10094.4,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron."
+ },
+ {
+  "t": 10094.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me three facts about octopuses"
+   ],
+   [
+    "voice",
+    "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron."
+   ]
+  ]
+ },
+ {
+  "t": 11031.1,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 11031.1,
+  "k": "log",
+  "text": "[stats] 1 reply, median 4.0 s, slowest 4.0 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 11031.1,
+  "k": "play",
+  "text": "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron.",
+  "dur": 5.269333333333333
+ },
+ {
+  "t": 11031.1,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 12123.3,
+  "k": "suspend"
+ },
+ {
+  "t": 12123.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 12123.3,
+  "k": "log",
+  "text": "[ears] paused at -16.0 dB"
+ },
+ {
+  "t": 12745.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own."
+ },
+ {
+  "t": 12745.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me three facts about octopuses"
+   ],
+   [
+    "voice",
+    "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron. Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own."
+   ]
+  ]
+ },
+ {
+  "t": 12839,
+  "k": "log",
+  "text": "[ears] cut off by \"stop\""
+ },
+ {
+  "t": 12839,
+  "k": "stop"
+ },
+ {
+  "t": 12839,
+  "k": "resume"
+ },
+ {
+  "t": 12839,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 12839,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": "Octopuses have three"
+  }
+ },
+ {
+  "t": 12839,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 12839,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 12839,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me three facts about octopuses"
+   ],
+   [
+    "voice",
+    "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron. Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own."
+   ],
+   [
+    "ghost",
+    "stop"
+   ]
+  ]
+ },
+ {
+  "t": 12839,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 13390.9,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 13390.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me three facts about octopuses"
+   ],
+   [
+    "voice",
+    "Octopuses have three hearts, and their blood is blue because it carries copper instead of iron. Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own."
+   ]
+  ]
+ }
+]

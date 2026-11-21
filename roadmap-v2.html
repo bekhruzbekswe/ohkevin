@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin Roadmap v2</title>
+
+<!--
+  THE TRACKER'S DATA for version 2. This block is the single source of truth; the page below only draws it.
+  Milestone and item states:  done  = finished and confirmed by the user
+                              check = built and tested, waiting for the user to try it
+                              doing = being worked on now
+                              later = not started
+  "gate" is the decision after milestone 2: "open" until the user decides, then "swift", "ship" or "both". It is "both": two tracks.
+-->
+<script id="data" type="application/json">
+{
+  "updated": "21 November 2026, early morning",
+  "gate": "both",
+  "milestones": [
+    {
+      "id": "m1",
+      "n": "1",
+      "name": "Launcher",
+      "goal": "Everything is run and configured from one menu-bar app. No terminal, nothing hidden: you can trust it and control the whole product from there.",
+      "items": [
+        {
+          "t": "A menu-bar app that starts and ends a call, with no terminal",
+          "s": "done"
+        },
+        {
+          "t": "Opens the call page in Chrome, already connected",
+          "s": "done",
+          "n": "the call now has its own window, opened and closed by the launcher; it starts listening by itself"
+        },
+        {
+          "t": "Live status in the menu bar: ready, on a call, working, needs your answer",
+          "s": "done"
+        },
+        {
+          "t": "Stop the work, end the call, and hand the call to the Claude app, all from the menu",
+          "s": "done",
+          "n": "you approve and deny in the panel too; the hand-over ran for real once and reported the session open in the Claude app (not seen: the screen was locked)"
+        },
+        {
+          "t": "One settings page; what used to be terminal variables is either there or now decides itself (port, voice folder)",
+          "s": "done"
+        },
+        {
+          "t": "Project picker with recent projects",
+          "s": "done"
+        },
+        {
+          "t": "Health check: Node, Claude Code, Chrome and Kokoro, each with what to do when it is missing",
+          "s": "done"
+        },
+        {
+          "t": "Plain statement of what leaves your Mac and what a spoken yes can approve",
+          "s": "done"
+        },
+        {
+          "t": "Clear messages when something fails, and a log you can open",
+          "s": "done"
+        },
+        {
+          "t": "Launch at login",
+          "s": "done",
+          "n": "built; never switched on during the night, so it is untested"
+        },
+        {
+          "t": "A real app you double-click, built by one script",
+          "s": "done"
+        }
+      ]
+    },
+    {
+      "id": "m2",
+      "n": "2",
+      "name": "Swift app test",
+      "goal": "A throwaway native prototype of the ears and mouth, compared with today's call. Result: on recordings the two are level; in your trial the Swift one is usable and decent, and Chrome is still a bit better. Decision: build both.",
+      "items": [
+        {
+          "t": "Prototype: Apple speech recognition, echo cancellation and playback in one audio engine",
+          "s": "done",
+          "n": "on branch feat/v2-swift-test; its audio engine needed one fix before it ran live"
+        },
+        {
+          "t": "Scorecard: live words, hearing you over the voice, pausing mid-word, joining pauses, waiting, false cut-offs, reply delay",
+          "s": "done",
+          "n": "first word 0.6 s vs 0.5 s, words final 1.0 s vs 1.1 s, 90% of words right on both"
+        },
+        {
+          "t": "Side-by-side trial against today's call, judged by you",
+          "s": "done",
+          "n": "yours: usable and decent; the browser one is a bit better"
+        },
+        {
+          "t": "Decision: both. Chrome with the launcher ships first; the Swift app follows",
+          "s": "done"
+        }
+      ]
+    },
+    {
+      "id": "m3b",
+      "n": "3A",
+      "name": "Ship today's product",
+      "goal": "Today's call, started from the menu bar, made easy to get and easy to start. This is the product people use while the Swift app is built.",
+      "items": [
+        {
+          "t": "The approved design built: the call page and the one launcher for both tracks",
+          "s": "done",
+          "n": "your trial on 20 November: no bugs from the user's side. The launcher's live test passed 223 of 223 the same day. After the overnight work, your second trial on the 20th: all good"
+        },
+        {
+          "t": "The blockers from the readiness review: licence, defaults that are not your Mac, the page after the server stops",
+          "s": "done",
+          "n": "built; the licence is Apache 2.0, chosen on 20 November"
+        },
+        {
+          "t": "Workers ask before risky steps, or say plainly that they don't",
+          "s": "done",
+          "n": "decided 20 November: keep auto mode. Workers act without asking; Claude Code's own checks refuse what they judge dangerous, and the wording says so plainly"
+        },
+        {
+          "t": "Easy install: one download, with Node and the call server inside or fetched on first run",
+          "s": "check",
+          "n": "one disk image per release with your background, a stable latest link, Open Anyway once; you installed both apps this way on 20 November. Still to try: a clean Mac"
+        },
+        {
+          "t": "Onboarding in the launcher: first call in a few minutes, the local voice included",
+          "s": "done",
+          "n": "redesigned and approved on 21 November: one setup screen (Claude, Microphone, Project), a download that starts by itself, then a first call that opens on 'Say hello.'. Your first-run trials of both apps passed. A clean Mac is still worth one try before release"
+        },
+        {
+          "t": "README and documentation",
+          "s": "done",
+          "n": "brought up to date overnight on 20 November: worker cards, Close, the restart, Fable, and how rarely auto mode asks"
+        },
+        {
+          "t": "A name of its own, and Anthropic's terms checked before giving it to others",
+          "s": "doing",
+          "n": "the name is Oh Kevin. 20 November: Anthropic's support AI agent read our request and said the approach \"appears aligned\" with their policy (users sign in to their own, unmodified Claude Code). It is not a written answer: a human agent has the request in the queue (conversation 215476940047442) and will reply by email"
+        },
+        {
+          "t": "A demo video",
+          "s": "done",
+          "n": "approved 20 November: v8, 46 s, from the page's scripted demo, with Kokoro voices (Puck for you, Fable for Kevin), the Chill track and the new mark"
+        },
+        {
+          "t": "Signed and updatable (notarized needs an Apple account)",
+          "s": "done",
+          "n": "no Apple account: signed with your own 'Oh Kevin' certificate, self-updating through GitHub with Sparkle, automatic and quiet by default. Tested for real on 20 November: launcher 0.4 → 0.5 and Mac app 0.1 → 0.2 updated themselves, microphone kept. Install disk image with your trails background, unsigned so a first install asks Open Anyway once (not twice). Not notarized"
+        }
+      ],
+      "track": "Track A · Chrome + launcher · ships first"
+    },
+    {
+      "id": "m3a",
+      "n": "3B",
+      "name": "Build the Swift app",
+      "goal": "A native Mac app with its own ears and mouth. The call server and the Claude sessions stay; Chrome goes.",
+      "items": [
+        {
+          "t": "Close the gap to Chrome's turn-taking, the part you found a bit better",
+          "s": "done",
+          "n": "your second trial, 19 November: all seven turn-taking marks the same as Chrome"
+        },
+        {
+          "t": "Everything the call page does that the prototype does not: approvals, the work view, typing, mute, the voice picker",
+          "s": "done",
+          "n": "your third trial on 20 November: no bugs from the user's side"
+        },
+        {
+          "t": "A call window in the launcher's design, in place of the Chrome page",
+          "s": "done",
+          "n": "replaced by the full app window below"
+        },
+        {
+          "t": "The launcher becomes the app's shell: one app, no Chrome",
+          "s": "done",
+          "n": "the app has the menu-bar item and panel from the library it shares with Track A"
+        },
+        {
+          "t": "A second side-by-side trial against Track A, judged by you",
+          "s": "done",
+          "n": "nine marks the same, two to Chrome: approvals and the window"
+        },
+        {
+          "t": "Approvals as good as the Chrome page's",
+          "s": "done",
+          "n": "part of the new design; passed your third trial"
+        },
+        {
+          "t": "The form of the app: one design shared with the browser page",
+          "s": "done",
+          "n": "approved on 19 November: a big calm window, the chat as the main thing, workers at the side, one call bar"
+        },
+        {
+          "t": "The approved design built as the Mac app window",
+          "s": "done",
+          "n": "your trials on 20 November, before and after the overnight work: all good. Your ten design answers are being built in both apps"
+        }
+      ],
+      "track": "Track B · Swift macOS app · follows"
+    },
+    {
+      "id": "m4",
+      "n": "4B",
+      "name": "Ship the Mac app",
+      "goal": "Production ready and in people's hands, reusing the install, onboarding, name and signing work from Track A.",
+      "items": [
+        {
+          "t": "A smaller first download: the local voice without Python",
+          "s": "check",
+          "n": "built overnight 21 November in both apps: identical pronunciation and audio, same speed, voice ~381 MB to download (was ~439) and 365 MB on disk (was ~592). Licence: you chose espeak-ng loaded at run time, fetched on the user's Mac, never shipped by us; publishing unblocked"
+        },
+        {
+          "t": "A smaller first download: a slimmer Node",
+          "s": "check",
+          "n": "built overnight in both apps: packages inside the app (61 MB → 1.4 MB), Node 199 → 117 MB, first run 24–32 s → 18–19 s, no npm on first run"
+        },
+        {
+          "t": "A smaller voice model, if it sounds the same",
+          "s": "done",
+          "n": "listened 21 November: you kept today's model (325 MB). fp16 (178 MB, faster) sounded measurably different; int8 (92 MB) was 2.5x slower"
+        },
+        {
+          "t": "Setup checks in the app: Node, Claude Code and sign-in, each with what to do when it is missing",
+          "s": "check",
+          "n": "built overnight: Node, Claude Code and sign-in, the first missing one with its fix; not seen by you"
+        },
+        {
+          "t": "The app's own failures said plainly, and a dropped connection reconnects instead of ending the call",
+          "s": "check",
+          "n": "built overnight: plain failures in their own words; reconnect tries for 15 s, live back in 6 s"
+        },
+        {
+          "t": "Hand-over at the end of a call finds workers opened in other folders",
+          "s": "check",
+          "n": "built overnight: the server hands each worker over from its own folder; live 2 of 2 in 3 s"
+        },
+        {
+          "t": "An icon of its own, and a choice about two apps both named Oh Kevin",
+          "s": "done",
+          "n": "your logo set is in both apps; the launcher's file is now 'Oh Kevin Launcher' so both can sit in Applications"
+        },
+        {
+          "t": "Install, onboarding, signing and updates carried over from Track A",
+          "s": "done",
+          "n": "the Mac app shares the launcher's updater, signing and disk image; the update with your microphone permission kept was tested for real"
+        },
+        {
+          "t": "Works without Node or Python on the user's Mac, or says plainly what it needs",
+          "s": "done",
+          "n": "the Mac app now carries its call server and installs it on first run into its own folder, on a Node it fetches itself; a real call on 20 November ran it from there, with no project folder. Python (the local voice) still optional, as in the launcher"
+        },
+        {
+          "t": "A way to move from the Chrome version to the app",
+          "s": "later"
+        }
+      ],
+      "track": "Track B · Swift macOS app · follows"
+    }
+  ]
+}
+</script>
+
+<style>
+  /* Layout: the path with its one decision drawn first, then each milestone's items. */
+  :root {
+    --paper: #F3F5FA; --plate: #FFFFFF; --ink: #1A2238; --ink-2: #4A5368; --ink-3: #7A8296;
+    --line: #DCE1EC; --track: #EEF1F7; --you: #D6336C; --voice: #2B63E3; --good: #1E8E5A;
+    --you-tint: #FBE6EE; --voice-tint: #E4ECFD;
+    --sans: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+    --cond: "Avenir Next Condensed", "Avenir Next", "Arial Narrow", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --paper: #0F1422; --plate: #171D2E; --ink: #E8ECF6; --ink-2: #AEB6C8; --ink-3: #7C859B;
+    --line: #2B3348; --track: #1D2437; --you: #FF6B9D; --voice: #6C9BFF; --good: #2FA36B;
+    --you-tint: #3A1A28; --voice-tint: #17264A; color-scheme: dark } }
+  :root[data-theme="dark"] {
+    --paper: #0F1422; --plate: #171D2E; --ink: #E8ECF6; --ink-2: #AEB6C8; --ink-3: #7C859B;
+    --line: #2B3348; --track: #1D2437; --you: #FF6B9D; --voice: #6C9BFF; --good: #2FA36B;
+    --you-tint: #3A1A28; --voice-tint: #17264A; color-scheme: dark }
+  :root[data-theme="light"] { color-scheme: light }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+  main { max-width: 1200px; margin: 0 auto; padding-block: 40px 96px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .top { display: flex; gap: 20px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+  .eyebrow { font: 700 12px var(--cond); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 8px; }
+  h1 { font: 800 clamp(32px, 4.6vw, 54px)/1 var(--sans); letter-spacing: -0.035em; margin: 0; }
+  .sub { color: var(--ink-2); max-width: 64ch; margin: 12px 0 0; }
+  #theme { display: inline-flex; align-items: center; gap: 8px; background: var(--plate); border: 1px solid var(--line); border-radius: 8px; padding: 8px 14px; font: 600 14px var(--cond); color: inherit; cursor: pointer; }
+  #theme svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  #theme:focus-visible { outline: 2px solid var(--voice); outline-offset: 2px; }
+
+  .path { margin: 28px 0 0; background: var(--plate); border: 1px solid var(--line); border-radius: 10px; padding: 10px; overflow-x: auto; }
+  .path svg { display: block; width: 100%; min-width: 900px; height: auto; }
+  .box { fill: var(--plate); stroke: var(--ink-3); stroke-width: 1.4; }
+  .ms.doing .box { stroke: var(--voice); stroke-width: 2.4; fill: var(--voice-tint); }
+  .ms.check .box { stroke: var(--you); stroke-width: 2.4; fill: var(--you-tint); }
+  .ms.done .box { fill: var(--good); stroke: var(--good); }
+  .ms.done text { fill: #fff !important; }
+  .ms.off { opacity: .35; }
+  .num { font: 700 12px var(--cond); letter-spacing: .1em; fill: var(--ink-3); }
+  .nm { font: 700 17px var(--sans); fill: var(--ink); }
+  .st { font: 600 12.5px var(--cond); fill: var(--ink-2); }
+  .wire { fill: none; stroke: var(--ink-3); stroke-width: 1.6; marker-end: url(#ah); }
+  .lbl { font: 700 12.5px var(--cond); fill: var(--ink-2); text-anchor: middle; }
+  .gate { fill: var(--plate); stroke: var(--ink); stroke-width: 1.6; }
+
+  section { background: var(--plate); border: 1px solid var(--line); border-radius: 10px; padding: 20px 24px; margin-top: 14px; }
+  section.off { opacity: .55; }
+  section h2 { font: 700 20px/1.2 var(--sans); margin: 0; display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  section h2 span { font: 600 13px var(--cond); color: var(--ink-3); }
+  .goal { color: var(--ink-2); font-size: 15px; margin: 6px 0 12px; max-width: 76ch; }
+  .item { display: flex; align-items: flex-start; gap: 12px; padding: 8px 0; border-top: 1px solid var(--track); font-size: 15.5px; line-height: 1.4; }
+  .item p { margin: 0; flex: 1; min-width: 0; }
+  .item small { display: block; font: 500 13px var(--cond); color: var(--ink-3); }
+  .dot { flex: none; width: 12px; height: 12px; border-radius: 50%; margin-top: 5px; box-shadow: inset 0 0 0 2px var(--line); }
+  .item.doing .dot { background: var(--voice); box-shadow: none; } .item.check .dot { background: var(--you); box-shadow: none; } .item.done .dot { background: var(--good); box-shadow: none; }
+  .tag { flex: none; font: 600 12.5px var(--cond); border-radius: 4px; padding: 2px 9px; background: var(--track); color: var(--ink-2); white-space: nowrap; }
+  .item.doing .tag { background: var(--voice-tint); color: var(--voice); } .item.check .tag { background: var(--you-tint); color: var(--you); }
+  .item.later p { color: var(--ink-3); }
+  .item.done .tag { background: var(--good); color: #fff; }
+  section.done { border-top: 3px solid var(--good); }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div>
+      <p class="eyebrow" id="upd"></p>
+      <h1>Roadmap, version 2</h1>
+      <p class="sub">From a tool started in a terminal to a product people can install and trust. Two tracks from here: today's call with the launcher ships first, and a native Swift app follows.</p>
+    </div>
+    <button id="theme" type="button" aria-label="Switch between light and dark mode"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg><span>Dark mode</span></button>
+  </div>
+
+  <figure class="path" style="margin-inline:0">
+    <svg viewBox="0 0 1160 300" role="img" aria-label="The path: milestone 1 launcher and milestone 2 Swift app test are done. From there two tracks run side by side. Track A, Chrome with the launcher, ships today's product first. Track B builds the Swift app and then ships it.">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 1L10 5L0 9z" style="fill:var(--ink-3)"/></marker></defs>
+      <path class="wire" d="M220 150H258"/><path class="wire" d="M460 150H510V70H558"/><path class="wire" d="M510 150V230H558"/><path class="wire" d="M780 230H838"/>
+      <circle cx="510" cy="150" r="5" style="fill:var(--ink-3)"/><text class="lbl" x="486" y="140">both</text>
+      <text class="num" x="560" y="20">TRACK A · CHROME + LAUNCHER · SHIPS FIRST</text>
+      <text class="num" x="560" y="180">TRACK B · SWIFT MACOS APP · FOLLOWS</text>
+      <g class="ms" data-id="m1"><rect class="box" x="20" y="110" width="200" height="80" rx="6"/><text class="num" x="36" y="134">MILESTONE 1</text><text class="nm" x="36" y="157">Launcher</text><text class="st" x="36" y="177"></text></g>
+      <g class="ms" data-id="m2"><rect class="box" x="260" y="110" width="200" height="80" rx="6"/><text class="num" x="276" y="134">MILESTONE 2</text><text class="nm" x="276" y="157">Swift app test</text><text class="st" x="276" y="177"></text></g>
+      <g class="ms" data-id="m3b"><rect class="box" x="560" y="30" width="220" height="80" rx="6"/><text class="num" x="576" y="54">MILESTONE 3A</text><text class="nm" x="576" y="77" style="font-size:15.5px">Ship today's product</text><text class="st" x="576" y="97"></text></g>
+      <g class="ms" data-id="m3a"><rect class="box" x="560" y="190" width="220" height="80" rx="6"/><text class="num" x="576" y="214">MILESTONE 3B</text><text class="nm" x="576" y="237" style="font-size:15.5px">Build the Swift app</text><text class="st" x="576" y="257"></text></g>
+      <g class="ms" data-id="m4"><rect class="box" x="840" y="190" width="220" height="80" rx="6"/><text class="num" x="856" y="214">MILESTONE 4B</text><text class="nm" x="856" y="237" style="font-size:15.5px">Ship the Mac app</text><text class="st" x="856" y="257"></text></g>
+    </svg>
+  </figure>
+
+  <div id="list"></div>
+</main>
+<script>
+const data = JSON.parse(document.getElementById('data').textContent)
+const LABEL = { done: 'Done', check: 'Your check', doing: 'In progress', later: 'Later' }
+const el = (tag, cls, text) => Object.assign(document.createElement(tag), { className: cls || '', textContent: text || '' })
+document.getElementById('upd').textContent = `Updated ${data.updated}`
+for (const m of data.milestones) {
+  const done = m.items.filter(x => x.s === 'done').length, all = m.items.length
+  const state = done === all ? 'done' : ['check', 'doing'].find(s => m.items.some(x => x.s === s)) ?? 'later'
+  const off = m.when && data.gate !== 'open' && data.gate !== m.when // the branch not taken
+  const g = document.querySelector(`.ms[data-id="${m.id}"]`)
+  g.classList.add(state); if (off) g.classList.add('off')
+  g.querySelector('.st').textContent = off ? 'not taken' : state === 'later' ? (m.when && data.gate === 'open' ? 'depends on the test' : 'not started') : `${LABEL[state]} · ${done} of ${all} done`
+  const sec = el('section', off ? 'off' : state === 'done' ? 'done' : ''), h = el('h2', '', `${m.n}. ${m.name}`)
+  if (m.track) sec.append(el('p', 'eyebrow', m.track))
+  h.append(el('span', '', off ? 'not taken' : `${done} of ${all} done`))
+  sec.append(h, el('p', 'goal', m.goal))
+  for (const it of m.items) {
+    const row = el('div', `item ${it.s}`), p = el('p', '', it.t)
+    if (it.n) p.append(el('small', '', it.n))
+    row.append(el('span', 'dot'), p, el('span', 'tag', LABEL[it.s])); sec.append(row)
+  }
+  document.getElementById('list').append(sec)
+}
+const root = document.documentElement, $ = id => document.getElementById(id)
+const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
+const label = () => { $('theme').lastElementChild.textContent = isDark() ? 'Light mode' : 'Dark mode' }
+try { const saved = localStorage.getItem('theme'); if (saved === 'dark' || saved === 'light') root.dataset.theme = saved } catch {}
+$('theme').onclick = () => { root.dataset.theme = isDark() ? 'light' : 'dark'; try { localStorage.setItem('theme', root.dataset.theme) } catch {}; label() }
+label()
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', label)
+</script>
+</body>
+</html>

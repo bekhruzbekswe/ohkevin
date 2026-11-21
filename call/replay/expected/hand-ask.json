@@ -1,0 +1,347 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 500,
+  "k": "tone",
+  "f": 520
+ },
+ {
+  "t": 500,
+  "k": "tone",
+  "f": 520
+ },
+ {
+  "t": 600,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "It wants to run git commit. Should it go ahead?"
+ },
+ {
+  "t": 600,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ]
+  ]
+ },
+ {
+  "t": 600,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 600,
+  "k": "play",
+  "text": "It wants to run git commit. Should it go ahead?",
+  "dur": 2
+ },
+ {
+  "t": 600,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2600,
+  "k": "ended"
+ },
+ {
+  "t": 2850,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 2850,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 3500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 3500,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ],
+   [
+    "ghost",
+    "yes"
+   ]
+  ]
+ },
+ {
+  "t": 3800,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 3800,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 3800,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 3800,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ],
+   [
+    "you",
+    "yes"
+   ]
+  ]
+ },
+ {
+  "t": 3800,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 3800,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "yes",
+   "ask": "a1"
+  }
+ },
+ {
+  "t": 4100,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Approved."
+ },
+ {
+  "t": 4100,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ],
+   [
+    "you",
+    "yes"
+   ],
+   [
+    "voice",
+    "Approved."
+   ]
+  ]
+ },
+ {
+  "t": 4100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 4100,
+  "k": "log",
+  "text": "[stats] 1 reply, median 0.3 s, slowest 0.3 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 4100,
+  "k": "play",
+  "text": "Approved.",
+  "dur": 1
+ },
+ {
+  "t": 4100,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 5000,
+  "k": "tone",
+  "f": 520
+ },
+ {
+  "t": 5000,
+  "k": "tone",
+  "f": 520
+ },
+ {
+  "t": 5100,
+  "k": "ended"
+ },
+ {
+  "t": 5100,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "It wants to edit a file. Should it go ahead?"
+ },
+ {
+  "t": 5100,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ],
+   [
+    "you",
+    "yes"
+   ],
+   [
+    "voice",
+    "Approved."
+   ],
+   [
+    "voice",
+    "It wants to edit a file. Should it go ahead?"
+   ]
+  ]
+ },
+ {
+  "t": 5100,
+  "k": "play",
+  "text": "It wants to edit a file. Should it go ahead?",
+  "dur": 2
+ },
+ {
+  "t": 7100,
+  "k": "ended"
+ },
+ {
+  "t": 7350,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 7350,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7400,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 7400,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 7400,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "It wants to run git commit. Should it go ahead?"
+   ],
+   [
+    "you",
+    "yes"
+   ],
+   [
+    "voice",
+    "Approved."
+   ],
+   [
+    "voice",
+    "It wants to edit a file. Should it go ahead?"
+   ],
+   [
+    "you",
+    "yes"
+   ]
+  ]
+ },
+ {
+  "t": 7400,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7400,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "yes"
+  }
+ }
+]

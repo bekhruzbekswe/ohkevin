@@ -1,0 +1,620 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2631,
+  "k": "audio"
+ },
+ {
+  "t": 2631,
+  "k": "mic"
+ },
+ {
+  "t": 2631,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2631,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2631,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4554.1,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4554.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "explain"
+   ]
+  ]
+ },
+ {
+  "t": 4786,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "explain the"
+   ]
+  ]
+ },
+ {
+  "t": 5163.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "the"
+   ]
+  ]
+ },
+ {
+  "t": 5230.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "the difference"
+   ]
+  ]
+ },
+ {
+  "t": 5359.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "the difference between"
+   ]
+  ]
+ },
+ {
+  "t": 5401.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "difference between"
+   ]
+  ]
+ },
+ {
+  "t": 5823.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "between"
+   ]
+  ]
+ },
+ {
+  "t": 5890.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "between a"
+   ]
+  ]
+ },
+ {
+  "t": 5954.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a"
+   ]
+  ]
+ },
+ {
+  "t": 6017.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a process"
+   ]
+  ]
+ },
+ {
+  "t": 6480.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "process and"
+   ]
+  ]
+ },
+ {
+  "t": 6595.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and"
+   ]
+  ]
+ },
+ {
+  "t": 7351.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and a"
+   ]
+  ]
+ },
+ {
+  "t": 7352.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and a threat"
+   ]
+  ]
+ },
+ {
+  "t": 7353,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a threat"
+   ]
+  ]
+ },
+ {
+  "t": 7384.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "threat"
+   ]
+  ]
+ },
+ {
+  "t": 7515.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "explain the difference between a process and a threat"
+   ]
+  ]
+ },
+ {
+  "t": 7801,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and"
+   ]
+  ]
+ },
+ {
+  "t": 7871.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and tell"
+   ]
+  ]
+ },
+ {
+  "t": 7902,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and tell me"
+   ]
+  ]
+ },
+ {
+  "t": 8093.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and tell me when"
+   ]
+  ]
+ },
+ {
+  "t": 8250.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me when"
+   ]
+  ]
+ },
+ {
+  "t": 8385.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "me when"
+   ]
+  ]
+ },
+ {
+  "t": 8490.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "when a"
+   ]
+  ]
+ },
+ {
+  "t": 8624.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "when a web"
+   ]
+  ]
+ },
+ {
+  "t": 8737.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a web"
+   ]
+  ]
+ },
+ {
+  "t": 8996.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a web ser"
+   ]
+  ]
+ },
+ {
+  "t": 9088.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "web server"
+   ]
+  ]
+ },
+ {
+  "t": 9237.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "web server should"
+   ]
+  ]
+ },
+ {
+  "t": 9282.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "server should"
+   ]
+  ]
+ },
+ {
+  "t": 9494.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "server should use"
+   ]
+  ]
+ },
+ {
+  "t": 9798,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "should use"
+   ]
+  ]
+ },
+ {
+  "t": 9875.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "use"
+   ]
+  ]
+ },
+ {
+  "t": 10010.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "use one"
+   ]
+  ]
+ },
+ {
+  "t": 10122.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "one"
+   ]
+  ]
+ },
+ {
+  "t": 10390.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "one or"
+   ]
+  ]
+ },
+ {
+  "t": 10548.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "one or the"
+   ]
+  ]
+ },
+ {
+  "t": 10631.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "or the"
+   ]
+  ]
+ },
+ {
+  "t": 10747.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "or the other"
+   ]
+  ]
+ },
+ {
+  "t": 11021.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "the other"
+   ]
+  ]
+ },
+ {
+  "t": 11151,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "other"
+   ]
+  ]
+ },
+ {
+  "t": 11339.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+   ]
+  ]
+ },
+ {
+  "t": 11590,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 11590,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 11590,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 11590,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+   ]
+  ]
+ },
+ {
+  "t": 11590,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 11590,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+  }
+ },
+ {
+  "t": 13655.6,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "This is a conceptual question, so I'll answer it directly without the worker."
+ },
+ {
+  "t": 13655.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+   ],
+   [
+    "voice",
+    "This is a conceptual question, so I'll answer it directly without the worker."
+   ]
+  ]
+ },
+ {
+  "t": 13672.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "A process is a running program with its own memory and resources, and a thread is a unit of execution inside a process."
+ },
+ {
+  "t": 13672.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+   ],
+   [
+    "voice",
+    "This is a conceptual question, so I'll answer it directly without the worker. A process is a running program with its own memory and resources, and a thread is a unit of execution inside a process."
+   ]
+  ]
+ },
+ {
+  "t": 14491,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 14491,
+  "k": "log",
+  "text": "[stats] 1 reply, median 2.9 s, slowest 2.9 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 14491,
+  "k": "play",
+  "text": "This is a conceptual question, so I'll answer it directly without the worker.",
+  "dur": 4.224
+ },
+ {
+  "t": 14491,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 16908.9,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "A web server should use processes when isolation matters, like a crash or a bad request not taking down everything, and threads or async events when it needs to handle many connections cheaply and share state."
+ },
+ {
+  "t": 16908.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "explain the difference between a process and a threat and tell me when a web server should use one or the other"
+   ],
+   [
+    "voice",
+    "This is a conceptual question, so I'll answer it directly without the worker. A process is a running program with its own memory and resources, and a thread is a unit of execution inside a process. A web server should use processes when isolation matters, like a crash or a bad request not taking down everything, and threads or async events when it needs to handle many connections cheaply and share state."
+   ]
+  ]
+ },
+ {
+  "t": 18715,
+  "k": "ended"
+ },
+ {
+  "t": 18715,
+  "k": "play",
+  "text": "A process is a running program with its own memory and resources, and a thread is a unit of execution inside a process.",
+  "dur": 7.744
+ },
+ {
+  "t": 26459,
+  "k": "ended"
+ },
+ {
+  "t": 26459,
+  "k": "play",
+  "text": "A web server should use processes when isolation matters, like a crash or a bad request not taking down everything, and threads or async events when it needs to handle many connections cheaply and share state.",
+  "dur": 12.736
+ }
+]

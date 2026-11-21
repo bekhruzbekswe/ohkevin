@@ -1,0 +1,157 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2636.8,
+  "k": "audio"
+ },
+ {
+  "t": 2636.8,
+  "k": "mic"
+ },
+ {
+  "t": 2636.8,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2636.8,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2636.8,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4542.6,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4542.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "so"
+   ]
+  ]
+ },
+ {
+  "t": 4829.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "so they"
+   ]
+  ]
+ },
+ {
+  "t": 5140,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "they"
+   ]
+  ]
+ },
+ {
+  "t": 5399.7,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 5399.7,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 5399.7,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 5399.7,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "so they"
+   ]
+  ]
+ },
+ {
+  "t": 5399.7,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 5399.7,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "so they"
+  }
+ },
+ {
+  "t": 11516.1,
+  "k": "log",
+  "text": "[turn] held: the voice waits for the rest"
+ },
+ {
+  "t": 11516.1,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 14516.1,
+  "k": "log",
+  "text": "[turn] nothing more came: it answers what it has"
+ },
+ {
+  "t": 14516.1,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 14516.1,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "so they",
+   "done": true
+  }
+ }
+]

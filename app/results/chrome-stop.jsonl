@@ -1,0 +1,117 @@
+{"t":1794983003534.4001,"k":"sse","e":{"type":"pages","n":1}}
+{"t":1794983003534.5,"k":"sse","e":{"type":"board","state":"idle","task":"","step":"","model":"haiku","title":"Voice call / project","workers":[{"name":"project","state":"idle","task":"","step":"","model":"haiku","title":"Voice call / project"}]}}
+{"t":1794983003535.1,"k":"sse","e":{"type":"hello","project":"<scratch>/project","voices":["af_alloy","af_aoede","af_bella","af_heart","af_jessica","af_kore","af_nicole","af_nova","af_river","af_sarah","af_sky","am_adam","am_echo","am_eric","am_fenrir","am_liam","am_michael","am_onyx","am_puck","am_santa","bf_alice","bf_emma","bf_isabella","bf_lily","bm_daniel","bm_fable","bm_george","bm_lewis"]}}
+{"t":1794983006177.7,"k":"mic","recogniser":"Chrome (webkitSpeechRecognition)"}
+{"t":1794983006188.6,"k":"sr-start"}
+{"t":1794983006198.4001,"k":"sr-audiostart"}
+{"t":1794983007279.6,"k":"vad","on":true}
+{"t":1794983007359.1,"k":"sr-speechstart"}
+{"t":1794983007872.4001,"k":"result","i":0,"r":[["tell me",false]]}
+{"t":1794983007873.1,"k":"post","path":"/live","body":{"you":true}}
+{"t":1794983008239.8,"k":"vad","on":false}
+{"t":1794983008249.7,"k":"vad","on":true}
+{"t":1794983008453.2,"k":"result","i":0,"r":[["tell me",false],[" three",false]]}
+{"t":1794983008689.1,"k":"vad","on":false}
+{"t":1794983008701,"k":"result","i":0,"r":[["tell me",false],[" three fact",false]]}
+{"t":1794983008729.3,"k":"vad","on":true}
+{"t":1794983008813.9001,"k":"result","i":0,"r":[["tell me",false],[" three facts",false]]}
+{"t":1794983008857.1,"k":"result","i":0,"r":[["tell me",false],[" three facts about",false]]}
+{"t":1794983008909.3,"k":"vad","on":false}
+{"t":1794983008969.7,"k":"vad","on":true}
+{"t":1794983009043,"k":"result","i":0,"r":[["tell me three",false],[" facts about",false]]}
+{"t":1794983009395.8,"k":"result","i":0,"r":[["tell me three facts",false],[" about",false]]}
+{"t":1794983009432.8,"k":"result","i":0,"r":[["tell me three facts about",false]]}
+{"t":1794983009509.2,"k":"vad","on":false}
+{"t":1794983009529.3,"k":"vad","on":true}
+{"t":1794983009569,"k":"result","i":0,"r":[["tell me three facts about",false],[" o",false]]}
+{"t":1794983009609.8,"k":"vad","on":false}
+{"t":1794983009677.1,"k":"result","i":0,"r":[["tell me three facts about",false],[" OCT",false]]}
+{"t":1794983009712,"k":"result","i":0,"r":[["tell me three facts about",false],[" octop",false]]}
+{"t":1794983009897.8,"k":"result","i":0,"r":[["tell me three facts about",false],[" octopus",false]]}
+{"t":1794983009993.6,"k":"result","i":0,"r":[["tell me three facts about",false],[" octopuses",false]]}
+{"t":1794983010595.6,"k":"result","i":0,"r":[["tell me three facts about octopuses",true]]}
+{"t":1794983010597.1,"k":"post","path":"/live","body":{"you":false}}
+{"k":"log","t":1794983010597.833,"text":"[turn] usual"}
+{"t":1794983010613.2,"k":"post","path":"/say","body":{"text":"tell me three facts about octopuses"}}
+{"t":1794983013628.8,"k":"sse","e":{"type":"say","text":"Octopuses have three hearts, and their blood is blue because it carries copper instead of iron."}}
+{"t":1794983014565.5,"k":"tts","text":"Octopuses have three hearts, and their blood is blue because it carries copper instead of iron.","dur":5.269333333333333}
+{"t":1794983014569.7,"k":"post","path":"/live","body":{"voice":true}}
+{"k":"log","t":1794983014569.981,"text":"[stats] 1 reply, median 4.0 s, slowest 4.0 s, joined 0, waited 0, paused for nothing 0, cut off 0"}
+{"t":1794983014570.1,"k":"play","dur":5.269333333333333}
+{"t":1794983014579.1,"k":"level","db":-76.92142405051374}
+{"t":1794983014599.1,"k":"level","db":-77.23754153514288}
+{"t":1794983014619.5,"k":"level","db":-77.72501579355263}
+{"t":1794983014639.2,"k":"level","db":-77.64049712837364}
+{"t":1794983014659.2,"k":"level","db":-77.6888714936651}
+{"t":1794983014679.3,"k":"level","db":-77.58332083224434}
+{"t":1794983014699.4001,"k":"level","db":-77.0589110772555}
+{"t":1794983014719.9001,"k":"level","db":-77.60566753838668}
+{"t":1794983014739.6,"k":"level","db":-77.88995847524026}
+{"t":1794983014759.7,"k":"level","db":-78.119390370471}
+{"t":1794983014779.8,"k":"level","db":-77.55444066496227}
+{"t":1794983014799.9001,"k":"level","db":-77.2990045116791}
+{"t":1794983014818.9001,"k":"level","db":-77.2120507113947}
+{"t":1794983014839.1,"k":"level","db":-77.69852350421598}
+{"t":1794983014860.6,"k":"level","db":-77.96037034174552}
+{"t":1794983014879.5,"k":"level","db":-77.72704846103066}
+{"t":1794983014899.6,"k":"level","db":-77.90061329438159}
+{"t":1794983014919.8,"k":"level","db":-77.68095487014621}
+{"t":1794983014939.3,"k":"level","db":-77.86402508921458}
+{"t":1794983014959.2,"k":"level","db":-77.79767151857833}
+{"t":1794983014979.3,"k":"level","db":-77.42194165918089}
+{"t":1794983014999.4001,"k":"level","db":-77.22596964279235}
+{"t":1794983015019.8,"k":"level","db":-77.17334223365665}
+{"t":1794983015039.7,"k":"level","db":-77.04400645316258}
+{"t":1794983015059.9001,"k":"level","db":-77.9292831744792}
+{"t":1794983015078.9001,"k":"level","db":-77.58248038248848}
+{"t":1794983015099.2,"k":"level","db":-77.29970999231732}
+{"t":1794983015119.8,"k":"level","db":-77.39002724477456}
+{"t":1794983015139,"k":"level","db":-76.95118004341025}
+{"t":1794983015159.7,"k":"level","db":-77.64051232468147}
+{"t":1794983015179.8,"k":"level","db":-77.56694443672033}
+{"t":1794983015198.8,"k":"level","db":-78.02295207765084}
+{"t":1794983015220,"k":"level","db":-77.58129459994646}
+{"t":1794983015239.8,"k":"level","db":-77.48640997275808}
+{"t":1794983015259.6,"k":"level","db":-77.56977612292354}
+{"t":1794983015279.7,"k":"level","db":-77.94853513738703}
+{"t":1794983015299.8,"k":"level","db":-78.21682931224542}
+{"t":1794983015319.1,"k":"level","db":-83.80858819787474}
+{"t":1794983015339.2,"k":"level","db":-88.37273214253285}
+{"t":1794983015359.6,"k":"level","db":-66.34709193420326}
+{"t":1794983015379.6,"k":"vad","on":true}
+{"t":1794983015379.7,"k":"level","db":-43.23055494427347}
+{"t":1794983015399.7,"k":"level","db":-31.993635587007645}
+{"t":1794983015419.9001,"k":"level","db":-26.781577098405425}
+{"t":1794983015439.9001,"k":"level","db":-22.71211532810026}
+{"t":1794983015458.9001,"k":"level","db":-21.274989882201155}
+{"t":1794983015479.2,"k":"level","db":-26.708875339403363}
+{"t":1794983015499.3,"k":"vad","on":false}
+{"t":1794983015499.6,"k":"level","db":-47.43888909254446}
+{"t":1794983015518.7,"k":"vad","on":true}
+{"t":1794983015518.9001,"k":"level","db":-40.4559881191621}
+{"t":1794983015539.6,"k":"level","db":-29.894697303566986}
+{"t":1794983015559.6,"k":"level","db":-14.368838410136798}
+{"t":1794983015579.8,"k":"level","db":-11.26214937833364}
+{"t":1794983015599.9001,"k":"level","db":-14.460708521693029}
+{"t":1794983015619.9001,"k":"level","db":-15.214059651543275}
+{"t":1794983015638.9001,"k":"level","db":-15.995282698001636}
+{"t":1794983015639.2,"k":"suspend"}
+{"t":1794983015640.2,"k":"post","path":"/live","body":{"you":true}}
+{"k":"log","t":1794983015640.346,"text":"[ears] paused at -16.0 dB"}
+{"t":1794983015839.9001,"k":"vad","on":false}
+{"t":1794983015889.4001,"k":"vad","on":true}
+{"t":1794983015979.7,"k":"vad","on":false}
+{"t":1794983016279.5,"k":"sse","e":{"type":"say","text":"Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own."}}
+{"t":1794983016280.6,"k":"sse","e":{"type":"turn_end"}}
+{"t":1794983016373.4001,"k":"result","i":1,"r":[["tell me three facts about octopuses",true],[" stop",false]]}
+{"k":"log","t":1794983016373.97,"text":"[ears] cut off by \"stop\""}
+{"t":1794983016374.2,"k":"stop"}
+{"t":1794983016374.3,"k":"resume"}
+{"t":1794983016374.9001,"k":"post","path":"/live","body":{"you":false}}
+{"t":1794983016375,"k":"post","path":"/hush","body":{"heard":"Octopuses have three"}}
+{"t":1794983016375.1,"k":"post","path":"/live","body":{"voice":false}}
+{"t":1794983016375.2,"k":"post","path":"/live","body":{"you":true}}
+{"t":1794983016377.9001,"k":"ended"}
+{"t":1794983016925.3,"k":"result","i":1,"r":[["tell me three facts about octopuses",true],[" stop",true]]}
+{"t":1794983016925.8,"k":"post","path":"/live","body":{"you":false}}
+{"t":1794983017683.5,"k":"tts","text":"Also, about two-thirds of their neurons sit in their arms, so each arm can taste and make some decisions on its own.","dur":6.848}

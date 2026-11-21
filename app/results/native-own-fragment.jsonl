@@ -1,0 +1,17 @@
+{"k":"sse","e":{"type":"pages","n":1},"t":1794982906303.5229}
+{"k":"sse","t":1794982906303.658,"e":{"step":"","task":"","workers":[{"title":"Voice call / project","state":"idle","task":"","name":"project","step":"","model":"haiku"}],"type":"board","title":"Voice call / project","state":"idle","model":"haiku"}}
+{"k":"sse","t":1794982906303.697,"e":{"project":"<scratch>/project","voices":["af_alloy","af_aoede","af_bella","af_heart","af_jessica","af_kore","af_nicole","af_nova","af_river","af_sarah","af_sky","am_adam","am_echo","am_eric","am_fenrir","am_liam","am_michael","am_onyx","am_puck","am_santa","bf_alice","bf_emma","bf_isabella","bf_lily","bm_daniel","bm_fable","bm_george","bm_lewis"],"type":"hello"}}
+{"endpointMs":0,"rate":24000,"k":"mic","t":1794982906453.822,"recogniser":"DictationTranscriber","echoCancelled":false}
+{"on":true,"k":"vad","t":1794982907518.2642}
+{"on":false,"k":"vad","t":1794982908156.2729}
+{"t":1794982908241.5811,"r":[["Cell",false]],"i":0,"k":"result"}
+{"path":"/live","body":{"you":true},"t":1794982908241.7122,"k":"post"}
+{"i":0,"k":"result","r":[["So they",false]],"t":1794982908489.2749}
+{"i":0,"k":"result","r":[["So they",true]],"t":1794982911834.239}
+{"k":"post","t":1794982911834.3621,"path":"/live","body":{"you":false}}
+{"k":"log","t":1794982911834.4641,"text":"[turn] usual"}
+{"k":"post","t":1794982911834.5981,"path":"/say","body":{"text":"So they"}}
+{"e":{"type":"wait"},"t":1794982917597.533,"k":"sse"}
+{"k":"log","t":1794982917597.7029,"text":"[turn] held: the voice waits for the rest"}
+{"e":{"type":"turn_end"},"t":1794982917597.79,"k":"sse"}
+{"k":"done","t":1794982920297.3362}

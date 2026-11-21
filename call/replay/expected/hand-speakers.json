@@ -1,0 +1,274 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": false
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 1000,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "what time"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 1500,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 1500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 1500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what time is it"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "what time is it"
+  }
+ },
+ {
+  "t": 2000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "It is noon."
+ },
+ {
+  "t": 2000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what time is it"
+   ],
+   [
+    "voice",
+    "It is noon."
+   ]
+  ]
+ },
+ {
+  "t": 2000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 2000,
+  "k": "log",
+  "text": "[stats] 1 reply, median 0.5 s, slowest 0.5 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 2000,
+  "k": "play",
+  "text": "It is noon.",
+  "dur": 2
+ },
+ {
+  "t": 2000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 2050,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Wait for the chime."
+ },
+ {
+  "t": 2050,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what time is it"
+   ],
+   [
+    "voice",
+    "It is noon. Wait for the chime."
+   ]
+  ]
+ },
+ {
+  "t": 4000,
+  "k": "ended"
+ },
+ {
+  "t": 4000,
+  "k": "play",
+  "text": "Wait for the chime.",
+  "dur": 2
+ },
+ {
+  "t": 6000,
+  "k": "ended"
+ },
+ {
+  "t": 6250,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 6250,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 8000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Here is a long answer about clocks."
+ },
+ {
+  "t": 8000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what time is it"
+   ],
+   [
+    "voice",
+    "It is noon. Wait for the chime."
+   ],
+   [
+    "voice",
+    "Here is a long answer about clocks."
+   ]
+  ]
+ },
+ {
+  "t": 8000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 8000,
+  "k": "play",
+  "text": "Here is a long answer about clocks.",
+  "dur": 3
+ },
+ {
+  "t": 8000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ },
+ {
+  "t": 8500,
+  "k": "stop"
+ },
+ {
+  "t": 8500,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": "Here"
+  }
+ },
+ {
+  "t": 8500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 8500,
+  "k": "ui",
+  "state": "Listening",
+  "note": "This browser cannot hear you while the voice is speaking. To interrupt, press Space. Wearing headphones? Turn that on in Settings, behind the three dots.",
+  "mute": "Mute"
+ }
+]

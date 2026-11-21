@@ -1,0 +1,430 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 1000,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 1500,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 1500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 1500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about"
+   ]
+  ]
+ },
+ {
+  "t": 1500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me about"
+  }
+ },
+ {
+  "t": 2000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Closures are functions."
+ },
+ {
+  "t": 2000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about"
+   ],
+   [
+    "voice",
+    "Closures are functions."
+   ]
+  ]
+ },
+ {
+  "t": 2500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 2500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about"
+   ],
+   [
+    "voice",
+    "Closures are functions."
+   ],
+   [
+    "ghost",
+    "closures in javascript"
+   ]
+  ]
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": ""
+  }
+ },
+ {
+  "t": 3000,
+  "k": "log",
+  "text": "[turn] joined before its answer started"
+ },
+ {
+  "t": 3000,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 3000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript"
+   ]
+  ]
+ },
+ {
+  "t": 3000,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me about closures in javascript"
+  }
+ },
+ {
+  "t": 3200,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 3200,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript"
+   ],
+   [
+    "ghost",
+    "and also"
+   ]
+  ]
+ },
+ {
+  "t": 3300,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Sure."
+ },
+ {
+  "t": 3300,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript"
+   ],
+   [
+    "ghost",
+    "and also"
+   ],
+   [
+    "voice",
+    "Sure."
+   ]
+  ]
+ },
+ {
+  "t": 4000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 4000,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": ""
+  }
+ },
+ {
+  "t": 4000,
+  "k": "log",
+  "text": "[turn] joined before its answer started"
+ },
+ {
+  "t": 4000,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 4000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript and also scope"
+   ]
+  ]
+ },
+ {
+  "t": 4000,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "tell me about closures in javascript and also scope"
+  }
+ },
+ {
+  "t": 5000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Closures capture variables."
+ },
+ {
+  "t": 5000,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript and also scope"
+   ],
+   [
+    "voice",
+    "Closures capture variables."
+   ]
+  ]
+ },
+ {
+  "t": 5000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 5000,
+  "k": "log",
+  "text": "[stats] 1 reply, median 1.0 s, slowest 1.0 s, joined 2, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 5000,
+  "k": "play",
+  "text": "Closures capture variables.",
+  "dur": 2
+ },
+ {
+  "t": 5000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7000,
+  "k": "ended"
+ },
+ {
+  "t": 7250,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 7250,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7500,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "One more thing."
+ },
+ {
+  "t": 7500,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "tell me about closures in javascript and also scope"
+   ],
+   [
+    "voice",
+    "Closures capture variables."
+   ],
+   [
+    "voice",
+    "One more thing."
+   ]
+  ]
+ },
+ {
+  "t": 7500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 7500,
+  "k": "play",
+  "text": "One more thing.",
+  "dur": 2
+ },
+ {
+  "t": 7500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 7800,
+  "k": "sr-stop",
+  "n": 2
+ },
+ {
+  "t": 7800,
+  "k": "stop"
+ },
+ {
+  "t": 7800,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": ""
+  }
+ },
+ {
+  "t": 7800,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 7800,
+  "k": "mic-stop"
+ },
+ {
+  "t": 7800,
+  "k": "ui",
+  "state": "Call ended.",
+  "note": "",
+  "mute": "Mute"
+ }
+]

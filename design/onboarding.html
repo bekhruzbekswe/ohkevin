@@ -1,0 +1,309 @@
+<!doctype html>
+<!-- Status: living. The approved first run, built in both apps. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin · onboarding, third pass</title>
+<link rel="stylesheet" href="system.css">
+<style>
+/* ── NEW: one setup screen. The name, one line, three rows, one button. ─────────────────────────────────────────────
+   .su        the screen: a 640 column in the middle of the window
+   .su-row    one thing Kevin needs: its name at title size, its reason at body size, and on the right its own button
+              or, once done, the word Done. Hairlines between rows. Rows can be done in any order.
+   Gold       exactly one at a time: the first row not yet done; when all three are done, the button at the bottom.
+   No picture but the mark, no dots, no Back, no Skip: with one screen there is nowhere to go back to and nothing to skip. */
+.su { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--cv-s-4); text-align: center; }
+.su .cv-brand { height: 56px; margin: 0 0 var(--cv-s-2); }
+.su h3 { margin: 0 0 var(--cv-s-1); }
+.su > p { margin: 0 0 32px; color: var(--cv-ink-2); font: 400 var(--cv-t-title)/28px var(--cv-font-text); letter-spacing: -0.02em; }
+.su-rows { width: 640px; text-align: left; border-bottom: 1px solid var(--cv-hair); margin-bottom: 32px; }
+.su-row { display: flex; align-items: center; gap: var(--cv-s-3); padding: 0; border-top: 1px solid var(--cv-hair); height: 88px; }
+.su-row > div { flex: 1; min-width: 0; }
+.su-row p { margin: 0; }
+.su-row .cv-btn { width: 168px; padding: 0; flex: none; }
+.su-row .cv-state { flex: none; }
+.su-row b { font: 600 var(--cv-t-body)/24px var(--cv-font-text); flex: none; }
+.su-pick { border: 0; background: none; padding: 0 var(--cv-s-0); margin: 0 calc(-1 * var(--cv-s-0)); border-radius: 6px; cursor: pointer; font: 600 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; color: var(--cv-ink); }
+.su-pick:hover { background: color-mix(in srgb, var(--cv-ink) 6%, transparent); }
+.su > * { flex: none; }   /* nothing on this screen may be squeezed: every button is 48 high in both apps */
+.su-quiet { box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); background: none; }
+.su-rest { box-shadow: inset 0 0 0 1.5px var(--cv-ink-3); background: none; color: var(--cv-ink-2); cursor: default; }
+.su-rest[disabled] { opacity: 1; }
+.su .cv-btn--wide { width: 320px; }
+.su-dl { width: 320px; height: 48px; display: flex; flex-direction: column; justify-content: center; gap: var(--cv-s-1); font: 400 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; color: var(--cv-ink-2); text-align: center; }
+.su-dl .up-line { margin: 0; flex: none; width: 100%; height: 4px; border-radius: 2px; } /* the bar first, 4 thick, rounded; the words under it */
+.su-dl .up-line b { border-radius: 2px; }
+.ob-done { text-align: center; margin: 0 0 var(--cv-s-2); color: var(--cv-ink-2); }
+.ob-hint { margin: var(--cv-s-1) 0 0 var(--cv-s-3); font: 400 var(--cv-t-small)/20px var(--cv-font-text); letter-spacing: 0; color: var(--cv-ink-2); }
+.is-later { opacity: .45; pointer-events: none; }
+.chrome { width: 100%; height: 100%; display: flex; flex-direction: column; background: var(--cv-sunk); }
+.chrome > i { height: 40px; flex: none; display: flex; align-items: center; gap: var(--cv-s-1); padding: 0 var(--cv-s-2); font-style: normal; }
+.chrome > i b { width: 12px; height: 12px; border-radius: 50%; background: color-mix(in srgb, var(--cv-ink) 22%, transparent); }
+.chrome > i span { margin-left: var(--cv-s-2); height: 28px; padding: 0 var(--cv-s-2); border-radius: 8px 8px 0 0; align-self: flex-end; background: var(--cv-ground); font: 400 var(--cv-t-small)/28px var(--cv-font-text); letter-spacing: 0; }
+.chrome > div { flex: 1; min-height: 0; background: var(--cv-ground); }
+/* before → after, and the audit */
+.ba { display: flex; flex-direction: column; gap: var(--cv-s-2); }
+.ba > div { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cv-s-1); }
+.ba em { font-style: normal; width: 96px; color: var(--cv-ink-2); }
+.ba span { height: 48px; line-height: 48px; padding: 0 var(--cv-s-3); border-radius: var(--cv-r-pill); background: var(--cv-ground); }
+.ba span.x { background: none; box-shadow: inset 0 0 0 1px var(--cv-hair); color: var(--cv-ink-3); text-decoration: line-through; }
+.ba i { font-style: normal; color: var(--cv-ink-3); }
+.ba strong { font: 400 var(--cv-t-display)/1 var(--cv-font-display); margin-left: var(--cv-s-2); }
+.audit { width: 100%; max-width: 1296px; border-collapse: collapse; background: var(--cv-ground); border-radius: var(--cv-r-surface); overflow: hidden; }
+.audit th, .audit td { text-align: left; vertical-align: top; padding: var(--cv-s-h) var(--cv-s-3); border-top: 1px solid var(--cv-hair); font: 400 var(--cv-t-body)/24px var(--cv-font-text); }
+.audit th { border-top: 0; color: var(--cv-ink-2); font-weight: 400; }
+.audit td:nth-child(2) { white-space: nowrap; }
+.audit .keep { color: var(--cv-done); } .audit .cut { color: var(--cv-wrong); } .audit .change { color: var(--cv-accent-ink); }
+.audit tr.sec td { color: var(--cv-ink-2); background: var(--cv-sunk); font-weight: 600; }
+/* the line inside the card, as approved in updates.html */
+.cv-panel--mix.has-line { height: auto; }
+.cv-line { margin-top: var(--cv-s-2); padding-top: var(--cv-s-h); border-top: 1px solid var(--cv-hair); flex: none;
+           display: flex; align-items: center; color: var(--cv-ink-2); font: 400 var(--cv-t-body)/24px var(--cv-font-text); letter-spacing: -0.01em; white-space: nowrap; text-align: left; }
+.up-line { flex: 1; height: 2px; margin-left: var(--cv-s-2); border-radius: 1px; background: var(--cv-hair); overflow: hidden; }
+.up-line b { display: block; height: 100%; border-radius: 1px; background: var(--cv-ink-2); }
+.cw-stack .cv-line { margin-top: var(--cv-s-1); padding-left: var(--cv-s-3); }
+
+/* ── carried over from final.html, unchanged ── */
+.cw-page { position: relative; display: flex; gap: var(--cv-s-4); padding: var(--cv-s-4); width: 100%; height: 100%; }
+.cw-talk { flex: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.cw-talk.alone { max-width: 720px; margin: 0 auto; }
+.cw-talk .cv-chat { flex: 1; min-height: 0; padding-bottom: var(--cv-s-3); overflow: hidden; }
+.cw-hero .cv-greeting { text-wrap: balance; }
+.cw-hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: var(--cv-s-3); }
+.cw-crew { width: var(--cv-w-rail); flex: none; display: flex; flex-direction: column; gap: var(--cv-s-2); overflow: hidden; }
+.cw-idle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.cv-brand { height: 100px; width: auto; aspect-ratio: 90 / 68; margin-bottom: 56px; fill: currentColor; flex: none; }
+.cv-brand circle { fill: var(--cv-accent); }
+.cw-idle .cv-display { margin-bottom: var(--cv-s-1); }
+.cw-sub { margin-bottom: var(--cv-s-4); }
+.cw-stack { width: 320px; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+.cw-page.n { flex-direction: column; gap: var(--cv-s-2); padding: var(--cv-s-4) var(--cv-s-2) var(--cv-s-2); }
+.cw-more { top: 6px; right: 34px; }
+.cw-page.n .cw-more { right: 10px; }
+.cw-page.n .cw-crew { order: -1; width: auto; flex: 0 1 auto; min-height: 0; }
+.cw-page.n .cw-talk { flex: 1 1 0; min-height: 272px; }
+.cw-page.n .cv-turn { max-width: 86%; }
+.desk { display: flex; flex-direction: column; gap: 6px; width: 320px; }
+.menubar { height: 24px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding: 0 10px; border-radius: 6px; background: color-mix(in srgb, var(--cv-ink) 7%, transparent); }
+.menubar u { width: 14px; height: 14px; border-radius: 50%; background: color-mix(in srgb, var(--cv-ink) 22%, transparent); }
+.menubar u.clock { width: 56px; height: 8px; border-radius: 4px; }
+
+/* ── the report page ── */
+html, body { margin: 0; background: var(--cv-sunk); }
+.rp { max-width: 1568px; margin: 0 auto; padding: var(--cv-s-5) var(--cv-s-3) 120px; background: transparent; }
+.rp h2.cv-display { margin: 96px 0 var(--cv-s-4); }
+.rp h1 + p { margin-top: var(--cv-s-2); }
+.grid { display: flex; flex-wrap: wrap; gap: var(--cv-s-5) var(--cv-s-4); align-items: flex-start; }
+figure { margin: 0; display: flex; flex-direction: column; gap: var(--cv-s-2); }
+figcaption { display: flex; align-items: baseline; gap: var(--cv-s-2); }
+figcaption b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; }
+.pair { display: flex; gap: var(--cv-s-1); align-items: stretch; }
+.side { padding: var(--cv-s-3); border-radius: var(--cv-r-surface); background: #DDD8CD; box-shadow: inset 0 0 0 1px var(--cv-hair); color: var(--cv-ink); }
+.side[data-theme="dark"] { background: #0E0D0C; }
+.rail { width: 448px; }                                  /* a piece of the rail: 400 of cards inside 24 */
+.rail .cw-crew { background: none; }
+.shot { border-radius: 12px; overflow: hidden; box-shadow: var(--cv-shadow), 0 0 0 1px var(--cv-hair); }
+.shot.w { width: 742px; height: 464px; } .shot.w > div { width: 1280px; height: 800px; zoom: .58; }
+.shot.m { width: 736px; height: 528px; } .shot.m > div { width: 920px; height: 660px; zoom: .8; }
+.shot.n { width: 336px; height: 532px; } .shot.n > div { width: 480px; height: 760px; zoom: .7; }
+.steps { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cv-s-1) var(--cv-s-2); margin-top: var(--cv-s-4); }
+.steps span { display: inline-flex; align-items: baseline; gap: var(--cv-s-1); height: 48px; line-height: 48px; padding: 0 var(--cv-s-3); border-radius: var(--cv-r-pill); background: var(--cv-ground); }
+.steps span b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; }
+.steps i { font-style: normal; color: var(--cv-ink-3); }
+.order { display: flex; flex-direction: column; gap: var(--cv-s-1); padding: var(--cv-s-3); border-radius: var(--cv-r-surface); background: var(--cv-ground); }
+.order div { display: flex; align-items: center; gap: var(--cv-s-1); }
+.order em { font-style: normal; width: 64px; color: var(--cv-ink-2); }
+.order span { height: 32px; line-height: 32px; padding: 0 var(--cv-s-2); border-radius: var(--cv-r-pill); background: var(--cv-sunk); }
+.order i { font-style: normal; color: var(--cv-ink-3); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: var(--cv-s-1) var(--cv-s-3); max-width: 880px; margin: 0; padding: var(--cv-s-3); border-radius: var(--cv-r-surface); background: var(--cv-ground); }
+.kv dt { color: var(--cv-ink-2); } .kv dd { margin: 0; }
+.fixed { max-width: 720px; margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--cv-s-1); }
+.fixed li { display: flex; gap: var(--cv-s-2); }
+.fixed li b { font-weight: 400; color: var(--cv-ink-3); font-variant-numeric: tabular-nums; flex: none; }
+
+
+.shot.f { width: 736px; height: 528px; } .shot.f > div { width: 920px; height: 660px; zoom: .8; }
+.shot.b { width: 736px; height: 560px; } .shot.b > div { width: 920px; height: 700px; zoom: .8; }
+.shot.c { width: 742px; height: 464px; } .shot.c > div { width: 1280px; height: 800px; zoom: .58; }
+</style>
+</head>
+<body>
+<div class="cv rp">
+  <h1 class="cv-display">One screen, then you talk.</h1>
+  <p class="cv-body cv-quiet">Approved. Eight screens became one. The practice and the first task are the first call itself.</p>
+
+  <h2 class="cv-display">Before, after</h2>
+  <div class="ba cv-body" id="ba"></div>
+
+  <h2 class="cv-display">The one screen</h2>
+  <div class="grid" id="setup"></div>
+
+  <h2 class="cv-display">The first call</h2>
+  <div class="grid" id="call"></div>
+
+  <h2 class="cv-display">From the menu bar</h2>
+  <div class="grid" id="launcher"></div>
+
+  <h2 class="cv-display">The audit</h2>
+  <table class="audit" id="audit"></table>
+
+  <h2 class="cv-display">Critique</h2>
+  <ol class="fixed cv-body" id="fixed"></ol>
+</div>
+
+<script>
+const $ = id => document.getElementById(id)
+const q = new URLSearchParams(location.search)
+if (q.get('top')) document.body.style.marginTop = -q.get('top') + 'px'   // for screenshots
+document.documentElement.classList.add('is-still')
+
+const BRAND = '<svg class="cv-brand" viewBox="4 18 90 68" aria-hidden="true"><rect x="6" y="77" width="4" height="6" rx="2"/><rect x="13.6" y="59.6" width="4" height="10" rx="2"/><rect x="21" y="44.9" width="4" height="14" rx="2"/><rect x="28.4" y="33" width="4" height="18" rx="2"/><rect x="35.8" y="24.9" width="4" height="20" rx="2"/><rect x="43" y="21.5" width="4" height="18" rx="2"/><rect x="50.2" y="21.9" width="4" height="14" rx="2"/><rect x="57.2" y="25" width="4" height="10" rx="2"/><rect x="64.2" y="29.9" width="4" height="8" rx="2"/><rect x="71.2" y="37.6" width="4" height="6" rx="2"/><circle cx="82.2" cy="54.8" r="10"/></svg>'
+const mark = s => `<span class="cv-mark ${s ? 'is-' + s : ''}"><b></b><i></i><i></i><i></i></span>`
+const turn = ([who, ...said]) => `<div class="cv-turn cv-turn--${who}">${said.map(x => `<div class="cv-bubble${x[0] === '~' ? ' cv-bubble--live' : ''}">${x.replace(/^~/, '')}</div>`).join('')}</div>`
+const WORD = { working: 'Working', asking: 'Asking', waiting: 'Waiting', done: 'Done' }
+function card([name, state, line, o = {}]) {
+  const st = `<span class="cv-state cv-state--${state}">${WORD[state]}</span>`
+  const hint = o.hint ? `<p class="ob-hint">${o.hint}</p>` : ''
+  if (o.ask) return `<div><div class="cv-card cv-card--ask">
+      <div class="cv-card__head"><h3 class="cv-title">${name}</h3>${st}</div>
+      <div><p class="cv-question">${line}</p><code class="cv-command">${o.cmd}</code></div>
+      <div class="cv-card__actions"><button class="cv-btn">Deny</button><button class="cv-btn cv-btn--primary">${mark('listening')}Approve</button></div>
+    </div>${hint}</div>`
+  return `<div><div class="cv-card${o.open ? ' is-open' : ''}" tabindex="0">
+      <div class="cv-card__head"><h3 class="cv-title">${name}</h3>${st}<span class="cv-chev"></span></div>
+      <p class="cv-body cv-quiet">${line}</p>
+      ${o.open ? `<div class="cv-card__actions"><button class="cv-btn cv-btn--wide">Open in Claude</button><button class="cv-btn cv-btn--danger">Stop</button></div>` : ''}
+    </div>${hint}</div>`
+}
+const BAR = { listening: ['Listening', 'listening'], speaking: ['Speaking', 'speaking'] }
+const bar = (s = 'listening', narrow) => `<div class="cv-bar${narrow ? ' cv-bar--two' : ''}">
+      <span class="cv-capsule">${mark(BAR[s][1])}<span class="cv-capsule__word">${BAR[s][0]}</span></span>
+      <input class="cv-field" placeholder="Type instead"><button class="cv-btn">Mute</button>
+      <button class="cv-btn cv-btn--danger" title="End call" aria-label="End call">End</button></div>`
+const more = '<button class="cv-more cw-more" title="Settings" aria-label="Settings"><i></i></button>'
+
+
+// ── the one setup screen ──
+// a row: [name, reason, state] · state: 'go' (gold: your move) | 'can' (quiet, pressable) | 'wait' (resting) | 'done' | a value (the project's name)
+const ROW = {
+  claude:  { name: 'Claude', why: 'Kevin works through your own Claude Code.', btn: 'Sign in', wait: 'In your browser', waitWhy: 'Finish in your browser. This moves on by itself.' },
+  mic:     { name: 'Microphone', why: 'Kevin listens only while a call is on.', btn: 'Allow', asking: 'Your Mac is asking.', off: 'It is off. Turn it on in System Settings › Privacy & Security.', offBtn: 'Open Settings' },
+  project: { name: 'Project', why: 'The folder Kevin will work in.', btn: 'Choose' },
+}
+const row = (k, st) => { const r = ROW[k]
+  const right = st === 'done' ? '<span class="cv-state cv-state--done">Done</span>'
+    : st === 'go' ? `<button class="cv-btn cv-btn--primary">${r.btn}</button>` : st === 'can' ? `<button class="cv-btn su-quiet">${r.btn}</button>`
+    : st === 'wait' ? `<button class="cv-btn su-rest" disabled>${r.wait}</button>` : st === 'asking' ? `<button class="cv-btn su-quiet">${r.btn}</button>`
+    : st === 'off' ? `<button class="cv-btn cv-btn--primary">${r.offBtn}</button>` : '<span class="cv-state cv-state--done">Done</span>'
+  const why = st === 'off' ? r.off : st === 'asking' ? r.asking : st === 'wait' && r.waitWhy ? r.waitWhy : ['go', 'can', 'done', 'wait'].includes(st) ? r.why : `Kevin will work in <button class="su-pick">${st} ›</button>`
+  return `<div class="su-row"><div><p class="cv-title">${r.name}</p><p class="cv-body cv-quiet">${why}</p></div>${right}</div>` }
+// a screen: three row states, and the bottom: 'rest' | 'go' | 'dl' (the download is still finishing)
+const su = (c, m, p, end = 'rest') => `<div class="su cv">${BRAND}<h3 class="cv-display">Oh Kevin</h3><p class="cv-body">Talk to Claude Code out loud. Three things first.</p>
+  <div class="su-rows">${row('claude', c)}${row('mic', m)}${row('project', p)}</div>
+  ${end === 'dl' ? '<div class="su-dl"><i class="up-line"><b style="width:86%"></b></i><span>Downloading, hold on a second…</span></div>'
+    : `<button class="cv-btn cv-btn--wide ${end === 'go' ? 'cv-btn--primary' : 'su-rest'}"${end === 'go' ? '' : ' disabled'}>Start the first call</button>`}</div>`
+
+
+let n = 0
+const fig = (cap, body) => `<figure><figcaption><b>${String(++n).padStart(2, '0')}</b><span class="cv-body">${cap}</span></figcaption>${body}</figure>`
+const shots = (cls, body) => `<div class="pair"><div class="shot ${cls}" data-theme="light"><div>${body}</div></div><div class="shot ${cls}" data-theme="dark"><div>${body}</div></div></div>`
+const pair = body => `<div class="pair"><div class="side" data-theme="light">${body}</div><div class="side" data-theme="dark">${body}</div></div>`
+const F = (cap, body) => fig(cap, shots('f', body))
+
+$('ba').innerHTML = `<div><em class="cv-small">Take 2</em>${['Welcome', 'Download', 'Sign in', 'Microphone', 'Say hello', 'Project', 'Ready', 'You’re set'].map(t => `<span class="x">${t}</span>`).join('')}<strong>8</strong></div>
+  <div><em class="cv-small">Take 3</em><span>Three things</span><i>→</i><span>The first call: say hello, one task, done</span><strong>1</strong><span style="background:none;padding:0;color:var(--cv-ink-2)">screen before you talk</span></div>
+  <div><em class="cv-small">Where they went</em><span style="background:none;padding:0;height:auto;line-height:24px;max-width:880px;color:var(--cv-ink-2)">Welcome is the top of the one screen. The download starts by itself at launch and never has a screen. Sign in, Microphone and Project are its three rows. Say hello and the first task are the first call. Ready and You’re set are gone.</span></div>`
+
+$('setup').innerHTML = F('First launch, Mac app (920 × 660, drawn at 80%). The name, one line, three rows with their reasons. One gold button: the next thing', su('go', 'can', 'can'))
+  + F('Sign in pressed: the row rests and says where to look. The other rows can be done meanwhile', su('wait', 'go', 'can'))
+  + F('Signed in, Allow pressed: macOS asks in its own window. The button stays as it was; the line under Microphone says “Your Mac is asking.”', su('done', 'asking', 'can'))
+  + F('macOS was told no: the row says so and what to do. Not red, not a dialog', su('done', 'off', 'can'))
+  + F('All three done: Done on every row. The folder is a word you can press to choose another. Now the gold is the one button at the bottom', su('done', 'done', 'shop', 'go'))
+  + F('Only if the download that began at launch is still running: no button yet. One bar, the words under it; when it is full, the gold button takes its place', su('done', 'done', 'shop', 'dl'))
+
+// ── the first call: the practice and the first task are the call itself ──
+const ASK = 'Tell me what this project is.'
+const cbar = (s, w) => `<div class="cv-bar"><span class="cv-capsule">${mark(s)}<span class="cv-capsule__word">${w}</span></span><input class="cv-field" placeholder="Type instead"><button class="cv-btn">Mute</button><button class="cv-btn cv-btn--danger">End</button></div>`
+const call = d => `<div class="cw-page cv"><div class="cw-talk${d.workers ? '' : ' alone'}">${d.hero ? `<div class="cw-hero"><p class="cv-greeting">${d.hero}</p></div>` : `<div class="cv-chat">${d.chat.map(turn).join('')}</div>`}${d.note ? `<p class="${d.plain ? 'cv-note' : 'cv-body ob-done'}">${d.note}</p>` : ''}${cbar(...d.bar)}</div>${d.workers ? `<div class="cw-crew">${d.workers.map(card).join('')}</div>` : ''}${more}</div>`
+const HI = [['you', 'Hello Kevin.'], ['voice', 'Hello. I hear you clearly.', 'What shall we do first?']]
+const T1 = [...HI, ['you', ASK], ['voice', 'I’ll have a look.']]
+$('call').innerHTML = fig('The first call opens with the app’s own line, as every call does. This once it says: Say hello. Mac app and call page alike, 1280 × 800', shots('c', call({ hero: 'Say hello.', bar: ['listening', 'Listening'] })))
+  + fig('You speak; Kevin answers aloud and asks. Nothing else is on the screen', shots('c', call({ chat: HI, bar: ['listening', 'Listening'] })))
+  + fig('You answer. A worker opens and you see it work', shots('c', call({ chat: T1, workers: [['shop', 'working', 'Reading the project']], bar: ['speaking', 'Speaking'] })))
+  + fig('It ends in something you can see: Done on the card, the answer in the voice. One small line under the card, once', shots('c', call({ chat: [...T1, ['voice', 'It’s a web shop: a Next.js storefront, an API in Node, and a docs site.', 'Tests cover the API. The storefront has none yet.']], workers: [['shop', 'done', 'Read the project', { hint: 'Press a card to open its work in Claude.' }]], bar: ['listening', 'Listening'] })))
+
+
+// ── the launcher: the panel points; the screen is the same, in the browser the call will use ──
+const P = s => `<div class="desk"><div class="menubar"><u></u><u></u><span class="cv-menu is-open is-setup">${mark('resting')}</span><u></u><u class="clock"></u></div>
+  <div class="cv-panel cv-panel--mix cv"><div class="cv-head"><p class="cv-head__1${s.ours ? ' is-ours' : ''}">${s.l1}</p><p class="cv-head__2">${s.l2}</p></div>
+  <button class="cv-more"><i></i></button><button class="cv-pill cv-pill--pick is-later"><span class="cv-pill__glyph"><i class="cv-folder"></i></span><span class="cv-pill__name is-none">No project yet</span><span class="cv-pill__glyph"><span class="cv-arrows"></span></span></button>
+  <button class="cv-btn cv-btn--wide cv-btn--primary">${s.door}</button></div></div>`
+$('launcher').innerHTML = fig('First open: the panel points', pair(P({ ours: 1, l1: 'Oh Kevin', l2: 'Three things, then a call.', door: 'Set up' })))
+  + fig('Left halfway: it says what is next', pair(P({ l1: '2 things to go', l2: 'Next: the microphone.', door: 'Continue' })))
+  + fig('The same one screen, in the browser: the same sizes, button for button', shots('b', `<div class="chrome cv"><i><b></b><b></b><b></b><span>Oh Kevin</span></i><div>${su('done', 'go', 'can')}</div></div>`))
+
+// ── the audit: every element, and whether it earns its place ──
+const A = [
+  ['The one screen'],
+  ['The mark', 'keep', 'It is the thing the screen is about: this is Oh Kevin. 56 high, not a hero: the rows are the content.'],
+  ['“Oh Kevin”', 'keep', 'The only place the name is said. Without it the first screen is a form.'],
+  ['“Talk to Claude Code out loud. Three things first.”', 'keep', 'First sentence: what it is. Second: why there are rows. Cut either and the screen has no reason.'],
+  ['Row names: Claude, Microphone, Project', 'keep', 'One word each, at 22. They are what you scan.'],
+  ['“Kevin works through your own Claude Code.”', 'keep', 'Why a sign-in at all, and whose account. Without it the browser opening is a surprise.'],
+  ['“Kevin listens only while a call is on.”', 'keep', 'The reason shown before macOS asks. It must be true of the app.'],
+  ['“The folder Kevin will work in.”', 'keep', 'Says what “Project” means here in six words.'],
+  ['“Your Mac is asking.”', 'change', 'The Microphone row’s line while macOS asks. The button stays “Allow”: “macOS is asking” was too long for a button.'],
+  ['Row buttons: Sign in, Allow, Choose', 'keep', 'One verb each. The row’s name carries the object, so “Sign in to Claude” and “Allow microphone” lost their second half.'],
+  ['Done, on a finished row', 'keep', 'The system’s own state word. Shows progress, so no dots are needed.'],
+  ['“Kevin will work in shop ›”', 'change', 'Was the folder’s name and a Change button. The name is now a word you press to choose another, in the row’s own line; the right side says Done like the other rows.'],
+  ['Change button', 'cut', 'A second control for what the folder’s name can do itself.'],
+  ['“Start the first call”', 'keep', 'The goal, visible from the start, resting until the rows are done. Then it is the one gold thing. The same button, 48 high and 320 wide, in the Mac app and in the browser.'],
+  ['“Downloading, hold on a second…” over one bar', 'change', 'Was a small line beside a resting button. Now, if the download is still running when the rows are done, there is no button: a 4-point bar, the words under it, and the gold button when it is full.'],
+  ['Welcome screen', 'cut', 'It only said the name and one line. Both are now the top of this screen.'],
+  ['Download screen and its button', 'cut', 'Nobody chooses not to download. It starts at launch.'],
+  ['Separate Sign in, Microphone, Project screens', 'cut', 'Three screens of one sentence and one button each are three rows.'],
+  ['“Ready for a first task” screen', 'cut', 'A screen whose only job was to hold a Start button.'],
+  ['“You’re set” screen', 'cut', 'Three facts about where things are. The first call shows two of them in place; the third is one line.'],
+  ['Progress dots', 'cut', 'With one screen there is no sequence to show. The rows show what is done.'],
+  ['Back', 'cut', 'Nowhere to go back to.'],
+  ['Skip, Later, Not now', 'cut', 'Closing the window is later. The launcher panel then says “Continue”.'],
+  ['Pictures of a call bar, a worker card, a dimmed pill', 'cut', 'None was the thing its step was about.'],
+  ['The first call'],
+  ['“Say hello.”', 'keep', 'The app’s own line, where “Hi. What shall we do?” will be on every later call. Two words that make you use your voice once before any work.'],
+  ['Kevin: “Hello. I hear you clearly.”', 'keep', 'The proof the microphone and the voice both work, heard and seen.'],
+  ['Kevin: “What shall we do first?”', 'change', 'Was the app’s line on its own screen. Now Kevin says it, so the practice runs into the task without a seam.'],
+  ['Three things you could say', 'cut', 'Kevin has just asked “What shall we do first?” out loud. Lines above the bar answered for you.'],
+  ['“You could say” label', 'cut', 'The quote marks already say it.'],
+  ['“Just to hear each other. Nothing is built yet.”', 'cut', 'Explained what the next ten seconds make obvious.'],
+  ['“That’s a call.” and its Next button', 'cut', 'A screen that congratulated you for saying hello.'],
+  ['“That’s your first task, done. Kevin lives in the menu bar.”', 'cut', 'Done on the card and the answer in the voice already say it.'],
+  ['“Press a card to open its work in Claude.”', 'keep', 'Under the first Done card, once. It is the one thing about the rail you cannot guess.'],
+  ['“I can’t speak right now”', 'cut', 'The bar already says “Type instead”.'],
+  ['The silence note', 'cut', 'The bar’s ordinary states, and “Type instead”, are enough.'],
+  ['The launcher'],
+  ['“Oh Kevin / Three things, then a call.” · Set up', 'change', 'Was “Welcome. / A few short steps, then a call. / Set up Oh Kevin”. The count is now true and the button lost two words.'],
+  ['“2 things to go / Next: the microphone.” · Continue', 'keep', 'The approved setup wording, counting what is left.'],
+]
+$('audit').innerHTML = '<tr><th>Element</th><th>Verdict</th><th>Why it stays, or what replaced it</th></tr>' + A.map(r => r.length === 1 ? `<tr class="sec"><td colspan="3">${r[0]}</td></tr>` : `<tr><td>${r[0]}</td><td class="${r[1]}">${r[1][0].toUpperCase() + r[1].slice(1)}</td><td>${r[2]}</td></tr>`).join('')
+
+if (q.has('check')) { const bad = []
+  document.querySelectorAll('.su .cv-btn').forEach(b => { const z = b.getBoundingClientRect().height / b.offsetHeight, cs = getComputedStyle(b), wide = b.classList.contains('cv-btn--wide')
+    if (b.offsetHeight !== 48 || cs.fontSize !== '17px' || cs.fontWeight !== '600' || (wide ? b.offsetWidth !== 320 : b.offsetWidth !== 168)) bad.push(`${b.textContent} ${b.offsetWidth}×${b.offsetHeight} ${cs.fontSize}/${cs.fontWeight} ${b.closest('.chrome') ? 'browser' : 'mac'}`) })
+  document.title = bad.length ? bad.join(' | ') : `ok: ${document.querySelectorAll('.su .cv-btn').length} buttons, all 48 high, 17/600; wide 320, row 168` }
+const FIXED = [
+  'Could it be no screen at all? No. The browser must be opened for the sign-in, macOS insists on its own question, and a worker needs a folder. Three presses is the floor, and they now share one screen.',
+  'Three buttons on one screen. The answer to “one action a screen”: one gold at a time, the rest outlines, and any order works, so nothing ever blocks.',
+  'The resting buttons were at 35% and read as broken. They are now full outlines with ink-2 words: resting, not faint.',
+  'The line under the name was 17 in a 920 window. It is 22 now; the reasons stay at 17. Nothing on the setup screen is smaller, except the download note.',
+  'Buttons lost their second halves: “Sign in to Claude” is “Sign in” beside the word Claude; “Allow microphone” is “Allow” beside Microphone.',
+  'Every picture but the mark is gone. No step here is about a call bar or a worker card.',
+  'What the merge costs: the first call now carries the practice, so a broken microphone is met inside a call. The bar’s ordinary states and “Type instead” cover it.',
+  'In the browser frame the page area was 620 high, not 660, and the column squeezed its buttons thinner. The frame is now the Mac window’s own size and nothing on the screen may shrink: every button measures 48 high, 17 semibold; the bottom one 320 wide, the row ones 168.',
+  'To confirm in the app before building: the download can start at launch without asking; “Kevin listens only while a call is on” is true; a call can open and wait for “hello” before any task.',
+  'Not drawn: the one screen in a narrow window. The button would move under its reason.',
+]
+$('fixed').innerHTML = FIXED.map((t, i) => `<li><b>${i + 1}</b><span>${t}</span></li>`).join('')
+</script>
+</body>
+</html>

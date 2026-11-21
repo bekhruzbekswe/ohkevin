@@ -1,0 +1,168 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 500,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Here is a long sentence about many things."
+ },
+ {
+  "t": 500,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Here is a long sentence about many things."
+   ]
+  ]
+ },
+ {
+  "t": 500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 500,
+  "k": "play",
+  "text": "Here is a long sentence about many things.",
+  "dur": 4
+ },
+ {
+  "t": 500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4500,
+  "k": "ended"
+ },
+ {
+  "t": 4750,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 4750,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 5000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 5000,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Here is a long sentence about many things."
+   ],
+   [
+    "ghost",
+    "what about tests"
+   ]
+  ]
+ },
+ {
+  "t": 5500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 5500,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 5500,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 5500,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Here is a long sentence about many things."
+   ],
+   [
+    "you",
+    "so what about tests"
+   ]
+  ]
+ },
+ {
+  "t": 5500,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 5500,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "so what about tests"
+  }
+ }
+]

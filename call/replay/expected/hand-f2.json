@@ -1,0 +1,215 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 100,
+  "k": "audio"
+ },
+ {
+  "t": 100,
+  "k": "mic"
+ },
+ {
+  "t": 100,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 100,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 100,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1000,
+  "k": "tts",
+  "voice": "af_heart",
+  "text": "Let me explain how this works in detail."
+ },
+ {
+  "t": 1000,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Let me explain how this works in detail."
+   ]
+  ]
+ },
+ {
+  "t": 1000,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 1000,
+  "k": "play",
+  "text": "Let me explain how this works in detail.",
+  "dur": 4
+ },
+ {
+  "t": 1000,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1500,
+  "k": "sr-abort",
+  "n": 2
+ },
+ {
+  "t": 1500,
+  "k": "mic-stop"
+ },
+ {
+  "t": 1500,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": true
+  }
+ },
+ {
+  "t": 1500,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Unmute"
+ },
+ {
+  "t": 1600,
+  "k": "mic"
+ },
+ {
+  "t": 1600,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 1600,
+  "k": "sr-start",
+  "n": 4,
+  "track": true
+ },
+ {
+  "t": 1600,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1700,
+  "k": "log",
+  "text": "[ears] cut off by \"hold on\""
+ },
+ {
+  "t": 1700,
+  "k": "stop"
+ },
+ {
+  "t": 1700,
+  "k": "post",
+  "path": "/hush",
+  "body": {
+   "heard": "Let"
+  }
+ },
+ {
+  "t": 1700,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": false
+  }
+ },
+ {
+  "t": 1700,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 1700,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Let me explain how this works in detail."
+   ],
+   [
+    "ghost",
+    "hold on"
+   ]
+  ]
+ },
+ {
+  "t": 1700,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 1900,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Let me explain how this works in detail."
+   ],
+   [
+    "ghost",
+    "hold on please"
+   ]
+  ]
+ },
+ {
+  "t": 2200,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 2200,
+  "k": "talk",
+  "msgs": [
+   [
+    "voice",
+    "Let me explain how this works in detail."
+   ]
+  ]
+ }
+]

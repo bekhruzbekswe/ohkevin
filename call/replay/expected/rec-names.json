@@ -1,0 +1,520 @@
+[
+ {
+  "t": 0,
+  "k": "talk",
+  "msgs": []
+ },
+ {
+  "t": 0,
+  "k": "ui",
+  "state": "Oh Kevin",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 2648.3,
+  "k": "audio"
+ },
+ {
+  "t": 2648.3,
+  "k": "mic"
+ },
+ {
+  "t": 2648.3,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "muted": false
+  }
+ },
+ {
+  "t": 2648.3,
+  "k": "sr-start",
+  "n": 2,
+  "track": true
+ },
+ {
+  "t": 2648.3,
+  "k": "ui",
+  "state": "Listening",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 4227.1,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": true
+  }
+ },
+ {
+  "t": 4227.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "what"
+   ]
+  ]
+ },
+ {
+  "t": 4382.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "what does"
+   ]
+  ]
+ },
+ {
+  "t": 4851.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "does"
+   ]
+  ]
+ },
+ {
+  "t": 4969.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "use"
+   ]
+  ]
+ },
+ {
+  "t": 5244.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "use effect"
+   ]
+  ]
+ },
+ {
+  "t": 5469.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "use effect do"
+   ]
+  ]
+ },
+ {
+  "t": 5577.3,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "effect do"
+   ]
+  ]
+ },
+ {
+  "t": 5761.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "effect do in"
+   ]
+  ]
+ },
+ {
+  "t": 5831.5,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "do in"
+   ]
+  ]
+ },
+ {
+  "t": 5848.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "do in re"
+   ]
+  ]
+ },
+ {
+  "t": 5917.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "do in react"
+   ]
+  ]
+ },
+ {
+  "t": 5945.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "in react"
+   ]
+  ]
+ },
+ {
+  "t": 6217.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "react"
+   ]
+  ]
+ },
+ {
+  "t": 6397.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "react and"
+   ]
+  ]
+ },
+ {
+  "t": 6452.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and"
+   ]
+  ]
+ },
+ {
+  "t": 6896.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "and is"
+   ]
+  ]
+ },
+ {
+  "t": 7090.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "is"
+   ]
+  ]
+ },
+ {
+  "t": 7185.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "is ask"
+   ]
+  ]
+ },
+ {
+  "t": 7397.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "is ask you"
+   ]
+  ]
+ },
+ {
+  "t": 7526.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "is ask you light"
+   ]
+  ]
+ },
+ {
+  "t": 7632.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "ask you light"
+   ]
+  ]
+ },
+ {
+  "t": 7676,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "ask you light enough"
+   ]
+  ]
+ },
+ {
+  "t": 7728.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "you light enough"
+   ]
+  ]
+ },
+ {
+  "t": 7764.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "you light enough for"
+   ]
+  ]
+ },
+ {
+  "t": 7851.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "light enough for"
+   ]
+  ]
+ },
+ {
+  "t": 7947.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "enough for a"
+   ]
+  ]
+ },
+ {
+  "t": 8072.9,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "enough for a small"
+   ]
+  ]
+ },
+ {
+  "t": 8144.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "for a small"
+   ]
+  ]
+ },
+ {
+  "t": 8352.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "a small"
+   ]
+  ]
+ },
+ {
+  "t": 8586,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "small"
+   ]
+  ]
+ },
+ {
+  "t": 8717.4,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "what does use effect do in react and is ask you light enough for a small"
+   ]
+  ]
+ },
+ {
+  "t": 8833.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "node"
+   ]
+  ]
+ },
+ {
+  "t": 9025,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "nodej"
+   ]
+  ]
+ },
+ {
+  "t": 9253.2,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "nodejs"
+   ]
+  ]
+ },
+ {
+  "t": 9397.8,
+  "k": "talk",
+  "msgs": [
+   [
+    "ghost",
+    "nodejs app"
+   ]
+  ]
+ },
+ {
+  "t": 9985.6,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "you": false
+  }
+ },
+ {
+  "t": 9985.6,
+  "k": "log",
+  "text": "[turn] usual"
+ },
+ {
+  "t": 9985.6,
+  "k": "tone",
+  "f": 700
+ },
+ {
+  "t": 9985.6,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what does use effect do in react and is ask you light enough for a small nodejs app"
+   ]
+  ]
+ },
+ {
+  "t": 9985.6,
+  "k": "ui",
+  "state": "Thinking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 9985.6,
+  "k": "post",
+  "path": "/say",
+  "body": {
+   "text": "what does use effect do in react and is ask you light enough for a small nodejs app"
+  }
+ },
+ {
+  "t": 13047.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "useEffect runs side effects like fetching data or setting up subscriptions after React renders, and you can return a cleanup function to undo them."
+ },
+ {
+  "t": 13047.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what does use effect do in react and is ask you light enough for a small nodejs app"
+   ],
+   [
+    "voice",
+    "useEffect runs side effects like fetching data or setting up subscriptions after React renders, and you can return a cleanup function to undo them."
+   ]
+  ]
+ },
+ {
+  "t": 14909.8,
+  "k": "post",
+  "path": "/live",
+  "body": {
+   "voice": true
+  }
+ },
+ {
+  "t": 14909.8,
+  "k": "log",
+  "text": "[stats] 1 reply, median 4.9 s, slowest 4.9 s, joined 0, waited 0, paused for nothing 0, cut off 0"
+ },
+ {
+  "t": 14909.8,
+  "k": "play",
+  "text": "useEffect runs side effects like fetching data or setting up subscriptions after React renders, and you can return a cleanup function to undo them.",
+  "dur": 9.216
+ },
+ {
+  "t": 14909.8,
+  "k": "ui",
+  "state": "Speaking",
+  "note": "",
+  "mute": "Mute"
+ },
+ {
+  "t": 15573.1,
+  "k": "tts",
+  "voice": "bm_fable",
+  "text": "For a small Node app, this setup is light enough: I handle the talk, and the worker only spins up when you ask it to touch the project."
+ },
+ {
+  "t": 15573.1,
+  "k": "talk",
+  "msgs": [
+   [
+    "you",
+    "what does use effect do in react and is ask you light enough for a small nodejs app"
+   ],
+   [
+    "voice",
+    "useEffect runs side effects like fetching data or setting up subscriptions after React renders, and you can return a cleanup function to undo them. For a small Node app, this setup is light enough: I handle the talk, and the worker only spins up when you ask it to touch the project."
+   ]
+  ]
+ },
+ {
+  "t": 24125.8,
+  "k": "ended"
+ },
+ {
+  "t": 24125.8,
+  "k": "play",
+  "text": "For a small Node app, this setup is light enough: I handle the talk, and the worker only spins up when you ask it to touch the project.",
+  "dur": 7.637333333333333
+ }
+]

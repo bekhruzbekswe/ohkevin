@@ -1,0 +1,9 @@
+{"t":0,"k":"sse","e":{"type":"hello","voices":["af_heart"]}}
+{"t":100,"k":"mic"}
+{"t":1000,"k":"result","i":0,"r":[["I want to",false]]}
+{"t":1500,"k":"result","i":0,"r":[["I want to",true]]}
+{"t":2000,"k":"result","i":1,"r":[["",true],["refactor",false]]}
+{"t":2100,"k":"sse","e":{"type":"say","text":"Okay."}}
+{"t":2100,"k":"tts","text":"Okay.","dur":1}
+{"t":2350,"k":"result","i":1,"r":[["",true],["refactor the parser",true]]}
+{"t":5000,"k":"tail"}
