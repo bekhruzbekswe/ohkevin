@@ -8,7 +8,7 @@ import os from 'node:os'
 import path from 'node:path'
 import readline from 'node:readline'
 import { randomBytes } from 'node:crypto'
-import { execFile, spawn } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from 'node:fs'
 import { readFile, unlink } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
@@ -19,10 +19,10 @@ import { folders, pickFolder, nameFor, pick, toStop, stopProblem, askAs, Approva
 import { voiceOk, askLine, stepWords, answerAloud } from './approve.mjs'
 import { limitLine, dueLines } from './limits.mjs'
 import { handOverAll, lendTerminal, openOne } from './handover.mjs'
+import { dataDir, openBrowser } from './platform.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const NAME = 'Oh Kevin' // the product's name (Product.swift)
-const FOLDER = 'Oh Kevin' // the apps' folder in Application Support (Product.swift)
 const [, , PROJECT_ARG] = process.argv
 const PROJECT = path.resolve(PROJECT_ARG ?? '')
 // Without a folder the project would be wherever the command ran, even this tool's own folder: never guess.
@@ -36,7 +36,7 @@ const KEY = process.env.CALL_KEY ?? randomBytes(16).toString('hex') // the page 
 const BOOT = randomBytes(4).toString('hex') // this process's own mark: a page that reconnects can tell a restarted server (same key, same port) from the one it lost
 const MODELS = ['opus', 'sonnet', 'haiku', 'fable'] // what "use <model>" may switch the worker to
 const PROJECTS = path.resolve(process.env.PROJECTS_DIR ?? path.dirname(PROJECT)) // "open a worker on api" opens a folder directly in here: next to the project
-const KOKORO_DIR = process.env.KOKORO_DIR ?? path.join(os.homedir(), 'Library/Application Support', FOLDER, 'Kokoro')
+const KOKORO_DIR = process.env.KOKORO_DIR ?? path.join(dataDir(), 'Kokoro')
 const KOKORO_RUNNER = path.join(KOKORO_DIR, 'kokoro-runner') // the local voice, when it is installed
 const JOIN = TUNE.joinMs > 0 // waiting through a pause to think; the switch is joinMs in ears.mjs, read at startup
 const VOICE_APPROVE = process.env.VOICE_APPROVE !== '0' // a spoken yes may approve the safe steps in approve.mjs; VOICE_APPROVE=0 is click-only, exactly as before
@@ -46,7 +46,7 @@ const OPEN_IN_APP = process.env.OPEN_IN_APP !== '0' // Ctrl-C hangs up and opens
 const LAUNCHER = process.env.CALL_LAUNCHER === '1' // started by the menu-bar app: no terminal, and its pipe on stdin closes if it dies
 // The first call on this Mac (shared with the Mac app, which runs this same server): it opens on "Say hello.", Kevin's first reply is a
 // fixed line, and the first finished worker card carries a one-time hint. Both are remembered here, so each happens once.
-const FIRST_FILE = process.env.FIRST_CALL_FILE ?? path.join(os.homedir(), 'Library/Application Support', FOLDER, 'first-call.json')
+const FIRST_FILE = process.env.FIRST_CALL_FILE ?? path.join(dataDir(), 'first-call.json')
 const first = (() => { try { return { greeted: false, hinted: false, ...JSON.parse(readFileSync(FIRST_FILE, 'utf8')) } } catch { return { greeted: false, hinted: false } } })()
 const FIRST_LINE = 'Hello. I hear you clearly. What shall we do first?'
 const remember = patch => { Object.assign(first, patch); try { mkdirSync(path.dirname(FIRST_FILE), { recursive: true }); writeFileSync(FIRST_FILE, JSON.stringify(first)) } catch {} }
@@ -625,6 +625,5 @@ server.listen(PORT, '127.0.0.1', () => {
   if (!LAUNCHER && OPEN_IN_APP) show('Hang up', 'Ctrl-C ends the call and opens its work in the Claude app')
   show('Call page', link)
   if (!LAUNCHER) console.log('Open it in Chrome. Other browsers lack the speech recognition it uses.')
-  // Open it in Chrome, or in the default browser when Chrome is missing. NO_OPEN=1 skips this.
-  if (!process.env.NO_OPEN && process.platform === 'darwin') execFile('open', ['-a', 'Google Chrome', link], err => err && execFile('open', [link], () => {}))
+  if (!process.env.NO_OPEN) openBrowser(link) // Chrome, else the default browser (platform.mjs). NO_OPEN=1 skips this.
 })

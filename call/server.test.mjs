@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url'
 import { once } from 'node:events'
 import { createServer } from 'node:net'
 import { chmodSync } from 'node:fs'
+import { findBrowser } from './platform.mjs'
 import { findClaude } from './claude-path.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -219,7 +220,7 @@ test('the voice\'s state reaches the launcher: who has the floor, whether it is 
   assert.deepEqual(await last(feed, 'voice', { state: 'listening', canMute: false }), { type: 'voice', state: 'listening', canMute: false }, 'no page, no mute state')
 })
 
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+const CHROME = findBrowser()?.file ?? '' // Chrome, wherever this platform installs it (platform.mjs)
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 
 // A real server started as the launcher starts it, and its page opened with go=1 in a headless Chrome (throwaway profile,

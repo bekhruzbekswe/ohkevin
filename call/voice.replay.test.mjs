@@ -12,10 +12,11 @@ import { createServer } from 'node:http'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { findBrowser } from './platform.mjs'
 import { once } from 'node:events'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), DIR = path.join(HERE, 'replay')
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+const CHROME = findBrowser()?.file ?? '' // Chrome, wherever this platform installs it (platform.mjs)
 let PORT // a free port, picked when the page server starts
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const cases = dir => readdirSync(dir).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(path.join(dir, f), 'utf8')))

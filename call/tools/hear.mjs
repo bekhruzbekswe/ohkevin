@@ -9,6 +9,7 @@
 import { spawn } from 'node:child_process'
 import { writeFileSync, mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
+import { findBrowser } from '../platform.mjs'
 import path from 'node:path'
 const base = `http://127.0.0.1:${process.env.PORT ?? 4799}`, k = process.env.CALL_KEY ?? 'testkey'
 const [line = 'What is a closure in JavaScript?', secs = '20'] = process.argv.slice(2)
@@ -34,7 +35,7 @@ const dir = mkdtempSync(path.join(tmpdir(), 'hear-')), wav = path.join(dir, 'mic
 writeFileSync(wav, Buffer.concat([head, body]))
 
 // The audio service must run in-process and unsandboxed, or the fake microphone stays silent.
-const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', ['--headless=new', '--remote-debugging-port=9335', `--user-data-dir=${dir}`, '--no-first-run',
+const chrome = spawn(findBrowser()?.file ?? 'chrome', ['--headless=new', '--remote-debugging-port=9335', `--user-data-dir=${dir}`, '--no-first-run',
   '--autoplay-policy=no-user-gesture-required', '--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-audio-capture=${wav}`,
   `--disable-features=AudioServiceOutOfProcess,AudioServiceSandbox${process.env.AEC === '0' ? ',ChromeWideEchoCancellation' : ''}`, 'about:blank'], { stdio: 'ignore' })
 process.on('exit', () => chrome.kill())

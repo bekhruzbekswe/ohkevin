@@ -1,15 +1,13 @@
 // Opening a call in the Claude desktop app when the call server stops. The worker's session is handed over through
 // the CLI's own command, `claude --desktop --resume <id>`, which opens it in the app with its history, folder and title.
 // The CLI, the waits and the process lookups are passed in, so tests never start the CLI or the app. Tested by handover.test.mjs.
-import { execFile, spawn } from 'node:child_process'
+import { spawn } from 'node:child_process'
+import { children, resumeLine, withTerminal } from './platform.mjs'
 
 // The session lives with its folder: run from anywhere else the CLI finds no conversation, so the line goes there first.
-const quote = s => `'${String(s).replaceAll("'", `'\\''`)}'`
-export const command = (id, cwd) => `${cwd ? `cd ${quote(cwd)} && ` : ''}claude --desktop --resume ${id}`
+export const command = (id, cwd, platform) => resumeLine(id, cwd, platform)
 
 const sleep = ms => new Promise(r => setTimeout(r, ms))
-// The child processes of pid. pgrep exits 1 when there are none, and never lists itself.
-const children = pid => new Promise(r => execFile('pgrep', ['-P', String(pid)], (err, out) => r(err ? [] : out.split('\n').filter(Boolean))))
 
 // Waits until this server has no child processes left (worker, talker, voice). The app must never take a session a live
 // worker still writes to. A closed worker is gone within 7 s: the SDK waits 2 s, sends SIGTERM, then SIGKILL 5 s later.
@@ -21,10 +19,9 @@ export async function childrenGone({ pid = process.pid, list = children, wait = 
 // The CLI's hand-over needs a terminal for its input and output; it prints "Opening session <id> in Claude Desktop" there.
 const CLAUDE = process.env.CLAUDE_PATH ?? 'claude' // the launcher gives the user's own; a terminal run finds it on PATH
 const runCli = (args, cwd) => new Promise(r => spawn(CLAUDE, args, { cwd, stdio: 'inherit' }).once('error', () => r(-1)).once('exit', code => r(code)))
-// Started by the menu-bar launcher there is no terminal, so `script` lends the CLI one. Its stdin is /dev/null because
-// script refuses a socket there; cli is only swapped in tests.
+// Started by an app there is no terminal, so one is lent to the CLI (platform.mjs, withTerminal); cli is only swapped in tests.
 export const lendTerminal = (args, cwd, cli = CLAUDE) => new Promise(r =>
-  spawn('/usr/bin/script', ['-q', '/dev/null', cli, ...args], { cwd, stdio: ['ignore', 'inherit', 'inherit'] }).once('error', () => r(-1)).once('exit', code => r(code)))
+  spawn(...withTerminal(cli, args), { cwd, stdio: ['ignore', 'inherit', 'inherit'] }).once('error', () => r(-1)).once('exit', code => r(code)))
 
 // At hang-up. id: the worker's session, absent when no work was handed over; open: the app may be opened (Ctrl-C, not a kill);
 // tty: the server runs in a terminal; rename(): writes the call's title into the session again.
@@ -54,7 +51,7 @@ const lastLine = out => String(out).replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '').split
 const HELD = /open in another terminal/i
 export const capture = (args, cwd, cli = CLAUDE) => new Promise(r => { // as lendTerminal, but keeps what the CLI said
   let out = ''
-  const p = spawn('/usr/bin/script', ['-q', '/dev/null', cli, ...args], { cwd, stdio: ['ignore', 'pipe', 'pipe'] })
+  const p = spawn(...withTerminal(cli, args), { cwd, stdio: ['ignore', 'pipe', 'pipe'] })
   p.stdout.on('data', d => { out += d }); p.stderr.on('data', d => { out += d })
   p.once('error', e => r({ code: -1, out: e.message })).once('exit', code => r({ code, out }))
 })
