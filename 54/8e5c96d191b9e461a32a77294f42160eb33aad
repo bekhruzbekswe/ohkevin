@@ -1,0 +1,29 @@
+app/Sources/CallKit/CallPlace.swift
+  s_f9dcb370410d4f::t_0e49f330cd2001 5,19
+app/Sources/OhKevinKit/Download.swift
+  s_f9dcb370410d4f::t_0e3efb9e773ca7 84
+app/Sources/VoiceCore/Health.swift
+  s_f9dcb370410d4f::t_c4e3f8c26603f1 68
+app/Sources/VoiceCore/Install.swift
+  s_f9dcb370410d4f::t_ec51d4efdda6e9 17,19,95,168-169
+app/Tests/CallKitTests/CallPlaceTests.swift
+  s_f9dcb370410d4f::t_9261c2406eb01d 7-8,14,16,18,35
+app/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_f9dcb370410d4f::t_2064d0e341cc4d 468
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "548e5c96d191b9e461a32a77294f42160eb33aad",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}

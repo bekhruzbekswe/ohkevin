@@ -1,0 +1,33 @@
+AGENTS.md
+  s_f9dcb370410d4f::t_f9456318bbb334 39-41,43-44
+CHANGELOG.md
+  s_f9dcb370410d4f::t_be8aef4a737854 15
+README.md
+  s_f9dcb370410d4f::t_d3ae487cb57f8e 11
+SECURITY.md
+  s_f9dcb370410d4f::t_0363a5f9aeaf7f 20
+app/README.md
+  s_f9dcb370410d4f::t_3de68dd23454ae 18,28
+app/build.sh
+  s_f9dcb370410d4f::t_7b9fc8440ef0ea 9,32
+app/publish.sh
+  s_f9dcb370410d4f::t_47ed247231d91f 2-5,8,25,27-30
+app/release.sh
+  s_f9dcb370410d4f::t_8cb789745f717d 3-4,12,29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a58b6b196d536d4368c719349b429760a4d65065",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
