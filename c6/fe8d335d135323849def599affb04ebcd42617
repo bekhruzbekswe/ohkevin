@@ -1,0 +1,21 @@
+launcher/Sources/LauncherChecks/AppIcon.swift
+  s_05186c50002419::t_9be7cdd42f364b 48
+launcher/Sources/VoiceCore/Disclosure.swift
+  s_05186c50002419::t_7c1dab7c9ed00b 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c6fe8d335d135323849def599affb04ebcd42617",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
