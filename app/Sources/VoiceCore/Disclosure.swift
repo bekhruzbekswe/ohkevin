@@ -1,7 +1,7 @@
-/// What leaves the Mac and what runs unasked: at the foot of Settings (the launcher's panel no longer carries it).
+/// What leaves the Mac and what runs unasked: at the foot of Settings, and the page its "Read more" opens.
 /// What a spoken yes approves is said beside its setting.
 public enum Disclosure {
-    public static let leaves = "Chrome sends your speech to Google to become text. Your words, and the files Claude Code reads, go to Anthropic."
+    public static let leaves = "Your speech becomes text on this Mac, by Apple’s speech recognition. Your words, and the files Claude Code reads, go to Anthropic."
     // Auto mode does not ask: Claude Code's own checks let a step run or refuse it (probed: 17 steps, no question).
     static let runs = "Claude Code edits files, runs commands and uses the network without asking", checks = "own safety checks refuse what they judge dangerous"
     public static let unasked = "\(runs). Its \(checks)."

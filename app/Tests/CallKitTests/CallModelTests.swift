@@ -34,6 +34,13 @@ final class Rig {
 }
 
 @Suite(.serialized) struct CallModelTests {
+    @Test func startingSaysStartingThenConnectingOnceTheServerSaysHello() {
+        let r = Rig(); r.model.stage = .starting
+        #expect(r.model.headline().word == "Connecting…") // Rig's server has said hello
+        r.send(["type": "hello", "project": ""])
+        #expect(r.model.headline().word == "Starting the call…")
+    }
+
     @Test func theFirstCallOpensOnSayHelloAndHintsTheFirstFinishedCardOnce() {
         let r = Rig()
         r.model.update()

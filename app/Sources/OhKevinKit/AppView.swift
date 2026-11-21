@@ -24,8 +24,10 @@ struct AppView: View {
                 }
                 if settings.shown { // Settings drops from the three dots; a click anywhere else, the dots again, or Escape close it
                     Color.clear.contentShape(Rectangle()).onTapGesture { settings.shown = false }
-                    SettingsView(settings: settings, chooseVoice: chooseVoice)
+                    let card = SettingsView(settings: settings, chooseVoice: chooseVoice, onCall: [.starting, .live, .ending].contains(model.stage))
                         .frame(width: min(CV.rail, g.size.width - 2 * OnCall.pad(g.size.width)))
+                    ViewThatFits(in: .vertical) { card; ScrollView { card.padding(.bottom, CV.s2) }.scrollIndicators(.never) } // a short window scrolls it
+                        .frame(maxHeight: g.size.height - 40 - CV.s2, alignment: .top)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing).padding(.top, 40).padding(.trailing, OnCall.pad(g.size.width)) // on the content edge: over the rail exactly
                         .transition(.opacity.combined(with: .scale(scale: 0.97, anchor: .topTrailing)))
                 }

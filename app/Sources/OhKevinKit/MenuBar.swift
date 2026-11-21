@@ -152,6 +152,7 @@ extension CallModel {
         i.project = settings.call.project.map { URL(fileURLWithPath: $0) }
         i.recents = settings.call.recents.map { URL(fileURLWithPath: $0) }
         i.liveSince = since
+        i.connecting = stage == .starting && !projectPath.isEmpty // its server said hello: the voice is warming up
         i.feedLost = reconnecting
         i.handingOver = handing
         return i

@@ -1,13 +1,15 @@
 import AppKit
+import ServiceManagement
 import CallViews
 import CallKit
 import SwiftUI
 import Updating
 import VoiceCore
 
-/// The three choices (design/final.html, "Settings"): the project folder, the model the workers use, the voice.
-/// Kept as the launcher keeps them (VoiceCore's CallSettings), in this app's own defaults; a change applies to the next call,
-/// except the voice, which changes at once on a call.
+/// Settings, as the launcher had them (docs/design/launcher): the calls' choices (the project folder, the model the workers use, the
+/// voice, what a spoken yes approves, opening the work in Claude afterwards), this Mac's (opening at login, updating by itself) and
+/// the privacy note. Kept in VoiceCore's CallSettings, in this app's own defaults; a change applies to the next call, except the
+/// voice, which changes at once on a call.
 @Observable final class AppSettings {
     /// false for --check: its made-up project and voices must not land in the owner's settings.
     let persist: Bool
@@ -71,6 +73,29 @@ import VoiceCore
 
     func saw(_ names: [String]) { voices = names; if persist { UserDefaults.standard.set(names, forKey: "voices") } }
 
+    // Open at login: the app itself as a login item (SMAppService), as the launcher did.
+    private(set) var loginItem = SMAppService.mainApp.status
+    private(set) var loginError: String?
+    var opensAtLogin: Bool {
+        get { loginItem == .enabled || loginItem == .requiresApproval }
+        set {
+            do {
+                if newValue { try SMAppService.mainApp.register() } else { try SMAppService.mainApp.unregister() }
+                loginError = nil
+            } catch { loginError = error.localizedDescription }
+            loginItem = SMAppService.mainApp.status
+        }
+    }
+    func refreshLoginItem() { loginItem = SMAppService.mainApp.status }
+
+    /// "Read more": what leaves this Mac and what Claude Code may do, as a page in the browser, made now from the Disclosure strings
+    /// with today's spoken-yes choice marked.
+    func openPrivacy() {
+        let file = FileManager.default.temporaryDirectory.appending(path: "\(Product.name) privacy.html")
+        guard (try? Disclosure.page(current: call.spokenYes).write(to: file, atomically: true, encoding: .utf8)) != nil else { return }
+        NSWorkspace.shared.open(file)
+    }
+
     /// The system's folder chooser; the folder becomes the project and goes to the top of the recent ones.
     func chooseFolder() {
         let p = NSOpenPanel()
@@ -85,20 +110,37 @@ struct SettingsView: View {
     @Bindable var settings: AppSettings
     /// The voice is chosen through the call when there is one, so it is heard at once.
     let chooseVoice: (String) -> Void
+    /// A call is on: changes wait for the next one, and the card says so.
+    var onCall = false
 
     var body: some View {
         // the shared Settings (CallViews), the launcher's own; this app gives it the drop-down's rounded surface
         SettingsSheet(openChooser: settings.openForPicture, width: nil, paintsGround: false, listOpen: $settings.listOpen) {
+            if onCall { Fineprint("You’re on a call. Changes apply to the next one.") }
+            SectionTitle("Calls")
             Chooser("Project folder", selection: settings.projectBinding, options: settings.projectOptions, action: settings.projectAction, selectionTitle: settings.projectName)
             Chooser("Model", selection: Binding { settings.call.workerModel } set: { settings.call.workerModel = $0 },
                     options: Model.forWork.map { ChooserOption($0, $0.title) })
             Chooser("Voice", selection: Binding { settings.voice } set: { settings.voice = $0; chooseVoice($0) },
                     options: voiceGroups(settings.voices.isEmpty ? [settings.voice] : settings.voices).flatMap { g in g.voices.map { ChooserOption($0.name, $0.title, group: g.title) } })
+            Chooser("A spoken “yes” approves", selection: Binding { settings.call.spokenYes } set: { settings.call.spokenYes = $0 },
+                    options: [ChooserOption(SpokenYes.safeSteps, "Safe steps"), ChooserOption(.anyStep, "Any step"), ChooserOption(.nothing, "Nothing")])
+            SwitchRow("Open the work in Claude afterwards", isOn: Binding { settings.call.openInClaudeApp } set: { settings.call.openInClaudeApp = $0 })
+            SectionTitle("This Mac").padding(.top, 8)
+            HairlineRow("Open at login", detail: loginDetail, wrong: settings.loginError != nil) {
+                HStack(spacing: 12) {
+                    if settings.loginItem == .requiresApproval { PillButton("Open Login Items") { SMAppService.openSystemSettingsLoginItems() } }
+                    Toggle("Open at login", isOn: Binding { settings.opensAtLogin } set: { settings.opensAtLogin = $0 })
+                        .labelsHidden().toggleStyle(InkToggleStyle()).accessibilityLabel("Open at login")
+                }
+            }
             if MainActor.assumeIsolated({ settings.updates?.available ?? false }) {
                 SwitchRow("Update automatically", isOn: Binding { MainActor.assumeIsolated { settings.updates?.automatic ?? true } }
                                                         set: { v in MainActor.assumeIsolated { settings.updates?.automatic = v } })
             }
+            FineprintLink(Disclosure.pointer, link: "Read more") { settings.openPrivacy() }.padding(.top, 8)
         }
+        .onAppear { settings.refreshLoginItem() }
         .id(settings.openForPicture)
         .background { // ground and hairline under the content, so an open list is drawn over the card's edge
             RoundedRectangle(cornerRadius: CV.radius, style: .continuous).fill(CV.ground)
@@ -106,5 +148,9 @@ struct SettingsView: View {
         }
         .cvShadow().shadow(color: .black.opacity(0.18), radius: 20, y: 12) // it floats over the window
         .accessibilityElement(children: .contain).accessibilityLabel("Settings")
+    }
+
+    private var loginDetail: String? {
+        settings.loginError ?? (settings.loginItem == .requiresApproval ? "Allow it in System Settings to finish." : nil)
     }
 }

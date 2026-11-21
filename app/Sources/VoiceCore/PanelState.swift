@@ -125,6 +125,8 @@ public struct PanelInput: Sendable {
     public var installing = false, installFailed = false, signingIn = false, updatingClaude = false, updateFailed = false
     /// The call is live and no call page is connected.
     public var windowClosed = false
+    /// Starting, and the call server has answered: the voice is warming up (the window says so too).
+    public var connecting = false
     /// The launcher lost its feed from the call server while the call is live.
     public var feedLost = false
     public var liveSince: Date?
@@ -148,7 +150,8 @@ extension PanelData {
         }
         switch i.phase {
         case .starting:
-            self = idle("Starting the call.", .ours, "This takes a few seconds.", Door(label: "Cancel", style: .quiet, action: .cancel))
+            self = i.connecting ? idle("Connecting…", .ours, "The voice is warming up.", Door(label: "Cancel", style: .quiet, action: .cancel))
+                : idle("Starting the call.", .ours, "This takes a few seconds.", Door(label: "Cancel", style: .quiet, action: .cancel))
         case .ending:
             // The pill stays a call pill, flat and still, until the server is gone; the door says nothing the head did.
             self = PanelData(line1: "Ending the call.", style: .ours, line2: .text(i.handingOver ? "Then its work opens in the Claude app." : "Claude Code is saving its work."),

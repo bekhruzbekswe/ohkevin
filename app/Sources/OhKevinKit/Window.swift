@@ -233,7 +233,7 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
         do {
             let server: Server
             if let link { server = try Server(link: link); logURL = nil }
-            else { logURL = try Server.freshLog(); server = try Server.start(log: logURL!, project: URL(fileURLWithPath: settings.call.project!), model: settings.call.workerModel, handOver: settings.call.openInClaudeApp,
+            else { logURL = try Server.freshLog(); server = try Server.start(log: logURL!, project: URL(fileURLWithPath: settings.call.project!), model: settings.call.workerModel, spokenYes: settings.call.spokenYes, handOver: settings.call.openInClaudeApp,
                                                                                    shell: settings.setup.environment, claude: settings.setup.claude) }
             let c = Call(server: server, log: arg("--log").map { URL(fileURLWithPath: $0) })
             c.model.remember() // the voice chosen last time

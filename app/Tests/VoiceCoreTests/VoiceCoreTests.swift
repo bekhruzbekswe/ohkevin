@@ -890,3 +890,10 @@ private func run(_ events: [UpdateEvent]) -> [UpdateState] {
     #expect(FolderMove.run(home: home, defaults: defaults).first?.hasPrefix("Both") == true)
     #expect(fm.fileExists(atPath: oldSupport.path))
 }
+
+@Test func startingSaysConnectingOnceTheServerAnswers() { // the panel says what the window says (CallModel.headline)
+    var i = PanelInput(); i.phase = .starting; i.project = URL(filePath: "/Users/you/Lab/api")
+    #expect(PanelData(i).line1 == "Starting the call." && PanelData(i).door.action == .cancel)
+    i.connecting = true
+    #expect(PanelData(i).line1 == "Connecting…" && PanelData(i).door.action == .cancel)
+}

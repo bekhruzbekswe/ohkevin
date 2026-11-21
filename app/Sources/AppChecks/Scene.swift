@@ -155,6 +155,9 @@ enum Scene {
     static let launcher: [(String, (Rig) -> Void)] = [
         ("Idle", { $0.model.stage = .idle }),
         ("First run: no project", { $0.model.stage = .idle }),
+        ("Starting", { r in r.send(["type": "hello", "project": ""]); r.model.stage = .starting }), // its server has not answered yet
+        ("Connecting", { $0.model.stage = .starting }), // it has: the voice is warming up
+        ("The call didn't start", { $0.model.stage = .failed(.slowStart) }),
         ("Setup, two steps left", { $0.model.stage = .idle }),
         ("Setup, one step left", { $0.model.stage = .idle }),
         ("Call: listening", { r in _ = r.live(724); r.voice("On it."); r.quiet() }),
@@ -165,6 +168,7 @@ enum Scene {
         ("Muted, and something needs you", { r in _ = r.live(724); r.board([api]); ask(r, "a1", "api", "git push", voice: true); r.host.turns.setMuted(true) }),
         ("Mic blocked", { r in _ = r.live(724); r.model.deaf = .microphone }),
         ("Call lost", { r in _ = r.live(724); r.model.stage = .failed(.stopped); r.ended(724) }),
+        ("Ending", { r in _ = r.live(724); r.model.stage = .ending }),
         ("Call ended", { r in _ = r.live(); r.model.stage = .ended; r.ended() }),
     ]
     /// The setup screen's states, as onboarding.html draws them: the Claude row (signin, signing, done), the Microphone row, a project or

@@ -347,7 +347,7 @@ public struct Note: Equatable {
         case .ended: return ("Call ended", sessions.isEmpty ? "" : opened == false ? "That didn’t open. Try again."
                              : handedOver || opened == true ? "Its work is open in the Claude app." : "Its work is saved in Claude Code.")
         case .ending: return ("Ending the call…", handing ? "Then its work opens in the Claude app." : "Claude Code is saving its work.")
-        case .starting: return ("Connecting…", "The voice is warming up.")
+        case .starting: return projectPath.isEmpty ? ("Starting the call…", "This takes a few seconds.") : ("Connecting…", "The voice is warming up.")
         case .live: break
         }
         if deaf != nil { return ("Can’t hear you", deaf == .microphone ? "Typing still works." : "") }

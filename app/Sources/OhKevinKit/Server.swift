@@ -39,7 +39,7 @@ final class Server {
     /// as a terminal would; "open a worker on …" looks beside the project. CALL_LAUNCHER=1: it hangs up by itself if this app dies. Its output goes to log.
     /// `shell` and `claude`: the login shell's environment and the Claude Code the setup check found. The app's own copy runs Node
     /// directly, so it gets the PATH a terminal has from them (the launcher's way); a developer's folder starts a login shell itself.
-    static func start(log: URL, project: URL, model: Model, handOver: Bool, shell: [String: String]?, claude: URL?) throws -> Server {
+    static func start(log: URL, project: URL, model: Model, spokenYes: SpokenYes = .safeSteps, handOver: Bool, shell: [String: String]?, claude: URL?) throws -> Server {
         let call = callFolder
         var env = ProcessInfo.processInfo.environment
         if place.ownCopy {
@@ -57,10 +57,11 @@ final class Server {
             p.arguments = ["-i", "-l", "-c", "exec node server.mjs \"$0\"", project.path] // -i -l: finds node the way Terminal does
         }
         p.currentDirectoryURL = call
-        // The model from Settings, unless this app's environment names one (a test's WORKER_MODEL=haiku wins); VOICE_APPROVE as it is here.
+        // The model and what a spoken yes approves, from Settings, unless this app's environment names them (a test's WORKER_MODEL=haiku wins).
         // OPEN_IN_APP: at hang-up the server hands every worker to the Claude app, each from its own folder (handover.mjs)
         p.environment = env.merging(["NO_OPEN": "1", "OPEN_IN_APP": handOver ? "1" : "0", "CALL_LAUNCHER": "1", "CALL_KEY": key, "PORT": "\(port)",
-                                     "PROJECTS_DIR": project.deletingLastPathComponent().path, "WORKER_MODEL": env["WORKER_MODEL"] ?? model.rawValue]) { $1 }
+                                     "PROJECTS_DIR": project.deletingLastPathComponent().path, "WORKER_MODEL": env["WORKER_MODEL"] ?? model.rawValue,
+                                     "VOICE_APPROVE": env["VOICE_APPROVE"] ?? spokenYes.rawValue]) { $1 }
         // The local voice: where the launcher looks (VoiceCore), the server's own default otherwise.
         let home = FileManager.default.homeDirectoryForCurrentUser
         if let kokoro = findKokoro(kokoroPlaces(saved: nil, shell: env, home: home, project: nil)) { p.environment?["KOKORO_DIR"] = kokoro.path }
