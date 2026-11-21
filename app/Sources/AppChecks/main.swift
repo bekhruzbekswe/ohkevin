@@ -9,6 +9,7 @@ import VoiceCore
 // Checks and measurements that drive the real app's code. Never shipped: the app is the OhKevin product alone (build.sh).
 //   --check <folder> [--scene <link>]  draws every state of the design (light and dark) to <folder>, quits; --scene also drives a
 //                                       call against a stand-in server (launcher/Tests/stub-server.mjs)
+//   --offscreen <folder>              the menu-bar panel in every state and the Settings card, light and dark, with no window
 //   --replay <log.jsonl>               the ported turn-taking on a recorded call, in virtual time; prints what it posted and played
 //                                       (--replay - : calls on stdin, one JSON array of events per line; Tests/measure/differ.mjs)
 //   --file <wav> --call <link> --log <out.jsonl> [--end-talking <s>]
@@ -23,6 +24,11 @@ import VoiceCore
 //                                       --no-spotlight: a voice is looked for only where the app puts it (a clean Mac, even on this one);
 //                                       --wav: one sentence through the server's own /tts into <file> (written, never played)
 func fail(_ why: Any) -> Never { FileHandle.standardError.write(Data("\(why)\n".utf8)); exit(1) }
+
+if let folder = arg("--offscreen") { // the panel and Settings, drawn with no window: see Offscreen.swift
+    let code = MainActor.assumeIsolated { Offscreen.run(folder: URL(fileURLWithPath: folder)) }
+    exit(code)
+}
 
 if let path = arg("--engine-check") { // the live audio engine, muted: see EngineCheck.swift
     Task { await EngineCheck.run(report: URL(fileURLWithPath: path)); exit(0) }
