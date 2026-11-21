@@ -465,7 +465,7 @@ private func archive(in tmp: URL) throws -> (file: URL, sha: String) {
     #expect(await installKokoroRunner(into: folder, runner: runner, onnx: notAWheel) == false)
     #expect(!fm.fileExists(atPath: folder.path))
     // without a runner there is nothing to install with
-    #expect(await installKokoro(into: folder, callFolder: tmp, environment: [:]) == false)
+    #expect(await installKokoro(into: folder, runner: nil) == false)
     #expect(!fm.fileExists(atPath: folder.path))
 }
 

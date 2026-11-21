@@ -2,8 +2,7 @@ import Foundation
 import VoiceCore
 
 /// Where this app's call server runs, and what it runs on. A built app carries call/ in its Resources and runs its own copy of it in
-/// Application Support/Oh Kevin/Call-App (the launcher's is Call: two apps at different versions never overwrite each other's
-/// server); the pinned Node in Runtime and the local voice are shared with the launcher, only read. No repository is needed.
+/// Application Support/Oh Kevin/Call, beside the pinned Node and the local voice. No repository is needed.
 public struct CallPlace: Equatable {
     /// The folder `node server.mjs` runs in.
     public let folder: URL
@@ -17,7 +16,7 @@ public struct CallPlace: Equatable {
     public static func resolve(override: String?, bundled: URL?, home: URL, source: URL) -> CallPlace {
         let support = home.appending(path: "Library/Application Support/\(Product.folder)", directoryHint: .isDirectory)
         if let override, !override.isEmpty { return CallPlace(folder: URL(fileURLWithPath: override, isDirectory: true), bundled: nil, support: support) }
-        if let bundled { return CallPlace(folder: support.appending(path: "Call-App", directoryHint: .isDirectory), bundled: bundled, support: support) }
+        if let bundled { return CallPlace(folder: support.appending(path: "Call", directoryHint: .isDirectory), bundled: bundled, support: support) }
         return CallPlace(folder: source, bundled: nil, support: support)
     }
 

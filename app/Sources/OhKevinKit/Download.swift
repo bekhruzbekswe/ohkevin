@@ -81,7 +81,7 @@ import VoiceCore
         case .voice:
             let watch = Self.watch([kokoroFolder], megabytes: Self.size[.voice]!, progress)
             defer { watch.cancel() }
-            return await installKokoro(into: kokoroFolder, callFolder: place.folder, environment: env, runner: runner) // no Python when the app carries the runner
+            return await installKokoro(into: kokoroFolder, runner: runner) // no Python when the app carries the runner
         case .speech:
             return await Self.installSpeechModel(progress)
         }

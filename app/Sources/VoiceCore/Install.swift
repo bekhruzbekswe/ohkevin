@@ -14,15 +14,9 @@ public enum Runtime {
     public static let minimumClaudeCode = "2.1.323"
 
     /// Only the Node program (bin/node and its licence) from nodejs.org's archive: no npm, headers, docs or corepack, which a call
-    /// never runs (the one package it needs is AgentSDK, fetched on its own). Under Node/, never Runtime/: an earlier version of either app empties Runtime/
-    /// of every Node but its own, and still needs its full Node's npm.
+    /// never runs (the one package it needs is AgentSDK, fetched on its own).
     public static func folder(support: URL) -> URL { support.appending(path: "Node/\(name)", directoryHint: .isDirectory) }
-    /// The full Node an earlier version installed (Runtime/): the same program, used as it is rather than fetched again.
-    static func earlier(support: URL) -> URL { support.appending(path: "Runtime/\(name)/bin/node") }
-    public static func node(support: URL) -> URL {
-        let own = folder(support: support).appending(path: "bin/node"), earlier = earlier(support: support)
-        return !FileManager.default.isExecutableFile(atPath: own.path) && FileManager.default.isExecutableFile(atPath: earlier.path) ? earlier : own
-    }
+    public static func node(support: URL) -> URL { folder(support: support).appending(path: "bin/node") }
     /// What is taken out of the archive: the program and its licence.
     static let members = ["\(name)/bin/node", "\(name)/LICENSE"]
 }
@@ -98,8 +92,7 @@ func unpack(_ url: URL, sha256 pinned: String, flags: String, into folder: URL, 
 
 /// The server's files from the app, into the support folder's copy: a file (or folder) is swapped in whole only when it differs (so
 /// a check that finds nothing new changes nothing, and an install under way never sees one missing), and a file the app no longer
-/// has goes. The copy's own node_modules (the fetched SDK) and its install mark stay; an earlier app that carried them still
-/// brings them.
+/// has goes. The copy's own node_modules (the fetched SDK) and its install mark stay.
 public func syncCall(from bundled: URL, to call: URL) {
     let fm = FileManager.default
     try? fm.createDirectory(at: call, withIntermediateDirectories: true)
@@ -172,9 +165,8 @@ public enum VoiceFiles {
 }
 
 /// Installs the local voice into folder with the app's own runner (kokoro-runner, in the app bundle): installKokoroRunner. Without
-/// a runner there is nothing to install with, and it fails. callFolder and environment are not used any more (the Python voice is
-/// gone); they stay until the Mac app's call to this drops them.
-public func installKokoro(into folder: URL, callFolder: URL, environment base: [String: String], runner: URL? = nil,
+/// a runner there is nothing to install with, and it fails.
+public func installKokoro(into folder: URL, runner: URL?,
                           files: [(String, String)] = VoiceFiles.models, from source: String = VoiceFiles.base) async -> Bool {
     guard let runner, FileManager.default.isExecutableFile(atPath: runner.path) else { return false }
     return await installKokoroRunner(into: folder, runner: runner, files: files, from: source)

@@ -65,8 +65,7 @@ public struct Machine: Equatable, Sendable {
 
 // MARK: - The local voice, found without asking
 
-/// Kokoro as the server starts it: the runner and its parts (runnerReady). An older Python voice folder does not count, so the
-/// launcher offers the download instead.
+/// Kokoro as the server starts it: the runner and its parts (runnerReady).
 public func kokoroReady(_ folder: URL) -> Bool { runnerReady(folder) }
 
 /// Where to look first, in order: the folder saved before, KOKORO_DIR from the login shell, the app's own folder, and a
