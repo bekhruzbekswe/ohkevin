@@ -35,5 +35,9 @@ test('the line that reopens a session, for each shell', () => {
 
 test('a process\'s children are listed on this machine', async () => {
   const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 3000)'])
-  try { const list = await children(process.pid); assert.ok(list.includes(String(kid.pid)), `children of ${process.pid}: ${JSON.stringify(list)}; the child: ${kid.pid}`) } finally { kid.kill() }
+  try { // Windows may show a process a moment after it starts (it passed and failed by turns on CI): look a few times
+    let list = []
+    for (let i = 0; i < 10 && !list.includes(String(kid.pid)); i++) { list = await children(process.pid); if (!list.includes(String(kid.pid))) await new Promise(r => setTimeout(r, 200)) }
+    assert.ok(list.includes(String(kid.pid)), `children of ${process.pid}: ${JSON.stringify(list)}; the child: ${kid.pid}`)
+  } finally { kid.kill() }
 })
