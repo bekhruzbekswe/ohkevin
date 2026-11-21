@@ -3,7 +3,7 @@
 What changed for people using Oh Kevin, newest first. Each release's section is its tag message and its release notes
 (AGENTS.md, Releases).
 
-## Unreleased
+## Mac app 0.4 — 2026-11-22
 
 ### Added
 - Settings has what a call needs: what a spoken "yes" approves, opening the work in Claude afterwards, opening at login, and a
