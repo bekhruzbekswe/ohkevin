@@ -1,0 +1,29 @@
+app/design/mockups.html
+  s_05186c50002419::t_e961edd86e2ff2 2,6
+app/design/spec.md
+  s_05186c50002419::t_48fbd340e110d9 1-3
+design/final.html
+  s_05186c50002419::t_1ecb442c33d39b 2,7
+design/onboarding.html
+  s_05186c50002419::t_14c6a8cf982a69 2,8
+design/updates.html
+  s_05186c50002419::t_dcdf8dfdf07720 2
+launcher/design/spec.md
+  s_05186c50002419::t_1cc9dae9e540d6 3-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "09b7f25de9f2ff4f888561e31f0e0d9986bfc2a6",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
