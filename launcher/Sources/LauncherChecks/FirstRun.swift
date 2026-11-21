@@ -59,7 +59,7 @@ enum FirstRun {
         let support = home.appending(path: "Library/Application Support/\(Product.folder)", directoryHint: .isDirectory)
         let setup = Setup(callFolder: support.appending(path: "Call"), bundledCall: bundle, support: support, ports: 4811...4899,
                           chromeProfile: work.appending(path: "chrome"), chromeArguments: ["--headless=new"], spotlight: false)
-        unsetenv("KOKORO_DIR"); unsetenv("KOKORO_PYTHON")
+        unsetenv("KOKORO_DIR")
         say("First run, from zero, in \(folder.path)   (\(load()), \(Date()))")
         let me = Launcher(settings: CallSettings(), defaults: nil, home: home, setup: setup)
         picture(me, "01-launch-before-the-first-check")

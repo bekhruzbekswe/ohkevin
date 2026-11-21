@@ -1,6 +1,6 @@
 import Foundation
 
-// The call server's local voice, without Python: the same lines in and out as call/tts.py.
+// The call server's local voice: one JSON line in, one out, as call/server.mjs speaks to it.
 //   kokoro-runner <folder with kokoro-v1.0.onnx and voices-v1.0.bin>
 // Reads one JSON request per line on stdin ({"id", "text", "voice", "speed"}), answers one JSON line on stdout: {"id", "path"}
 // (a WAV) or {"id", "error"}; first {"ready": true, "voices": [...], "threads": n}. libonnxruntime.dylib, libespeak-ng.dylib and

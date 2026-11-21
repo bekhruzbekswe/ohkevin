@@ -28,7 +28,7 @@ let package = Package(
         .executableTarget(name: "OhKevin", dependencies: ["LauncherKit"]),
         .executableTarget(name: "LauncherChecks", dependencies: ["LauncherKit", "Updating", "CallViews", "VoiceCore"]),
         // COnnxRuntime: onnxruntime's C header only (MIT); the library is opened at run time. kokoro-runner: the local voice without Python,
-        // the same lines in and out as call/tts.py; one binary for both apps. Never links espeak-ng (GPL): it opens libespeak-ng at run time.
+        // the lines in and out the call server speaks; one binary for both apps. Never links espeak-ng (GPL): it opens libespeak-ng at run time.
         .target(name: "COnnxRuntime"),
         .executableTarget(name: "kokoro-runner", dependencies: ["COnnxRuntime"], swiftSettings: [.swiftLanguageMode(.v5)]),
         .testTarget(name: "VoiceCoreTests", dependencies: ["VoiceCore"], swiftSettings: testSettings),

@@ -39,7 +39,7 @@ enum CleanInstall {
         try? "#!/bin/sh\nPATH='\(bin.path):/usr/bin:/bin'; export PATH\nfor last; do :; done\nexec /bin/sh -c \"$last\"\n".write(to: shell, atomically: true, encoding: .utf8)
         try? fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: shell.path)
         setenv("SHELL", shell.path, 1)
-        unsetenv("KOKORO_DIR"); unsetenv("KOKORO_PYTHON")
+        unsetenv("KOKORO_DIR")
         check(Shell.which("node", path: "\(bin.path):/usr/bin:/bin") == nil, "no Node on this Mac's PATH")
 
         let suite = "claude-voice-clean-install-\(UUID())"
@@ -71,7 +71,7 @@ enum CleanInstall {
         let call = setup.callFolder
         check(fm.fileExists(atPath: call.appending(path: sdk).path), "the Agent SDK is installed")
         check(!fm.fileExists(atPath: call.appending(path: "node_modules/@anthropic-ai/claude-agent-sdk-darwin-arm64").path), "…without its 347 MB Claude Code binary")
-        check(packagesCurrent(callFolder: call, locked: true) && fm.fileExists(atPath: call.appending(path: "tts.py").path), "the lock is marked as installed; the call files are in place")
+        check(packagesCurrent(callFolder: call, locked: true) && fm.fileExists(atPath: call.appending(path: "server.mjs").path), "the lock is marked as installed; the call files are in place")
         check(me.missingItems?.map(\.id).filter { $0 != .signIn } == [], "nothing is missing now (\(me.missingItems?.map(\.title) ?? []))")
         print("      Node \(megabytes(Runtime.folder(support: setup.support))), packages \(megabytes(call))")
 
@@ -88,7 +88,7 @@ enum CleanInstall {
         let voiceStarted = Date()
         check(await until(1800) { !me.installingVoice }, "the voice download ends")
         print(String(format: "      voice installed in %.1f s", Date().timeIntervalSince(voiceStarted)))
-        check(!me.voiceFailed && kokoroReady(voice) && me.kokoro?.path == voice.path, "tts.py said ready; the launcher finds the voice (\(voice.path))")
+        check(!me.voiceFailed && kokoroReady(voice) && me.kokoro?.path == voice.path, "the voice said ready; the launcher finds the voice (\(voice.path))")
         print("      Kokoro \(megabytes(voice))")
 
         UITest.app.close()

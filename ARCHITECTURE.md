@@ -29,7 +29,6 @@ Chrome's voice.
   `claude-path.mjs` (which `claude` runs).
 - `voice.mjs`: listening and speaking for the page, given the browser's objects and a clock; no DOM.
 - `index.html`: the call page, built on `voice.mjs`.
-- `tts.py`: the older Python voice, used only when a voice folder has no `kokoro-runner`.
 
 ### `launcher/`: the menu-bar app (Swift package)
 

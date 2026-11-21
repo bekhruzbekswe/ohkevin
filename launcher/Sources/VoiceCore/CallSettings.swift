@@ -49,8 +49,7 @@ public struct CallSettings: Codable, Equatable, Sendable {
     /// fixed for the call: a change in Settings applies to the next one. "Open a worker on …" looks next to the project.
     public func environment(base: [String: String], project: URL, key: String, port: Int, kokoro: URL, claude: URL? = nil) -> [String: String] {
         var env = base
-        env["KOKORO_PYTHON"] = nil // follows KOKORO_DIR
-        env["VOICE_THREADS"] = nil // tts.py picks the fast cores itself; the shell's own value must not leak in
+        env["VOICE_THREADS"] = nil // the voice picks the fast cores itself; the shell's own value must not leak in
         env.merge([
             "CALL_LAUNCHER": "1", "NO_OPEN": "1", "CALL_KEY": key, "PORT": String(port),
             "WORKER_MODEL": workerModel.rawValue, "TALKER_MODEL": Model.haiku.rawValue,

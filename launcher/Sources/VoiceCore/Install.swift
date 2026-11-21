@@ -120,11 +120,9 @@ public func installRuntime(support: URL, callFolder: URL, bundledCall: URL?, env
 
 // MARK: - The local voice
 
-/// Kokoro's pinned parts: uv (to fetch Python 3.12 and the hashed packages of call/kokoro-requirements.txt) and the model files.
+/// Kokoro's model files, pinned. The runner and the rest of its parts are in RunnerFiles (InstallRunner.swift).
 public enum VoiceFiles {
-    public static let uv = (url: URL(string: "https://github.com/astral-sh/uv/releases/download/0.13.9/uv-aarch64-apple-darwin.tar.gz")!,
-                     sha256: "5aeca67f2283f75235de40d0bd9c0a5bbc5fce23b6d48b3bf9fa1b2db08382ca")
-    // The release's own voices file: an older 26 MB copy in circulation lists the same 28 a/b voices with tts.py, so the one with a published source wins.
+    // The release's own voices file: an older 26 MB copy in circulation lists the same 28 a/b voices, so the one with a published source wins.
     public static let models = [
         ("kokoro-v1.0.onnx", "7d5df8ecf7d4b1878015a32686053fd0eebe2bc377234608764cc0ef3636a6c5"),
         ("voices-v1.0.bin", "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d"),
@@ -132,41 +130,11 @@ public enum VoiceFiles {
     public static let base = "https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/"
 }
 
-/// Installs the local voice into folder. With the app's own `runner` (kokoro-runner, in the app bundle) it is the runner layout, no
-/// Python (installKokoroRunner); without one, the Python layout as before (installKokoroPython). The Python layout stays working.
+/// Installs the local voice into folder with the app's own runner (kokoro-runner, in the app bundle): installKokoroRunner. Without
+/// a runner there is nothing to install with, and it fails. callFolder and environment are not used any more (the Python voice is
+/// gone); they stay until the Mac app's call to this drops them.
 public func installKokoro(into folder: URL, callFolder: URL, environment base: [String: String], runner: URL? = nil,
-                          uv: (url: URL, sha256: String) = VoiceFiles.uv, files: [(String, String)] = VoiceFiles.models, from source: String = VoiceFiles.base) async -> Bool {
-    if let runner, FileManager.default.isExecutableFile(atPath: runner.path) {
-        return await installKokoroRunner(into: folder, runner: runner, files: files, from: source)
-    }
-    return await installKokoroPython(into: folder, callFolder: callFolder, environment: base, uv: uv, files: files, from: source)
-}
-
-/// Python 3.12 and the pinned packages in its own environment, then both model files, then runs call/tts.py once to see it say
-/// ready. On any failure the folder is deleted: never half a voice.
-func installKokoroPython(into folder: URL, callFolder: URL, environment base: [String: String],
-                         uv: (url: URL, sha256: String) = VoiceFiles.uv, files: [(String, String)] = VoiceFiles.models, from source: String = VoiceFiles.base) async -> Bool {
-    let fm = FileManager.default
-    if kokoroReady(folder) { return true }
-    try? fm.removeItem(at: folder)
-    func fail() -> Bool { try? fm.removeItem(at: folder); return false }
-    guard await unpack(uv.url, sha256: uv.sha256, flags: "-xzf", into: folder.appending(path: "bin")) else { return fail() }
-    var env = base.filter { !$0.key.hasPrefix("UV_") } // the user's own uv settings (index, cache, config) are not ours to follow
-    env.merge(["UV_PYTHON_INSTALL_DIR": folder.appending(path: "python").path, "UV_CACHE_DIR": folder.appending(path: "cache").path,
-               "UV_NO_CONFIG": "1", "UV_PYTHON_PREFERENCE": "only-managed", "UV_NO_PROGRESS": "1"]) { $1 }
-    let uvBinary = folder.appending(path: "bin/uv"), venv = folder.appending(path: "kokoro-env"), python = venv.appending(path: "bin/python")
-    guard run(uvBinary, ["venv", "--python", "3.12", venv.path], environment: env, timeout: 900)?.status == 0,
-          run(uvBinary, ["pip", "install", "--python", python.path, "--only-binary", ":all:", "--require-hashes", "-r",
-                         callFolder.appending(path: "kokoro-requirements.txt").path], environment: env, timeout: 900)?.status == 0
-    else { return fail() }
-    for (name, sha) in files {
-        guard let file = await fetch(URL(string: source + name)!, sha256: sha),
-              (try? fm.moveItem(at: file, to: folder.appending(path: name))) != nil else { return fail() }
-    }
-    for scrap in ["cache", "bin"] { try? fm.removeItem(at: folder.appending(path: scrap)) } // only the install needed them
-    // espeak reads its data from a path of at most 159 characters (measured): a user name over 33 characters puts this folder
-    // past it, and then the check below fails and the install says so, instead of leaving a voice that cannot speak.
-    // tts.py, started as the server starts it, must answer {"ready": true} before the voice counts as installed
-    let check = "import json,subprocess,sys\np=subprocess.Popen([sys.executable,sys.argv[1],sys.argv[2]],stdin=subprocess.PIPE,stdout=subprocess.PIPE,text=True)\nline=p.stdout.readline();p.stdin.close();p.terminate()\nsys.exit(0 if json.loads(line).get('ready') else 1)"
-    return run(python, ["-I", "-c", check, callFolder.appending(path: "tts.py").path, folder.path], timeout: 180)?.status == 0 || fail()
+                          files: [(String, String)] = VoiceFiles.models, from source: String = VoiceFiles.base) async -> Bool {
+    guard let runner, FileManager.default.isExecutableFile(atPath: runner.path) else { return false }
+    return await installKokoroRunner(into: folder, runner: runner, files: files, from: source)
 }

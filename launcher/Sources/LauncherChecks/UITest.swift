@@ -389,7 +389,7 @@ enum UITest {
             app.settings?.close()
         }
         let voice = CallSettings.defaultKokoro(home: me.home) // a stand-in voice, as after the download
-        for file in ["kokoro-env/bin/python", "kokoro-v1.0.onnx", "voices-v1.0.bin"] {
+        for file in ["kokoro-runner", "libonnxruntime.dylib", "libespeak-ng.dylib", "espeak-ng-data/phontab", "kokoro-v1.0.onnx", "voices-v1.0.bin"] {
             try? FileManager.default.createDirectory(at: voice.appending(path: file).deletingLastPathComponent(), withIntermediateDirectories: true)
             FileManager.default.createFile(atPath: voice.appending(path: file).path, contents: Data(), attributes: [.posixPermissions: 0o755])
         }

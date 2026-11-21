@@ -37,8 +37,7 @@ const BOOT = randomBytes(4).toString('hex') // this process's own mark: a page t
 const MODELS = ['opus', 'sonnet', 'haiku', 'fable'] // what "use <model>" may switch the worker to
 const PROJECTS = path.resolve(process.env.PROJECTS_DIR ?? path.dirname(PROJECT)) // "open a worker on api" opens a folder directly in here: next to the project
 const KOKORO_DIR = process.env.KOKORO_DIR ?? path.join(os.homedir(), 'Library/Application Support', FOLDER, 'Kokoro')
-const KOKORO_PYTHON = process.env.KOKORO_PYTHON ?? path.join(KOKORO_DIR, 'kokoro-env/bin/python')
-const KOKORO_RUNNER = path.join(KOKORO_DIR, 'kokoro-runner') // the native voice (no Python); used when it is there, else the Python one
+const KOKORO_RUNNER = path.join(KOKORO_DIR, 'kokoro-runner') // the local voice, when it is installed
 const JOIN = TUNE.joinMs > 0 // waiting through a pause to think; the switch is joinMs in ears.mjs, read at startup
 const VOICE_APPROVE = process.env.VOICE_APPROVE !== '0' // a spoken yes may approve the safe steps in approve.mjs; VOICE_APPROVE=0 is click-only, exactly as before
 const VOICE_ALL = process.env.VOICE_APPROVE === 'all' // the safe-step list is off: a spoken yes may approve any step
@@ -110,10 +109,8 @@ function inbox() {
 // Without a Kokoro install the page falls back to the browser's built-in voice.
 const voice = { names: [], queue: [], busy: null, cache: new Map(), child: null, n: 0 }
 function startVoice() {
-  const native = existsSync(KOKORO_RUNNER) && (statSync(KOKORO_RUNNER).mode & 0o111) !== 0
-  if (!native && !existsSync(KOKORO_PYTHON)) return show('Voice', `the browser's built-in voice. For the local voice, install Kokoro in ${KOKORO_DIR}`)
-  voice.child = native ? spawn(KOKORO_RUNNER, [KOKORO_DIR], { stdio: ['pipe', 'pipe', 'inherit'] })
-    : spawn(KOKORO_PYTHON, [path.join(HERE, 'tts.py'), KOKORO_DIR], { stdio: ['pipe', 'pipe', 'inherit'] })
+  if (!existsSync(KOKORO_RUNNER) || !(statSync(KOKORO_RUNNER).mode & 0o111)) return show('Voice', `the browser's built-in voice. For the local voice, install Kokoro in ${KOKORO_DIR}`)
+  voice.child = spawn(KOKORO_RUNNER, [KOKORO_DIR], { stdio: ['pipe', 'pipe', 'inherit'] })
   readline.createInterface({ input: voice.child.stdout }).on('line', async line => {
     let msg
     try { msg = JSON.parse(line) } catch { return } // stray library output

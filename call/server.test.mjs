@@ -49,7 +49,7 @@ test('a running server: the old-link page, the short word for scripts, and defau
   const root = mkdtempSync(path.join(tmpdir(), 'call-server-test-'))
   const project = path.join(root, 'app'); mkdirSync(project)
   const env = { ...process.env, NO_OPEN: '1', PORT: String(PORT), CALL_KEY: KEY, WORKER_MODEL: 'haiku', OPEN_IN_APP: '0' }
-  delete env.PROJECTS_DIR; delete env.KOKORO_DIR; delete env.KOKORO_PYTHON; delete env.VOICE_APPROVE
+  delete env.PROJECTS_DIR; delete env.KOKORO_DIR; delete env.VOICE_APPROVE
   const kid = spawn('node', [SERVER, project], { env, stdio: ['ignore', 'pipe', 'pipe'] })
   let out = ''
   kid.stdout.on('data', d => { out += d })
@@ -87,7 +87,7 @@ test('a running server: the old-link page, the short word for scripts, and defau
   assert.match(out, /Voice: .*(Library\/Application Support\/Claude Voice\/Kokoro|Kokoro, on this Mac)/) // checked while no Kokoro is at the default place, or it is running
 })
 
-test('a kokoro-runner in the voice folder is started in place of Python, with the folder as its one argument', async t => {
+test('the voice folder\'s kokoro-runner is started, with the folder as its one argument', async t => {
   const root = mkdtempSync(path.join(tmpdir(), 'call-server-test-'))
   const project = path.join(root, 'app'); mkdirSync(project)
   const kokoro = path.join(root, 'kokoro'); mkdirSync(kokoro)

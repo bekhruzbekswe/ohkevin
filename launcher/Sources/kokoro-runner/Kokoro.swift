@@ -1,7 +1,7 @@
 import Foundation
 
 // kokoro-onnx 0.5.0: Kokoro.create and Tokenizer.phonemize (its normalize_text is just strip(), and its phonemes come from
-// phonemizer, here Phonemizer), with call/tts.py's one backend per language.
+// phonemizer, here Phonemizer), with one backend per language kept for the whole run.
 
 let maxPhonemes = 510
 

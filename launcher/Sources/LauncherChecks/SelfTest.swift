@@ -35,11 +35,13 @@ enum SelfTest {
         let fm = FileManager.default
         let project = folder.appending(path: "project"), voice = folder.appending(path: "voice")
         try? fm.createDirectory(at: project, withIntermediateDirectories: true)
-        try? fm.createDirectory(at: voice.appending(path: "kokoro-env/bin"), withIntermediateDirectories: true)
+        try? fm.createDirectory(at: voice.appending(path: "espeak-ng-data"), withIntermediateDirectories: true)
         // A stand-in local voice: the server starts it and it reads nothing until the call ends. The real one never runs.
-        try? "#!/bin/sh\nexec cat > /dev/null\n".write(to: voice.appending(path: "kokoro-env/bin/python"), atomically: true, encoding: .utf8)
-        try? fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: voice.appending(path: "kokoro-env/bin/python").path)
-        for model in ["kokoro-v1.0.onnx", "voices-v1.0.bin"] { fm.createFile(atPath: voice.appending(path: model).path, contents: Data()) }
+        try? "#!/bin/sh\nexec cat > /dev/null\n".write(to: voice.appending(path: "kokoro-runner"), atomically: true, encoding: .utf8)
+        try? fm.setAttributes([.posixPermissions: 0o755], ofItemAtPath: voice.appending(path: "kokoro-runner").path)
+        for part in ["libonnxruntime.dylib", "libespeak-ng.dylib", "espeak-ng-data/phontab", "kokoro-v1.0.onnx", "voices-v1.0.bin"] {
+            fm.createFile(atPath: voice.appending(path: part).path, contents: Data())
+        }
         let silence = folder.appending(path: "silence.wav")
         try? silentWAV().write(to: silence)
         var s = CallSettings()

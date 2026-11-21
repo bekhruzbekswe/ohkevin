@@ -19,8 +19,8 @@ panel counts "N steps to go" and its marigold door is the next one; for the down
 `~/Library/Application Support/Claude Voice/Runtime`, copies `call/` to `…/Call` and runs `npm ci --omit=optional` there;
 the Agent SDK then runs the user's own Claude Code (`CLAUDE_PATH`), so Anthropic's 347 MB binary is never fetched or
 shipped. The files are copied again at every check, and the packages reinstalled only when `package-lock.json` changed.
-Settings holds a second, optional download: the local voice (uv, Python 3.12, hashed packages, the model files; about
-about 425 MB to download, 600 MB on disk), deleted whole if any part fails.
+Settings holds a second, optional download: the local voice (the app's own kokoro-runner, plus onnxruntime, espeak-ng and
+the model files, all pinned; about 381 MB to download, 365 MB on disk), deleted whole if any part fails.
 Run from the repository instead (`swift run`, or the checks), the app uses the repository's `call/` (`repoCallFolder`),
 and still needs the Runtime: the same Install fetches it. Its log is `~/Library/Logs/Claude Voice/call.log`; the call window's Chrome profile is
 `~/Library/Application Support/Claude Voice/Chrome`, kept so Chrome remembers the microphone.
@@ -93,8 +93,8 @@ CHECKS="$(swift build --show-bin-path)/LauncherChecks"
   `xattr -w com.apple.quarantine "0081;$(printf %x $(date +%s));Safari;" "$S/Oh Kevin Launcher.app"`), run the check, `rm -rf "$S"`.
   It takes the call files from that copy and keeps support folder, Chrome profile and preferences inside `$S`; its PATH holds
   no Node, only your Claude Code. Through the panel's accessibility tree it presses Install, then asserts the pinned Node, the
-  SDK without its native binary, the lock mark, that a second Install fetches nothing, and downloads the voice (tts.py must
-  say ready). About 460 MB of real downloads (Node 27.5, packages 9.5, voice 425), and no call: nothing reaches Claude.
+  SDK without its native binary, the lock mark, that a second Install fetches nothing, and downloads the voice (the runner must
+  say ready). About 420 MB of real downloads (Node 27.5, packages 9.5, voice 381), and no call: nothing reaches Claude.
 - **Self-test.** A real call server and the real call window (silent fake microphone, throwaway profile): ready, the
   page starts by itself with talking over the voice on, Stop, End Call, the window closes as the ending begins, nothing
   is left running; then a helper holding a call is killed with SIGKILL and its server must follow. It never sends Claude

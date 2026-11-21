@@ -186,10 +186,10 @@ func plainWordsRow(step: String, doing: String, asking: String) {
     defer { try? FileManager.default.removeItem(at: tmp) }
     func kokoro(_ path: String) throws -> URL {
         let dir = tmp.appending(path: path)
-        try FileManager.default.createDirectory(at: dir.appending(path: "kokoro-env/bin"), withIntermediateDirectories: true)
-        FileManager.default.createFile(atPath: dir.appending(path: "kokoro-env/bin/python").path, contents: Data(), attributes: [.posixPermissions: 0o755])
-        FileManager.default.createFile(atPath: dir.appending(path: "kokoro-v1.0.onnx").path, contents: Data())
-        FileManager.default.createFile(atPath: dir.appending(path: "voices-v1.0.bin").path, contents: Data())
+        try FileManager.default.createDirectory(at: dir.appending(path: "espeak-ng-data"), withIntermediateDirectories: true)
+        for file in ["kokoro-runner", "libonnxruntime.dylib", "libespeak-ng.dylib", "espeak-ng-data/phontab", "kokoro-v1.0.onnx", "voices-v1.0.bin"] {
+            FileManager.default.createFile(atPath: dir.appending(path: file).path, contents: Data(), attributes: [.posixPermissions: 0o755])
+        }
         return dir
     }
     let beside = try kokoro("projects/kokoro"), spotted = try kokoro("elsewhere/voice")
@@ -239,13 +239,13 @@ func plainWordsRow(step: String, doing: String, asking: String) {
 @Test func environmentSetsEveryCallVariableOverTheShell() {
     var s = CallSettings()
     s.workerModel = .haiku; s.spokenYes = .nothing; s.openInClaudeApp = false
-    let shell = ["PATH": "/bin", "PORT": "3000", "KOKORO_PYTHON": "/x/python", "VOICE_APPROVE": "all", "VOICE_THREADS": "4", "HOME": "/Users/someone"]
+    let shell = ["PATH": "/bin", "PORT": "3000", "VOICE_APPROVE": "all", "VOICE_THREADS": "4", "HOME": "/Users/someone"]
     let env = s.environment(base: shell, project: project, key: "abc", port: 4810, kokoro: URL(filePath: "/opt/kokoro"))
     #expect(env["PATH"] == "/bin" && env["HOME"] == "/Users/someone") // the shell's own variables stay
     #expect(env["PORT"] == "4810" && env["CALL_KEY"] == "abc" && env["NO_OPEN"] == "1" && env["CALL_LAUNCHER"] == "1")
     #expect(env["WORKER_MODEL"] == "haiku" && env["TALKER_MODEL"] == "haiku")
     #expect(env["VOICE_APPROVE"] == "0" && env["SPEAK_FIRST"] == "1" && env["OPEN_IN_APP"] == "0") // limit warnings are always on
-    #expect(env["KOKORO_DIR"] == "/opt/kokoro" && env["KOKORO_PYTHON"] == nil && env["VOICE_THREADS"] == nil)
+    #expect(env["KOKORO_DIR"] == "/opt/kokoro" && env["VOICE_THREADS"] == nil)
     #expect(env["PROJECTS_DIR"] == "/Users/someone/code") // "open a worker on …" looks next to the project
     #expect(CallSettings().environment(base: [:], project: project, key: "k", port: 4747, kokoro: home)["OPEN_IN_APP"] == "1")
     #expect(env["CLAUDE_PATH"] == nil) // not given: the server's SDK uses its own
@@ -434,17 +434,6 @@ private func archive(in tmp: URL) throws -> (file: URL, sha: String) {
     #expect(!ok && !fm.fileExists(atPath: support.appending(path: "Runtime").path))
 }
 
-@Test func theLocalVoiceLeavesNothingBehindWhenAPartFails() async throws {
-    let tmp = try scratch(), fm = FileManager.default
-    defer { try? fm.removeItem(at: tmp) }
-    let (file, _) = try archive(in: tmp)
-    let folder = tmp.appending(path: "Kokoro")
-    let ok = await installKokoro(into: folder, callFolder: tmp, environment: [:], uv: (file, String(repeating: "0", count: 64)))
-    #expect(!ok && !fm.fileExists(atPath: folder.path))
-    #expect(await installKokoro(into: folder, callFolder: tmp, environment: [:], uv: (file, try #require(sha256(of: file)))) == false) // a "uv" that is no uv
-    #expect(!fm.fileExists(atPath: folder.path))
-}
-
 @Test func theRunnerLayoutCountsAsAVoiceAndAHalfOneDoesNot() throws {
     let tmp = try scratch(), fm = FileManager.default
     defer { try? fm.removeItem(at: tmp) }
@@ -475,8 +464,8 @@ private func archive(in tmp: URL) throws -> (file: URL, sha: String) {
     let notAWheel = (url: file, sha256: sha, member: "onnxruntime/capi/libonnxruntime.1.23.2.dylib") // right bytes, no such member
     #expect(await installKokoroRunner(into: folder, runner: runner, onnx: notAWheel) == false)
     #expect(!fm.fileExists(atPath: folder.path))
-    // with a runner the installer takes the runner path; without one, the Python path as before
-    #expect(await installKokoro(into: folder, callFolder: tmp, environment: [:], runner: runner, uv: (file, sha)) == false)
+    // without a runner there is nothing to install with
+    #expect(await installKokoro(into: folder, callFolder: tmp, environment: [:]) == false)
     #expect(!fm.fileExists(atPath: folder.path))
 }
 

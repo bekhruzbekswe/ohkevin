@@ -65,14 +65,9 @@ public struct Machine: Equatable, Sendable {
 
 // MARK: - The local voice, found without asking
 
-/// Kokoro as the server starts it: the runner layout (runnerReady), or the Python environment and both model files in one folder.
-public func kokoroReady(_ folder: URL) -> Bool {
-    if runnerReady(folder) { return true }
-    let fm = FileManager.default
-    return fm.isExecutableFile(atPath: folder.appending(path: "kokoro-env/bin/python").path)
-        && fm.fileExists(atPath: folder.appending(path: "kokoro-v1.0.onnx").path)
-        && fm.fileExists(atPath: folder.appending(path: "voices-v1.0.bin").path)
-}
+/// Kokoro as the server starts it: the runner and its parts (runnerReady). An older Python voice folder does not count, so the
+/// launcher offers the download instead.
+public func kokoroReady(_ folder: URL) -> Bool { runnerReady(folder) }
 
 /// Where to look first, in order: the folder saved before, KOKORO_DIR from the login shell, the app's own folder, and a
 /// `kokoro` folder beside the project. No one's own layout is written in here.
