@@ -1,0 +1,23 @@
+VISION.md
+  s_f9dcb370410d4f::t_1ff419bceaa623 8-9,19
+decisions/0003-chrome-speech-for-the-launcher.md
+  s_f9dcb370410d4f::t_be7235f67cd5bd 3
+decisions/0008-one-mac-app.md
+  s_f9dcb370410d4f::t_e24d4be6f1217d 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "732fcc36e581a88069b6f60503967048e1eb52f6",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
