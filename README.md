@@ -89,4 +89,4 @@ Build from source: [CONTRIBUTING.md](CONTRIBUTING.md) and [ARCHITECTURE.md](ARCH
 
 Not on a Mac? A browser page for every other computer is coming.
 
-*Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic.*
+*Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic. It runs your own, unmodified Claude Code under your own account, and never sees or handles your sign-in.*
