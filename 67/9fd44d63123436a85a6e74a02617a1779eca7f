@@ -1,0 +1,65 @@
+app/Sources/AppChecks/Offscreen.swift
+  s_f9dcb370410d4f::t_6b0f379d93419a 9,25
+app/Sources/AppChecks/Scene.swift
+  s_f9dcb370410d4f::t_2acb21beaa9a10 154-155,356,358,375
+app/Sources/CallKit/CallModel.swift
+  s_f9dcb370410d4f::t_a8cfcaebea58fc 49,58,310
+app/Sources/CallViews/Setup.swift
+  s_f9dcb370410d4f::t_a03b46ad1843fe 6-7
+app/Sources/CallViews/Wave.swift
+  s_f9dcb370410d4f::t_412fb382c80e05 20-21
+app/Sources/OhKevinKit/AppView.swift
+  s_f9dcb370410d4f::t_c6225dc9b3fc71 73
+app/Sources/OhKevinKit/Call.swift
+  s_f9dcb370410d4f::t_8e5a3babd5e381 212
+app/Sources/OhKevinKit/Design.swift
+  s_f9dcb370410d4f::t_b3d283eee5f707 41
+app/Sources/OhKevinKit/MenuBar.swift
+  s_f9dcb370410d4f::t_2be147803e0174 9,11,64,127,136,150,191,215
+app/Sources/OhKevinKit/Server.swift
+  s_f9dcb370410d4f::t_f53ef0c163954a 26,41,65,93
+app/Sources/OhKevinKit/Settings.swift
+  s_f9dcb370410d4f::t_566217e028d2cd 9,36,46,78
+app/Sources/OhKevinKit/Setup.swift
+  s_f9dcb370410d4f::t_f0d2f40fcdc8db 7,9,54,63,73
+app/Sources/OhKevinKit/Window.swift
+  s_f9dcb370410d4f::t_69f276dab91ff5 20,116
+app/Sources/VoiceCore/AppLocation.swift
+  s_f9dcb370410d4f::t_00df9c3f7d866a 5
+app/Sources/VoiceCore/CallSettings.swift
+  s_f9dcb370410d4f::t_bef4723959f25a 15,28
+app/Sources/VoiceCore/CallStatus.swift
+  s_f9dcb370410d4f::t_cdb97b6611430c 28,51,106
+app/Sources/VoiceCore/Health.swift
+  s_f9dcb370410d4f::t_d3c0924f06c173 35,38,44,47,93,120,155-156
+app/Sources/VoiceCore/PanelState.swift
+  s_f9dcb370410d4f::t_a133494177622d 3,5,42,98,117,128,134,158,190-193,225,227-229
+app/Sources/VoiceCore/Setup.swift
+  s_f9dcb370410d4f::t_10f0ef6bf43c16 5,11,18,30,106,161
+app/Sources/VoiceCore/Shell.swift
+  s_f9dcb370410d4f::t_0cf8875b8e4048 43
+app/Tests/CallKitTests/CallPlaceTests.swift
+  s_f9dcb370410d4f::t_80c7d917ca0b34 62,65
+app/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_f9dcb370410d4f::t_d1a603508cc8cc 171,208,213-216,218,226,244,247,294-295,482,490,547,558,563,569,578,602,623,749
+app/Tests/measure/rig.mjs
+  s_f9dcb370410d4f::t_a8922cf21c8aa4 11
+app/Tests/stub-server.mjs
+  s_f9dcb370410d4f::t_1f9167266c2d81 1,7,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "679fd44d63123436a85a6e74a02617a1779eca7f",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
