@@ -1,16 +1,10 @@
 name: Something is wrong
-description: A bug in the launcher or the Mac app.
+description: A bug in Oh Kevin.
 labels: [bug]
 body:
-  - type: dropdown
-    id: app
-    attributes:
-      label: Which app
-      options: [Oh Kevin (menu bar launcher), Oh Kevin for Mac (native app)]
-    validations: {required: true}
   - type: input
     id: version
-    attributes: {label: App version, description: "In the app's About or Settings.", placeholder: "0.6"}
+    attributes: {label: App version, description: "In the app's About or Settings.", placeholder: "0.3"}
     validations: {required: true}
   - type: input
     id: macos
