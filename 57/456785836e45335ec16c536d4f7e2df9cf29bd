@@ -1,0 +1,21 @@
+app/publish.sh
+  s_05186c50002419::t_885a870e968407 4-5,14,25-30
+launcher/publish.sh
+  s_05186c50002419::t_5237a39b54bcc4 3-5,24-25,27,30-32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57456785836e45335ec16c536d4f7e2df9cf29bd",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
