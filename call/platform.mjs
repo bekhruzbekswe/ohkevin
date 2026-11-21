@@ -44,13 +44,13 @@ export function openBrowser(link, platform = process.platform, env = process.env
   else run('xdg-open', [link])
 }
 
-/// The child processes of pid, as a list of pids. On Windows through PowerShell, which says its own id first so it can be left out
-/// (it is a child too); elsewhere pgrep,
-/// which exits 1 when there are none and never lists itself.
-export const children = (pid, platform = process.platform) => new Promise(r => platform === 'win32'
-  ? execFile('powershell', ['-NoProfile', '-Command', `$PID; (Get-CimInstance Win32_Process -Filter 'ParentProcessId=${Number(pid)}').ProcessId`],
-    (err, out) => { const [self, ...ids] = err ? [] : out.split(/\r?\n/).map(s => s.trim()).filter(Boolean); r(ids.filter(id => id !== self)) })
-  : execFile('pgrep', ['-P', String(pid)], (err, out) => r(err ? [] : out.split('\n').filter(Boolean))))
+/// The child processes of pid, as a list of pids. On Windows through PowerShell, which is itself one of them and is left out by
+/// its own pid; elsewhere pgrep, which exits 1 when there are none and never lists itself.
+export const children = (pid, platform = process.platform) => new Promise(r => {
+  if (platform !== 'win32') return void execFile('pgrep', ['-P', String(pid)], (err, out) => r(err ? [] : out.split('\n').filter(Boolean)))
+  const ps = execFile('powershell', ['-NoProfile', '-Command', `(Get-CimInstance Win32_Process -Filter "ParentProcessId=${Number(pid)}").ProcessId`],
+    (err, out) => r(err ? [] : out.split(/\r?\n/).map(s => s.trim()).filter(id => id && id !== String(ps.pid))))
+})
 
 /// How to run the Claude Code CLI with a terminal of its own when the server has none: macOS's and Linux's `script` lend one
 /// (stdin /dev/null: script refuses a socket there). Windows has no `script`: the CLI runs as it is.
