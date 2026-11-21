@@ -22,13 +22,21 @@
 #                       "Oh Kevin", the same background); Finder opens a window for a moment and macOS may ask once to let it control Finder
 set -euo pipefail
 cd "$(dirname "$0")"
-[[ "$(git branch --show-current)" == main && -z "$(git status --porcelain)" ]] || { echo "Release only from main with nothing uncommitted (CLAUDE.md, Releases)." >&2; exit 4; }
+[[ "$(git branch --show-current)" == main && -z "$(git status --porcelain)" ]] || { echo "Release only from main with nothing uncommitted (AGENTS.md, Releases)." >&2; exit 4; }
 
 VERSION="${1:?usage: ./release.sh <version> [build]}"
 BUILD="${2:-$(git rev-list --count HEAD 2>/dev/null || echo 1)}"
 REPO_URL="https://github.com/bekhruzbekswe/ohkevin"
 export FEED_URL="${FEED_URL:-$REPO_URL/releases/download/app-feed/appcast-app.xml}"
 DOWNLOAD_URL_PREFIX="${DOWNLOAD_URL_PREFIX:-$REPO_URL/releases/download/app-v$VERSION/}"
+# The release notes: the annotated tag's message (the version's CHANGELOG.md section), shown in the update prompt and on GitHub.
+# RELEASE_NOTES=<file> gives them instead (the rehearsal, which has no tag).
+if [[ -n "${RELEASE_NOTES:-}" ]]; then NOTES_TEXT="$(cat "$RELEASE_NOTES")"
+else
+  [[ "$(git cat-file -t "app-v$VERSION" 2>/dev/null)" == tag && "$(git rev-parse "app-v$VERSION^{commit}")" == "$(git rev-parse HEAD)" ]] \
+    || { echo "Tag this commit first: git tag -a app-v$VERSION, its message the version's CHANGELOG.md section (AGENTS.md, Releases)." >&2; exit 3; }
+  NOTES_TEXT="$(git tag -l --format='%(contents)' "app-v$VERSION" | sed '/^-----BEGIN PGP/,$d')"
+fi
 RELEASES="${RELEASES:-$HOME/Lab/ohkevin-releases/app}" # outside git, shared by every checkout
 FEED="$(basename "$FEED_URL")" # generate_appcast names the feed after the app's own SUFeedURL: appcast-app.xml (the rehearsal's: appcast.xml)
 TOOLS=".build/artifacts/app/Sparkle/bin"
@@ -48,13 +56,14 @@ NAME=$(sed -n 's/.*static let name = "\(.*\)".*/\1/p' Sources/VoiceCore/Product.
 ZIP="$RELEASES/${NAME// /-}-App-$VERSION.zip"
 rm -f "$ZIP"
 ditto -c -k --keepParent "$OUT/$NAME.app" "$ZIP"
+printf '%s\n' "$NOTES_TEXT" > "${ZIP%.zip}.md" # generate_appcast embeds it as this version's description
 
 KEY=(); [[ -n "${SPARKLE_KEY_FILE:-}" ]] && KEY=(--ed-key-file "$SPARKLE_KEY_FILE")
-"$TOOLS/generate_appcast" ${KEY[@]+"${KEY[@]}"} --maximum-deltas 0 --download-url-prefix "$DOWNLOAD_URL_PREFIX" "$RELEASES"
+"$TOOLS/generate_appcast" ${KEY[@]+"${KEY[@]}"} --maximum-deltas 0 --embed-release-notes --download-url-prefix "$DOWNLOAD_URL_PREFIX" "$RELEASES"
 # Per-version folders (releases/download/app-v<version>/): each entry's link goes back to its own version (not part of the signature).
 sed -E -i '' 's#/app-v[^/"]+/([^/"]+-App-)([0-9][0-9A-Za-z.]*)\.zip"#/app-v\2/\1\2.zip"#g' "$RELEASES/$FEED"
 # What gets uploaded for this version: its zip, and the feed as it stood right after it, under the app's own feed name.
-mkdir -p "$RELEASES/v$VERSION"; cp "$ZIP" "$RELEASES/v$VERSION/"; cp "$RELEASES/$FEED" "$RELEASES/v$VERSION/$FEED"
+mkdir -p "$RELEASES/v$VERSION"; cp "$ZIP" "${ZIP%.zip}.md" "$RELEASES/v$VERSION/"; cp "$RELEASES/$FEED" "$RELEASES/v$VERSION/$FEED"
 # The disk image people download the first time (updates come by the zip): the launcher's own script, so both look the same.
 if [[ "${DMG:-1}" != "0" ]]; then
   # left unsigned on purpose: a self-signed image is blocked on open, so only the app is assessed (one Open Anyway, not two)

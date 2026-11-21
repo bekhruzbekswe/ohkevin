@@ -14,8 +14,9 @@ export FEED_URL="http://127.0.0.1:$PORT/appcast.xml" DOWNLOAD_URL_PREFIX="http:/
 export BUNDLE_ID="${BUNDLE_ID:-local.claude-voice.launcher.rehearsal}"
 saved="$(cat VERSION)"; trap 'echo "$saved" > VERSION' EXIT # release.sh writes the version it builds; the rehearsal puts yours back
 rm -rf releases-rehearsal rehearsal-install
-./release.sh 0.1 1
-./release.sh 0.2 2
+NOTES="$(mktemp)"; echo "- A rehearsal update." > "$NOTES"
+RELEASE_NOTES="$NOTES" ./release.sh 0.1 1
+RELEASE_NOTES="$NOTES" ./release.sh 0.2 2
 mkdir rehearsal-install
 ditto -x -k releases-rehearsal/Oh-Kevin-Launcher-0.1.zip rehearsal-install
 cat <<MSG
