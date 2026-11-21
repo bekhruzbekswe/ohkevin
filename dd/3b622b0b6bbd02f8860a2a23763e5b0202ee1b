@@ -1,0 +1,23 @@
+.github/workflows/pages.yml
+  s_8264812eb9e3f3::t_8f341073d9814b 1-28
+site/assets/cat.js
+  s_8264812eb9e3f3::t_e5c4611f8fb5bc 1-369
+site/index.html
+  s_8264812eb9e3f3::t_78a991d9929e46 1-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd3b622b0b6bbd02f8860a2a23763e5b0202ee1b",
+  "prompts": {},
+  "sessions": {
+    "s_8264812eb9e3f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac956f26-7197-4b91-a7e8-4852d6fbc8d0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
