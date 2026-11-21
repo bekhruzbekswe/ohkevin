@@ -1,0 +1,20 @@
+.github/check-paths.mjs
+  s_05186c50002419::t_71cc32958784e0 34-36
+  s_05186c50002419::t_17aa9805eda312 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f9d224e8a4fd8954720e872a4ba28a74a68b24a0",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}

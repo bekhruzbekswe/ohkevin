@@ -1,0 +1,27 @@
+.github/CONTRIBUTING.md
+  s_05186c50002419::t_6f78b2b1dc6f8c 3-37
+.github/check-paths.mjs
+  s_05186c50002419::t_71cc32958784e0 1-5
+.github/pull_request_template.md
+  s_05186c50002419::t_c89e14869a3b40 1-8
+check.sh
+  s_05186c50002419::t_cdfc50529ba76e 7
+README.md
+  s_05186c50002419::t_bf10eab3b8c97d 106,110
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5f7d5bc351038e83b7a6b1de099585f93f488df6",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
