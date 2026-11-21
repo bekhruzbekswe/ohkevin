@@ -1,0 +1,19 @@
+call/platform.mjs
+  s_05186c50002419::t_61161317841111 47-48,51-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "efbf476b1fc9b020fc68e47ef0564c41542fe9b3",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
