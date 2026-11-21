@@ -27,8 +27,16 @@ What changed for people using Oh Kevin, newest first. Each release's section is 
 ## Mac app 0.3 — 2026-11-21
 
 ### Added
-- The same one setup window as the launcher, and the same first call.
+- Works on any Mac: the app carries its own call server and keeps its own copy of it, so it no longer needs the folder it was
+  built from.
+- One setup window on first launch, the same as the launcher's: sign in to Claude, allow the microphone and speech recognition
+  (asked together, so the first call asks nothing), choose a project, in any order.
+- What a call needs downloads by itself at launch, behind one bar: Node, the local voice and, if it is missing, Apple's English
+  speech model.
+- The first call opens on "Say hello." and Kevin answers that it hears you; the first finished worker card shows, once, that
+  pressing a card opens its work in Claude.
 
 ### Changed
-- The local voice runs without Python, inside the app.
-- A smaller first download: only Node's program; the call's parts come inside the app.
+- The local voice runs without Python: the app carries the voice's runner and downloads only its model and voices (381 MB).
+- A smaller first download: only Node's program (27.5 MB); the call server's parts come inside the app.
+- When the voice, Node or the speech model is missing, the message says what to do in plain words.
