@@ -1,0 +1,47 @@
+app/measure/rig.mjs
+  s_05186c50002419::t_6ba0a8b778af8a 31
+call/server.mjs
+  s_05186c50002419::t_042eb6d2a77351 40,112-113
+call/server.test.mjs
+  s_05186c50002419::t_cd7238cc938b4f 52,90
+launcher/Package.swift
+  s_05186c50002419::t_6706895dd1949f 31
+launcher/README.md
+  s_05186c50002419::t_7188932db76ba9 22-23,96-97
+launcher/Sources/LauncherChecks/CleanInstall.swift
+  s_05186c50002419::t_33fbe85f8ac162 42,74,91
+launcher/Sources/LauncherChecks/FirstRun.swift
+  s_05186c50002419::t_3b19014106e0ba 62
+launcher/Sources/LauncherChecks/SelfTest.swift
+  s_05186c50002419::t_755750b5e9e672 38,40-44
+launcher/Sources/LauncherChecks/UITest.swift
+  s_05186c50002419::t_9272317ca8d3c9 392
+launcher/Sources/VoiceCore/CallSettings.swift
+  s_05186c50002419::t_f5f5a63514c7ea 52
+launcher/Sources/VoiceCore/Health.swift
+  s_05186c50002419::t_481bf92da5e3f4 68-70
+launcher/Sources/VoiceCore/Install.swift
+  s_05186c50002419::t_fa209247580280 123,125,133-135,137-139
+launcher/Sources/kokoro-runner/Kokoro.swift
+  s_05186c50002419::t_ecacec677310e4 4
+launcher/Sources/kokoro-runner/main.swift
+  s_05186c50002419::t_5bdf9385b3a36e 3
+launcher/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_05186c50002419::t_e6d00b50e336ef 189-192,242,248,467-468
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6463a6e36d69ce455f4fced7a40334ca115e6b2b",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}

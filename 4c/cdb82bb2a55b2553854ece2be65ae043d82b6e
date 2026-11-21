@@ -1,0 +1,90 @@
+design/logo/make-icons.sh
+  s_8264812eb9e3f3::t_549ec258704240 9-10
+design/onboarding.html
+  s_8264812eb9e3f3::t_f2fdc5685937ab 8
+  s_05186c50002419::t_14c6a8cf982a69 2
+design/updates.html
+  s_8264812eb9e3f3::t_6f73d0723b38df 8
+  s_05186c50002419::t_dcdf8dfdf07720 2
+check-paths.mjs
+  s_05186c50002419::t_9ef1d2099b9461 1-42
+check.sh
+  s_05186c50002419::t_b3618bb4ce87dd 7
+AGENTS.md
+  s_05186c50002419::t_0f5bd6744b7684 28-30
+CLAUDE.md
+  s_05186c50002419::t_15fc950c4407e0 1
+launcher/publish.sh
+  s_05186c50002419::t_a64d4a38787dfd 10
+launcher/release.sh
+  s_05186c50002419::t_d5dcfeafdb9a7d 26
+CONTRIBUTING.md
+  s_05186c50002419::t_2e72c307bfcbae 3-4,19,39-41
+README.md
+  s_05186c50002419::t_a5024781533963 24-29,36-37,39,43,49
+ARCHITECTURE.md
+  s_05186c50002419::t_e6581b88f27b15 1-75
+VISION.md
+  s_05186c50002419::t_330abaa67eca94 1-28
+decisions/0001-voice-first.md
+  s_05186c50002419::t_852c5a53e1fa87 1-19
+decisions/0002-natural-turn-taking-over-speed.md
+  s_05186c50002419::t_b7a3fa8231fc96 1-19
+decisions/0003-chrome-speech-for-the-launcher.md
+  s_05186c50002419::t_1f92c6aeee89a8 1-18
+decisions/0004-the-voice-runs-on-haiku.md
+  s_05186c50002419::t_db4714325f68de 1-17
+decisions/0005-kokoro-without-python.md
+  s_05186c50002419::t_83a8cae3f7506d 1-25
+decisions/0006-trunk-based-one-repository.md
+  s_05186c50002419::t_9fb7d3cf9dda63 1-19
+decisions/0007-apache-2.md
+  s_05186c50002419::t_11cb04fc7a33f3 1-21
+app/AGENTS.md
+  s_05186c50002419::t_591f2cf520b751 1-6
+call/AGENTS.md
+  s_05186c50002419::t_744c35d61755de 1-9
+app/design/mockups.html
+  s_05186c50002419::t_e961edd86e2ff2 2,6
+app/design/spec.md
+  s_05186c50002419::t_48fbd340e110d9 1-3
+design/final.html
+  s_05186c50002419::t_1ecb442c33d39b 2,7
+launcher/design/spec.md
+  s_05186c50002419::t_1cc9dae9e540d6 3-4
+NOTICE
+  s_05186c50002419::t_cf7fbaeb1b15c2 6-8,9
+  s_05186c50002419::t_b9fa8061dac0b4 4-5
+call/tools/problem-sound.mjs
+  s_05186c50002419::t_10959e62d1cabe 1-75
+call/tools/drive.mjs
+  s_05186c50002419::t_8bfc82b464f405 6
+call/tools/hear.mjs
+  s_05186c50002419::t_70aa396a1fac47 3,7-8
+launcher/pack-call.sh
+  s_05186c50002419::t_5b3b4c55cccc38 3,13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4ccdb82bb2a55b2553854ece2be65ae043d82b6e",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    },
+    "s_8264812eb9e3f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac956f26-7197-4b91-a7e8-4852d6fbc8d0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
