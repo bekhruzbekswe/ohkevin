@@ -3,7 +3,7 @@
 // CUT=1 cuts the voice off after the first sentence of each reply, as if talked over, and logs later sentences of that reply as AFTER.
 // PERMIT=0 does not click Approve: answers are spoken instead, and the next line is sent while an approval is open.
 // A line starting with + is sent as a clean spoken answer to the last question the voice finished (the page's ask field).
-// Then:                    node drive.mjs "first thing said" "second thing said"
+// Then, from call/:        node tools/drive.mjs "first thing said" "second thing said"
 const base = `http://127.0.0.1:${process.env.PORT ?? 4799}`, k = process.env.CALL_KEY ?? 'testkey'
 const lines = process.argv.slice(2)
 const t0 = Date.now()

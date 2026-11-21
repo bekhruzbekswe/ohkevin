@@ -1,6 +1,6 @@
 #!/bin/bash
 # Puts the call server inside an app, for both apps (launcher/build.sh and app/build.sh): call/'s own files, less what only a
-# developer runs (tests, recorded calls, design notes, the test driver), and its packages already installed, so the first run
+# developer runs (tests, recorded calls, tools), and its packages already installed, so the first run
 # fetches only Node's program and never runs npm. Of the packages only the Agent SDK's sdk.mjs is kept: it is one bundled file
 # that loads nothing but Node's own modules (checked below, so a future SDK that needs more fails the build instead of a call).
 #
@@ -10,7 +10,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CALL="$ROOT/call"
 DEST="${1:?usage: pack-call.sh <destination call folder>}"
 mkdir -p "$DEST" && DEST="$(cd "$DEST" && pwd)" # absolute: the guard below imports the SDK by its path
-rsync -a --delete --exclude node_modules --exclude '*.test.mjs' --exclude replay --exclude design --exclude drive.mjs "$CALL/" "$DEST/"
+rsync -a --delete --exclude node_modules --exclude '*.test.mjs' --exclude replay --exclude tools --exclude AGENTS.md "$CALL/" "$DEST/"
 
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 cp "$CALL/package.json" "$CALL/package-lock.json" "$WORK/"

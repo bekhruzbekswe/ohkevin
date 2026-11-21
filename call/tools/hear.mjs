@@ -1,11 +1,11 @@
 // Talks to a test call page without a microphone: Kokoro says the line, headless Chrome hears that WAV as its
 // microphone (it loops, so the line comes again about 17 s later, over the reply), and the page's console is printed.
-// Start a test server first (see drive.mjs), then:  node hear.mjs "What is a closure in JavaScript?" [seconds]
+// Start a test server first (see tools/drive.mjs), then, from call/:  node tools/hear.mjs "What is a closure in JavaScript?" [seconds]
 // A "|" in the line is a pause: PAUSE seconds of quiet (default 2), or "|6|" for 6 s. AEC=0 turns off Chrome-wide echo
 // cancellation, which in headless Chrome swallows words said while the voice plays. The server's say, wait and task
 // events are printed too. For example:
-//   node hear.mjs "Check | the files in this project." 18
-//   AEC=0 node hear.mjs "Tell me three facts about octopuses, one sentence each. |6| And | which one is the smartest of them?" 28
+//   node tools/hear.mjs "Check | the files in this project." 18
+//   AEC=0 node tools/hear.mjs "Tell me three facts about octopuses, one sentence each. |6| And | which one is the smartest of them?" 28
 import { spawn } from 'node:child_process'
 import { writeFileSync, mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
