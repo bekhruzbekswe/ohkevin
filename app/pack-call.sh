@@ -10,12 +10,12 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CALL="$ROOT/call"
 DEST="${1:?usage: pack-call.sh <destination call folder>}"
 mkdir -p "$DEST"
-rsync -a --delete --exclude node_modules --exclude '*.test.mjs' --exclude replay --exclude tools --exclude AGENTS.md "$CALL/" "$DEST/"
+rsync -a --delete --exclude node_modules --exclude '*.test.mjs' --exclude replay --exclude tools --exclude AGENTS.md --exclude ohkevin.mjs "$CALL/" "$DEST/"
 
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
 cp "$CALL/package.json" "$CALL/package-lock.json" "$WORK/"
-# the versions package-lock.json pins; no optional packages (the SDK's own Claude Code binary: the user's own Claude Code is used)
-( cd "$WORK" && npm ci --omit=dev --omit=optional --ignore-scripts --no-audit --no-fund --loglevel=error >/dev/null )
+# the versions package-lock.json pins (the SDK is a devDependency: `npx ohkevin` fetches it itself); no optional packages (the SDK's own Claude Code binary)
+( cd "$WORK" && npm ci --omit=optional --ignore-scripts --no-audit --no-fund --loglevel=error >/dev/null )
 SDK=node_modules/@anthropic-ai/claude-agent-sdk
 
 # The guard: every module sdk.mjs imports or requires by name is one of Node's own, and it loads with what server.mjs takes from it.
