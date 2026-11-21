@@ -4,6 +4,8 @@
 
 <a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
+<br>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/oh-kevin-loop-dark.webp"><img alt="A silent loop of one call in the Oh Kevin window: you ask for the tests to be run, Kevin opens a worker, two more workers start, one asks to push your commits, you say yes, and all three finish" src="media/oh-kevin-loop-light.webp"></picture>
 
 ## How it works
