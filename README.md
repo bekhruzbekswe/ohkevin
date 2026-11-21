@@ -57,7 +57,13 @@ Kevin works through [Claude Code](https://claude.com/claude-code); if you don't 
 
 ### Other computers
 
-Coming soon.
+```sh
+npx ohkevin
+```
+
+In a terminal, in your project folder. It needs [Node](https://nodejs.org) 18.14 or later, [Claude Code](https://claude.com/claude-code)
+signed in, and Google Chrome, whose speech recognition sends your speech to Google to become text. More in
+[call/README.md](call/README.md).
 
 <br>
 
