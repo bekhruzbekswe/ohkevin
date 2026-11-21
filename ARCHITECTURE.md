@@ -46,7 +46,8 @@ Chrome's voice.
 
 - `Sources/Ears`: the page's turn-taking, ported one for one, with no audio in it.
 - `Sources/CallKit`: what the call window shows, with no screen in it.
-- `Sources/VoiceApp`: the app: Apple's recogniser, one audio engine, the call window.
+- `Sources/OhKevinKit`: the app's code: Apple's recogniser, one audio engine, the call window, the menu-bar panel.
+- `Sources/OhKevin`: the app, all that ships. `Sources/AppChecks`: checks that drive the app's code; never shipped.
 - `Sources/VoiceCore`, `Sources/CallViews`, `Sources/Updating`: links to the launcher's folders, compiled again here.
 
 ### `design/`
