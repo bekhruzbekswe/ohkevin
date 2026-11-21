@@ -30,20 +30,23 @@ Release history (the zips and feeds `generate_appcast` reads) lives outside git,
 (`RELEASES` overrides it); if lost, `gh release download` refills it.
 
 1. Bump: one commit on main, `release: the launcher 0.7` (`launcher/VERSION`) or `release: the Mac app 0.4` (`app/VERSION`).
-2. Build: `launcher/release.sh 0.7` or `app/release.sh 0.4`, with `SIGN_ID="Oh Kevin"` (the launcher also needs its
-   `FEED_URL` and `DOWNLOAD_URL_PREFIX`, as in the last release). Signs, zips, writes the feed, makes the disk image.
-   Publishes nothing.
-3. The owner tries that build on a real call. Not right: fix it through a normal branch, rebuild the same number.
-4. Tag after the owner's go: `git tag -a v0.7` or `git tag -a app-v0.4`; the tag's message is the release notes.
-5. Publish, only on the owner's own go in that session: `launcher/publish.sh 0.7` or `app/publish.sh 0.4`, then
-   `git push origin main v0.7`.
+   In the same commit, `CHANGELOG.md`'s Unreleased items become that release's section ("Launcher 0.7 — <date>").
+2. Tag that commit, locally: `git tag -a v0.7` or `git tag -a app-v0.4`, the message being that section (3 to 8 bullets,
+   Added / Changed / Fixed, in users' words). It is the release notes: in the update prompt and on GitHub.
+3. Build: `launcher/release.sh 0.7` or `app/release.sh 0.4`, with `SIGN_ID="Oh Kevin"` (the launcher also needs its
+   `FEED_URL` and `DOWNLOAD_URL_PREFIX`, as in the last release). Signs, zips, puts the tag's message in the feed, makes
+   the disk image. Publishes nothing; it refuses without the tag on the commit it builds.
+4. The owner tries that build on a real call. Not right: fix it through a normal branch, move the unpushed tag to the
+   new commit (`git tag -f -a`), and rebuild the same number.
+5. Publish, only on the owner's own go in that session: `git push origin main v0.7`, then `launcher/publish.sh 0.7` or
+   `app/publish.sh 0.4`. It uploads the files, SHA256SUMS over them, and the tag's message as the release notes.
 
-- The launcher's release is GitHub's "latest"; its apps read `releases/latest/download/appcast.xml`.
+- Only the newest launcher release is GitHub's "latest"; its apps read `releases/latest/download/appcast.xml`. Earlier
+  releases stay, with their files.
 - The Mac app's releases are never "latest"; its apps read the fixed release `app-feed` (`appcast-app.xml`), which
   publish.sh replaces.
 - Version numbers only go up. Sparkle never installs a lower version, so a bad release is fixed by a revert on main and
   a higher number; untick "latest" on the bad one meanwhile.
-- Keep only the current release of each app on GitHub (plus `app-feed`); delete the previous one after a release.
 
 ## What needs the owner
 

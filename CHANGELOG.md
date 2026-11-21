@@ -1,0 +1,34 @@
+# Changelog
+
+What changed for people using Oh Kevin, newest first. Each release's section is its tag message and its release notes
+(AGENTS.md, Releases).
+
+## Unreleased
+
+### Changed
+- The sound for a problem in a call is Oh Kevin's own, made to sound like the old one.
+- The Agent SDK is downloaded from npm at first run (1.6 MB, checked against a pinned hash) instead of coming inside the app.
+- The older Python voice is gone. If you only had that one, Settings offers the new voice to download.
+
+### Added
+- Each release lists SHA256SUMS for its files.
+
+## Launcher 0.6 — 2026-11-21
+
+### Added
+- One setup window on first launch: sign in to Claude, allow the microphone, choose a project, in any order.
+- The first call opens on "Say hello." and Kevin answers that it hears you.
+- The first finished worker card shows, once, that pressing a card opens its work in Claude.
+
+### Changed
+- The local voice runs without Python: the same voice, a smaller download (381 MB) and a faster start.
+- Node and the call's parts download by themselves at launch, with no button to press.
+
+## Mac app 0.3 — 2026-11-21
+
+### Added
+- The same one setup window as the launcher, and the same first call.
+
+### Changed
+- The local voice runs without Python, inside the app.
+- A smaller first download: only Node's program; the call's parts come inside the app.
