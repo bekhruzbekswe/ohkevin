@@ -70,7 +70,7 @@ struct Start: View {
             }
             .padding(.horizontal, CV.s2) // Settings: the three dots at the top right, and the app menu
     }
-    /// The launcher's own words when ready (VoiceCore's PanelState): one wording for both apps.
+    /// The words when ready, as the menu-bar panel says them (VoiceCore's PanelState).
     static let ready: PanelData = { var i = PanelInput(); i.project = URL(fileURLWithPath: "/"); i.missing = []; return PanelData(i) }()
     static var readyLine: String { if case .text(let t) = ready.line2 { t } else { "" } }
 }

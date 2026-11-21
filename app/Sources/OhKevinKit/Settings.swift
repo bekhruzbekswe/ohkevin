@@ -6,7 +6,7 @@ import SwiftUI
 import Updating
 import VoiceCore
 
-/// Settings, as the launcher had them (docs/design/launcher): the calls' choices (the project folder, the model the workers use, the
+/// Settings (the owner's grouped card): the calls' choices (the project folder, the model the workers use, the
 /// voice, what a spoken yes approves, opening the work in Claude afterwards), this Mac's (opening at login, updating by itself) and
 /// the privacy note. Kept in VoiceCore's CallSettings, in this app's own defaults; a change applies to the next call, except the
 /// voice, which changes at once on a call.
@@ -33,7 +33,7 @@ import VoiceCore
     var shown = false
     /// A chooser's list is open in Settings (the shared sheet keeps it; false closes it): Escape closes the list before Settings.
     var listOpen = false
-    /// Self-updating (the launcher's Sparkle updater); nil in a build without a feed, and while drawing figures.
+    /// Self-updating (Sparkle, Sources/Updating); nil in a build without a feed, and while drawing figures.
     var updates: Updates?
     /// The transient update line (checking, up to date, could not check) has had its four seconds for this state.
     var lineGone: UpdateState?
@@ -43,7 +43,7 @@ import VoiceCore
     var updatesPicture = false
     /// Pictures only: the update line drawn in the start window.
     var linePicture: PanelLine?
-    /// The start window's update line now (VoiceCore's updateLine, the launcher's own rule), or nil.
+    /// The start window's update line now (VoiceCore's updateLine), or nil.
     @MainActor var updateLine: PanelLine? {
         if let linePicture { return linePicture }
         guard let u = updates else { return nil }
@@ -75,7 +75,7 @@ import VoiceCore
 
     func saw(_ names: [String]) { voices = names; if persist { UserDefaults.standard.set(names, forKey: "voices") } }
 
-    // Open at login: the app itself as a login item (SMAppService), as the launcher did.
+    // Open at login: the app itself as a login item (SMAppService).
     private(set) var loginItem = SMAppService.mainApp.status
     private(set) var loginError: String?
     var opensAtLogin: Bool {

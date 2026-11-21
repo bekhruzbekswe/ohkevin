@@ -209,7 +209,7 @@ final class Call: Ears.Host, @unchecked Sendable { // Ears.: Foundation has a Ho
         guard !over else { return }
         record("hangup") // the page's End call
         model.stage = .ending; model.until = Date()
-        // our own server hands the work over itself, each worker from its own folder; a launcher's server ends the call itself (go=1)
+        // our own server hands the work over itself, each worker from its own folder; a server it only joined (--call) ends the call when told (/hangup)
         model.handing = server.own != nil && CallSettings.load().openInClaudeApp && !model.sessions.isEmpty
         if turns.live { turns.end() } // the page's End call: hush, and the talker hears what you heard
         if server.own == nil { post("/hangup", [:]) }

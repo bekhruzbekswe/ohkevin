@@ -2,24 +2,20 @@ import Foundation
 
 // The one setup screen (design/onboarding.html): three rows (Claude, Microphone, Project) and one bottom. Plain data in,
 // plain data out: `SetupInput` is what the host knows, `SetupScreen` is what the screen says and which control is gold, and the
-// views (CallViews' SetupView) draw it and send `SetupIntent`s back. The launcher and the Mac app both build a `SetupInput`.
+// views (CallViews' SetupView) draw it and send `SetupIntent`s back. The app builds a `SetupInput`.
 
 public enum SetupIntent: Equatable, Sendable {
     case signIn, updateClaude, allowMicrophone, openMicrophoneSettings, chooseProject, startCall, retryDownload
     /// A recent project, by its path.
     case pick(String)
-    /// A page to get something on (Claude Code, Node, Chrome).
+    /// A page to get something on (Claude Code, Node).
     case open(URL)
 }
 
 public struct SetupInput: Equatable, Sendable {
     /// `get`: Claude Code is not there (or the update failed and its page is the way); `update`: it is too old to run a call.
     public enum Claude: Equatable, Sendable { case signIn, signingIn, get(URL, old: Bool), update, updating, done }
-    public enum Mic: Equatable, Sendable {
-        case todo, asking, refused, done
-        /// The call listens through Chrome and there is none: its page is the button.
-        case get(URL)
-    }
+    public enum Mic: Equatable, Sendable { case todo, asking, refused, done }
     /// One part of the download, as the host knows it. `progress` is 0...1, nil when not known; 1 is done.
     public struct Part: Equatable, Sendable {
         public var name: String
@@ -31,7 +27,7 @@ public struct SetupInput: Equatable, Sendable {
         public init(_ name: String, progress: Double? = nil, weight: Double = 1, failed: Bool = false) { self.name = name; self.progress = progress; self.weight = weight; self.failed = failed }
         public var done: Bool { (progress ?? 0) >= 1 && !failed }
     }
-    /// Something else a call needs that no row covers (Node to get, the app moved, Chrome gone after the microphone was allowed).
+    /// Something else a call needs that no row covers (Node to get, for a developer's own call folder).
     public struct Problem: Equatable, Sendable {
         public var line: String
         public var button: String?
@@ -41,8 +37,6 @@ public struct SetupInput: Equatable, Sendable {
 
     public var claude = Claude.signIn
     public var mic = Mic.todo
-    /// The Microphone row's line while the system asks; the host knows who asks ("Chrome is asking.", "Your Mac is asking.").
-    public var micAsking = "Your Mac is asking."
     /// The project's folder name; nil: none chosen.
     public var project: String?
     public var choices: [ProjectPill.Choice] = []
@@ -109,9 +103,8 @@ public struct SetupScreen: Equatable, Sendable {
         switch i.mic {
         case .done: row(.mic, "Microphone", why[1], .done)
         case .todo: row(.mic, "Microphone", why[1], .action, "Allow", .allowMicrophone, then: "Next: the microphone.")
-        case .asking: row(.mic, "Microphone", i.micAsking, .asking, "Allow", .allowMicrophone, then: "Next: the microphone.")
+        case .asking: row(.mic, "Microphone", "Your Mac is asking.", .asking, "Allow", .allowMicrophone, then: "Next: the microphone.")
         case .refused: row(.mic, "Microphone", "It is off. Turn it on in System Settings › Privacy & Security.", .action, "Open Settings", .openMicrophoneSettings, then: "Next: the microphone.")
-        case .get(let url): row(.mic, "Microphone", "Kevin listens through Chrome.", .action, "Get Chrome", .open(url), then: "Next: get Chrome.")
         }
         if let name = i.project { row(.project, "Project", "Kevin will work in ", .done, pick: Pick(name: name, choices: i.choices)) }
         else { row(.project, "Project", why[2], .action, "Choose", .chooseProject, then: "Next: the project.") }
@@ -159,17 +152,13 @@ extension PanelInput {
             : has(.claudeOld) ? (updateFailed ? (fix(.claudeOld).map { .get($0, old: true) } ?? .update) : .update)
             : has(.signIn) ? .signIn : .done
         s.mic = micState
-        if micState != .done, let chrome = fix(.chrome) { s.mic = .get(chrome) }
-        s.micAsking = micAskingLine
         s.project = project?.lastPathComponent
         s.choices = choices(self)
         if has(.packages) {
             s.download = downloadParts.isEmpty ? [.init("Download")] : downloadParts
             if installFailed { s.download[s.download.count - 1].failed = true }
         }
-        if has(.moved) { s.problem = .init(line: "Build the app again from its folder.") }
-        else if let node = fix(.node) { s.problem = .init(line: "Node is needed.", button: "Install Node", intent: .open(node)) }
-        else if micState == .done, let chrome = fix(.chrome) { s.problem = .init(line: "Chrome is needed.", button: "Get Chrome", intent: .open(chrome)) }
+        if let node = fix(.node) { s.problem = .init(line: "Node is needed.", button: "Install Node", intent: .open(node)) }
         return s
     }
 }

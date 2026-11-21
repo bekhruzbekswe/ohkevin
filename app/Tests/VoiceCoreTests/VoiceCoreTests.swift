@@ -168,8 +168,7 @@ func plainWordsRow(step: String, doing: String, asking: String) {
     #expect(Light(phase: .failed(.slowStart), status: s) == .failed)
 }
 
-@Test func callLengthsAndTheTimerReadNaturally() {
-    #expect(callLength(42) == "under a minute" && callLength(12 * 60 + 5) == "12 min" && callLength(65 * 60) == "1 h 5 min")
+@Test func theTimerReadsNaturally() {
     #expect(timer(42) == "0:42" && timer(12 * 60 + 4) == "12:04" && timer(3723) == "1:02:03")
 }
 
@@ -206,19 +205,17 @@ func plainWordsRow(step: String, doing: String, asking: String) {
 @Test func onlyWhatIsMissingIsListedEachWithItsFix() {
     let call = URL(filePath: "/p/call")
     let node = Node(url: URL(filePath: "/n"), version: "24.15.0")
-    let fine = Machine(callFolder: call, node: node, packages: true, claude: URL(filePath: "/c"), signedIn: true, chrome: URL(filePath: "/C"))
+    let fine = Machine(callFolder: call, node: node, packages: true, claude: URL(filePath: "/c"), signedIn: true)
     #expect(missing(fine).isEmpty)
     var m = fine; m.signedIn = nil // an older Claude Code that cannot say
     #expect(missing(m).isEmpty)
     m = Machine(callFolder: call)
-    #expect(missing(m).map(\.id) == [.node, .claude, .chrome]) // a launcher without a Runtime of its own: the old rows
-    #expect(missing(m).map(\.title) == ["Node is needed", "Claude Code isn’t installed", "Chrome isn’t installed"])
-    m.runtime = true // the app's own Runtime: no Node and no packages is one download, not two
-    #expect(missing(m).map(\.id) == [.packages, .claude, .chrome] && missing(m)[0].fix == .install)
+    #expect(missing(m).map(\.id) == [.node, .claude]) // a developer's own call folder, with no Node of the app's own
+    #expect(missing(m).map(\.title) == ["Node is needed", "Claude Code isn’t installed"])
+    m.runtime = true // the app's own Node: no Node and no packages is one download, not two
+    #expect(missing(m).map(\.id) == [.packages, .claude] && missing(m)[0].fix == .install)
     m.locked = true; m.server = false
-    #expect(missing(m).map(\.id) == [.packages, .claude, .chrome]) // the app's copy of the server is brought back by it
-    m.locked = false
-    #expect(missing(m).map(\.id) == [.moved, .packages, .claude, .chrome]) // a repository that moved is not
+    #expect(missing(m).map(\.id) == [.packages, .claude]) // the app's copy of the server is brought back by it
     m = fine; m.packages = false; m.signedIn = false
     #expect(missing(m).map(\.id) == [.packages, .signIn])
     #expect(missing(m)[0].fix == .install && missing(m)[0].title == "One more download")
@@ -226,31 +223,12 @@ func plainWordsRow(step: String, doing: String, asking: String) {
     m.node = Node(url: URL(filePath: "/n"), version: "16.0.0")
     #expect(missing(m).map(\.id) == [.node, .signIn]) // a Node too old to run them is first
     m.runtime = true
-    #expect(missing(m).map(\.id) == [.packages, .signIn]) // …or, with a Runtime of the app's own, the same download
+    #expect(missing(m).map(\.id) == [.packages, .signIn]) // …or, with the app's own Node, the same download
     m = fine; m.claudeVersion = "2.1.322"; m.signedIn = false
     #expect(missing(m).map(\.id) == [.claudeOld]) // an old Claude Code is updated before it is asked to sign in
     m.claudeVersion = Runtime.minimumClaudeCode
     #expect(missing(m).map(\.id) == [.signIn])
     #expect(isAtLeast("2.1.323", "2.1.323") && isAtLeast("2.2", "2.1.323") && isAtLeast("10.0.0", "9.9.9") && !isAtLeast("2.1.99", "2.1.323"))
-    m = fine; m.server = false
-    #expect(missing(m).map(\.title) == ["\(Product.name) was moved"])
-}
-
-@Test func environmentSetsEveryCallVariableOverTheShell() {
-    var s = CallSettings()
-    s.workerModel = .haiku; s.spokenYes = .nothing; s.openInClaudeApp = false
-    let shell = ["PATH": "/bin", "PORT": "3000", "VOICE_APPROVE": "all", "VOICE_THREADS": "4", "HOME": "/Users/someone"]
-    let env = s.environment(base: shell, project: project, key: "abc", port: 4810, kokoro: URL(filePath: "/opt/kokoro"))
-    #expect(env["PATH"] == "/bin" && env["HOME"] == "/Users/someone") // the shell's own variables stay
-    #expect(env["PORT"] == "4810" && env["CALL_KEY"] == "abc" && env["NO_OPEN"] == "1" && env["CALL_LAUNCHER"] == "1")
-    #expect(env["WORKER_MODEL"] == "haiku" && env["TALKER_MODEL"] == "haiku")
-    #expect(env["VOICE_APPROVE"] == "0" && env["SPEAK_FIRST"] == "1" && env["OPEN_IN_APP"] == "0") // limit warnings are always on
-    #expect(env["KOKORO_DIR"] == "/opt/kokoro" && env["VOICE_THREADS"] == nil)
-    #expect(env["PROJECTS_DIR"] == "/Users/someone/code") // "open a worker on …" looks next to the project
-    #expect(CallSettings().environment(base: [:], project: project, key: "k", port: 4747, kokoro: home)["OPEN_IN_APP"] == "1")
-    #expect(env["CLAUDE_PATH"] == nil) // not given: the server's SDK uses its own
-    let own = s.environment(base: ["CLAUDE_PATH": "/stray"], project: project, key: "k", port: 1, kokoro: home, claude: URL(filePath: "/u/claude"))
-    #expect(own["CLAUDE_PATH"] == "/u/claude")
 }
 
 @Test func choosingAProjectKeepsSixRecentOnesNewestFirst() {
@@ -263,10 +241,10 @@ func plainWordsRow(step: String, doing: String, asking: String) {
 
 @Test func settingsSurviveASaveAndOldFieldsAreIgnored() {
     var s = CallSettings()
-    s.choose("/p/a"); s.spokenYes = .anyStep; s.hasCalled = true; s.launchedBefore = true
+    s.choose("/p/a"); s.spokenYes = .anyStep
     #expect(CallSettings.decode(s.encoded) == s)
     let old = CallSettings.decode(Data(#"{"port": 4999, "allCores": true, "shortcut": true, "talkerModel": "sonnet", "limitWarnings": false, "workerModel": "sonnet"}"#.utf8)) // as older versions saved it
-    #expect(old.workerModel == .sonnet && old.openInClaudeApp && !old.launchedBefore)
+    #expect(old.workerModel == .sonnet && old.openInClaudeApp)
     #expect(CallSettings.decode(Data("not json".utf8)) == CallSettings() && CallSettings.decode(nil) == CallSettings())
     #expect(Disclosure.settings.contains("without asking; its own safety checks refuse") && !Disclosure.settings.contains("asks you"))
 }
@@ -313,23 +291,11 @@ func plainWordsRow(step: String, doing: String, asking: String) {
     close(fd) // that the port is free again is not asserted: a test running beside this one may take it first
 }
 
-@Test func aServerIsEndedWithItsWholeTreeAndTheLogIsPrivate() async throws {
-    let tmp = FileManager.default.temporaryDirectory.appending(path: "launcher-\(UUID())")
+@Test func theCallLogIsPrivate() throws {
+    let tmp = FileManager.default.temporaryDirectory.appending(path: "log-\(UUID())")
     defer { try? FileManager.default.removeItem(at: tmp) }
     let log = try CallLog.fresh(home: tmp)
     #expect((try FileManager.default.attributesOfItem(atPath: log.path)[.posixPermissions] as? Int) == 0o600)
-    // A stand-in server: /bin/sh with a child of its own, ending on SIGTERM.
-    let script = tmp.appending(path: "server.sh")
-    try "trap 'echo bye; exit 0' TERM; sleep 30 & wait; wait".write(to: script, atomically: true, encoding: .utf8)
-    let server = try CallServer(node: URL(filePath: "/bin/sh"), server: script, project: tmp, environment: [:], log: log)
-    let exited = Locked<Int32?>(nil)
-    try server.start { status in exited.with { $0 = status } }
-    try await Task.sleep(for: .milliseconds(300))
-    let tree = [server.pid] + descendants(of: server.pid)
-    #expect(tree.count == 2 && tree.allSatisfy(alive))
-    server.forceQuit()
-    for _ in 0..<50 where tree.contains(where: alive) { try await Task.sleep(for: .milliseconds(100)) }
-    #expect(!tree.contains(where: alive))
 }
 
 // MARK: What a call runs on: the lock, the checksum, the app's copy
@@ -378,9 +344,6 @@ private func scratch() throws -> URL {
     syncCall(from: v2, to: copy)
     #expect(try String(contentsOf: copy.appending(path: "server.mjs"), encoding: .utf8) == "server 2")
     #expect(!packagesCurrent(callFolder: copy, locked: true)) // npm ci is due
-    #expect(installsByItself(missing: [Missing(id: .packages, title: "", detail: "", fix: .install)]))
-    #expect(installsByItself(missing: [Missing(id: .packages, title: "", detail: "", fix: .install), Missing(id: .signIn, title: "", detail: "", fix: .signIn)]), "a first run too")
-    #expect(!installsByItself(missing: []))
     for file in mine { #expect(fm.fileExists(atPath: support.appending(path: file).path), "\(file) is the user's and stays") }
     #expect(fm.fileExists(atPath: copy.appending(path: sdk).path), "the installed packages stay until npm ci replaces them")
     // The same lock again (an update that did not change it): nothing to install.
@@ -516,7 +479,7 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
 }
 
 @Test func setupCountsOnlyTheThreeRows() {
-    let signedOut = missing(Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: false, chrome: URL(filePath: "/ch")))
+    let signedOut = missing(Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: false))
     var i = PanelInput(); i.missing = signedOut
     var d = PanelData(i)
     #expect(d.line1 == "Oh Kevin" && d.style == .ours && d.line2 == .text("Three things, then a call.") && d.door.label == "Set up" && d.door.style == .primary && d.door.action == .openSetup)
@@ -524,7 +487,7 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
     d = PanelData(i)
     #expect(d.line1 == "2 things to go" && d.line2 == .text("Next: sign in to Claude.") && d.door.label == "Continue" && d.door.action == .openSetup && d.shape == .rest(setup: true))
     i.project = URL(filePath: "/x/api"); i.missing = missing(Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: false, claude: URL(filePath: "/c"),
-                                                                  claudeVersion: "9.9.9", signedIn: false, chrome: URL(filePath: "/ch")))
+                                                                  claudeVersion: "9.9.9", signedIn: false))
     d = PanelData(i)
     #expect(d.line1 == "1 thing to go" && d.line2 == .text("Next: sign in to Claude."), "the download is not a thing to go")
     i.micState = .todo
@@ -581,12 +544,10 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
     #expect(d.shape == .call(.listening, muted: false, asking: true))
 }
 
-@Test func aBlockedMicOrAClosedWindowFlattensThePill() {
+@Test func aBlockedMicFlattensThePill() {
     let d = live { $0.status.mic = "mac" }
     guard case .call(let p) = d.pill else { Issue.record("a call"); return }
     #expect(p.flat && p.wrong && p.word == "Mic blocked" && !p.canMute && d.door.action == .allowMicrophone && d.shape == .lost(asking: false))
-    let w = live { $0.windowClosed = true }
-    #expect(w.door.action == .showCall && w.door.style == .move)
     #expect(live { $0.feedLost = true }.shape == .reconnecting(asking: false))
 }
 
@@ -594,19 +555,18 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
     #expect(PanelData(input { $0.phase = .failed(.stopped) }).line2 == .text("The connection dropped."))
     #expect(PanelData(input { $0.phase = .failed(.stopped) }).line1 == "Call lost" && PanelData(input { $0.phase = .failed(.stopped) }).door.label == "Call again")
     #expect(PanelData(input { $0.phase = .failed(.slowStart) }).line1 == "The call didn’t start")
-    #expect(PanelData(input { $0.phase = .ended(Ended(length: 5, line: nil)) }).line2 == .text("The call window has closed."))
+    #expect(PanelData(input { $0.phase = .ended(Ended(length: 5, line: nil)) }).line2 == .text("Ready for the next one."))
 }
 
 @Test func whatNoRowCoversKeepsItsOldWordsOnceTheRowsAreDone() {
     func panel(_ f: (inout Machine) -> Void) -> PanelData {
-        var m = Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true, chrome: URL(filePath: "/ch"))
+        var m = Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true)
         f(&m)
         var i = input(); i.missing = missing(m)
         return PanelData(i)
     }
-    #expect(panel { $0.chrome = nil }.door.label == "Get Chrome")
     #expect(panel { $0.node = nil }.door.label == "Install Node")
-    #expect(panel { $0.node = nil; $0.chrome = nil }.line1 == "1 step to go")
+    #expect(panel { $0.node = nil }.line1 == "1 step to go")
 }
 
 @Test func theCallNeverClaimsAStateItHasNotBeenTold() {
@@ -615,10 +575,9 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
 }
 
 @Test func aRequestIsNeverHiddenByATroubledCall() {
-    let ask = { (i: inout PanelInput) in i.status.apply(#"data: {"type":"ask","id":"a","detail":"Bash ls","worker":"api","voice":false,"full":"ls"}"#); i.status.mic = "chrome" }
+    let ask = { (i: inout PanelInput) in i.status.apply(#"data: {"type":"ask","id":"a","detail":"Bash ls","worker":"api","voice":false,"full":"ls"}"#); i.status.mic = "mac" }
     let d = live("listening", ask)
     #expect(d.line1 == "We need you" && d.style == .ask && d.door.action == .allowMicrophone && d.door.style == .move && d.shape == .lost(asking: true))
-    #expect(live("listening") { $0.windowClosed = true; ask(&$0); $0.status.mic = "" }.shape == .lost(asking: true))
     #expect(live("listening") { $0.feedLost = true; ask(&$0); $0.status.mic = "" }.shape == .reconnecting(asking: true))
 }
 
@@ -640,17 +599,13 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
 
 @Test func theDownloadIsNeverAStepAndNeverComesBeforeTheProject() {
     var i = input { $0.project = nil }
-    i.missing = missing(Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: false, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true, chrome: URL(filePath: "/ch")))
+    i.missing = missing(Machine(callFolder: URL(filePath: "/x"), node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: false, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true))
     #expect(PanelData(i).line2 == .text("Next: the project.") && PanelData(i).door.action == .openSetup)
     i.project = URL(filePath: "/x/api") // the rows are done: only now is the download said
     let wait = PanelData(i)
     #expect(wait.line2 == .text("Downloading, hold on a second…") && wait.door.style == .quiet && !wait.door.enabled)
     i.installFailed = true
     #expect(PanelData(i).door.label == "Try again" && PanelData(i).door.action == .install)
-    var moved = i; moved.installFailed = false
-    moved.missing = missing(Machine(callFolder: URL(filePath: "/x"), server: false, node: Node(url: URL(filePath: "/n"), version: "24.0.0"), packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true, chrome: URL(filePath: "/ch")))
-    let m = PanelData(moved)
-    #expect(m.line2 == .text("Build the app again from its folder.") && m.door.style == .quiet && !m.door.enabled)
 }
 
 @Test func theFirstLookCountsNoStepsItDoesNotKnowYet() {
@@ -665,7 +620,7 @@ private func live(_ voice: String = "listening", _ f: (inout PanelInput) -> Void
 
 @Test func theDesignsWordForNode() {
     var i = input()
-    i.missing = missing(Machine(callFolder: URL(filePath: "/x"), node: nil, packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true, chrome: URL(filePath: "/ch")))
+    i.missing = missing(Machine(callFolder: URL(filePath: "/x"), node: nil, packages: true, claude: URL(filePath: "/c"), claudeVersion: "9.9.9", signedIn: true))
     #expect(PanelData(i).door.label == "Install Node")
 }
 
@@ -791,7 +746,7 @@ private func payload(_ app: URL) -> String? { try? String(contentsOf: app.append
     #expect(releaseNotesURL(feed: nil, version: "0.2") == nil)
     // The Mac app's own feed and tags; an explicit prefix; names that are not a feed
     #expect(releaseNotesURL(feed: "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast-app.xml", version: "0.3")?.absoluteString == "https://github.com/bekhruzbekswe/ohkevin/releases/tag/app-v0.3")
-    #expect(releaseNotesURL(feed: "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast.xml", version: "0.3", tagPrefix: "launcher-v")?.absoluteString == "https://github.com/bekhruzbekswe/ohkevin/releases/tag/launcher-v0.3")
+    #expect(releaseNotesURL(feed: "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast.xml", version: "0.3", tagPrefix: "mac-v")?.absoluteString == "https://github.com/bekhruzbekswe/ohkevin/releases/tag/mac-v0.3")
     #expect(releaseNotesURL(feed: "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcastx.xml", version: "0.3") == nil)
     #expect(releaseNotesURL(feed: "https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/notes.xml", version: "0.3") == nil)
 }

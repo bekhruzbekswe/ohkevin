@@ -4,10 +4,9 @@ import Speech
 import CallKit
 import VoiceCore
 
-/// What a call needs on this Mac (Node, the call server's packages, Claude Code and its sign-in), checked the way the launcher
-/// checks it (VoiceCore's Machine.probe and missing()), and fixed from the app: the pinned Node and `npm ci` (installRuntime),
+/// What a call needs on this Mac (Node, the call server's packages, Claude Code and its sign-in), checked by VoiceCore's Machine.probe and missing(), and fixed from the app: the pinned Node and `npm ci` (installRuntime),
 /// `claude auth login`, `claude update`. Each check first brings the app's own call copy up to the call/ inside it (syncCall), so an
-/// update's new server is in place before anything runs; a changed package-lock.json then reinstalls the packages by itself. Chrome is the launcher's own need, never this app's: it listens through Apple's recogniser.
+/// update's new server is in place before anything runs; a changed package-lock.json then reinstalls the packages by itself.
 @Observable final class Setup {
     /// Only what is missing, in the order to fix it; nil until the first check has finished.
     private(set) var missing: [Missing]?
@@ -52,7 +51,7 @@ import VoiceCore
         }
     }
 
-    static func needed(_ m: Machine) -> [Missing] { VoiceCore.missing(m).filter { $0.id != .chrome } }
+    static func needed(_ m: Machine) -> [Missing] { VoiceCore.missing(m) }
 
     /// Off the main queue: it starts node and claude once each. `done` runs on the main queue once the list is known.
     func check(_ done: @escaping () -> Void = {}) {
@@ -61,7 +60,7 @@ import VoiceCore
         DispatchQueue.global().async { [self] in
             let env = Shell.environment() ?? Shell.fallback(home: FileManager.default.homeDirectoryForCurrentUser, base: ProcessInfo.processInfo.environment)
             if let bundled = place.bundled { syncCall(from: bundled, to: place.folder) }
-            let m = Machine.probe(environment: env, callFolder: place.folder, chrome: nil, kokoroPlaces: [], spotlight: false,
+            let m = Machine.probe(environment: env, callFolder: place.folder, kokoroPlaces: [], spotlight: false,
                                   support: place.ownCopy ? place.support : nil, locked: place.ownCopy)
             DispatchQueue.main.async { [self] in
                 environment = env; machine = m; missing = Self.needed(m); checking = false; lookAtMic(); done()
@@ -71,7 +70,7 @@ import VoiceCore
         }
     }
 
-    /// The fix for a step, as the launcher does it.
+    /// The fix for a step.
     func fix(_ action: DoorAction) {
         switch action {
         case .install: install()

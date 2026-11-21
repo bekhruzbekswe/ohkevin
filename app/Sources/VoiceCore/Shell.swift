@@ -40,7 +40,7 @@ final class Locked<Value>: @unchecked Sendable {
 }
 
 /// A Mac app started from Finder gets a bare PATH. The user's own shell knows where Node and Claude Code live,
-/// so the launcher asks it once, the way Terminal would start it, and gives the call server that environment.
+/// so the app asks it once, the way Terminal would start it, and gives the call server that environment.
 public enum Shell {
     static let mark = "__CALL_ENV__"
 

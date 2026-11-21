@@ -1,8 +1,8 @@
 import Foundation
 
-// What the launcher's panel and menu-bar item say, as plain data: three rows (head, pill, door) and one small shape.
+// What the menu-bar panel and its item say, as plain data: three rows (head, pill, door) and one small shape.
 // Nothing here draws or reaches into the app; the views take a `PanelData` and send `PanelIntent`s back (design/spec.md).
-// A state the launcher cannot truly know is never built here.
+// A state the app cannot truly know is never built here.
 
 /// What the pill's wave does: the voice listening, speaking, thinking; or still dots (muted, blocked); or dots lit in turn.
 public enum WaveKind: Equatable, Sendable { case listening, speaking, thinking, dots, waiting }
@@ -39,7 +39,7 @@ public enum DoorAction: Equatable, Sendable {
     /// The setup window: "Set up" and "Continue" in the panel.
     case openSetup
     case open(URL)
-    /// Nothing to press (busy, or nothing the launcher can fix).
+    /// Nothing to press (busy, or nothing the app can fix).
     case none
 }
 
@@ -95,7 +95,7 @@ public struct PanelData: Equatable, Sendable {
         public var label: String
         public var style: DoorStyle
         public var action: DoorAction
-        /// Nothing to press: busy, or nothing the launcher can fix.
+        /// Nothing to press: busy, or nothing the app can fix.
         public var enabled: Bool { action != .none }
     }
 
@@ -114,7 +114,7 @@ public struct PanelData: Equatable, Sendable {
     public var line: PanelLine?
 }
 
-/// Everything the panel is built from. The launcher fills it; tests make it up.
+/// Everything the panel is built from. The app fills it; tests make it up.
 public struct PanelInput: Sendable {
     public var phase: Phase = .idle
     public var status = CallStatus()
@@ -123,19 +123,16 @@ public struct PanelInput: Sendable {
     public var project: URL?
     public var recents: [URL] = []
     public var installing = false, installFailed = false, signingIn = false, updatingClaude = false, updateFailed = false
-    /// The call is live and no call page is connected.
-    public var windowClosed = false
     /// Starting, and the call server has answered: the voice is warming up (the window says so too).
     public var connecting = false
-    /// The launcher lost its feed from the call server while the call is live.
+    /// The app lost its feed from the call server while the call is live.
     public var feedLost = false
     public var liveSince: Date?
     public var handingOver = false
     /// The update line, made by the host.
     public var line: PanelLine?
-    /// The setup screen's Microphone row, as the host knows it (the launcher: Chrome asks), the line it says while asking, and the download's parts.
+    /// The setup screen's Microphone row, as the host knows it, and the download's parts.
     public var micState = SetupInput.Mic.todo
-    public var micAskingLine = "Your Mac is asking."
     public var downloadParts: [SetupInput.Part] = []
 
     public init() {}
@@ -158,7 +155,7 @@ extension PanelData {
                              pill: .call(CallPill(word: "", wave: .dots, muted: false, flat: true, wrong: false, canMute: false, ending: true)),
                              door: Door(label: "One moment", style: .quiet, action: .none), shape: .call(.dots, muted: false, asking: false), failed: false, onCall: true)
         case .ended(let e):
-            self = idle("Call ended.", .ours, e.line ?? "The call window has closed.", Door(label: "Start call", style: .primary, action: .startCall))
+            self = idle("Call ended.", .ours, e.line ?? "Ready for the next one.", Door(label: "Start call", style: .primary, action: .startCall))
         case .failed(let f):
             var d = idle(f == .stopped ? "Call lost" : f.title, .wrong, f == .stopped ? "The connection dropped." : f.line, Door(label: f == .stopped ? "Call again" : "Try again", style: .primary, action: .startCall), .lost(asking: false))
             d.failed = true
@@ -190,10 +187,10 @@ extension PanelData {
         var line1 = asking ? "We need you" : "On a call", line2 = Sub.timer(since: i.liveSince ?? Date())
         var door = Door(label: "Show the call", style: asking ? .move : .quiet, action: .showCall)
         let pill: CallPill, shape: MenuShape
-        if !s.mic.isEmpty || i.windowClosed { // it cannot hear: the door is the fix; a request still gets its words and its dot
-            pill = CallPill(word: s.mic.isEmpty ? "Not listening" : "Mic blocked", wave: .dots, muted: false, flat: true, wrong: true, canMute: false)
-            line2 = .text(s.mic.isEmpty ? "Its window isn’t open." : "Claude Code can’t hear you.")
-            door = Door(label: s.mic.isEmpty ? "Show the call" : "Allow microphone", style: .move, action: s.mic.isEmpty ? .showCall : .allowMicrophone)
+        if !s.mic.isEmpty { // it cannot hear: the door is the fix; a request still gets its words and its dot
+            pill = CallPill(word: "Mic blocked", wave: .dots, muted: false, flat: true, wrong: true, canMute: false)
+            line2 = .text("Claude Code can’t hear you.")
+            door = Door(label: "Allow microphone", style: .move, action: .allowMicrophone)
             shape = .lost(asking: asking)
         } else if i.feedLost {
             pill = CallPill(word: "Reconnecting", wave: .waiting, muted: false, flat: true, wrong: false, canMute: false)
@@ -225,19 +222,12 @@ private struct Step {
     var busyLine: String?
 }
 
-/// Node to get (when the app does not carry its own), Chrome gone after the microphone was allowed, the app moved.
+/// Node to get, for a developer's own call folder (the app's own copy fetches its Node).
 private func blockers(_ i: PanelInput) -> [Step] {
-    var out: [Step] = []
-    for m in i.missing ?? [] {
-        switch m.id {
-        case .moved: out.append(Step(door: .init(label: "Not ready", style: .quiet, action: .none), busyLine: "Build the app again from its folder."))
-        case .node, .chrome:
-            guard case .open(let label, let url)? = m.fix else { continue }
-            out.append(Step(door: .init(label: m.id == .node ? "Install Node" : label, style: .primary, action: .open(url))))
-        default: break
-        }
+    (i.missing ?? []).compactMap { m in
+        guard m.id == .node, case .open(_, let url)? = m.fix else { return nil }
+        return Step(door: .init(label: "Install Node", style: .primary, action: .open(url)))
     }
-    return out
 }
 
 func choices(_ i: PanelInput) -> [ProjectPill.Choice] {

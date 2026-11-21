@@ -17,7 +17,7 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
     var call: Call?, model: CallModel, logURL: URL?, monitor: Any?, click: Any?
     let quiet = Replay() // the turn-taking of the model that shows no call
     lazy var settings = AppSettings(persist: !drawing)
-    /// The launcher's menu-bar item and panel, on this app's call (none while drawing figures).
+    /// The menu-bar item and panel, on this app's call (none while drawing figures).
     var menuBar: MenuBar?
     let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1280, height: 800),
                           styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView], backing: .buffered, defer: false)
@@ -113,7 +113,7 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
         withObservationTracking { _ = model.title } onChange: { [weak self] in DispatchQueue.main.async { self?.follow() } }
         window.title = model.title // the system shows it only in Mission Control and the Window menu
     }
-    /// Self-updating, as the launcher does it: only in a build with a feed; installs by relaunching when the app is quiet (no call,
+    /// Self-updating: only in a build with a feed; installs by relaunching when the app is quiet (no call,
     /// the panel and Settings closed, no setup step, and the window not in use), checked every 15 s and at each call's end.
     func startUpdates() {
         MainActor.assumeIsolated {

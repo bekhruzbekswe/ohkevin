@@ -108,10 +108,6 @@ public func syncCall(from bundled: URL, to call: URL) {
     }
 }
 
-/// The download (Node, the server's packages) starts by itself, at launch and after an update, whenever it is missing: it never has a
-/// screen of its own and never waits for a press.
-public func installsByItself(missing: [Missing]) -> Bool { missing.contains { $0.id == .packages } }
-
 public let installedMark = ".installed"
 public let sdk = "node_modules/@anthropic-ai/claude-agent-sdk/package.json"
 

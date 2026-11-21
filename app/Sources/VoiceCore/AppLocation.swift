@@ -2,7 +2,7 @@ import Foundation
 
 // Where the app is running from, and what moving it to Applications takes. Sparkle cannot update an app that runs from its download
 // folder or from a translocated copy (Gatekeeper's randomised read-only path), so the app should live in /Applications. This file is the
-// logic only (no UI, off by default in the launcher): the decision from a path, finding the original of a translocated app, the move
+// logic only (no UI): the decision from a path, finding the original of a translocated app, the move
 // itself, and the command that starts the new copy once this one has quit. All of it is Foundation, so any app can share it.
 
 public enum Applications {

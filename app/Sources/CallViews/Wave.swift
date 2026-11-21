@@ -17,8 +17,8 @@ public enum Chevron {
     public static func style(_ w: CGFloat) -> StrokeStyle { StrokeStyle(lineWidth: w, lineCap: .butt, lineJoin: .miter, miterLimit: 10) }
 }
 
-/// The wave's bar heights in the panel and in the menu-bar item, and how they move. In the app the bars would follow
-/// sound; the launcher hears none, so they run the design's own loops: a mark of the state, never a measurement.
+/// The wave's bar heights in the panel and in the menu-bar item, and how they move: the design's own loops, a mark of the state,
+/// never a measurement of the sound.
 public enum WaveArt {
     public static let panel: [WaveKind: [CGFloat]] = [
         .listening: [6, 10, 14, 20, 24, 20, 14, 10, 8, 6, 4, 4, 4, 4, 4, 4],

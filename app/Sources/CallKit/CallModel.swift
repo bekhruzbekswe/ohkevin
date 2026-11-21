@@ -46,7 +46,7 @@ public struct Problem: Equatable {
 /// Where the call is. Idle is only the stand-in for the menu-bar panel's Start Call, until this app has one.
 public enum Stage: Equatable { case idle, starting, live, ending, ended, failed(Trouble) }
 
-/// A call that did not start or stopped: the launcher's Failure values, plus the voice that did not load.
+/// A call that did not start or stopped: VoiceCore's Failure values, plus the voice that did not load.
 public struct Trouble: Equatable {
     public let title: String, line: String, button: String
     public init(_ f: Failure) { title = f.title; line = f.line; button = f.button }
@@ -55,7 +55,7 @@ public struct Trouble: Equatable {
     public static let slowStart = Trouble("Nothing answered for 2 minutes.")
     public static let noPort = Trouble(.noPort), couldNotLaunch = Trouble(.couldNotLaunch), stoppedStarting = Trouble(.stoppedStarting)
     public static let stopped = Trouble(.stopped)
-    /// As the launcher's panel says it: in this app's own words.
+    /// As the menu-bar panel says it.
     public var failure: Failure { Failure(title: title, line: line, button: button) }
 }
 
@@ -307,7 +307,7 @@ public struct Note: Equatable {
     }
 
     // ── the work ──
-    /// Each worker's step in plain words, changed at most once every 0.6 s so fast steps do not flicker (the launcher's rule).
+    /// Each worker's step in plain words, changed at most once every 0.6 s so fast steps do not flicker (the panel's rule too).
     func refreshSteps() {
         let now = clock()
         for w in status.workers {

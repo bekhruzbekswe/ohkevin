@@ -24,7 +24,6 @@ public struct Machine: Equatable, Sendable {
     /// What `claude --version` says (for example "2.1.323"), when it said.
     public var claudeVersion: String?
     public var signedIn: Bool?
-    public var chrome: URL?
     /// The local voice's folder, when one was found.
     public var kokoro: URL?
     /// Probed with the app's own Runtime (`support:`): a missing Node is then part of "One more download", not a Node to go and get.
@@ -33,19 +32,19 @@ public struct Machine: Equatable, Sendable {
     public var locked: Bool
 
     public init(callFolder: URL, server: Bool = true, node: Node? = nil, packages: Bool = false, claude: URL? = nil,
-                claudeVersion: String? = nil, signedIn: Bool? = nil, chrome: URL? = nil, kokoro: URL? = nil, runtime: Bool = false, locked: Bool = false) {
+                claudeVersion: String? = nil, signedIn: Bool? = nil, kokoro: URL? = nil, runtime: Bool = false, locked: Bool = false) {
         self.callFolder = callFolder; self.server = server; self.node = node; self.packages = packages; self.claude = claude
         self.claudeVersion = claudeVersion; self.runtime = runtime; self.locked = locked
-        self.signedIn = signedIn; self.chrome = chrome; self.kokoro = kokoro
+        self.signedIn = signedIn; self.kokoro = kokoro
     }
 
     /// Slow (it starts node and claude once each, and may ask Spotlight), so call it off the main thread. With `support`,
     /// the Node is the app's own Runtime there (never one found on PATH), and `locked` (the app's own copy of the
     /// call folder) wants the packages installed from the lock beside them.
-    public static func probe(environment env: [String: String], callFolder: URL, chrome: URL?, kokoroPlaces: [URL], spotlight: Bool = true,
+    public static func probe(environment env: [String: String], callFolder: URL, kokoroPlaces: [URL], spotlight: Bool = true,
                              support: URL? = nil, locked: Bool = false) -> Machine {
         let fm = FileManager.default
-        var m = Machine(callFolder: callFolder, server: fm.fileExists(atPath: callFolder.appending(path: "server.mjs").path), chrome: chrome, runtime: support != nil, locked: locked)
+        var m = Machine(callFolder: callFolder, server: fm.fileExists(atPath: callFolder.appending(path: "server.mjs").path), runtime: support != nil, locked: locked)
         if let shim = support.map({ Runtime.node(support: $0) }) ?? Shell.which("node", path: env["PATH"]),
            fm.isExecutableFile(atPath: shim.path),
            let out = run(shim, ["-p", "process.execPath + '\\n' + process.versions.node"], environment: env, in: callFolder),
@@ -91,7 +90,7 @@ public func spotlightKokoro() -> [URL] {
 // MARK: - What is missing, and the one button that fixes it
 
 public struct Missing: Identifiable, Equatable, Sendable {
-    public enum Item: String, Sendable { case node, packages, claude, claudeOld, signIn, chrome, moved }
+    public enum Item: String, Sendable { case node, packages, claude, claudeOld, signIn }
     public enum Fix: Equatable, Sendable { case open(String, URL), install, signIn }
     public let id: Item
     public let title: String
@@ -101,15 +100,11 @@ public struct Missing: Identifiable, Equatable, Sendable {
 
 let nodeSite = URL(string: "https://nodejs.org/en/download")!
 let claudeSite = URL(string: "https://code.claude.com/docs/en/overview")!
-let chromeSite = URL(string: "https://www.google.com/chrome/")!
 
 /// Only what is missing, in the order a person would fix it. The local voice is never listed: it is optional.
 public func missing(_ m: Machine) -> [Missing] {
     var out: [Missing] = []
     let nodeBad = m.node.map { !$0.supported } ?? true
-    if !m.server && !m.locked { // the app's own copy of the server is put back by the download below
-        out.append(Missing(id: .moved, title: "\(Product.name) was moved", detail: "Build it again from its folder.", fix: nil))
-    }
     if m.runtime { // one download brings the Node, the server's files and the packages
         if nodeBad || !m.packages || !m.server {
             out.append(Missing(id: .packages, title: "One more download", detail: "The parts a call runs on.", fix: .install))
@@ -122,12 +117,9 @@ public func missing(_ m: Machine) -> [Missing] {
     if m.claude == nil {
         out.append(Missing(id: .claude, title: "Claude Code isn’t installed", detail: "Claude Code does the work on a call.", fix: .open("Get Claude Code", claudeSite)))
     } else if m.claudeVersion.map({ !isAtLeast($0, Runtime.minimumClaudeCode) }) ?? false {
-        out.append(Missing(id: .claudeOld, title: "Claude Code needs an update", detail: "Calls need version \(Runtime.minimumClaudeCode) or later.", fix: .open("Get Claude Code", claudeSite))) // the launcher offers to run `claude update` itself
+        out.append(Missing(id: .claudeOld, title: "Claude Code needs an update", detail: "Calls need version \(Runtime.minimumClaudeCode) or later.", fix: .open("Get Claude Code", claudeSite))) // the setup screen offers to run `claude update` itself
     } else if m.signedIn == false {
         out.append(Missing(id: .signIn, title: "Claude Code isn’t signed in", detail: "Calls use your Claude Code account.", fix: .signIn))
-    }
-    if m.chrome == nil {
-        out.append(Missing(id: .chrome, title: "Chrome isn’t installed", detail: "The call listens through Chrome.", fix: .open("Get Chrome", chromeSite)))
     }
     return out
 }
@@ -160,8 +152,8 @@ public func claudeProcess(claude: URL, _ arguments: [String], environment env: [
 
 public func signInProcess(claude: URL, environment env: [String: String]) -> Process { claudeProcess(claude: claude, ["auth", "login"], environment: env) }
 
-/// Installs the call server's packages (`npm ci`) with the login shell's environment, for a launcher that has no Runtime
-/// of its own (`installRuntime` is the one that has). True when it worked.
+/// Installs the call server's packages (`npm ci`) with the login shell's environment, in a developer's own call folder
+/// (OH_KEVIN_CALL_FOLDER; the app's own copy fetches the Agent SDK instead). True when it worked.
 public func installPackages(callFolder: URL, environment env: [String: String]) -> Bool {
     guard let npm = Shell.which("npm", path: env["PATH"]),
           let out = run(npm, ["ci", "--no-audit", "--no-fund"], environment: env, in: callFolder, timeout: 600)

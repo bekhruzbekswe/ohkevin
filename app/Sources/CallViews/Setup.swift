@@ -3,8 +3,8 @@ import SwiftUI
 import VoiceCore
 
 /// The one setup screen (design/onboarding.html): 920 × 660, a 640 column: the mark, the name, one line, three rows, one
-/// bottom. Like PanelView it is given plain data (VoiceCore's SetupScreen) and sends intents; it reaches into nothing, so the
-/// launcher and the Mac app draw the same screen. The host decides what each intent does.
+/// bottom. Like PanelView it is given plain data (VoiceCore's SetupScreen) and sends intents; it reaches into nothing. The host
+/// decides what each intent does.
 public struct SetupView: View {
     let data: SetupScreen
     /// Draws the moving bar still (pictures).

@@ -1,10 +1,10 @@
-// A stand-in for call/server.mjs in the launcher's UI test: the same event stream and routes, a call page that only
+// A stand-in for call/server.mjs in AppChecks --scene: the same event stream and routes, a call page that only
 // connects (no microphone), and no Claude, so a test costs nothing. It records what it is sent.
 // The test steers it through files beside it (read at start) and routes of its own:
 //   file "die"      exits at once, as a server that breaks while starting
 //   file "silent"   never listens, as a server that never answers
 //   file "printed"  the hand-over did not open the Claude app: an ending exits with 3, as call/server.mjs does
-//   file "stuck"    an ending never finishes (the launcher must end it after 30 s)
+//   file "stuck"    an ending never finishes (the app must end it after 30 s)
 //   POST /_emit {type, …}  puts an event on the stream (keeping the board and open requests for new connections)
 //   POST /_drop            closes every stream, as a sleep or a network hiccup would
 //   POST /_fail            the next /permit or /stop answers 500
@@ -16,7 +16,7 @@ import { existsSync, appendFileSync } from 'node:fs'
 
 const here = file => existsSync(new URL(file, import.meta.url))
 appendFileSync(new URL('starts', import.meta.url), `${process.pid}\n`)
-process.stdin.on('end', () => process.exit(0)).resume() // the launcher's pipe, as in server.mjs
+process.stdin.on('end', () => process.exit(0)).resume() // the app's pipe, as in server.mjs
 if (here('die')) process.exit(1)
 if (!here('silent')) {
   const PORT = Number(process.env.PORT), KEY = process.env.CALL_KEY

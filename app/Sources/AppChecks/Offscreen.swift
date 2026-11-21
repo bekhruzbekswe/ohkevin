@@ -6,7 +6,7 @@ import VoiceCore
 
 /// `AppChecks --offscreen <folder>`: the menu-bar panel in every state this app draws (the update line in each of its states too),
 /// and the closed Settings card, off and on a call, light and dark at 2×, rendered offscreen (ImageRenderer): no window opens. The
-/// same states as `--check`'s "launcher" sheet.
+/// same states as `--check`'s panel sheet.
 @MainActor
 enum Offscreen {
     static func run(folder: URL) -> Int32 {
@@ -22,7 +22,7 @@ enum Offscreen {
         let none = AppSettings(persist: false), settings = AppSettings(persist: false)
         settings.call.choose("/Users/you/Lab/api")
         settings.voices = ["af_heart", "bm_fable", "bm_george"]
-        for (cap, build) in Scene.launcher {
+        for (cap, build) in Scene.panelStates {
             let r = Scene.Rig(); build(r); r.model.update()
             settings.setup = Setup(machine: Scene.machines[cap] ?? Scene.ready)
             let data = PanelData(r.model.panelInput(cap == "First run: no project" ? none : settings))

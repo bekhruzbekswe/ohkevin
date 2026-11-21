@@ -23,7 +23,7 @@ final class Server {
         bundled: Bundle.main.url(forResource: "call", withExtension: nil), home: FileManager.default.homeDirectoryForCurrentUser,
         source: URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../../call").standardized)
     static var callFolder: URL { place.folder }
-    /// A new log for a call server in ~/Library/Logs/Oh Kevin/, where the launcher keeps its own; the last three are kept.
+    /// A new log for a call server in ~/Library/Logs/Oh Kevin/; the last three are kept.
     /// Only the user can read it: it holds the call's key.
     static func freshLog() throws -> URL {
         let fm = FileManager.default, folder = CallLog.folder(home: fm.homeDirectoryForCurrentUser)
@@ -38,7 +38,7 @@ final class Server {
     /// Starts `node server.mjs` in the call folder on the project: the app's own copy on the shared pinned Node, a developer's folder
     /// as a terminal would; "open a worker on …" looks beside the project. CALL_LAUNCHER=1: it hangs up by itself if this app dies. Its output goes to log.
     /// `shell` and `claude`: the login shell's environment and the Claude Code the setup check found. The app's own copy runs Node
-    /// directly, so it gets the PATH a terminal has from them (the launcher's way); a developer's folder starts a login shell itself.
+    /// directly, so it gets the PATH a terminal has from them; a developer's folder starts a login shell itself.
     static func start(log: URL, project: URL, model: Model, spokenYes: SpokenYes = .safeSteps, handOver: Bool, shell: [String: String]?, claude: URL?) throws -> Server {
         let call = callFolder
         var env = ProcessInfo.processInfo.environment
@@ -62,7 +62,7 @@ final class Server {
         p.environment = env.merging(["NO_OPEN": "1", "OPEN_IN_APP": handOver ? "1" : "0", "CALL_LAUNCHER": "1", "CALL_KEY": key, "PORT": "\(port)",
                                      "PROJECTS_DIR": project.deletingLastPathComponent().path, "WORKER_MODEL": env["WORKER_MODEL"] ?? model.rawValue,
                                      "VOICE_APPROVE": env["VOICE_APPROVE"] ?? spokenYes.rawValue]) { $1 }
-        // The local voice: where the launcher looks (VoiceCore), the server's own default otherwise.
+        // The local voice: where the setup looks (VoiceCore), the server's own default otherwise.
         let home = FileManager.default.homeDirectoryForCurrentUser
         if let kokoro = findKokoro(kokoroPlaces(saved: nil, shell: env, home: home, project: nil)) { p.environment?["KOKORO_DIR"] = kokoro.path }
         p.standardInput = pipe
@@ -90,7 +90,7 @@ final class Server {
         var once = false
         let finish = { (ok: Bool) in DispatchQueue.main.async { if !once { once = true; done(ok) } } }
         p.terminationHandler = { finish($0.terminationStatus == 0) }
-        p.interrupt() // SIGINT: hang up and open the work; then stdin closing is the launcher's second word, which waits for it
+        p.interrupt() // SIGINT: hang up and open the work; then stdin closing is the app's second word, which waits for it
         try? stdin?.fileHandleForWriting.close()
         DispatchQueue.main.asyncAfter(deadline: .now() + NativeTune.handOverSeconds) { if p.isRunning { p.terminate() }; finish(false) }
     }

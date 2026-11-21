@@ -38,7 +38,7 @@ enum CV {
     static let display = DisplaySerif.font(size: 48), title = Font.system(size: 22, weight: .semibold)
     static let body = Font.system(size: 17), bodyBold = Font.system(size: 17, weight: .semibold), small = Font.system(size: 14)
     static let mono = Font.system(size: 14, design: .monospaced)
-    static let voice = DisplaySerif.font(size: 17), question = DisplaySerif.font(size: 22) // the shared serif (CallViews), as the launcher draws it
+    static let voice = DisplaySerif.font(size: 17), question = DisplaySerif.font(size: 22) // the shared serif (CallViews), as the panel draws it
     static let stateWord = DisplaySerif.font(size: 22, italic: true)
 
     // space: one unit of 8, and the half step

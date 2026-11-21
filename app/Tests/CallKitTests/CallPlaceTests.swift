@@ -59,11 +59,9 @@ struct CallPlaceTests {
         #expect(read(sdk) == "{}" && read(installedMark) == mark("lock 1"))
         #expect(packagesCurrent(callFolder: copy, locked: true))
 
-        // An update that changes the lock: the packages are stale, and only then reinstalled by themselves.
+        // An update that changes the lock: the packages are stale.
         try put("package-lock.json", "lock 2", in: app)
         syncCall(from: app, to: copy)
-        #expect(!packagesCurrent(callFolder: copy, locked: true))
-        let packages = Missing(id: .packages, title: "", detail: "", fix: .install)
-        #expect(installsByItself(missing: [packages])) // the download takes it up by itself (Download, at launch)
+        #expect(!packagesCurrent(callFolder: copy, locked: true)) // so the setup's download fetches them again (Download, at launch)
     }
 }

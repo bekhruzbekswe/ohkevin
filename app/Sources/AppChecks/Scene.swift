@@ -151,8 +151,8 @@ enum Scene {
         ("lost", { r in _ = r.live(); r.model.stage = .failed(.stopped) }),
     ]
 
-    /// The launcher's states, as final.html "The launcher" names them (setup steps and Reconnecting: this app has neither).
-    static let launcher: [(String, (Rig) -> Void)] = [
+    /// The menu-bar panel's states, as design/final.html names them.
+    static let panelStates: [(String, (Rig) -> Void)] = [
         ("Idle", { $0.model.stage = .idle }),
         ("First run: no project", { $0.model.stage = .idle }),
         ("Starting", { r in r.send(["type": "hello", "project": ""]); r.model.stage = .starting }), // its server has not answered yet
@@ -353,9 +353,9 @@ enum Scene {
                 RunLoop.current.run(until: Date().addingTimeInterval(0.3))
                 snap("hover-\(name)-\(look)", w.window)
             }
-            // the launcher's panel and menu-bar item, on this app's call: the states final.html draws that this app has
+            // the menu-bar panel and its item, in every state
             let none = AppSettings(persist: false)
-            let cells = launcher.map { (cap, build) -> (String, PanelData) in
+            let cells = panelStates.map { (cap, build) -> (String, PanelData) in
                 let r = Rig(); let first = cap == "First run: no project"; build(r); r.model.update()
                 w.settings.setup = Setup(machine: machines[cap] ?? ready)
                 return (cap, PanelData(r.model.panelInput(first ? none : w.settings)))
@@ -372,7 +372,7 @@ enum Scene {
                 }
             }.padding(28).background(CV.ground).fixedSize())
             w.window.setContentSize(w.content.fittingSize)
-            snap("launcher-\(look)", w.window)
+            snap("panel-\(look)", w.window)
         }
         // Escape's hand-off with the shared sheet: the first closes only the open list, the second Settings
         w.window.setContentSize(NSSize(width: 1280, height: 800))

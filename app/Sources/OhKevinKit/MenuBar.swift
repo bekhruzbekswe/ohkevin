@@ -6,9 +6,9 @@ import SwiftUI
 import Updating
 import VoiceCore
 
-/// The launcher the owner approved (design/final.html, "The launcher"), on this app's own call: the fixed-width
+/// The menu bar the owner approved (design/final.html), on this app's own call: the fixed-width
 /// menu-bar item whose shape is the state, and under it the panel (CallViews' PanelView) that starts, mutes, ends and shows
-/// the call this app runs with its own engine and window. The panel is a non-activating NSPanel, as the launcher's is.
+/// the call this app runs with its own engine and window. The panel is a non-activating NSPanel.
 final class MenuBar: NSObject {
     let item = NSStatusBar.system.statusItem(withLength: MenuBarItem.size.width) // one width in every state: nothing beside it moves
     let panel: PanelWindow
@@ -61,7 +61,7 @@ final class MenuBar: NSObject {
         visible.value = false
     }
 
-    /// What the panel asks for, done on this app's call (the old launcher's Launcher.handle was the reference).
+    /// What the panel asks for, done on this app's call.
     func handle(_ intent: PanelIntent) {
         let model = app.model
         switch intent {
@@ -124,7 +124,7 @@ final class MenuBar: NSObject {
 }
 
 extension CallModel {
-    /// What the launcher's panel needs to know, from this app's call. The bar's state word stands in for the page's voice
+    /// What the panel needs to know, from this app's call. The bar's state word stands in for the page's voice
     /// state, and a blocked microphone for the page's mic report; this app has no separate call window to lose.
     func panelInput(_ settings: AppSettings) -> PanelInput {
         var i = PanelInput()
@@ -133,7 +133,7 @@ extension CallModel {
         case .starting: .starting
         case .live: .live
         case .ending: .ending
-        case .ended: .ended(Ended(length: (until ?? Date()).timeIntervalSince(since ?? until ?? Date()), line: sub.isEmpty ? "Ready for the next one." : sub)) // the window is still open here: not the launcher's "The call window has closed."
+        case .ended: .ended(Ended(length: (until ?? Date()).timeIntervalSince(since ?? until ?? Date()), line: sub.isEmpty ? "Ready for the next one." : sub))
         case .failed(let t): .failed(t.failure)
         }
         var s = status
@@ -147,7 +147,7 @@ extension CallModel {
         let setup = settings.setup
         i.missing = setup.missing; i.installing = setup.installing; i.installFailed = setup.installFailed
         i.signingIn = setup.signingIn; i.updatingClaude = setup.updatingClaude; i.updateFailed = setup.updateFailed
-        i.micState = setup.mic; i.micAskingLine = "Your Mac is asking."
+        i.micState = setup.mic
         i.downloadParts = setup.download.setupParts(ownCopy: Server.place.ownCopy)
         i.project = settings.call.project.map { URL(fileURLWithPath: $0) }
         i.recents = settings.call.recents.map { URL(fileURLWithPath: $0) }
@@ -188,7 +188,7 @@ struct PanelHost: View {
     }
 }
 
-/// The panel: borderless, non-activating, a fixed 320 × 228 (as the old launcher's PanelWindow).
+/// The panel: borderless, non-activating, a fixed 320 × 228.
 final class PanelWindow: NSPanel {
     var onKey: (NSEvent) -> Bool = { _ in false }
     init(content: NSView) {
@@ -212,7 +212,7 @@ final class FirstClickHostingView<Content: View>: NSHostingView<Content> {
 }
 
 /// The menu-bar item: one box, 52 × 22, in every state, a template image (the bar tints it), so only shape tells the states
-/// apart; the marigold "someone asks" dot is a layer on the button. Copied from the old launcher's MenuBarItem.swift, as offered.
+/// apart; the marigold "someone asks" dot is a layer on the button.
 enum MenuBarItem {
     static let size = CGSize(width: 52, height: 22)
     static let dot = CGRect(x: 34, y: 7, width: 8, height: 8)
