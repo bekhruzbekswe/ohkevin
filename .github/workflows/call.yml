@@ -1,0 +1,28 @@
+# The call server's tests (call/) on Linux and Windows, on every push and pull request: what `npx ohkevin` runs on.
+# The Mac app's checks need macOS and stay in ./check.sh.
+name: call
+on: [push, pull_request]
+concurrency:
+  group: call-${{ github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: call
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+      - run: npm ci --omit=optional --ignore-scripts # the SDK without its own copy of Claude Code
+      - run: node --test --test-timeout=120000
+        env:
+          CLAUDE_PATH: ${{ github.workspace }}/call/tools/claude-stub.mjs # no Claude Code here: the server's tests start workers but send them nothing
