@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oh Kevin: have a real conversation with Claude Code</title>
+<meta name="description" content="Think out loud. It answers out loud. Then it gets on with the work, and calls you back only when it matters.">
+<meta name="color-scheme" content="light">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f8f3e7; --ink: #1a1a18; --soft: #66645c; --line: #e3dfd3; --gold: #F4A62A;
+    --pad: max(1.5rem, calc((100vw - 76rem) / 2));        /* the left edge every line of text starts from */
+    --serif: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--bg); }
+  body { background: var(--bg); color: var(--ink); font: 17px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+  a { color: inherit; text-underline-offset: .2em; text-decoration-color: color-mix(in srgb, currentColor 30%, transparent); }
+  a:hover { text-decoration-color: var(--gold); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+  /* 1. The opening: the name, one big sentence, the two things to do. The page is the room's wall colour, so the
+     room begins without a seam. */
+  .hero { padding: 2.5rem var(--pad) 3rem; }
+  .logo img { height: clamp(46px, 5.5vw, 62px); width: auto; margin: 0; }
+  h1 { font: 400 clamp(2.6rem, 7.4vw, 5.5rem)/1.02 var(--serif); letter-spacing: -.025em; text-wrap: balance; margin: clamp(2.5rem, 9vh, 5rem) 0 1.25rem; max-width: 11em; }
+  .lede { color: var(--soft); font-size: clamp(1.1rem, 1.9vw, 1.3rem); max-width: 27em; text-wrap: balance; }
+  .cta { display: flex; flex-wrap: wrap; gap: .75rem; margin: 2rem 0 .9rem; }
+  .button { padding: .85rem 1.7rem; border: 1.5px solid var(--ink); border-radius: 999px; font-weight: 600; text-decoration: none; }
+  .button.fill { background: var(--ink); color: var(--bg); }
+  .button:hover { opacity: .8; }
+  .note { color: var(--soft); font-size: .85rem; padding-bottom: 2.5rem; }
+
+  /* 2. The evening: one room that fills the screen and stays put while the page scrolls through it
+     (assets/cat.js draws it and moves it). The room is always lit, so its words are always ink. */
+  .stage { display: none; background: var(--bg); }
+  .rh { display: block; width: 100%; height: 100%; }
+  .rh text { font: 600 15px var(--sans); fill: #1a1a18; text-anchor: middle; dominant-baseline: central; }
+  .caps { list-style: none; padding: 0 var(--pad); }
+  .caps li { max-width: 34rem; margin: 3rem 0; }
+  .caps h2, .last { font: 400 clamp(2rem, 4.6vw, 3.25rem)/1.1 var(--serif); letter-spacing: -.015em; text-wrap: balance; }
+  .caps p { color: var(--soft); font-size: clamp(1rem, 1.6vw, 1.15rem); margin-top: .5rem; text-wrap: pretty; }
+  .mark { position: absolute; }
+  .js .story { position: relative; height: 340vh; }
+  .js .pin, .js .end { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+  .js .end { position: relative; }
+  .js .stage { display: block; position: absolute; inset: 0; }
+  .js .caps, .js .last { position: absolute; left: 0; right: 0; bottom: 4.5svh; color: #1a1a18; }
+  .js .caps { display: grid; }
+  .js .caps p { color: #57534a; }
+  .js .caps li { grid-area: 1/1; margin: 0; min-height: 8.5rem; opacity: 0; transform: translateY(.75rem); transition: opacity .45s, transform .45s; }
+  .js .caps li.on { opacity: 1; transform: none; }
+  /* The cat's inks and paints. */
+  path.cel { fill: #F7B733; stroke: #1a1a18; stroke-width: 3.4; stroke-linejoin: round; stroke-linecap: round; }
+  path.wht { fill: #fffdf8; stroke: #1a1a18; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+  path.line { fill: none; stroke: #1a1a18; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  path.ho { fill: none; stroke: #1a1a18; stroke-linecap: round; }
+  path.hf { fill: none; stroke: #F7B733; stroke-linecap: round; }
+
+  /* 3. The real thing, on the colour the room has reached by dusk, so no blend is needed either side of it. */
+  .loop { padding: 24vh 1rem; background: #e5d4b9; }   /* the dusk floor above it and the night wall below it */
+  .loop img { width: min(100%, 80rem); border-radius: 16px; }
+
+  /* 4. Night: the call is over. The same room, full screen; then the small print on the page's own colour. */
+  .last span { display: inline-block; }
+  .last { padding: 3rem var(--pad); }
+  .js .last { padding: 0 var(--pad); bottom: 8svh; }
+  .night { padding: 4.5rem var(--pad) 3rem; background: #d7c7ae; --soft: #4f4b42; }   /* the night floor, carried on */
+  .foot { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem 5rem; align-items: end; }
+  .foot img { height: 34px; width: auto; margin: 0 0 1.5rem; }
+  .star { font: 400 clamp(1.45rem, 2.6vw, 2rem)/1.25 var(--serif); letter-spacing: -.01em; max-width: 19em; text-wrap: balance; }
+  .night nav { display: grid; gap: .5rem; font-size: .95rem; }
+  .night nav span { color: var(--soft); }
+  .fine { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid #1a1a1826; color: var(--soft); font-size: .8rem; text-wrap: pretty; }
+  @media (max-width: 700px) { .foot { grid-template-columns: 1fr; gap: 2rem; } }
+
+  @media (max-width: 600px) { .js .caps li { min-height: 10.5rem; } }
+  @media (prefers-reduced-motion: reduce) { .js .caps li { transition: none; transform: none; } }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <div class="logo">
+      <picture>
+        <img src="assets/lockup-light.png" alt="Oh Kevin" width="660" height="168">
+      </picture>
+    </div>
+    <h1>Have a real conversation with Claude&nbsp;Code.</h1>
+    <p class="lede">Think out loud. It answers out loud. Then it gets on with the work, and calls you back only when it matters.</p>
+    <p class="cta">
+      <a class="button fill" href="https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/Oh-Kevin-App.dmg">Download for Mac</a>
+      <a class="button" href="https://github.com/bekhruzbekswe/ohkevin">Star on GitHub</a>
+    </p>
+    <p class="note">Free and open source. Apple silicon, macOS 26.</p>
+  </section>
+
+  <section class="story" data-story>
+    <span class="mark" id="talk" style="top: calc((100% - 100vh) * .1)"></span>
+    <span class="mark" id="over" style="top: calc((100% - 100vh) * .34)"></span>
+    <span class="mark" id="hand-off" style="top: calc((100% - 100vh) * .55)"></span>
+    <span class="mark" id="say-yes" style="top: calc((100% - 100vh) * .88)"></span>
+    <div class="pin">
+      <div class="stage" data-stage role="img" aria-label="One room through an afternoon and into the evening. A cartoon cat talks with a laptop on a desk, waving a wooden spoon. It walks across the room to the stove. Stirring, with its eyes on the pot, it says: Run the tests, and a job starts on the laptop. Later the laptop asks: Commit your changes? The cat keeps stirring, looks over, and says: Yes."></div>
+      <ol class="caps" data-words>
+        <li data-cap class="on"><h2>Talk it through</h2><p>Start a call and think out loud. A plan, a bug, half an idea. Kevin answers at once, in a voice, and the idea moves as fast as you can talk.</p></li>
+        <li data-cap><h2>Hand it off</h2><p>Ask, and Claude Code takes the job. Go stir the pot. Each job runs on its own, so start another, ask how one is going, or stop it.</p></li>
+        <li data-cap><h2>Say yes</h2><p>When it needs you, Kevin calls you over. Say “yes”, or click Approve, and it carries on.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="loop">
+    <picture>
+      <img src="assets/oh-kevin-loop-light.webp" width="1500" height="970" loading="lazy"
+           alt="A silent loop of one call in the Oh Kevin window: you ask for the tests to be run, Kevin opens a worker, two more workers start, one asks to push your commits, you say yes, and all three finish">
+    </picture>
+  </section>
+</main>
+
+<section class="end" id="end" data-night>
+  <div class="stage" data-stage role="img" aria-label="Night in the same room. The moon is in the window and the lamp is on. The laptop shows one gold tick: the job is finished. The cat stands by a small table under the window, looking down at a steaming bowl."></div>
+  <div class="closing"><p class="last" data-words><span>Call over.</span> <span>Dinner’s served.</span> <span>The work is done.</span></p>
+    <p class="star">Like it? <a href="https://github.com/bekhruzbekswe/ohkevin">Star it on GitHub</a>. That's how the next person finds it.</p></div>
+</section>
+
+<footer class="night">
+  <div class="foot">
+    <div>
+      <img src="assets/lockup-light.png" alt="Oh Kevin" width="660" height="168">
+      <p class="star">Like it? <a href="https://github.com/bekhruzbekswe/ohkevin">Star it on GitHub</a>. That's how the next person finds it.</p>
+    </div>
+    <nav aria-label="Project">
+      <a href="https://github.com/bekhruzbekswe/ohkevin">GitHub</a>
+      <a href="https://github.com/bekhruzbekswe/ohkevin/blob/main/LICENSE">Apache 2.0</a>
+      <span>Other computers: coming soon</span>
+    </nav>
+  </div>
+  <p class="fine">Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic. It runs your own, unmodified Claude Code under your own account, and never sees or handles your sign-in.</p>
+</footer>
+<script src="assets/cat.js" defer></script>
+</body>
+</html>

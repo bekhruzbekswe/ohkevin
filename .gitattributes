@@ -4,3 +4,4 @@ app/results/** linguist-generated
 design/** linguist-documentation
 docs/** linguist-documentation
 media/** linguist-documentation
+site/** linguist-documentation
