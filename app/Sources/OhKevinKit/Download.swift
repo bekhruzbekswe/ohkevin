@@ -5,7 +5,7 @@ import VoiceCore
 
 /// The download that starts by itself at launch (design/onboarding.html): everything a call runs on that this Mac does not
 /// have yet, behind one bar. Its parts, in order: Node's program and the Agent SDK the server imports (installRuntime), the local voice
-/// (installKokoro into Application Support/Claude Voice/Kokoro), Apple's English speech model (AssetInventory). A part this Mac
+/// (installKokoro into Application Support/Oh Kevin/Kokoro), Apple's English speech model (AssetInventory). A part this Mac
 /// already has is left out, and the bar is over what is left, by size.
 @Observable final class Download {
     enum Part: String { case runtime, voice, speech }

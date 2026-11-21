@@ -16,15 +16,15 @@ cd launcher
 
 The app carries only our own code: the Swift binary, the voice runner and a copy of `call/` (no packages, no tests). On
 first run the download starts by itself: Node's program from nodejs.org (sha256 checked) into
-`~/Library/Application Support/Claude Voice/Node`, `call/` copied to `…/Call`, and the Agent SDK's `sdk.mjs` from npm
+`~/Library/Application Support/Oh Kevin/Node`, `call/` copied to `…/Call`, and the Agent SDK's `sdk.mjs` from npm
 (sha512 checked, no npm needed) into its `node_modules`. The SDK runs the user's own Claude Code (`CLAUDE_PATH`), so
 Anthropic's 347 MB binary is never fetched. The files are copied again at every check, and the SDK fetched again only when
 `package-lock.json` changed.
 Settings holds a second, optional download: the local voice (the app's own kokoro-runner, plus onnxruntime, espeak-ng and
 the model files, all pinned; about 381 MB to download, 365 MB on disk), deleted whole if any part fails.
 Run from the repository instead (`swift run`, or the checks), the app uses the repository's `call/` (`repoCallFolder`),
-and still needs the Runtime: the same Install fetches it. Its log is `~/Library/Logs/Claude Voice/call.log`; the call window's Chrome profile is
-`~/Library/Application Support/Claude Voice/Chrome`, kept so Chrome remembers the microphone.
+and still needs the Runtime: the same Install fetches it. Its log is `~/Library/Logs/Oh Kevin/call.log`; the call window's Chrome profile is
+`~/Library/Application Support/Oh Kevin/Chrome`, kept so Chrome remembers the microphone.
 
 ## Updates
 

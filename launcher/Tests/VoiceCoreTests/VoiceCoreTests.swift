@@ -866,3 +866,27 @@ private func run(_ events: [UpdateEvent]) -> [UpdateState] {
     #expect(try String(contentsOf: sdkFolder.appending(path: "sdk.mjs"), encoding: .utf8) == "export const query = 1")
     #expect(fm.fileExists(atPath: call.appending(path: sdk).path) && !fm.fileExists(atPath: sdkFolder.appending(path: "cli.js").path))
 }
+
+// MARK: The folders' old name
+
+@Test func theOldFoldersMoveOnceAndTheSavedVoiceFollows() throws {
+    let fm = FileManager.default, home = try scratch()
+    defer { try? fm.removeItem(at: home) }
+    let suite = "folder-move-\(UUID())", defaults = try #require(UserDefaults(suiteName: suite))
+    defer { defaults.removePersistentDomain(forName: suite) }
+    let oldSupport = home.appending(path: "Library/Application Support/\(Product.oldFolder)")
+    try fm.createDirectory(at: oldSupport.appending(path: "Kokoro"), withIntermediateDirectories: true)
+    try fm.createDirectory(at: home.appending(path: "Library/Logs/\(Product.oldFolder)"), withIntermediateDirectories: true)
+    var s = CallSettings(); s.kokoroFolder = oldSupport.appending(path: "Kokoro").path; s.save(to: defaults)
+
+    #expect(FolderMove.run(home: home, defaults: defaults).count == 2)
+    let newSupport = home.appending(path: "Library/Application Support/\(Product.folder)")
+    #expect(fm.fileExists(atPath: newSupport.appending(path: "Kokoro").path) && !fm.fileExists(atPath: oldSupport.path))
+    #expect(fm.fileExists(atPath: home.appending(path: "Library/Logs/\(Product.folder)").path))
+    #expect(CallSettings.load(from: defaults).kokoroFolder == newSupport.appending(path: "Kokoro").path)
+    #expect(FolderMove.run(home: home, defaults: defaults).isEmpty) // once
+
+    try fm.createDirectory(at: oldSupport, withIntermediateDirectories: true) // both there: the old one stays
+    #expect(FolderMove.run(home: home, defaults: defaults).first?.hasPrefix("Both") == true)
+    #expect(fm.fileExists(atPath: oldSupport.path))
+}

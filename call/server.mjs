@@ -22,7 +22,7 @@ import { handOverAll, lendTerminal, openOne } from './handover.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const NAME = 'Oh Kevin' // the product's name (Product.swift)
-const FOLDER = 'Claude Voice' // the launcher's folders keep their first name, so nothing a user has is lost (Product.swift)
+const FOLDER = 'Oh Kevin' // the apps' folder in Application Support (Product.swift)
 const [, , PROJECT_ARG] = process.argv
 const PROJECT = path.resolve(PROJECT_ARG ?? '')
 // Without a folder the project would be wherever the command ran, even this tool's own folder: never guess.

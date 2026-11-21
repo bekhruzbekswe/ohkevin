@@ -23,7 +23,7 @@ final class Server {
         bundled: Bundle.main.url(forResource: "call", withExtension: nil), home: FileManager.default.homeDirectoryForCurrentUser,
         source: URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../../call").standardized)
     static var callFolder: URL { place.folder }
-    /// A new log for a call server in ~/Library/Logs/Claude Voice/, where the launcher keeps its own; the last three are kept.
+    /// A new log for a call server in ~/Library/Logs/Oh Kevin/, where the launcher keeps its own; the last three are kept.
     /// Only the user can read it: it holds the call's key.
     static func freshLog() throws -> URL {
         let fm = FileManager.default, folder = CallLog.folder(home: fm.homeDirectoryForCurrentUser)

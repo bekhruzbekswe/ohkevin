@@ -6,7 +6,7 @@
 #
 # Your private key is read from your Keychain by Sparkle's generate_appcast (a macOS prompt may ask once). The rehearsal app has a
 # bundle id of its own, so it does not share its preferences with your installed app; it does share ~/Library/Application Support/
-# Claude Voice (Node, packages, voice, Chrome profile) with it, so quit the installed app first.
+# Oh Kevin (Node, packages, voice, Chrome profile) with it, so quit the installed app first.
 set -euo pipefail
 cd "$(dirname "$0")"
 PORT="${1:-8765}"

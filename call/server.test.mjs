@@ -84,7 +84,7 @@ test('a running server: the old-link page, the short word for scripts, and defau
   assert.match(out, /Claude Code: +haiku, auto mode/)
   assert.match(out, new RegExp(`Projects: +${root.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} `))
   for (let i = 0; i < 100 && !out.includes('Voice:'); i++) await new Promise(r => setTimeout(r, 100)) // a voice that is installed says so once it is ready
-  assert.match(out, /Voice: .*(Library\/Application Support\/Claude Voice\/Kokoro|Kokoro, on this Mac)/) // checked while no Kokoro is at the default place, or it is running
+  assert.match(out, /Voice: .*(Library\/Application Support\/Oh Kevin\/Kokoro|Kokoro, on this Mac)/) // checked while no Kokoro is at the default place, or it is running
 })
 
 test('the voice folder\'s kokoro-runner is started, with the folder as its one argument', async t => {

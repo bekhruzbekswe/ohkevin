@@ -6,6 +6,7 @@ import VoiceCore
 
 /// Starts the app: the menu-bar item and its model. All that the shipped binary's main does.
 @MainActor public func runApp() {
+    for line in FolderMove.run(home: FileManager.default.homeDirectoryForCurrentUser) { NSLog("%@", line) } // before anything uses the folders
     let app = NSApplication.shared
     let delegate = AppDelegate(launcher: .shared)
     app.delegate = delegate

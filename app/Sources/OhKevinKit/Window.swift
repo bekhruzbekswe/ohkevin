@@ -222,7 +222,7 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
 
     /// Start call: a call server of its own on the chosen project (or --call <link>), the window in front. The call's own log
-    /// (every word heard and said) is written only with --log <file>; the server's output goes to ~/Library/Logs/Claude Voice/.
+    /// (every word heard and said) is written only with --log <file>; the server's output goes to ~/Library/Logs/Oh Kevin/.
     func start() {
         let link = arg("--call").flatMap(URL.init(string:))
         guard link != nil || settings.call.project != nil else { return settings.chooseFolder() }

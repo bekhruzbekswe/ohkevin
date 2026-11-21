@@ -13,10 +13,10 @@ struct CallPlaceTests {
 
     @Test func aBuiltAppRunsItsOwnCopyNotTheLaunchers() {
         let p = CallPlace.resolve(override: nil, bundled: bundled, home: home, source: source)
-        #expect(p.folder.path == "/Users/someone/Library/Application Support/Claude Voice/Call-App")
+        #expect(p.folder.path == "/Users/someone/Library/Application Support/Oh Kevin/Call-App")
         #expect(p.folder.lastPathComponent != "Call") // the launcher's copy: never written by this app
         #expect(p.bundled == bundled && p.ownCopy)
-        #expect(p.node.path.hasPrefix("/Users/someone/Library/Application Support/Claude Voice/Node/")) // Node's program, shared with the launcher
+        #expect(p.node.path.hasPrefix("/Users/someone/Library/Application Support/Oh Kevin/Node/")) // Node's program, shared with the launcher
     }
 
     @Test func theDeveloperOverrideWinsAndIsUsedAsItIs() {

@@ -81,12 +81,12 @@ call window choose another.
   listening). The voice starts fresh and the workers stopped; their work so far is saved in Claude Code. If it breaks
   again, the panel says "Call lost": press **Call again** there.
 - **Anything else.** When a call fails, the panel says so in one line; **Show Details** opens the log
-  (`~/Library/Logs/Claude Voice/call.log`).
+  (`~/Library/Logs/Oh Kevin/call.log`).
 
 ## Uninstall
 
-Quit it from the ⋯ menu, delete the app, then remove `~/Library/Application Support/Claude Voice` (Node, the packages,
-the voice and the call window's Chrome profile), `~/Library/Logs/Claude Voice`, and the app's settings in
+Quit it from the ⋯ menu, delete the app, then remove `~/Library/Application Support/Oh Kevin` (Node, the packages,
+the voice and the call window's Chrome profile), `~/Library/Logs/Oh Kevin`, and the app's settings in
 `~/Library/Preferences` (the file named after the app's bundle id).
 
 ## Without the menu-bar app

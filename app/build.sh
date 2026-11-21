@@ -30,7 +30,7 @@ ditto ".build/artifacts/app/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Spark
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/$NAME"
 cp ../call/problem.mp3 "$APP/Contents/Resources/" # the problem sound, inside the app
 # The call server with its packages already installed, as the launcher carries it (launcher/pack-call.sh, shared). At first run and
-# after each update the app copies it to Application Support/Claude Voice/Call-App.
+# after each update the app copies it to Application Support/Oh Kevin/Call-App.
 ../launcher/pack-call.sh "$APP/Contents/Resources/call"
 # The local voice without Python: the launcher's kokoro-runner, one binary for both apps, run from Contents/Helpers.
 ( cd ../launcher && swift build -c release --product kokoro-runner >/dev/null )
