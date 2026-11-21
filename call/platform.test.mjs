@@ -35,5 +35,5 @@ test('the line that reopens a session, for each shell', () => {
 
 test('a process\'s children are listed on this machine', async () => {
   const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 3000)'])
-  try { assert.ok((await children(process.pid)).includes(String(kid.pid))) } finally { kid.kill() }
+  try { const list = await children(process.pid); assert.ok(list.includes(String(kid.pid)), `children of ${process.pid}: ${JSON.stringify(list)}; the child: ${kid.pid}`) } finally { kid.kill() }
 })
