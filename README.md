@@ -28,8 +28,6 @@ Think out loud. It answers out loud. Then it gets on with the work, and calls yo
 </tr>
 </table>
 
-I wanted Claude Code to keep working while my hands were busy on the other side of the room. A voice solved that. Then I noticed I'd rather talk ideas through than type them.
-
 <br>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-ask-dark.png"><img alt="The Oh Kevin window: the worker web asks to push your commits, with Deny and Approve buttons, while api and docs keep working" src="media/mac-ask-light.png"></picture>
