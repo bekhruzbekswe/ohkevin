@@ -1,0 +1,68 @@
+app/Sources/VoiceCore/Install.swift
+  s_05186c50002419::t_ac6044e6faa64e 31
+app/Sources/VoiceCore/UpdateState.swift
+  s_05186c50002419::t_00132d10e34be8 3
+CONTRIBUTING.md
+  s_05186c50002419::t_bd016b8c10ddc0 11,23-24,37
+app/Package.swift
+  s_05186c50002419::t_23b6266b7a8fe9 6,21-23,28,34-39
+app/pack-call.sh
+  s_05186c50002419::t_2eb7a45439136c 2,7
+app/Sources/kokoro-runner/main.swift
+  s_05186c50002419::t_7e8dbd023f30d1 47
+app/README.md
+  s_05186c50002419::t_87e3ceaf6102f9 4,17,28-29,42-44
+app/AGENTS.md
+  s_05186c50002419::t_f264fb4ba85746 3,5
+check.sh
+  s_05186c50002419::t_e3422c4b4ca939 2,9
+AGENTS.md
+  s_05186c50002419::t_3bd28d5ba02136 3-5,11-12,31-33,35,39,41-43
+SECURITY.md
+  s_05186c50002419::t_7d0bab8e3960f4 5-6
+app/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_05186c50002419::t_ea4aaf0d76c0b7 839
+app/.gitignore
+  s_05186c50002419::t_c5e919d90b320b 12
+app/release.sh
+  s_05186c50002419::t_58d8e49bb5e7ed 4-5,15,21,67,70
+app/build.sh
+  s_05186c50002419::t_bace6755387c20 7-9,11,14,23,32-35,37-39,41,76,83
+app/Sources/AppChecks/main.swift
+  s_05186c50002419::t_f0e5fd059250c9 36
+  s_05186c50002419::t_137b04b866631b 11,13,33-35
+app/Sources/AppChecks/Scene.swift
+  s_05186c50002419::t_58e51237f90d27 12
+app/design/spec.md
+  s_05186c50002419::t_eef542ac9e43f3 8,71
+app/publish.sh
+  s_05186c50002419::t_f45c6ca87bd04c 2
+app/Sources/CallViews/Brand.swift
+  s_05186c50002419::t_eed5adbd0851de 4
+ARCHITECTURE.md
+  s_05186c50002419::t_9077acceb87530 11-14,17,19,35-40,45,50,54,62
+check-paths.mjs
+  s_05186c50002419::t_4915df7d983601 3,39
+app/Tests/CallViewsTests/BrandTests.swift
+  s_05186c50002419::t_742765ceb33223 1-11
+app/Sources/OhKevinKit/MenuBar.swift
+  s_05186c50002419::t_6118ddbc057d9b 64,190,214
+.gitattributes
+  s_05186c50002419::t_899f7b3e620e52 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e4b9cc1e6b891678ba7ce8c9a79b0dc9be09dbb",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
