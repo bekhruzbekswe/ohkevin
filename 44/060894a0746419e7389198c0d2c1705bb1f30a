@@ -1,0 +1,19 @@
+README.md
+  s_8264812eb9e3f3::t_cb477a08d56d5c 6-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "44060894a0746419e7389198c0d2c1705bb1f30a",
+  "prompts": {},
+  "sessions": {
+    "s_8264812eb9e3f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ac956f26-7197-4b91-a7e8-4852d6fbc8d0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
