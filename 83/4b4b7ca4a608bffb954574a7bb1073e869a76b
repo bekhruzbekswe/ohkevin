@@ -1,0 +1,23 @@
+call/server.test.mjs
+  s_05186c50002419::t_e7bd779bea6961 1,12,18-20
+call/voice.replay.test.mjs
+  s_05186c50002419::t_70fa6e2ffa4273 19,32
+launcher/Sources/LauncherChecks/FirstRun.swift
+  s_05186c50002419::t_267e3cbffd9564 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "834b4b7ca4a608bffb954574a7bb1073e869a76b",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
