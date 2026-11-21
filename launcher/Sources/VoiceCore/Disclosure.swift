@@ -10,7 +10,7 @@ public enum Disclosure {
     /// The Settings line that points at the page below.
     public static let pointer = "What leaves this Mac, and what Claude Code may do."
 
-    /// The logo's mark (design/logo/lockup-mark-light.svg), its bars in the page's ink: inlined so the page needs nothing else.
+    /// The logo's mark (design/logo/mark-full-ink.svg), its bars in the page's ink: inlined so the page needs nothing else.
     static let markSVG = """
     <svg viewBox="4 18 90 68" width="76" height="57" aria-hidden="true"><rect x="6" y="77" width="4" height="6" rx="2" fill="currentColor"/><rect x="13.56" y="59.58" width="4" height="10" rx="2" fill="currentColor"/><rect x="21.04" y="44.92" width="4" height="14" rx="2" fill="currentColor"/><rect x="28.44" y="33.01" width="4" height="18" rx="2" fill="currentColor"/><rect x="35.76" y="24.87" width="4" height="20" rx="2" fill="currentColor"/><rect x="43" y="21.5" width="4" height="18" rx="2" fill="currentColor"/><rect x="50.16" y="21.87" width="4" height="14" rx="2" fill="currentColor"/><rect x="57.24" y="25.02" width="4" height="10" rx="2" fill="currentColor"/><rect x="64.24" y="29.92" width="4" height="8" rx="2" fill="currentColor"/><rect x="71.16" y="37.58" width="4" height="6" rx="2" fill="currentColor"/><circle cx="82.2" cy="54.8" r="10" fill="#F4A62A"/></svg>
     """

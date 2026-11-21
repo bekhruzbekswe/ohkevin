@@ -45,7 +45,7 @@ enum AppIcon {
         ctx.addPath(CGPath(roundedRect: body.insetBy(dx: ring / 2, dy: ring / 2), cornerWidth: radius - ring / 2, cornerHeight: radius - ring / 2, transform: nil))
         ctx.setStrokeColor(dark ? color("#F6F3EC", alpha: 0.14) : color("#1B1A17", alpha: 0.08)); ctx.setLineWidth(ring); ctx.strokePath()
         // The glyph: its SVG's viewBox (-23 -20 144 144) spans the body.
-        let file = logo.appending(path: "app-icon-\(compact ? "compact-" : "")\(dark ? "dark" : "light").svg")
+        let file = logo.appending(path: "app-icon\(compact ? "-compact" : "").svg") // one glyph for both looks; the squircle above changes
         guard let svg = try? String(contentsOf: file, encoding: .utf8) else { print("missing \(file.path)"); return }
         ctx.saveGState()
         ctx.translateBy(x: body.minX, y: body.minY); ctx.scaleBy(x: body.width / 144, y: body.height / 144); ctx.translateBy(x: 23, y: 20)
