@@ -26,12 +26,6 @@ Say "yes" for safe steps, or click **Approve**.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-ask-dark.png"><img alt="The Oh Kevin window: the worker web asks to push your commits, with Deny and Approve buttons, while api and docs keep working" src="media/mac-ask-light.png"></picture>
 
-### Oh Kevin also lives in your menu bar
-
-Start a call from there, or see when Kevin needs you, without the window in front.
-
-<picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-start-dark.png"><img alt="The menu-bar panel before a call: a project chooser and a Start call button" src="media/menubar-start-light.png" width="380"></picture>&emsp;&emsp;<picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-needs-you-dark.png"><img alt="The menu-bar panel during a call: We need you, with an Answer in the call button" src="media/menubar-needs-you-light.png" width="380"></picture>
-
 ## Install
 
 You need a Mac with Apple silicon and macOS 26.
