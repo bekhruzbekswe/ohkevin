@@ -1,20 +1,22 @@
+<div align="center">
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/lockup-dark.png"><img alt="Oh Kevin" src="media/lockup-light.png" height="64"></picture>
 
 # A voice you call on your Mac.
 
 Tell Kevin what you need. He runs several Claude Code jobs at once while you keep working.
 
-<a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
-
 <a href="https://github.com/bekhruzbekswe/ohkevin/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bekhruzbekswe/ohkevin?style=flat-square&color=lightgrey&label=release"></a> <img alt="macOS 26, Apple silicon" src="https://img.shields.io/badge/macOS_26-Apple_silicon-lightgrey?style=flat-square"> <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/licence-Apache_2.0-lightgrey?style=flat-square"></a>
 
-Other computers are coming soon.
+<a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
 <br>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/oh-kevin-loop-dark.webp"><img alt="A silent loop of one call in the Oh Kevin window: you ask for the tests to be run, Kevin opens a worker, two more workers start, one asks to push your commits, you say yes, and all three finish" src="media/oh-kevin-loop-light.webp"></picture>
 
 <br>
+
+</div>
 
 ## Say it. Keep working. Say yes.
 
@@ -34,6 +36,8 @@ Other computers are coming soon.
 
 ## Install
 
+### macOS (Apple silicon, macOS 26)
+
 1. **Download** it, drag Oh Kevin to Applications and open it.
 2. **Click Open Anyway** in System Settings › Privacy & Security. macOS asks once, because Oh Kevin is not signed by Apple. The code is open, here. Updates install by themselves.
 
@@ -46,6 +50,10 @@ Other computers are coming soon.
 
 Kevin works through [Claude Code](https://claude.com/claude-code); if you don't have it yet, Oh Kevin helps you get it. It then downloads what a call needs, about 410 MB, most of it the voice (381 MB), and Apple's speech model if your Mac doesn't have it yet.
 </details>
+
+### Other computers
+
+Coming soon.
 
 <br>
 
