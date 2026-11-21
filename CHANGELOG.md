@@ -5,14 +5,18 @@ What changed for people using Oh Kevin, newest first. Each release's section is 
 
 ## Unreleased
 
-### Changed
-- The sound for a problem in a call is Oh Kevin's own, made to sound like the old one.
-- The Agent SDK is downloaded from npm at first run (1.6 MB, checked against a pinned hash) instead of coming inside the app.
-- The older Python voice is gone. If you only had that one, Settings offers the new voice to download.
-
 ### Added
-- Each release lists SHA256SUMS for its files.
-- Updates and the download come from the latest release on GitHub.
+- Settings has what a call needs: what a spoken "yes" approves, opening the work in Claude afterwards, opening at login, and a
+  Privacy page that says what leaves your Mac.
+- The menu bar shows a starting call too: "Connecting… The voice is warming up.", as the window does.
+
+### Changed
+- Settings is one card in two groups, Calls and This Mac, each choice on its own row.
+- Oh Kevin's folders are called "Oh Kevin" now; the old ones move there by themselves.
+- The Agent SDK is downloaded at first run (1.6 MB, checked against a pinned hash) instead of coming inside the app.
+- The older Python voice is no longer used: Oh Kevin downloads its own voice once (381 MB).
+- The sound for a problem in a call is Oh Kevin's own.
+- Updates and the download come from the latest release on GitHub, which lists SHA256SUMS for its files.
 
 ## Launcher 0.6 — 2026-11-21
 
