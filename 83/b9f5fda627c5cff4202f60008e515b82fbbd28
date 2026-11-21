@@ -1,0 +1,21 @@
+AGENTS.md
+  s_05186c50002419::t_10efb4cb73a86c 33-45
+CHANGELOG.md
+  s_05186c50002419::t_f9665c252641aa 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "83b9f5fda627c5cff4202f60008e515b82fbbd28",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
