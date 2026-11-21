@@ -41,7 +41,8 @@ enum Offscreen {
         }
         for (name, onCall) in [("settings", false), ("settings-on-a-call", true)] {
             for dark in [false, true] { // closed: an open list is a scroll view, which ImageRenderer leaves blank
-                save(SettingsView(settings: settings, chooseVoice: { _ in }, onCall: onCall).frame(width: 360).padding(24).background(Palette(dark ? .dark : .light).ground), name, dark: dark)
+                settings.updatesPicture = true // a build with a feed: "Update automatically" is in the card
+                save(SettingsView(settings: settings, chooseVoice: { _ in }, onCall: onCall).frame(width: 400).padding(36).background(dark ? Color.black : Color(white: 0.08)), name, dark: dark)
             }
         }
         print("drew \(drawn) pictures offscreen in \(folder.path)")

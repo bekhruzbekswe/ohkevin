@@ -44,20 +44,23 @@ public struct SettingsSheet<Content: View>: View {
     private let width: CGFloat?
     private let paintsGround: Bool
     private let listOpen: Binding<Bool>?
+    private let inset: CGFloat, spacing: CGFloat
 
     /// `openChooser`: the title of a chooser whose list starts open (pictures).
     /// `listOpen`: mirrors whether a chooser's list is open, and closes it when the host sets it false (a host that sees Escape first
     /// closes the list with it before it closes anything else).
-    public init(openChooser: String? = nil, width: CGFloat? = 400, paintsGround: Bool = true, listOpen: Binding<Bool>? = nil, @ViewBuilder content: () -> Content) {
+    /// `inset`, `spacing`: the sheet's padding and the gap between its rows (a grouped card sets its own).
+    public init(openChooser: String? = nil, width: CGFloat? = 400, paintsGround: Bool = true, listOpen: Binding<Bool>? = nil,
+                inset: CGFloat = 24, spacing: CGFloat = 16, @ViewBuilder content: () -> Content) {
         _host = StateObject(wrappedValue: ChooserHost(open: openChooser))
-        self.width = width; self.paintsGround = paintsGround; self.listOpen = listOpen
+        self.width = width; self.paintsGround = paintsGround; self.listOpen = listOpen; self.inset = inset; self.spacing = spacing
         self.content = content()
     }
 
     public var body: some View {
         let c = Palette(scheme)
-        VStack(alignment: .leading, spacing: 16) { content }
-            .padding(24)
+        VStack(alignment: .leading, spacing: spacing) { content }
+            .padding(inset)
             .frame(width: width, alignment: .topLeading)
             .frame(maxWidth: width == nil ? .infinity : nil, alignment: .topLeading)
             .background((paintsGround ? c.ground : Color.clear).contentShape(Rectangle()).onTapGesture { host.open = nil })
@@ -180,6 +183,7 @@ public struct Chooser<Value: Hashable>: View {
     let maxListHeight: CGFloat
     let selectionTitle: String?
     let showsLabel: Bool
+    let look: Look
     @EnvironmentObject private var host: ChooserHost
     @Environment(\.colorScheme) private var scheme
     @Environment(\.showFocusRings) private var forced
@@ -187,10 +191,14 @@ public struct Chooser<Value: Hashable>: View {
 
     /// `selectionTitle`: what the pill says for the selection when no option names it (a direct chooser: the project's name); `showsLabel`
     /// false hides the small label above the pill (the title stays its accessibility label).
+    /// `.pill`: the label above a full-width pill. `.row`: a row of a grouped card, the title on the left and the value with its arrows
+    /// on the right (52 high, 16 in); its list drops under the row as the pill's does.
+    public enum Look: Sendable { case pill, row }
+
     public init(_ title: String, selection: Binding<Value>, options: [ChooserOption<Value>], action: ChooserAction? = nil, maxListHeight: CGFloat = 320,
-                selectionTitle: String? = nil, showsLabel: Bool = true) {
+                selectionTitle: String? = nil, showsLabel: Bool = true, look: Look = .pill) {
         self.title = title; _selection = selection; self.options = options; self.action = action; self.maxListHeight = maxListHeight
-        self.selectionTitle = selectionTitle; self.showsLabel = showsLabel
+        self.selectionTitle = selectionTitle; self.showsLabel = showsLabel; self.look = look
     }
 
     /// The pill's words: the chosen option's title; failing that the host's `selectionTitle`; in a direct chooser with no selection, the action's.
@@ -202,20 +210,33 @@ public struct Chooser<Value: Hashable>: View {
 
     public var body: some View {
         let c = Palette(scheme), open = host.open == title
+        let shape = RoundedRectangle(cornerRadius: look == .pill ? 24 : 10, style: look == .pill ? .circular : .continuous)
         VStack(alignment: .leading, spacing: 4) {
-            if showsLabel { SectionLabel(title) }
-            HStack(spacing: 0) {
-                Text(shown).font(.system(size: 17)).foregroundStyle(c.ink).lineLimit(1)
-                Spacer(minLength: 8)
-                Arrows(color: c.ink3).frame(width: 10, height: 48)
+            if showsLabel && look == .pill { SectionLabel(title) }
+            Group {
+                if look == .pill {
+                    HStack(spacing: 0) {
+                        Text(shown).font(.system(size: 17)).foregroundStyle(c.ink).lineLimit(1)
+                        Spacer(minLength: 8)
+                        Arrows(color: c.ink3).frame(width: 10, height: 48)
+                    }
+                    .padding(.leading, 24).padding(.trailing, 20).frame(height: 48)
+                    .background(shape.fill(c.sunk))
+                } else {
+                    HStack(spacing: 8) {
+                        Text(title).font(.system(size: 17)).foregroundStyle(c.ink).lineLimit(1)
+                        Spacer(minLength: 16)
+                        Text(shown).font(.system(size: 17)).foregroundStyle(c.ink2).lineLimit(1)
+                        Arrows(color: c.ink2).frame(width: 10, height: 18)
+                    }
+                    .padding(.horizontal, 16).frame(height: 52)
+                }
             }
-            .padding(.leading, 24).padding(.trailing, 20).frame(height: 48)
-            .background(RoundedRectangle(cornerRadius: 24, style: .circular).fill(c.sunk))
-            .contentShape(RoundedRectangle(cornerRadius: 24, style: .circular))
+            .contentShape(shape)
             .onTapGesture { host.pointer = true; toggle() }
             .focusable().focused($focused).focusEffectDisabled()
             .onKeyPress(phases: .down) { press in key(press) }
-            .overlay { if forced || (focused && !host.pointer) { RoundedRectangle(cornerRadius: 24, style: .circular).inset(by: -2).stroke(c.accent, lineWidth: 3) } }
+            .overlay { if forced || (focused && !host.pointer) { shape.inset(by: look == .pill ? -2 : 2).stroke(c.accent, lineWidth: 3) } }
             .accessibilityElement(children: .ignore).accessibilityAddTraits(.isButton).accessibilityAction { toggle() }
             .accessibilityLabel(title).accessibilityValue(shown == action?.title && direct ? "" : shown)
             .onAppear { if host.open == title { host.highlight = chosen } } // a list that starts open (pictures) starts at the chosen row too

@@ -39,6 +39,8 @@ import VoiceCore
     var lineGone: UpdateState?
     /// Moving to Applications: the line's progress.
     var moving = false
+    /// Pictures only: Settings draws "Update automatically" as a build with a feed has it.
+    var updatesPicture = false
     /// Pictures only: the update line drawn in the start window.
     var linePicture: PanelLine?
     /// The start window's update line now (VoiceCore's updateLine, the launcher's own rule), or nil.
@@ -110,47 +112,101 @@ struct SettingsView: View {
     @Bindable var settings: AppSettings
     /// The voice is chosen through the call when there is one, so it is heard at once.
     let chooseVoice: (String) -> Void
-    /// A call is on: changes wait for the next one, and the card says so.
+    /// A call is on: the card says what waits for the next call.
     var onCall = false
+    @Environment(\.colorScheme) private var scheme
 
+    /// The grouped card the owner approved (ohkevin-notes/settings-design/approved.png): small grey headers, two inset groups on the
+    /// paper, rows 52 high with hairlines between them only, pickers as rows (their lists drop under the row), the ink switch.
     var body: some View {
-        // the shared Settings (CallViews), the launcher's own; this app gives it the drop-down's rounded surface
-        SettingsSheet(openChooser: settings.openForPicture, width: nil, paintsGround: false, listOpen: $settings.listOpen) {
-            if onCall { Fineprint("You’re on a call. Changes apply to the next one.") }
-            SectionTitle("Calls")
-            Chooser("Project folder", selection: settings.projectBinding, options: settings.projectOptions, action: settings.projectAction, selectionTitle: settings.projectName)
-            Chooser("Model", selection: Binding { settings.call.workerModel } set: { settings.call.workerModel = $0 },
-                    options: Model.forWork.map { ChooserOption($0, $0.title) })
-            Chooser("Voice", selection: Binding { settings.voice } set: { settings.voice = $0; chooseVoice($0) },
-                    options: voiceGroups(settings.voices.isEmpty ? [settings.voice] : settings.voices).flatMap { g in g.voices.map { ChooserOption($0.name, $0.title, group: g.title) } })
-            Chooser("A spoken “yes” approves", selection: Binding { settings.call.spokenYes } set: { settings.call.spokenYes = $0 },
-                    options: [ChooserOption(SpokenYes.safeSteps, "Safe steps"), ChooserOption(.anyStep, "Any step"), ChooserOption(.nothing, "Nothing")])
-            SwitchRow("Open the work in Claude afterwards", isOn: Binding { settings.call.openInClaudeApp } set: { settings.call.openInClaudeApp = $0 })
-            SectionTitle("This Mac").padding(.top, 8)
-            HairlineRow("Open at login", detail: loginDetail, wrong: settings.loginError != nil) {
-                HStack(spacing: 12) {
+        let c = Palette(scheme)
+        let canUpdate = settings.updatesPicture || MainActor.assumeIsolated({ settings.updates?.available ?? false })
+        SettingsSheet(openChooser: settings.openForPicture, width: nil, paintsGround: false, listOpen: $settings.listOpen, inset: 16, spacing: 0) {
+            header("Calls").padding(.top, 12)
+            if onCall { // only the voice changes on a call; everything else waits for the next one
+                Text("Changes apply to the next call. The voice, now.").font(.system(size: 14)).foregroundStyle(c.ink2)
+                    .padding(.horizontal, 16).padding(.bottom, 8)
+            }
+            VStack(spacing: 0) {
+                Chooser("Project folder", selection: settings.projectBinding, options: settings.projectOptions, action: settings.projectAction,
+                        selectionTitle: settings.projectName, look: .row)
+                Chooser("Worker model", selection: Binding { settings.call.workerModel } set: { settings.call.workerModel = $0 },
+                        options: Model.forWork.map { ChooserOption($0, $0.title) }, look: .row).ruled(c)
+                Chooser("Voice model", selection: Binding { settings.voice } set: { settings.voice = $0; chooseVoice($0) },
+                        options: voiceGroups(settings.voices.isEmpty ? [settings.voice] : settings.voices).flatMap { g in g.voices.map { ChooserOption($0.name, $0.title, group: g.title) } },
+                        look: .row).ruled(c)
+                Chooser("A spoken “yes” approves", selection: Binding { settings.call.spokenYes } set: { settings.call.spokenYes = $0 },
+                        options: [ChooserOption(SpokenYes.safeSteps, "Safe steps"), ChooserOption(.anyStep, "Any step"), ChooserOption(.nothing, "Nothing")], look: .row).ruled(c)
+                switchRow("Open in Claude afterwards", Binding { settings.call.openInClaudeApp } set: { settings.call.openInClaudeApp = $0 }).ruled(c)
+            }
+            .group(c, scheme)
+            header("This Mac").padding(.top, 19)
+            VStack(spacing: 0) {
+                switchRow("Open at login", Binding { settings.opensAtLogin } set: { settings.opensAtLogin = $0 }, detail: loginDetail) {
                     if settings.loginItem == .requiresApproval { PillButton("Open Login Items") { SMAppService.openSystemSettingsLoginItems() } }
-                    Toggle("Open at login", isOn: Binding { settings.opensAtLogin } set: { settings.opensAtLogin = $0 })
-                        .labelsHidden().toggleStyle(InkToggleStyle()).accessibilityLabel("Open at login")
                 }
+                if canUpdate {
+                    switchRow("Update automatically", Binding { MainActor.assumeIsolated { settings.updates?.automatic ?? true } }
+                                                      set: { v in MainActor.assumeIsolated { settings.updates?.automatic = v } }).ruled(c)
+                }
+                privacyRow(c).ruled(c)
             }
-            if MainActor.assumeIsolated({ settings.updates?.available ?? false }) {
-                SwitchRow("Update automatically", isOn: Binding { MainActor.assumeIsolated { settings.updates?.automatic ?? true } }
-                                                        set: { v in MainActor.assumeIsolated { settings.updates?.automatic = v } })
-            }
-            FineprintLink(Disclosure.pointer, link: "Read more") { settings.openPrivacy() }.padding(.top, 8)
+            .group(c, scheme)
+            .padding(.bottom, 4)
         }
-        .onAppear { settings.refreshLoginItem() }
         .id(settings.openForPicture)
-        .background { // ground and hairline under the content, so an open list is drawn over the card's edge
+        .background { // the card: paper, a hairline edge, and one shadow for the whole of it (none on the controls inside)
             RoundedRectangle(cornerRadius: CV.radius, style: .continuous).fill(CV.ground)
                 .overlay(RoundedRectangle(cornerRadius: CV.radius, style: .continuous).strokeBorder(CV.hair))
+                .compositingGroup().cvShadow().shadow(color: .black.opacity(0.18), radius: 20, y: 12)
         }
-        .cvShadow().shadow(color: .black.opacity(0.18), radius: 20, y: 12) // it floats over the window
         .accessibilityElement(children: .contain).accessibilityLabel("Settings")
+    }
+
+    private func header(_ text: String) -> some View {
+        Text(text).font(.system(size: 15, weight: .semibold)).foregroundStyle(Palette(scheme).ink2)
+            .padding(.horizontal, 16).frame(height: 20).padding(.bottom, 8).accessibilityAddTraits(.isHeader)
+    }
+
+    private func switchRow<Extra: View>(_ title: String, _ isOn: Binding<Bool>, detail: String? = nil, @ViewBuilder extra: () -> Extra = { EmptyView() }) -> some View {
+        let c = Palette(scheme)
+        return HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title).font(.system(size: 17)).foregroundStyle(c.ink)
+                if let detail { Text(detail).font(.system(size: 15)).foregroundStyle(settings.loginError != nil ? c.wrong : c.ink2).fixedSize(horizontal: false, vertical: true) }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            extra()
+            Toggle(title, isOn: isOn).labelsHidden().toggleStyle(InkToggleStyle()).accessibilityLabel(title)
+        }
+        .padding(.horizontal, 16).padding(.vertical, detail == nil ? 0 : 12).frame(minHeight: 52)
+    }
+
+    /// "Privacy": what leaves this Mac and what Claude Code may do, on a page in the browser.
+    private func privacyRow(_ c: Palette) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Privacy").font(.system(size: 17)).foregroundStyle(c.ink)
+                Spacer()
+                Image(systemName: "arrow.up.right").font(.system(size: 14, weight: .semibold)).foregroundStyle(c.ink2)
+            }
+            Text(Disclosure.pointer).font(.system(size: 15)).foregroundStyle(c.ink2).lineSpacing(2).fixedSize(horizontal: false, vertical: true).frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 16).padding(.vertical, 14)
+        .contentShape(Rectangle()).onTapGesture { settings.openPrivacy() }
+        .accessibilityElement(children: .combine).accessibilityAddTraits(.isLink).accessibilityAction { settings.openPrivacy() }
     }
 
     private var loginDetail: String? {
         settings.loginError ?? (settings.loginItem == .requiresApproval ? "Allow it in System Settings to finish." : nil)
+    }
+}
+
+private extension View {
+    /// A hairline above this row, from the row's text to the group's right edge: between rows only.
+    func ruled(_ c: Palette) -> some View { overlay(alignment: .top) { Rectangle().fill(c.hair).frame(height: 1).padding(.leading, 16) } }
+    /// One of the card's two groups: white on the paper in light, a lifted grey in dark, its rows clipped to its corners.
+    func group(_ c: Palette, _ scheme: ColorScheme) -> some View {
+        background(RoundedRectangle(cornerRadius: 14, style: .continuous).fill(scheme == .dark ? Color(red: 0x2F / 255, green: 0x2D / 255, blue: 0x2A / 255) : .white))
     }
 }

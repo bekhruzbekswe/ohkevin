@@ -241,7 +241,7 @@ enum Scene {
         w.reset(); w.show(); pump(1.0)
         let responder = String(describing: type(of: w.window.firstResponder as Any))
         snap("live-start")
-        w.openSettings(); w.settings.openForPicture = "Voice"; pump(0.8)
+        w.openSettings(); w.settings.openForPicture = "Voice model"; pump(0.8)
         let opened = w.settings.listOpen
         point(NSPoint(x: 1280 - 8 - 200, y: 375)); snap("live-listhover")
         key(53) // Escape
@@ -281,7 +281,7 @@ enum Scene {
                     let recents = w.settings.call.recents
                     if shot.name == "folderdirect" { w.settings.call.recents = w.settings.call.project.map { [$0] } ?? [] } // no other project: Finder at once
                     defer { w.settings.call.recents = recents }
-                    w.settings.openForPicture = ["modellist": "Model", "voicelist": "Voice", "folderlist": "Project folder"][shot.name]; snap("\(shot.name)\(suffix)-\(look)", w.window)
+                    w.settings.openForPicture = ["modellist": "Worker model", "voicelist": "Voice model", "folderlist": "Project folder"][shot.name]; snap("\(shot.name)\(suffix)-\(look)", w.window)
                 }
                 // the bar alone, in each state, as the drawing's cell (bar 760 wide; 448 narrow)
                 let rigs = bars.map { b -> Rig in let r = Rig(); b.1(r); r.model.update(); return r }
@@ -377,7 +377,7 @@ enum Scene {
         // Escape's hand-off with the shared sheet: the first closes only the open list, the second Settings
         w.window.setContentSize(NSSize(width: 1280, height: 800))
         let er = Rig(); _ = er.live(); er.model.update(); w.setModel(er.model)
-        w.settings.openForPicture = "Voice"; w.settings.shown = true; pump(0.5)
+        w.settings.openForPicture = "Voice model"; w.settings.shown = true; pump(0.5)
         let opened = w.settings.listOpen; _ = w.escape(); pump(0.3)
         let first = (w.settings.listOpen, w.settings.shown); _ = w.escape(); pump(0.3)
         let ok = opened && first == (false, true) && !w.settings.shown
