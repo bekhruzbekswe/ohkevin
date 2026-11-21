@@ -106,7 +106,7 @@ async function native(s, secs, side) {
 mkdirSync(RESULTS, { recursive: true })
 const argv = process.argv.slice(2), sideAt = argv.indexOf('--side'), only = sideAt >= 0 ? argv[sideAt + 1] : null
 const names = argv.filter((a, i) => !a.startsWith('--') && (sideAt < 0 || i !== sideAt + 1))
-if (!existsSync(APP) && only !== 'chrome') throw new Error('Build the app first: ./build.sh')
+if (!existsSync(APP) && only !== 'chrome') throw new Error('Build AppChecks first: swift build --product AppChecks')
 let manifest
 const skipped = new Set()
 { const srv = await server('wavs'); try { manifest = await makeWavs() } finally { await srv.stop() } }
@@ -124,7 +124,7 @@ for (const s of manifest.filter(x => !names.length || names.includes(x.name))) {
         }
         save(lines, `chrome-${s.name}.jsonl`)
       }
-      else if (!await native(s, s.seconds, side)) { skipped.add(side); log(`${side} skipped: Apple's SpeechTranscriber English model is not installed (VoiceApp --install-model downloads it)`) }
+      else if (!await native(s, s.seconds, side)) { skipped.add(side); log(`${side} skipped: Apple's SpeechTranscriber English model is not installed (AppChecks --install-model downloads it)`) }
     } finally { await srv.stop() }
     await sleep(1000)
   }

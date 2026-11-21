@@ -3,26 +3,25 @@ import AVFoundation
 import Speech
 import CallKit
 import Ears
+@testable import OhKevinKit
+import VoiceCore
 
-// VoiceApp                       the call window: Start Call talks to a call server of its own (or --call <link>)
-// VoiceApp --file <wav> --call <link> --log <out.jsonl> [--end-talking <s>]
-//                                 a measurement: the WAV in real time in place of the microphone, nothing played aloud;
-//                                 --end-talking: s seconds after the voice starts, End call (and let go of the call), exit 4 s on
-// VoiceApp --replay <log.jsonl>  the ported turn-taking on a recorded call, in virtual time; prints what it posted and played
-//                                 (--replay - : calls on stdin, one JSON array of events per line)
-// VoiceApp --check <folder>      draws every state of the design (light and dark) to <folder>, quits; --scene <link> also drives a call
-//                                 against a stand-in server (launcher/Tests/stub-server.mjs)
-// VoiceApp --install-model       downloads Apple's newer English model (SpeechTranscriber); the owner's choice
-// VoiceApp --engine-check <file> the live audio engine with voice processing, muted, built a few ways; a report
-// VoiceApp --permissions        prints whether this copy may use the microphone and speech recognition (the update rehearsal)
-// VoiceApp --check-call <project> [--hold <s>]
-//                                 the setup and the call server with no window and no sound: brings the app's call copy up to date
-//                                 (its download: Node and the packages, the voice, the speech model, if missing), starts the server on <project>, prints where it runs
-//                                 and its pid, waits until it answers, holds it s seconds (default 5), ends it
-//                                 --no-spotlight: a voice is looked for only where the app puts it (a clean Mac, even on this one)
-//                                 --wav <file>: one sentence through the server's own /tts into <file> (written, never played)
-let args = CommandLine.arguments
-func arg(_ name: String) -> String? { args.firstIndex(of: name).flatMap { $0 + 1 < args.count ? args[$0 + 1] : nil } }
+// Checks and measurements that drive the real app's code. Never shipped: the app is the OhKevin product alone (build.sh).
+//   --check <folder> [--scene <link>]  draws every state of the design (light and dark) to <folder>, quits; --scene also drives a
+//                                       call against a stand-in server (launcher/Tests/stub-server.mjs)
+//   --replay <log.jsonl>               the ported turn-taking on a recorded call, in virtual time; prints what it posted and played
+//                                       (--replay - : calls on stdin, one JSON array of events per line; Tests/measure/differ.mjs)
+//   --file <wav> --call <link> --log <out.jsonl> [--end-talking <s>]
+//                                       a measurement: the WAV in real time in place of the microphone, nothing played aloud;
+//                                       --end-talking: s seconds after the voice starts, End call (and let go of the call), exit 4 s on
+//   --engine-check <file>              the live audio engine with voice processing, muted, built a few ways; a report
+//   --install-model                    downloads Apple's newer English speech model (SpeechTranscriber)
+//   --check-call <project> --app <Oh Kevin.app> [--hold <s>] [--no-spotlight] [--wav <file>]
+//                                       a built app's setup and call server with no window and no sound: brings its call copy up to date
+//                                       (its download: Node, the voice, the speech model, if missing), starts the server on <project>,
+//                                       prints where it runs and its pid, waits until it answers, holds it s seconds (default 5), ends it.
+//                                       --no-spotlight: a voice is looked for only where the app puts it (a clean Mac, even on this one);
+//                                       --wav: one sentence through the server's own /tts into <file> (written, never played)
 func fail(_ why: Any) -> Never { FileHandle.standardError.write(Data("\(why)\n".utf8)); exit(1) }
 
 if let path = arg("--engine-check") { // the live audio engine, muted: see EngineCheck.swift
@@ -30,17 +29,12 @@ if let path = arg("--engine-check") { // the live audio engine, muted: see Engin
     dispatchMain()
 }
 
-// What macOS lets this copy of the app do, without asking and without opening anything: the update rehearsal compares it before and
-// after an update (a stable signing identity keeps both; an ad-hoc one loses them).
-if args.contains("--permissions") {
-    let mic = ["not asked yet", "restricted", "denied", "allowed"][AVCaptureDevice.authorizationStatus(for: .audio).rawValue]
-    let speech = ["not asked yet", "denied", "restricted", "allowed"][SFSpeechRecognizer.authorizationStatus().rawValue]
-    print("\(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "?") \(Bundle.main.bundleIdentifier ?? "?"): microphone \(mic), speech recognition \(speech)")
-    exit(0)
-}
-
 if let project = arg("--check-call") {
+    guard let built = arg("--app").map({ URL(fileURLWithPath: $0) }) else { fail("--check-call needs --app <the built Oh Kevin.app>") }
+    Server.place = CallPlace.resolve(override: nil, bundled: built.appending(path: "Contents/Resources/call"),
+                                     home: FileManager.default.homeDirectoryForCurrentUser, source: Server.place.folder)
     let setup = Setup()
+    setup.download.runner = bundledRunner(in: Bundle(url: built) ?? .main)
     if args.contains("--no-spotlight") { setup.download.spotlight = false }
     func say(_ s: String) { print(s); fflush(stdout) }
     func serve() {
@@ -129,40 +123,7 @@ if let wav = arg("--file") {
     dispatchMain()
 }
 
-let app = NSApplication.shared
-let window = Window(check: arg("--check"))
-app.delegate = window
-func menu(_ title: String, _ items: [(String, Selector, String)]) -> NSMenuItem {
-    let item = NSMenuItem(), sub = NSMenu(title: title)
-    items.forEach { sub.addItem(withTitle: $0.0, action: $0.1, keyEquivalent: $0.2) }
-    item.submenu = sub; return item
-}
-app.mainMenu = NSMenu()
-// The app menu as every Mac app has it: About, (Check for Updates…, added by Window when the app can update), Settings…, Services,
-// Hide, Hide Others, Show All, Quit. Its items aim at the app's delegate (Window) directly, so they work whatever window is in front.
-let appMenu = NSMenu(title: appName)
-func add(_ menu: NSMenu, _ title: String, _ action: Selector?, _ key: String = "", target: AnyObject? = nil, mods: NSEvent.ModifierFlags = .command) {
-    let item = menu.addItem(withTitle: title, action: action, keyEquivalent: key); item.target = target; item.keyEquivalentModifierMask = mods
-}
-add(appMenu, "About \(appName)", #selector(Window.showAbout), target: window)
-appMenu.addItem(.separator())
-add(appMenu, "Settings…", #selector(Window.openSettings), ",", target: window)
-appMenu.addItem(.separator())
-let services = NSMenuItem(title: "Services", action: nil, keyEquivalent: ""); services.submenu = NSMenu(title: "Services"); app.servicesMenu = services.submenu
-appMenu.addItem(services); appMenu.addItem(.separator())
-add(appMenu, "Hide \(appName)", #selector(NSApplication.hide(_:)), "h")
-add(appMenu, "Hide Others", #selector(NSApplication.hideOtherApplications(_:)), "h", mods: [.command, .option])
-add(appMenu, "Show All", #selector(NSApplication.unhideAllApplications(_:)))
-appMenu.addItem(.separator())
-add(appMenu, "Quit \(appName)", #selector(NSApplication.terminate(_:)), "q")
-let appItem = NSMenuItem(); appItem.submenu = appMenu
-app.mainMenu?.addItem(appItem)
-for m in [
-          menu("File", [("Close", #selector(NSWindow.performClose(_:)), "w")]), // the call goes on
-          menu("Edit", [("Cut", #selector(NSText.cut(_:)), "x"), ("Copy", #selector(NSText.copy(_:)), "c"),
-                        ("Paste", #selector(NSText.paste(_:)), "v"), ("Select All", #selector(NSText.selectAll(_:)), "a")])] { app.mainMenu?.addItem(m) }
-app.setActivationPolicy(arg("--check") == nil ? .regular : ProcessInfo.processInfo.environment["REAL_POINTER"] == "1" ? .regular : .prohibited) // drawing figures: no Dock icon
-app.run()
+runApp(window: { let w = Window(drawing: arg("--check") != nil); if let folder = arg("--check") { w.drawn = { Scene.run($0, folder: URL(fileURLWithPath: folder)) } }; return w }())
 
 /// Replay's host, writing down what the voice did (plays, stops, pauses, resumes) for Tests/measure/differ.mjs to compare with voice.mjs.
 final class Tape: Ears.Host {

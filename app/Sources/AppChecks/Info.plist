@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleIdentifier</key><string>local.claude-voice.app-checks</string>
+  <key>NSMicrophoneUsageDescription</key><string>The engine check listens through the microphone, muted.</string>
+  <key>NSSpeechRecognitionUsageDescription</key><string>A measurement recognises a recorded WAV on this Mac.</string>
+</dict>
+</plist>

@@ -10,10 +10,12 @@ let testSettings: [SwiftSetting] = FileManager.default.fileExists(atPath: testin
 
 // Ears: the page's turn-taking, ported one for one, with no Apple audio in it (tested, and replayable on any log).
 // CallKit: what the call window shows (approvals, workers, the work, hand-over), with no screen in it, on the same Turns.
-// VoiceApp: the native app: Apple's recogniser, one audio engine for the microphone and the voice, the call window, and the
-// launcher's menu-bar item and panel (CallViews) driving this app's own call.
+// OhKevinKit: the Mac app's code: Apple's recogniser, one audio engine for the microphone and the voice, the call window, and the
+// launcher's menu-bar item and panel (CallViews) driving this app's own call. OhKevin: the app, which is all that ships.
+// AppChecks: the checks and measurements that drive the app's code (pictures, replays, a WAV for a microphone); never shipped.
+let appChecksInfo = Context.packageDirectory + "/Sources/AppChecks/Info.plist" // its microphone and speech reasons: no bundle of its own
 let package = Package(
-    name: "VoiceApp",
+    name: "OhKevin",
     platforms: [.macOS("26.0")],
     targets: [
         .target(name: "VoiceCore"), // the launcher's shared core, compiled from the same files (Sources/VoiceCore is a link to them)
@@ -25,7 +27,10 @@ let package = Package(
         .target(name: "CallKit", dependencies: ["Ears", "VoiceCore"]),
         // Updating: the launcher's shared updater and Move to Applications, the same files (Sources/Updating is a link), in Swift 6 as written.
         .target(name: "Updating", dependencies: ["VoiceCore", "Sparkle"], swiftSettings: [.swiftLanguageMode(.v6)]),
-        .executableTarget(name: "VoiceApp", dependencies: ["Ears", "CallKit", "VoiceCore", "CallViews", "Updating"]),
+        .target(name: "OhKevinKit", dependencies: ["Ears", "CallKit", "VoiceCore", "CallViews", "Updating"]),
+        .executableTarget(name: "OhKevin", dependencies: ["OhKevinKit"]),
+        .executableTarget(name: "AppChecks", dependencies: ["OhKevinKit", "Ears", "CallKit", "VoiceCore", "CallViews", "Updating"], exclude: ["Info.plist"],
+                          linkerSettings: [.unsafeFlags(["-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", appChecksInfo])]),
         .testTarget(name: "EarsTests", dependencies: ["Ears"], swiftSettings: testSettings),
         .testTarget(name: "CallKitTests", dependencies: ["CallKit", "Ears", "VoiceCore"], swiftSettings: testSettings),
     ],

@@ -15,7 +15,7 @@ final class Sound {
         self.microphone = microphone
         // The mixer meets the speakers first, in their own format (48 kHz here). Created after voice processing is on,
         // it is joined to the output at 44.1 kHz, the output then reports 0 Hz, 0 channels and will not initialise
-        // (AVAudioEngine error -10875 at kAUInitialize, seen with --engine-check).
+        // (AVAudioEngine error -10875 at kAUInitialize, seen with AppChecks --engine-check).
         for node in [voice, beep] { engine.attach(node); engine.connect(node, to: engine.mainMixerNode, format: format) }
         if microphone {
             let input = engine.inputNode

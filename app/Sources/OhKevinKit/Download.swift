@@ -24,6 +24,8 @@ import VoiceCore
     @ObservationIgnored private let place: CallPlace
     /// Also ask Spotlight for a voice installed elsewhere (as the call does); off only for a clean-Mac check (--check-call --no-spotlight).
     @ObservationIgnored var spotlight = true
+    /// The app's own kokoro-runner (Contents/Helpers): the voice without Python. AppChecks --check-call points it at a built app.
+    @ObservationIgnored var runner = bundledRunner()
     @ObservationIgnored private let home = FileManager.default.homeDirectoryForCurrentUser
     init(place: CallPlace) { self.place = place }
 
@@ -79,7 +81,7 @@ import VoiceCore
         case .voice:
             let watch = Self.watch([kokoroFolder], megabytes: Self.size[.voice]!, progress)
             defer { watch.cancel() }
-            return await installKokoro(into: kokoroFolder, callFolder: place.folder, environment: env, runner: bundledRunner()) // no Python when the app carries the runner
+            return await installKokoro(into: kokoroFolder, callFolder: place.folder, environment: env, runner: runner) // no Python when the app carries the runner
         case .speech:
             return await Self.installSpeechModel(progress)
         }

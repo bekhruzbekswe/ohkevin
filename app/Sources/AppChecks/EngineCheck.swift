@@ -3,8 +3,9 @@ import CallKit
 import Ears
 import CoreAudio
 import Synchronization
+@testable import OhKevinKit
 
-/// `VoiceApp --engine-check <report>`: the live audio engine, with nothing audible. The devices, every node's formats
+/// `AppChecks --engine-check <report>`: the live audio engine, with nothing audible. The devices, every node's formats
 /// before and after voice processing, then the engine built a few ways, one change at a time, each started for a
 /// moment to count what the microphone delivers. Output muted, nothing scheduled to play, no server, no Claude.
 /// The report is written as it goes, so a run stuck on the microphone prompt still says so.

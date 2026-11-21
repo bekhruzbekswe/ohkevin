@@ -1,13 +1,14 @@
 import AppKit
 import SwiftUI
+import CallKit
+@testable import OhKevinKit
 
-/// The owner's app icon (design/logo, AppIcon.icns as build.sh puts it in the app) in light and dark Docks at 128, 64 and
-/// 32 px, for the status page. Drawn by `--check`.
+/// The owner's app icon (the AppIcon.icns build.sh puts in the app) in light and dark Docks at 128, 64 and 32 px, for the status
+/// page. Drawn by `--check`.
 enum IconBoard {
-    /// The app's own icon: from the bundle, else the logo set's build (a debug run has no bundle).
+    /// The app's own icon, from the app build.sh made (AppChecks has no bundle of its own); the plain app icon before a build.
     @MainActor static var icon: NSImage {
-        if Bundle.main.url(forResource: "AppIcon", withExtension: "icns") != nil { return NSApp.applicationIconImage }
-        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../../design/logo/build/AppIcon.icns").standardized
+        let file = URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../build/\(appName).app/Contents/Resources/AppIcon.icns").standardized
         return NSImage(contentsOf: file) ?? NSApp.applicationIconImage
     }
 

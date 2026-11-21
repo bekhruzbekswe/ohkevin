@@ -4,8 +4,9 @@ import CallViews
 import Ears
 import SwiftUI
 import VoiceCore
+@testable import OhKevinKit
 
-/// `VoiceApp --check <folder>` draws the figures of design/final.html, wide and narrow, light and dark, into PNGs: the real window
+/// `AppChecks --check <folder>` draws the figures of design/final.html, wide and narrow, light and dark, into PNGs: the real window
 /// and views on a real CallModel and Turns, driven by the server's own events and the recogniser's own results, with a clock
 /// and a voice that stand still (nothing is heard, played or sent). `--scene <call link>` also runs a made-up call through the
 /// real Call against a stand-in server that only records what it is sent (launcher/Tests/stub-server.mjs): live.png.
@@ -220,7 +221,7 @@ enum Scene {
 
     /// REAL_POINTER=1 only, on screen with the real keyboard and pointer: the start opens with no focus ring, Escape closes an open
     /// list before Settings, and a list row lights only as a full row under the pointer. Exits 1 on a wrong answer.
-    static func liveChecks(_ w: Window, snap: (String) -> Void) {
+    static func liveChecks(_ w: OhKevinKit.Window, snap: (String) -> Void) {
         func key(_ code: CGKeyCode) {
             for down in [true, false] { CGEvent(keyboardEventSource: nil, virtualKey: code, keyDown: down)?.post(tap: .cghidEventTap) }
             pump(0.4)
@@ -249,7 +250,7 @@ enum Scene {
         if !ok { exit(1) }
     }
 
-    static func run(_ w: Window, folder: URL) {
+    static func run(_ w: OhKevinKit.Window, folder: URL) {
         try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         // recent projects that exist (the list leaves out folders that are gone), in a temporary folder removed at the end
         let lab = FileManager.default.temporaryDirectory.appending(path: "cv-figures-\(ProcessInfo.processInfo.processIdentifier)")
@@ -400,7 +401,7 @@ enum Scene {
     /// sends when a worker asks (its canUseTool: id, detail, worker, voice, full, step), the cards are answered by click, and
     /// the stand-in's record must hold both answers as POST /permit, exactly. Then every other control once, and the end.
     /// A wrong answer on the wire fails the run (exit 1).
-    static func live(_ w: Window, link: URL, snap: @escaping (String) -> Void, done: @escaping () -> Void) {
+    static func live(_ w: OhKevinKit.Window, link: URL, snap: @escaping (String) -> Void, done: @escaping () -> Void) {
         guard let server = try? Server(link: link) else { return done() }
         NSApp.appearance = NSAppearance(named: .aqua)
         let c = Call(server: server, log: nil)

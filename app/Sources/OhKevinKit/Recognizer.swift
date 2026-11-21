@@ -100,13 +100,13 @@ final class Recognizer: @unchecked Sendable { // touched on the main queue only;
         let watch = request.progress.observe(\.fractionCompleted) { p, _ in print(String(format: "%3.0f%%", p.fractionCompleted * 100)) }
         try await request.downloadAndInstall()
         watch.invalidate()
-        print("Installed: VoiceApp now uses SpeechTranscriber.")
+        print("Installed: the app now uses SpeechTranscriber.")
     }
 }
 
 /// Neither English model is on this Mac: the window offers the download (installModel).
 struct NoSpeechModel: Error, CustomStringConvertible {
     let want: String?
-    var description: String { want == nil ? "Apple's English speech model is not on this Mac yet. Quit Oh Kevin and open it again: it downloads it by itself." : "No English speech model on this Mac for \(want!). Run: VoiceApp --install-model" }
+    var description: String { want == nil ? "Apple's English speech model is not on this Mac yet. Quit Oh Kevin and open it again: it downloads it by itself." : "No English speech model on this Mac for \(want!). Run: AppChecks --install-model" }
 }
 struct Failure: Error, CustomStringConvertible { let description: String; init(_ s: String) { description = s } }

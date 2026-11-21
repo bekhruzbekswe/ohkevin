@@ -18,7 +18,7 @@ final class Server {
 
     /// Where the call server runs (CallPlace): the app's own copy in Application Support, from the call/ inside the app; a developer's
     /// folder with OH_KEVIN_CALL_FOLDER or the DeveloperCallFolder default; the repository with `swift run` (no bundle).
-    static let place = CallPlace.resolve(
+    static var place = CallPlace.resolve( // AppChecks --check-call points it at a built app
         override: ProcessInfo.processInfo.environment["OH_KEVIN_CALL_FOLDER"] ?? UserDefaults.standard.string(forKey: "DeveloperCallFolder"),
         bundled: Bundle.main.url(forResource: "call", withExtension: nil), home: FileManager.default.homeDirectoryForCurrentUser,
         source: URL(fileURLWithPath: #filePath).deletingLastPathComponent().appending(path: "../../../call").standardized)

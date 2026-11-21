@@ -14,7 +14,7 @@
 #   MOVE_TO_APPLICATIONS=1 turns on the move-to-Applications offer (the update line's "Move to Applications?"), as the launcher; off by default.
 set -euo pipefail
 cd "$(dirname "$0")"
-swift build -c release --product VoiceApp
+swift build -c release --product OhKevin
 NAME=$(sed -n 's/.*static let name = "\(.*\)".*/\1/p' Sources/VoiceCore/Product.swift) # the one place the name lives (VoiceCore)
 [ -n "$NAME" ] || { echo "No Product.name in Sources/VoiceCore/Product.swift"; exit 1; }
 VERSION="${VERSION:-$(tr -d '[:space:]' < VERSION)}"
@@ -24,7 +24,7 @@ SPARKLE_PUBLIC_KEY="${SPARKLE_PUBLIC_KEY-$(tr -d '[:space:]' < ../launcher/SPARK
 OUT="${OUT:-build}"
 APP="$OUT/$NAME.app"
 rm -rf "$APP" && mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
-cp "$(swift build -c release --show-bin-path)/VoiceApp" "$APP/Contents/MacOS/$NAME" # the process is called by the name too (Activity Monitor, Force Quit)
+cp "$(swift build -c release --show-bin-path)/OhKevin" "$APP/Contents/MacOS/$NAME" # the process is called by the name too (Activity Monitor, Force Quit)
 # Sparkle: the framework inside the app, found there by the binary
 ditto ".build/artifacts/app/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework" "$APP/Contents/Frameworks/Sparkle.framework"
 install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/$NAME"
@@ -89,4 +89,4 @@ sign_app() {
 if [[ -n "${SIGN_ID:-}" ]]; then sign_app "$SIGN_ID" --timestamp=none; else sign_app -; fi
 echo "Built $(cd "$OUT" && pwd)/$NAME.app  (version $VERSION, build $BUILD${UPDATES:+, updates from $FEED_URL})"
 # The equality checks: the Swift turn-taking against ears.mjs and every recorded call. A build that drifts fails here.
-if [[ "$OUT" == "build" ]]; then node Tests/measure/check.mjs; fi
+if [[ "$OUT" == "build" ]]; then swift build --product AppChecks >/dev/null && node Tests/measure/check.mjs; fi # AppChecks replays them; never shipped

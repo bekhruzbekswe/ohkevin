@@ -10,10 +10,13 @@ import VoiceCore
 /// The app's one window (design/final.html, "The app"): an AppKit window around the SwiftUI AppView, and the small
 /// Settings window. It starts nothing by itself: no server and no microphone until Start call. Closing it hides it and the call goes on.
 final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
-    let check: String?
+    /// Drawing pictures (AppChecks --check): nothing is saved, no menu-bar item, no updates, no setup check.
+    let drawing: Bool
+    /// Runs a second after launch while drawing (AppChecks: Scene).
+    var drawn: ((Window) -> Void)?
     var call: Call?, model: CallModel, logURL: URL?, monitor: Any?, click: Any?
     let quiet = Replay() // the turn-taking of the model that shows no call
-    lazy var settings = AppSettings(persist: check == nil)
+    lazy var settings = AppSettings(persist: !drawing)
     /// The launcher's menu-bar item and panel, on this app's call (none while drawing figures).
     var menuBar: MenuBar?
     let window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1280, height: 800),
@@ -33,8 +36,8 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
         if model.stage == .live { model.choose(name) } else if settings.persist { UserDefaults.standard.set(name, forKey: CallModel.voiceKey) }
     }
 
-    init(check: String?) {
-        self.check = check
+    init(drawing: Bool = false) {
+        self.drawing = drawing
         model = CallModel(turns: quiet.turns, post: { _, _ in })
         super.init()
     }
@@ -47,13 +50,13 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
         window.backgroundColor = NSColor(CV.ground)
         window.delegate = self
         window.contentView = content
-        if check == nil { menuBar = MenuBar(app: self) }
+        if !drawing { menuBar = MenuBar(app: self) }
         let accessory = NSTitlebarAccessoryViewController()
         accessory.layoutAttribute = .trailing
         placeCorner()
         accessory.view = corner
         window.addTitlebarAccessoryViewController(accessory)
-        if settings.firstCall && check == nil { // the setup screen (onboarding.html): 920 × 660 in the middle, until the first call
+        if settings.firstCall && !drawing { // the setup screen (onboarding.html): 920 × 660 in the middle, until the first call
             window.setContentSize(fitted(Self.setupSize)); window.center(); sizedForSetup = true
         } else if !window.setFrameUsingName("Window") { // first time: 1280 × 800, or what fits, in the middle
             window.setContentSize(fitted(Self.callSize)); window.center()
@@ -62,9 +65,9 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
         setModel(model)
         monitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [self] e in key(e) ? nil : e }
         click = NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [self] e in release(e); return e }
-        if check == nil { show(); settings.setup.check() } // what a call needs, checked at once: the start shows the first step
-        if check == nil { startUpdates() }
-        if let check { DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in Scene.run(self, folder: URL(fileURLWithPath: check)) } }
+        if !drawing { show(); settings.setup.check() } // what a call needs, checked at once: the start shows the first step
+        if !drawing { startUpdates() }
+        if let drawn { DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in drawn(self) } }
     }
 
     static let setupSize = NSSize(width: 920, height: 660), callSize = NSSize(width: 1280, height: 800)
@@ -77,7 +80,7 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
     }
     /// The first call: from the setup screen's size to the call's, around the same middle, once.
     func grow() {
-        guard sizedForSetup, check == nil else { return }
+        guard sizedForSetup, !drawing else { return }
         sizedForSetup = false
         let size = fitted(Self.callSize), mid = NSPoint(x: window.frame.midX, y: window.frame.midY)
         var frame = window.frameRect(forContentRect: NSRect(origin: .zero, size: size))
@@ -286,8 +289,8 @@ final class Window: NSObject, NSApplicationDelegate, NSWindowDelegate {
     func applicationShouldHandleReopen(_ app: NSApplication, hasVisibleWindows: Bool) -> Bool { if !hasVisibleWindows { show() }; return true }
     /// The microphone may have been allowed in System Settings meanwhile.
     func applicationDidBecomeActive(_ note: Notification) {
-        if check == nil { settings.setup.lookAtMic() } // allowed in System Settings meanwhile?
-        if check == nil, settings.setup.missing?.isEmpty == false { settings.setup.check() } // fixed in the meantime?
+        if !drawing { settings.setup.lookAtMic() } // allowed in System Settings meanwhile?
+        if !drawing, settings.setup.missing?.isEmpty == false { settings.setup.check() } // fixed in the meantime?
         if model.deaf == .microphone, AVCaptureDevice.authorizationStatus(for: .audio) == .authorized { call?.listenAgain() }
     }
 }

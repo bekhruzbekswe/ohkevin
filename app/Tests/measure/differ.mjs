@@ -1,5 +1,5 @@
 // The differential check: the same events go to call/voice.mjs (in Node, on the fake host below) and to its Swift port
-// (VoiceApp --replay -, which is Replay and Turns), on one handed clock, and everything both produce must be the same:
+// (AppChecks --replay -, which is Replay and Turns), on one handed clock, and everything both produce must be the same:
 // every /say, /hush and /live post with its body and time, every clip played, stopped, paused and resumed, every log line.
 // Inputs: every log in Tests/recordings/, the hand-written cases in call/replay/cases, and SEEDS generated calls.
 //   node Tests/measure/differ.mjs [seeds]        (after ./build.sh; check.mjs runs it; exits 1 on any difference)
