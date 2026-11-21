@@ -11,7 +11,8 @@ import { fileURLToPath } from 'node:url'
 import { once } from 'node:events'
 import { createServer } from 'node:net'
 import { chmodSync } from 'node:fs'
-import { dataDir, findBrowser } from './platform.mjs'
+import { dataDir } from './platform.mjs'
+import { CHROME, openChrome } from './tools/chrome.mjs'
 import { findClaude } from './claude-path.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -228,7 +229,6 @@ test('the voice\'s state reaches the launcher: who has the floor, whether it is 
   assert.deepEqual(await last(feed, 'voice', { state: 'listening', canMute: false }), { type: 'voice', state: 'listening', canMute: false }, 'no page, no mute state')
 })
 
-const CHROME = findBrowser()?.file ?? '' // Chrome, wherever this platform installs it (platform.mjs)
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 
 // A real server started as the launcher starts it, and its page opened with go=1 in a headless Chrome (throwaway profile,
@@ -239,21 +239,15 @@ async function launcherPage(t) {
   const server = spawn('node', [SERVER, project], { env, stdio: ['pipe', 'pipe', 'ignore'] }) // CALL_LAUNCHER: the stdin pipe must stay open
   let out = ''
   server.stdout.on('data', d => { out += d })
-  const chrome = spawn(CHROME, ['--headless=new', `--user-data-dir=${path.join(root, 'profile')}`, '--remote-debugging-port=0', '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--mute-audio', '--no-first-run', 'about:blank'], { stdio: 'ignore' })
+  const { chrome, page: ws } = await openChrome([`--user-data-dir=${path.join(root, 'profile')}`, '--use-fake-device-for-media-stream', '--use-fake-ui-for-media-stream', '--mute-audio'])
   t.after(async () => {
     chrome.kill('SIGKILL'); server.kill('SIGTERM'); await Promise.all([chrome, server].map(p => p.exitCode === null && p.signalCode === null ? once(p, 'exit') : 0)) // the server may be gone already
     try { rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }) } catch {} // on Linux Chrome's helper processes may still write into its profile for a moment
   })
-  for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await sleep(100)
-  let ws
-  for (let i = 0; i < 100 && !ws; i++) {
-    await sleep(100)
-    try {
-      const [port] = readFileSync(path.join(root, 'profile', 'DevToolsActivePort'), 'utf8').split('\n')
-      ws = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(x => x.type === 'page')?.webSocketDebuggerUrl
-    } catch {}
-  }
-  assert.ok(ws, 'Chrome opened its debugging port')
+  await new Promise((ready, fail) => { // the server says when its page is up, or exits: no deadline to race
+    const look = () => out.includes('Call page:') && ready()
+    server.stdout.on('data', look); server.once('exit', code => fail(new Error(`the server exited (${code}): ${out}`))); look()
+  })
   const sock = new WebSocket(ws); await once(sock, 'open')
   let id = 0; const waiting = new Map()
   sock.onmessage = m => { const d = JSON.parse(m.data); waiting.get(d.id)?.(d); waiting.delete(d.id) }

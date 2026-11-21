@@ -6,17 +6,15 @@
 //   REPLAY_CASES=<dir> REPLAY_OUT=<dir>                   also replays the cases in <dir>, and writes every log to <dir>
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { spawn } from 'node:child_process'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { createServer } from 'node:http'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { findBrowser } from './platform.mjs'
+import { CHROME, openChrome } from './tools/chrome.mjs'
 import { once } from 'node:events'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), DIR = path.join(HERE, 'replay')
-const CHROME = findBrowser()?.file ?? '' // Chrome, wherever this platform installs it (platform.mjs)
 let PORT // a free port, picked when the page server starts
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const cases = dir => readdirSync(dir).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(path.join(dir, f), 'utf8')))
@@ -32,21 +30,12 @@ test('recorded and hand-written calls replay through the page exactly as before'
   })
   server.listen(0, '127.0.0.1'); await once(server, 'listening'); PORT = server.address().port
   const root = mkdtempSync(path.join(tmpdir(), 'call-replay-'))
-  const chrome = spawn(CHROME, ['--headless=new', `--user-data-dir=${path.join(root, 'profile')}`, '--remote-debugging-port=0', '--mute-audio', '--no-first-run', 'about:blank'], { stdio: 'ignore' })
+  const { chrome, page: ws } = await openChrome([`--user-data-dir=${path.join(root, 'profile')}`, '--mute-audio'])
   t.after(async () => {
     chrome.kill('SIGKILL'); server.close()
     if (chrome.exitCode === null && chrome.signalCode === null) await once(chrome, 'exit')
     try { rmSync(root, { recursive: true, force: true, maxRetries: 5, retryDelay: 200 }) } catch {} // on Linux Chrome's helper processes may still write into its profile for a moment
   })
-  let ws
-  for (let i = 0; i < 150 && !ws; i++) {
-    await sleep(100)
-    try {
-      const [port] = readFileSync(path.join(root, 'profile', 'DevToolsActivePort'), 'utf8').split('\n')
-      ws = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find(x => x.type === 'page')?.webSocketDebuggerUrl
-    } catch {}
-  }
-  assert.ok(ws, 'Chrome opened its debugging port')
   const sock = new WebSocket(ws); await once(sock, 'open')
   let id = 0; const waiting = new Map(), loaded = []
   sock.onmessage = m => { const d = JSON.parse(m.data); if (d.method === 'Page.loadEventFired') loaded.push(1); waiting.get(d.id)?.(d); waiting.delete(d.id) }
