@@ -13,9 +13,9 @@ cd "$(dirname "$0")"
 PORT="${1:-8766}"
 export FEED_URL="http://127.0.0.1:$PORT/appcast.xml" DOWNLOAD_URL_PREFIX="http://127.0.0.1:$PORT/" RELEASES=releases-rehearsal
 export BUNDLE_ID="${BUNDLE_ID:-local.claude-voice.app.rehearsal}"
-saved="$(cat VERSION)"; trap 'echo "$saved" > VERSION' EXIT # release.sh writes the version it builds; the rehearsal puts yours back
+NOTES="$(mktemp)"; echo "- A rehearsal update." > "$NOTES" # the rehearsal has no tag: release.sh takes its notes from here
+saved="$(cat VERSION)"; trap 'echo "$saved" > VERSION; rm -f "$NOTES"' EXIT # release.sh writes the version it builds; the rehearsal puts yours back
 rm -rf releases-rehearsal rehearsal-install
-NOTES="$(mktemp)"; echo "- A rehearsal update." > "$NOTES"
 RELEASE_NOTES="$NOTES" DMG=0 ./release.sh 0.1 1 # the rehearsal needs no disk image (and so opens no Finder window)
 RELEASE_NOTES="$NOTES" DMG=0 ./release.sh 0.2 2
 mkdir rehearsal-install
