@@ -16,7 +16,7 @@ import { once } from 'node:events'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), DIR = path.join(HERE, 'replay')
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-const PORT = 4810 // server.test.mjs runs beside this one on 4811
+let PORT // a free port, picked when the page server starts
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const cases = dir => readdirSync(dir).filter(f => f.endsWith('.json')).sort().map(f => JSON.parse(readFileSync(path.join(dir, f), 'utf8')))
 const all = [...cases(path.join(DIR, 'cases')), ...(process.env.REPLAY_CASES ? cases(process.env.REPLAY_CASES) : [])]
@@ -29,7 +29,7 @@ test('recorded and hand-written calls replay through the page exactly as before'
     if (!p || !existsSync(p)) return void res.writeHead(404).end()
     res.writeHead(200, { 'content-type': f.endsWith('.html') ? 'text/html; charset=utf-8' : 'text/javascript; charset=utf-8', 'cache-control': 'no-store' }).end(readFileSync(p))
   })
-  server.listen(PORT, '127.0.0.1'); await once(server, 'listening')
+  server.listen(0, '127.0.0.1'); await once(server, 'listening'); PORT = server.address().port
   const root = mkdtempSync(path.join(tmpdir(), 'call-replay-'))
   const chrome = spawn(CHROME, ['--headless=new', `--user-data-dir=${path.join(root, 'profile')}`, '--remote-debugging-port=0', '--mute-audio', '--no-first-run', 'about:blank'], { stdio: 'ignore' })
   t.after(async () => {

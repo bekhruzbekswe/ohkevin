@@ -1,4 +1,4 @@
-// Starts the real call server (no Claude is spoken to: nothing is ever sent) on port 4811 and checks what it says to a browser
+// Starts the real call server (no Claude is spoken to: nothing is ever sent) on a free port and checks what it says to a browser
 // and to a person at a terminal, and, in a headless Chrome with a throwaway profile, what the real page does. One file, so the
 // tests run one after another on the one port. Needs the SDK installed, as the server does.
 import { test } from 'node:test'
@@ -9,12 +9,15 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { once } from 'node:events'
+import { createServer } from 'node:net'
 import { chmodSync } from 'node:fs'
 import { findClaude } from './claude-path.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const SERVER = path.join(HERE, 'server.mjs')
-const PORT = 4811, KEY = 'testkey'
+// A port free on this Mac now, so two checkouts' checks never collide
+const PORT = await new Promise(done => { const s = createServer().listen(0, '127.0.0.1', () => { const { port } = s.address(); s.close(() => done(port)) }) })
+const KEY = 'testkey'
 // Every server here is past its first call, unless a test says otherwise: none reads or writes the real first-call file.
 const DONE = path.join(mkdtempSync(path.join(tmpdir(), 'call-first-')), 'first-call.json')
 writeFileSync(DONE, JSON.stringify({ greeted: true, hinted: true }))

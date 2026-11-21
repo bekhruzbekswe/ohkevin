@@ -57,7 +57,7 @@ enum FirstRun {
         try? fm.removeItem(at: bundle.appending(path: "server.mjs"))
         try? fm.copyItem(at: launcherFolder.appending(path: "Tests/stub-server.mjs"), to: bundle.appending(path: "server.mjs"))
         let support = home.appending(path: "Library/Application Support/\(Product.folder)", directoryHint: .isDirectory)
-        let setup = Setup(callFolder: support.appending(path: "Call"), bundledCall: bundle, support: support, ports: 4811...4811,
+        let setup = Setup(callFolder: support.appending(path: "Call"), bundledCall: bundle, support: support, ports: 4811...4899,
                           chromeProfile: work.appending(path: "chrome"), chromeArguments: ["--headless=new"], spotlight: false)
         unsetenv("KOKORO_DIR"); unsetenv("KOKORO_PYTHON")
         say("First run, from zero, in \(folder.path)   (\(load()), \(Date()))")
