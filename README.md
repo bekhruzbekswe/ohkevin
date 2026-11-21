@@ -6,7 +6,7 @@
 
 Think out loud. It answers out loud. Then it gets on with the work, and calls you back only when it matters.
 
-<a href="https://github.com/bekhruzbekswe/ohkevin/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bekhruzbekswe/ohkevin?style=flat-square&color=lightgrey&label=release"></a> <a href="https://www.npmjs.com/package/ohkevin"><img alt="npm" src="https://img.shields.io/npm/v/ohkevin?style=flat-square&color=lightgrey&label=npm"></a> <img alt="macOS 26, Apple silicon" src="https://img.shields.io/badge/macOS_26-Apple_silicon-lightgrey?style=flat-square"> <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/licence-Apache_2.0-lightgrey?style=flat-square"></a>
+<a href="https://github.com/bekhruzbekswe/ohkevin/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bekhruzbekswe/ohkevin?style=flat-square&logo=github&color=2ea44f&label=release"></a> <a href="https://www.npmjs.com/package/ohkevin"><img alt="npm" src="https://img.shields.io/npm/v/ohkevin?style=flat-square&logo=npm&color=CB3837&label=npm"></a> <img alt="macOS 26, Apple silicon" src="https://img.shields.io/badge/macOS_26-Apple_silicon-000000?style=flat-square&logo=apple"> <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/licence-Apache_2.0-D22128?style=flat-square&logo=apache"></a>
 
 <a href="https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
