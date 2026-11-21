@@ -210,7 +210,7 @@ export async function differ(app, seeds = 300) {
     else if (KNOWN.some(x => x.file === name) && !first(ours, shape(theirs[k]), [])) diffs.push({ name, at: 'no longer differs: take it off KNOWN' })
   }
   const n = re => named.filter(([x]) => re.test(x)).length
-  return { counts: { logs: n(/^(chrome|native|owner)/), hand: n(/^hand-/), seeds, known: KNOWN.length }, diffs }
+  return { counts: { logs: n(/^(chrome|native|recorded-call)-/), hand: n(/^hand-/), seeds, known: KNOWN.length }, diffs }
 }
 
 // Prints every difference and one line for all; true when nothing differs.
