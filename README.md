@@ -2,9 +2,9 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/lockup-dark.png"><img alt="Oh Kevin" src="media/lockup-light.png" height="64"></picture>
 
-# A voice you call on your Mac.
+# Have a real conversation with Claude Code.
 
-Tell Kevin what you need. He runs several Claude Code jobs at once while you keep working.
+Think out loud. It answers out loud. Then it gets on with the work, and calls you back only when it matters.
 
 <a href="https://github.com/bekhruzbekswe/ohkevin/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/bekhruzbekswe/ohkevin?style=flat-square&color=lightgrey&label=release"></a> <img alt="macOS 26, Apple silicon" src="https://img.shields.io/badge/macOS_26-Apple_silicon-lightgrey?style=flat-square"> <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/licence-Apache_2.0-lightgrey?style=flat-square"></a>
 
@@ -18,15 +18,19 @@ Tell Kevin what you need. He runs several Claude Code jobs at once while you kee
 
 </div>
 
-## Say it. Keep working. Say yes.
+## Talk it through. Hand it off. Say yes.
 
 <table>
 <tr>
-<td width="33%" valign="top"><h3>Say it</h3>Start a call and talk. Kevin answers at once and hands the job to its own Claude Code session, shown as a card.</td>
-<td width="33%" valign="top"><h3>Keep working</h3>Every job gets its own worker. Ask how one is doing, open it in Claude, or stop it.</td>
-<td width="33%" valign="top"><h3>Say yes</h3>When a worker needs you, say "yes" or click <b>Approve</b>.</td>
+<td width="33%" valign="top"><h3>Talk it through</h3>Start a call and think out loud. A plan, a bug, half an idea. Kevin answers at once, in a voice, and the idea moves as fast as you can talk.</td>
+<td width="33%" valign="top"><h3>Hand it off</h3>Ask, and Claude Code takes the job. Go stir the pot. Each job runs on its own, so start another, ask how one is going, or stop it.</td>
+<td width="33%" valign="top"><h3>Say yes</h3>When it needs you, Kevin calls you over. Say "yes", or click <b>Approve</b>, and it carries on.</td>
 </tr>
 </table>
+
+It began with my hands full and the laptop across the room. I kept it for the conversation.
+
+Like it? [Star it on GitHub](https://github.com/bekhruzbekswe/ohkevin). That's how the next person finds it.
 
 <br>
 
@@ -90,6 +94,12 @@ The three dots at the top right of the window open the settings: **Project folde
 
 To uninstall, quit Oh Kevin and delete the app. Then remove `~/Library/Application Support/Oh Kevin`, `~/Library/Logs/Oh Kevin`, and the app's file in `~/Library/Preferences`.
 </details>
+
+<br>
+
+## Help build it
+
+Found a rough edge? Open an issue or send a fix. [CONTRIBUTING.md](CONTRIBUTING.md) has the build, the tests and the commit style.
 
 <br>
 
