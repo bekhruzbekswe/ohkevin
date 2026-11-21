@@ -44,7 +44,7 @@ do {
     let kokoro = try Kokoro(ort: ort, voices: try Npz(path: folder + "/voices-v1.0.bin")) { (language: String) throws -> PhonemeSource in
         try Espeak(library: here + "/libespeak-ng.dylib", data: here + "/espeak-ng-data", language: language)
     }
-    let outputFolder = FileManager.default.temporaryDirectory.appending(path: "claude-voice-\(UUID().uuidString.prefix(8))")
+    let outputFolder = FileManager.default.temporaryDirectory.appending(path: "oh-kevin-\(UUID().uuidString.prefix(8))")
     try FileManager.default.createDirectory(at: outputFolder, withIntermediateDirectories: true)
     if !phonemesOnly {
         _ = try kokoro.create("Ready.", voice: "bm_fable", speed: 1.0, language: "en-us") // warm up so the first real sentence is fast

@@ -3,7 +3,7 @@ import Foundation
 import PackageDescription
 
 // shortcut: with only the Command Line Tools the compiler often forgets the Swift Testing macro plugin after an edit;
-// naming it here (as launcher/Package.swift does) makes `swift test` pass every time. Drop it once that is fixed.
+// naming it here makes `swift test` pass every time. Drop it once that is fixed.
 let testingPlugin = "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib"
 let testSettings: [SwiftSetting] = FileManager.default.fileExists(atPath: testingPlugin)
     ? [.unsafeFlags(["-load-plugin-library", testingPlugin])] : []
@@ -18,19 +18,25 @@ let package = Package(
     name: "OhKevin",
     platforms: [.macOS("26.0")],
     targets: [
-        .target(name: "VoiceCore"), // the launcher's shared core, compiled from the same files (Sources/VoiceCore is a link to them)
-        .target(name: "CallViews", dependencies: ["VoiceCore"]), // the launcher's panel views, the same files (Sources/CallViews is a link)
-        // Sparkle 2.10.1, the launcher's own pin (launcher/Package.swift): the updater. build.sh embeds the framework in the app.
+        .target(name: "VoiceCore"), // everything testable without a screen: settings, health, installs, the setup model, the server's events
+        .target(name: "CallViews", dependencies: ["VoiceCore"]), // the panel, setup screen and Settings pieces, in the design
+        // Sparkle 2.10.1: the updater. A pinned release archive (its checksum is SwiftPM's check); build.sh embeds the framework in the app.
         .binaryTarget(name: "Sparkle", url: "https://github.com/sparkle-project/Sparkle/releases/download/2.10.1/Sparkle-for-Swift-Package-Manager.zip",
                       checksum: "4c2e48a3e50ebcc2c88a58a4c7264a1a99c3c31857ce754357afb9cdb323022a"),
         .target(name: "Ears"),
         .target(name: "CallKit", dependencies: ["Ears", "VoiceCore"]),
-        // Updating: the launcher's shared updater and Move to Applications, the same files (Sources/Updating is a link), in Swift 6 as written.
+        // Updating: self-updating (Sparkle, with the quiet-install hook) and Move to Applications, in Swift 6 as written.
         .target(name: "Updating", dependencies: ["VoiceCore", "Sparkle"], swiftSettings: [.swiftLanguageMode(.v6)]),
         .target(name: "OhKevinKit", dependencies: ["Ears", "CallKit", "VoiceCore", "CallViews", "Updating"]),
         .executableTarget(name: "OhKevin", dependencies: ["OhKevinKit"]),
         .executableTarget(name: "AppChecks", dependencies: ["OhKevinKit", "Ears", "CallKit", "VoiceCore", "CallViews", "Updating"], exclude: ["Info.plist"],
                           linkerSettings: [.unsafeFlags(["-Xlinker", "-sectcreate", "-Xlinker", "__TEXT", "-Xlinker", "__info_plist", "-Xlinker", appChecksInfo])]),
+        // COnnxRuntime: onnxruntime's C header only (MIT); the library is opened at run time. kokoro-runner: the local voice without Python,
+        // the lines in and out the call server speaks, run from Contents/Helpers. Never links espeak-ng (GPL): it opens libespeak-ng at run time.
+        .target(name: "COnnxRuntime"),
+        .executableTarget(name: "kokoro-runner", dependencies: ["COnnxRuntime"], swiftSettings: [.swiftLanguageMode(.v5)]),
+        .testTarget(name: "VoiceCoreTests", dependencies: ["VoiceCore"], swiftSettings: testSettings),
+        .testTarget(name: "CallViewsTests", dependencies: ["CallViews"], swiftSettings: testSettings),
         .testTarget(name: "EarsTests", dependencies: ["Ears"], swiftSettings: testSettings),
         .testTarget(name: "CallKitTests", dependencies: ["CallKit", "Ears", "VoiceCore"], swiftSettings: testSettings),
     ],

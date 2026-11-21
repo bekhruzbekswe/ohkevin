@@ -1,7 +1,7 @@
 # Oh Kevin, the Mac app
 
 The call as a native Mac app: a window of its own (SwiftUI in AppKit), Apple's speech recogniser for the ears, one audio
-engine with voice processing for the microphone and the voice, and the same call server as the launcher's page. The design
+engine with voice processing for the microphone and the voice, and the same call server as the call page. The design
 is in `design/` (`spec.md`, `mockups.html`). Needs macOS 26 and the Command Line Tools; no Xcode.
 
 ## Build and run
@@ -14,7 +14,7 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
 
 - The app is called **Oh Kevin** (`Product.name` in VoiceCore's `Product.swift`, read by `build.sh`). Licensed under the
   Apache License 2.0 (`LICENSE`, `NOTICE` at the repository's root).
-- It carries the call server's files (`Contents/Resources/call`, packed by `launcher/pack-call.sh`) and the voice runner
+- It carries the call server's files (`Contents/Resources/call`, packed by `pack-call.sh`) and the voice runner
   (`Contents/Helpers/kokoro-runner`). At first run it copies the server to `~/Library/Application Support/Oh Kevin/Call-App`
   and downloads what a call needs behind one bar: Node, the Agent SDK, the local voice, Apple's speech model. `OH_KEVIN_CALL_FOLDER` (or the
   `DeveloperCallFolder` default) points it at a repository's `call/` instead; off unless set.
@@ -25,8 +25,8 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
 
 ## Updates and releases
 
-The app updates itself as the launcher does (Sparkle 2, the shared `Sources/Updating`), from its own fixed feed `app-feed`
-(`appcast-app.xml`), never the launcher's. Releases follow the repository's `CLAUDE.md`: `release.sh` builds, signs, zips and writes
+The app updates itself (Sparkle 2, `Sources/Updating`), from its own fixed feed `app-feed` (`appcast-app.xml`). Releases
+follow the repository's `AGENTS.md`: `release.sh` builds, signs, zips and writes
 the feed from the main checkout; `publish.sh` uploads, only on the owner's go. `rehearse-update.sh` tries an update on this Mac and
 asks the installed app `--permissions` before and after.
 
@@ -39,7 +39,9 @@ asks the installed app `--permissions` before and after.
 | `OhKevinKit` | the app's code: window and views, setup and download, `Call` (the call's wiring and log), `Sound` (the engine), `Recognizer`, `Server`. |
 | `OhKevin` | the app itself: one line, `runApp()`. All that ships. |
 | `AppChecks` | the checks and measurements that drive the app's code; never shipped (below). |
-| `VoiceCore`, `CallViews`, `Updating` | the launcher's shared code, linked from `launcher/Sources/`. |
+| `VoiceCore` | everything with no screen: settings, health, installs, the setup model, the server's events in plain words. |
+| `CallViews`, `Updating` | the panel, setup and Settings views; Sparkle updates and Move to Applications. |
+| `kokoro-runner` | the local voice without Python, carried in `Contents/Helpers`. |
 
 Everything runs on the main queue; the audio thread only copies samples into a ring.
 

@@ -5,7 +5,7 @@ Status: frozen. The first native-window design; the Mac app now follows `design/
 Build from this file with `mockups.html` open beside it. The mockups are drawn at true size (1 CSS px = 1 pt); where
 this file and the mockups disagree, this file wins. Every string in section 14 is final.
 
-This window extends the launcher's design (`launcher/design/spec.md`, "the launcher spec" below). Everything not said
+This window extends the old launcher's design ("the launcher spec" below; its pictures are in `docs/design/launcher/`). Everything not said
 here is as the launcher spec says: tokens, the mark, the approval card, plain words, motion rules, Increase Contrast.
 
 Units are points. Colours are AppKit/SwiftUI semantic colours unless a value is given.
@@ -68,7 +68,7 @@ Talk is 14 rather than the launcher's 12–13 because it is read from a little f
 ## 4. The mark in the window
 
 The Now zone's mark is the menu-bar icon's form, at 28 × 28, coloured as the launcher's header mark, following the
-same `Light` (`launcher/Sources/VoiceCore/CallStatus.swift`). Use `HeaderMark` at 28.
+same `Light` (`app/Sources/VoiceCore/CallStatus.swift`). Use `HeaderMark` at 28.
 
 | Light | Form | Colour |
 |---|---|---|

@@ -8,7 +8,7 @@ How branches, merges and releases work is in [AGENTS.md](AGENTS.md).
 ```sh
 cd call && npm ci                      # the SDK, with its own Claude Code binary for terminal runs
 node server.mjs ~/some/project         # a call from the terminal
-cd ../launcher && ./build.sh --open    # the menu-bar app, built from this checkout
+cd ../app && ./build.sh                # the Mac app, built from this checkout: build/Oh Kevin.app
 ```
 
 A development build of the app uses this checkout's `call/` folder; a built app carries its own copy.
@@ -20,11 +20,8 @@ A development build of the app uses this checkout's `call/` folder; a built app 
 
 ```sh
 (cd call && node --test)               # the server and its modules, and the page in headless Chrome
-(cd launcher && swift test)            # VoiceCore
-(cd launcher && swift build --product LauncherChecks)   # then, from launcher/, see launcher/README.md:
-#   --ui-test build/snapshots     the real app against a stand-in server; draws every state, light and dark
-#   --self-test "$(mktemp -d)"    a real call server and call window, then a crash
-#   --clean-install <short path>  a first run on a scratch folder: real downloads, no Node on the path
+(cd app && swift test)                 # VoiceCore, Ears and CallKit
+(cd app && ./build.sh)                 # the app, then its replays and the differential against the page; AppChecks: app/README.md
 ```
 
 Rules for tests:
@@ -37,5 +34,4 @@ Rules for tests:
 ## Commits
 
 `type: short title`, for example `fix: the page ends the call when the server stops`. Types and the rest are in
-[AGENTS.md](AGENTS.md). A change to `call/` or the shared launcher sources must keep both apps building: `./check.sh`
-builds both.
+[AGENTS.md](AGENTS.md). A change to `call/` must keep the Mac app and the page working: `./check.sh` checks both.

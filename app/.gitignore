@@ -9,3 +9,4 @@ Tests/recordings/server/
 Tests/recordings/*.silent.jsonl
 Tests/recordings/wavs.json
 Tests/recordings/trials.json
+.dmg-venv/

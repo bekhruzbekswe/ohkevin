@@ -28,7 +28,7 @@ public enum Runtime {
 }
 
 /// Anthropic's Claude Agent SDK from npm, the one package the server imports: its bundled sdk.mjs needs nothing but Node's own
-/// modules (launcher/pack-call.sh checks that). Not shipped in the apps: fetched onto the user's Mac under Anthropic's terms. The
+/// modules (app/pack-call.sh checks that). Not shipped in the app: fetched onto the user's Mac under Anthropic's terms. The
 /// version and integrity are call/package-lock.json's (a test keeps them equal).
 public enum AgentSDK {
     public static let version = "0.3.325"

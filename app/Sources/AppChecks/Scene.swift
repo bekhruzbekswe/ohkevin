@@ -9,7 +9,7 @@ import VoiceCore
 /// `AppChecks --check <folder>` draws the figures of design/final.html, wide and narrow, light and dark, into PNGs: the real window
 /// and views on a real CallModel and Turns, driven by the server's own events and the recogniser's own results, with a clock
 /// and a voice that stand still (nothing is heard, played or sent). `--scene <call link>` also runs a made-up call through the
-/// real Call against a stand-in server that only records what it is sent (launcher/Tests/stub-server.mjs): live.png.
+/// real Call against a stand-in server that only records what it is sent (Tests/stub-server.mjs): live.png.
 enum Scene {
     /// A voice and a clock for a still frame: a sentence is ready at once and plays until told it ended; timers run when time is moved.
     final class Rehearsal: Ears.Host {

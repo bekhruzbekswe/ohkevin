@@ -1,6 +1,6 @@
 import Foundation
 
-// Self-updating, as plain data. Sparkle's user driver (LauncherKit) turns each of its callbacks into an `UpdateEvent`; this file turns
+// Self-updating, as plain data. Sparkle's user driver (Updating) turns each of its callbacks into an `UpdateEvent`; this file turns
 // events into the `UpdateState` a screen can show, and decides when it is quiet enough to install by relaunching. No Sparkle here, so
 // both are tested without it and Track B's app can share them.
 

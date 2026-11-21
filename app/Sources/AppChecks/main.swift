@@ -8,8 +8,9 @@ import VoiceCore
 
 // Checks and measurements that drive the real app's code. Never shipped: the app is the OhKevin product alone (build.sh).
 //   --check <folder> [--scene <link>]  draws every state of the design (light and dark) to <folder>, quits; --scene also drives a
-//                                       call against a stand-in server (launcher/Tests/stub-server.mjs)
+//                                       call against a stand-in server (Tests/stub-server.mjs)
 //   --offscreen <folder>              the menu-bar panel in every state and the Settings card, light and dark, with no window
+//   --icon <folder.iconset> / --icon-dark <folder.iconset>  the app icon from design/logo, as PNGs (build.sh makes AppIcon.icns)
 //   --replay <log.jsonl>               the ported turn-taking on a recorded call, in virtual time; prints what it posted and played
 //                                       (--replay - : calls on stdin, one JSON array of events per line; Tests/measure/differ.mjs)
 //   --file <wav> --call <link> --log <out.jsonl> [--end-talking <s>]
@@ -28,6 +29,9 @@ func fail(_ why: Any) -> Never { FileHandle.standardError.write(Data("\(why)\n".
 if let folder = arg("--offscreen") { // the panel and Settings, drawn with no window: see Offscreen.swift
     let code = MainActor.assumeIsolated { Offscreen.run(folder: URL(fileURLWithPath: folder)) }
     exit(code)
+}
+if let folder = arg("--icon") ?? arg("--icon-dark") { // the icon needs no window: drawn and written, then quit
+    do { try AppIcon.write(to: URL(fileURLWithPath: folder), dark: arg("--icon") == nil); exit(0) } catch { fail(error) }
 }
 
 if let path = arg("--engine-check") { // the live audio engine, muted: see EngineCheck.swift

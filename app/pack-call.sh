@@ -1,10 +1,10 @@
 #!/bin/bash
-# Puts the call server inside an app, for both apps (launcher/build.sh and app/build.sh): call/'s own files, less what only a
+# Puts the call server inside the app (build.sh): call/'s own files, less what only a
 # developer runs (tests, recorded calls, tools). No packages: the one the server imports, the Agent SDK, is fetched from npm on the
 # user's Mac at first run (VoiceCore's installSDK takes only its sdk.mjs). Checked here: that sdk.mjs loads nothing but Node's own
 # modules, so a future SDK that needs more fails the build instead of a call.
 #
-#   launcher/pack-call.sh <the app's Contents/Resources/call>
+#   ./pack-call.sh <the app's Contents/Resources/call>
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CALL="$ROOT/call"

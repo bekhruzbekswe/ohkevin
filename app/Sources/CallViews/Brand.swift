@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The brand mark of the owner's logo set (design/logo): bars arcing to the marigold ball. The two SVGs below are copies of
-/// mark-full-ink.svg and mark-compact-ink.svg; `--snapshots` checks them against the files so there is one source. Shapes are only
+/// mark-full-ink.svg and mark-compact-ink.svg; a test (CallViewsTests) checks them against the files so there is one source. Shapes are only
 /// rectangles (bars) and circles (the ball), read by `LogoArt`.
 public struct LogoShape: Equatable, Sendable {
     public enum Kind: Equatable, Sendable {

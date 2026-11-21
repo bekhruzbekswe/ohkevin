@@ -61,7 +61,7 @@ final class MenuBar: NSObject {
         visible.value = false
     }
 
-    /// What the panel asks for, done on this app's call (LauncherKit's Launcher.handle is the reference).
+    /// What the panel asks for, done on this app's call (the old launcher's Launcher.handle was the reference).
     func handle(_ intent: PanelIntent) {
         let model = app.model
         switch intent {
@@ -187,7 +187,7 @@ struct PanelHost: View {
     }
 }
 
-/// The panel: borderless, non-activating, a fixed 320 × 228 (LauncherKit's PanelWindow).
+/// The panel: borderless, non-activating, a fixed 320 × 228 (as the old launcher's PanelWindow).
 final class PanelWindow: NSPanel {
     var onKey: (NSEvent) -> Bool = { _ in false }
     init(content: NSView) {
@@ -211,7 +211,7 @@ final class FirstClickHostingView<Content: View>: NSHostingView<Content> {
 }
 
 /// The menu-bar item: one box, 52 × 22, in every state, a template image (the bar tints it), so only shape tells the states
-/// apart; the marigold "someone asks" dot is a layer on the button. Copied from LauncherKit/MenuBarItem.swift, as offered.
+/// apart; the marigold "someone asks" dot is a layer on the button. Copied from the old launcher's MenuBarItem.swift, as offered.
 enum MenuBarItem {
     static let size = CGSize(width: 52, height: 22)
     static let dot = CGRect(x: 34, y: 7, width: 8, height: 8)

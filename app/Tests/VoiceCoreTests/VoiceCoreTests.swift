@@ -836,7 +836,7 @@ private func run(_ events: [UpdateEvent]) -> [UpdateState] {
     let script = try String(contentsOf: URL(filePath: #filePath).deletingLastPathComponent().appending(path: "../../build.sh"), encoding: .utf8)
     for key in ["SUEnableAutomaticChecks", "SUAutomaticallyUpdate"] { #expect(script.contains("<key>\(key)</key><true/>"), "\(key) is on") }
     #expect(script.contains("<key>SUScheduledCheckInterval</key><integer>86400</integer>"))
-    #expect(script.contains(#"-n "${FEED_URL:-}" && -n "${SPARKLE_PUBLIC_KEY:-}""#), "and only when there is a feed and a key")
+    #expect(script.contains(#"-n "${FEED_URL:-}" && -n "$SPARKLE_PUBLIC_KEY""#), "and only when there is a feed and a key")
 }
 
 // MARK: The Agent SDK, fetched from npm at first run

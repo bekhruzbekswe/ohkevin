@@ -1,6 +1,6 @@
 // Every repository path cited in a Markdown file or a code comment must exist: from the repository root, from the
 // citing file's folder, or from its package (the nearest folder above it with a Package.swift or package.json) and its
-// Sources, or from the shared launcher/Sources, or from any package (a doc's `Sources/X`). In docs, folders in backticks count too.
+// Sources, or from any package (a doc's `Sources/X`). In docs, folders in backticks count too.
 // A path whose first folder is none of these is not this repository's.
 //   node check-paths.mjs        (check.sh runs it; prints each miss and exits 1)
 import { execFileSync } from 'node:child_process'
@@ -36,7 +36,7 @@ for (const file of files) {
       if (/^(https?|www)\b|\.(com|org|io|net)\//.test(p) || /[<>*{}$]/.test(p)) continue
       if (p.length > 120 || /^\.?\.\/[^/]+$|^\.\.\.\//.test(p)) continue // data, or a file beside a `cd` in the text
       if (p.split('/').some(s => ['build', 'releases', 'results', '.build', '.background'].includes(s))) continue // made by a build
-      const bases = ['.', dir, base, base && path.join(base, 'Sources'), 'launcher/Sources', ...packages].filter(Boolean)
+      const bases = ['.', dir, base, base && path.join(base, 'Sources'), ...packages].filter(Boolean)
       const head = p.replace(/^(\.\.?\/)+/, '').split('/')[0]
       if (!/^\.\.?\//.test(p) && !bases.some(b => existsSync(path.join(b, head)))) continue // not a path in this repository
       if (bases.some(b => found(path.join(b, p)))) continue

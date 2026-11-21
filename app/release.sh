@@ -1,8 +1,8 @@
 #!/bin/bash
 # Makes one update release of the Mac app: builds it with its feed, signs it, zips it into app/releases/ and (re)writes the app's feed with
 # Sparkle's generate_appcast. It publishes NOTHING: you upload the zip and appcast-app.xml (made in releases/v<version>/) as assets of a
-# release; the app reads …/releases/latest/download/appcast-app.xml. Its file names never meet the launcher's (Oh-Kevin-App-<v>.zip,
-# appcast-app.xml), so the two apps' updates never cross.
+# release; the app reads …/releases/download/app-feed/appcast-app.xml. Its file names (Oh-Kevin-App-<v>.zip, appcast-app.xml) never
+# meet the old launcher's, whose releases stay on GitHub.
 #
 #   ./release.sh <version> [build]
 #
@@ -12,13 +12,13 @@
 # Environment (all optional):
 #   FEED_URL            the feed built into the app (default: https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/appcast-app.xml)
 #   DOWNLOAD_URL_PREFIX where the zips will be (default: https://github.com/bekhruzbekswe/ohkevin/releases/download/app-v<version>/)
-#   SPARKLE_PUBLIC_KEY  overrides launcher/SPARKLE_PUBLIC_KEY (the app only accepts updates signed by its private half)
+#   SPARKLE_PUBLIC_KEY  overrides SPARKLE_PUBLIC_KEY beside this script (the app only accepts updates signed by its private half)
 #   SIGN_ID             the code-signing identity, e.g. "Oh Kevin": needed for a real release, so macOS keeps the microphone and
 #                       speech recognition permissions across updates (ad-hoc is only fit for a rehearsal, and loses them)
 #   SPARKLE_KEY_FILE    the private key as a file; default: read from your Keychain, where generate_keys put it
 #   RELEASES            the folder holding the zips and the feed (default: ~/Lab/ohkevin-releases/app)
 #   BUNDLE_ID           the app's id (the rehearsal uses its own)
-#   DMG=0               skip the disk image. Otherwise the launcher's make-dmg.sh makes Oh-Kevin-App-<version>.dmg beside the zip (volume
+#   DMG=0               skip the disk image. Otherwise make-dmg.sh makes Oh-Kevin-App-<version>.dmg beside the zip (volume
 #                       "Oh Kevin", the same background); Finder opens a window for a moment and macOS may ask once to let it control Finder
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -64,10 +64,10 @@ KEY=(); [[ -n "${SPARKLE_KEY_FILE:-}" ]] && KEY=(--ed-key-file "$SPARKLE_KEY_FIL
 sed -E -i '' 's#/app-v[^/"]+/([^/"]+-App-)([0-9][0-9A-Za-z.]*)\.zip"#/app-v\2/\1\2.zip"#g' "$RELEASES/$FEED"
 # What gets uploaded for this version: its zip, and the feed as it stood right after it, under the app's own feed name.
 mkdir -p "$RELEASES/v$VERSION"; cp "$ZIP" "${ZIP%.zip}.md" "$RELEASES/v$VERSION/"; cp "$RELEASES/$FEED" "$RELEASES/v$VERSION/$FEED"
-# The disk image people download the first time (updates come by the zip): the launcher's own script, so both look the same.
+# The disk image people download the first time (updates come by the zip).
 if [[ "${DMG:-1}" != "0" ]]; then
   # left unsigned on purpose: a self-signed image is blocked on open, so only the app is assessed (one Open Anyway, not two)
-  env -u DMG_SIGN_ID ../launcher/make-dmg.sh "$OUT/$NAME.app" "$(cd "$RELEASES/v$VERSION" && pwd)/${NAME// /-}-App-$VERSION.dmg" # absolute: make-dmg.sh runs from launcher/
+  env -u DMG_SIGN_ID ./make-dmg.sh "$OUT/$NAME.app" "$(cd "$RELEASES/v$VERSION" && pwd)/${NAME// /-}-App-$VERSION.dmg" # absolute: make-dmg.sh runs from its own folder
 fi
 echo
 echo "Release $VERSION (build $BUILD): $RELEASES/v$VERSION/ holds $(basename "$ZIP"), $FEED and the disk image. Nothing was published."

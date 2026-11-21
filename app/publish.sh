@@ -1,5 +1,5 @@
 #!/bin/bash
-# Publishes one built release of the Mac app to GitHub, beside the launcher's (one repo, one "latest": the launcher's). Made by
+# Publishes one built release of the Mac app to GitHub, beside the old launcher's (whose newest release keeps "latest" for its users). Made by
 # release.sh in releases/v<version>/:
 #   1. a release app-v<version> with the zip, the disk image and SHA256SUMS over them, never marked latest; its notes are the tag's
 #      message that release.sh put beside the zip, and the tag must be on GitHub already;
