@@ -179,7 +179,7 @@ The launcher's `Banner`, first in Pinned, newest last. At most one of each kind.
 | Stop failed | | Stop didn’t go through. Try again. | | the next Stop |
 | Recogniser stopped | | Speech recognition stopped. | Listen Again (accent) | the ears listen again |
 | Audio device changed | | The microphone changed. | Listen Again (accent) | as above |
-| Microphone not allowed | | Claude Voice isn’t allowed to use the microphone. | Open Settings (accent) | the app is allowed (checked on becoming active) |
+| Microphone not allowed | | Oh Kevin isn’t allowed to use the microphone. | Open Settings (accent) | the app is allowed (checked on becoming active) |
 
 **Listen Again** closes the ears and opens them again (`Sound` + `Recognizer`, as `Call.open` does) without ending
 the call. **Open Settings** opens `x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone`.
@@ -295,7 +295,7 @@ Listen Again · Open Settings · Approve · Deny
 
 **Field**: Type instead of speaking
 
-**Banners**: Speech recognition stopped. · The microphone changed. · Claude Voice isn’t allowed to use the microphone. ·
+**Banners**: Speech recognition stopped. · The microphone changed. · Oh Kevin isn’t allowed to use the microphone. ·
 Stop didn’t go through. Try again. · (server and limit sentences, as sent)
 
 **Card hints**: Say “yes” or “no” now. · Say “yes” and it asks once more. · The voice is asking… · Next in line. A click works now. ·

@@ -283,7 +283,7 @@ document.getElementById('anat').innerHTML = win({ mark: ['work', G], word: 'Spea
 // ── starting ─────────────────────────────────────────────────────────────────
 put('g-start', 'Before the call', 'No window yet. The menu-bar panel picks the project; Start Call opens the window.',
   `<div style="width:400px"><div class="menubar"><div class="slot open">${mark('idle', 18, 'currentColor')}</div><span style="color:var(--page-2)">Wed 23:41</span></div>
-   <div class="panel" style="margin:6px 0 0 40px"><div class="hdr">${mark('idle', 20, Q)}<div class="t">Claude Voice</div><div style="color:var(--secondary)">${sym.more}</div></div>
+   <div class="panel" style="margin:6px 0 0 40px"><div class="hdr">${mark('idle', 20, Q)}<div class="t">Oh Kevin</div><div style="color:var(--secondary)">${sym.more}</div></div>
    <div class="pbody"><div class="project"><div class="tile">${sym.folder}</div><div class="gg"><div class="n">api</div><div class="p">~/Lab/api</div></div></div><div class="big">${sym.phone}Start Call</div></div></div></div>`)
 put('g-start', 'Connecting', 'The window opens at once and is the progress. The panel closes. Cancel ends it.',
   win({ mark: ['pulse', G], word: 'Connecting…', sub: 'The voice is warming up.', time: '', mic: 'dim', field: 'dis', end: 'Cancel' }))
@@ -351,7 +351,7 @@ put('g-fail', 'The call server stopped', 'Red, the launcher\'s words. The conver
 put('g-fail', 'Speech recognition stopped', 'Orange: one click fixes it, and the call goes on. Typing still works.',
   win({ mark: ['live', O], word: 'Can’t hear you', time: '9:40', banners: [banner('', 'Speech recognition stopped.', sbtn('Listen Again'))], talk: before }))
 put('g-fail', 'Microphone not allowed', 'Asked once by macOS at the first call. The button opens the right pane of System Settings.',
-  win({ mark: ['live', O], word: 'Can’t hear you', sub: 'Typing still works.', time: '0:02', mic: 'dim', banners: [banner('', 'Claude Voice isn’t allowed to use the microphone.', sbtn('Open Settings'))] }))
+  win({ mark: ['live', O], word: 'Can’t hear you', sub: 'Typing still works.', time: '0:02', mic: 'dim', banners: [banner('', 'Oh Kevin isn’t allowed to use the microphone.', sbtn('Open Settings'))] }))
 put('g-fail', 'A problem during the call', 'The server\'s own sentence, until the conversation moves on. The call carries on.',
   win({ mark: ['live', G], word: 'Listening', time: '3:08', banners: [banner(sym.warn('var(--orange)'), 'The voice could not answer. Say it again in a moment.')], talk: before }))
 
