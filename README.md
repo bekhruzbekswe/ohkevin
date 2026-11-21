@@ -1,109 +1,101 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="design/logo/lockup-dark.png">
-    <img alt="Oh Kevin" src="design/logo/lockup-light.png" height="64">
-  </picture>
-</p>
+<picture><source media="(prefers-color-scheme: dark)" srcset="media/lockup-dark.png"><img alt="Oh Kevin" src="media/lockup-light.png" height="64"></picture>
 
-Talk to Claude Code. A voice call from your Mac's menu bar: you speak, a fast voice answers, and Claude Code does the
-work in your project.
+**Kevin is a voice you call on your Mac.** Tell him what you need, and he runs several Claude Code jobs at once while you keep working.
 
-*Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic.*
+<a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
-## What you need
+<sub>For Mac · macOS 26 · Apple silicon</sub>
 
-- A Mac with Apple silicon, macOS 14 or later
-- [Claude Code](https://claude.com/claude-code), installed and signed in (the app helps with both)
-- Google Chrome: the call listens through Chrome's speech recognition
 
-The app fetches everything else it needs on first run.
+<!-- DEMO VIDEO SLOT: upload media/oh-kevin-demo.mp4 in the GitHub editor, then replace the whole next line with the
+     user-attachments URL it gives you, alone on its own line. GitHub turns it into a player. -->
+<a href="media/oh-kevin-demo.mp4"><picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-play-dark.png"><img alt="Play the 46-second demo: the Oh Kevin window during a call, where a worker asks to push your commits" src="media/mac-play-light.png"></picture></a>
+
+## How it works
+
+### 1. Say what you want done
+
+Start a call and talk. Kevin answers at once and gives the job to its own Claude Code session, shown as a card.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-say-dark.png"><img alt="The Oh Kevin window at the start of a call: you asked for the tests to be run, Kevin said On it, and a worker card, api, is running the tests" src="media/mac-say-light.png"></picture>
+
+### 2. Hand out more, and keep working
+
+Each job gets its own worker. Ask how one is doing, open it in Claude, or stop it.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-work-dark.png"><img alt="The Oh Kevin window with the conversation on the left and three worker cards on the right, api, web and docs, all working; web is open and shows Open in Claude and Stop" src="media/mac-work-light.png"></picture>
+
+### 3. Answer when Kevin needs you
+
+Say "yes" for safe steps, or click **Approve**.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-ask-dark.png"><img alt="The Oh Kevin window: the worker web asks to push your commits, with Deny and Approve buttons, while api and docs keep working" src="media/mac-ask-light.png"></picture>
+
+### Oh Kevin also lives in your menu bar
+
+Start a call from there, or see when Kevin needs you, without the window in front.
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-start-dark.png"><img alt="The menu-bar panel before a call: a project chooser and a Start call button" src="media/menubar-start-light.png" width="380"></picture>&emsp;&emsp;<picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-needs-you-dark.png"><img alt="The menu-bar panel during a call: We need you, with an Answer in the call button" src="media/menubar-needs-you-light.png" width="380"></picture>
 
 ## Install
 
-1. [Download the app](https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/Oh-Kevin-Launcher.dmg) and move it to Applications.
-2. Open it. The app is signed with Oh Kevin's own certificate, not notarized by Apple, so macOS blocks the first open:
-   go to **System Settings › Privacy & Security**, find the line about Oh Kevin and click **Open Anyway**.
-3. One setup window opens with three rows, in any order: **Claude** (sign in, in your browser), **Microphone** (allow it)
-   and **Project** (the folder Claude Code works in). Meanwhile Node downloads by itself, checked against pinned
-   checksums.
-4. **Start the first call**.
+1. **Open it, and click Open Anyway.** [Download](https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg), drag Oh Kevin to Applications and open it. macOS blocks the first open because Oh Kevin is not signed by Apple; the code is open, here. Go to **System Settings › Privacy & Security**, scroll to Security and click **Open Anyway**. Only once; updates install by themselves.
 
-To build it yourself instead: `cd launcher && ./build.sh --open` (needs only the Command Line Tools,
-`xcode-select --install`).
+   <picture><source media="(prefers-color-scheme: dark)" srcset="media/open-anyway-dark.png"><img alt="System Settings, Privacy and Security: Oh Kevin was blocked to protect your Mac, with an Open Anyway button" src="media/open-anyway-light.png" width="560"></picture>
+2. **Set up.** One window, three things: sign in to **Claude**, allow the **Microphone**, choose a **Project**. Kevin works through [Claude Code](https://claude.com/claude-code); if you don't have it yet, Oh Kevin helps you get it. It then downloads what a call needs, about 410 MB, most of it the voice (381 MB), and Apple's speech model if your Mac doesn't have it yet.
+3. **Start the first call** and say hello. Kevin understands English for now.
 
-## Your first call
+## What leaves your Mac
 
-1. The call window opens on "Say hello." Say it; Kevin answers, and asks what to do first.
-2. Talk. Pause when you are done; the voice answers. Ask for real work ("fix the failing login test") and Claude Code
-   starts on it while you keep talking. Say "how's it going?" any time.
-3. Each piece of work shows as a card at the side of the call window. Press a card to open it: **Open in Claude**
-   moves that worker to the Claude app, **Stop** stops it, and a finished one has **Close**; asked again, a fresh worker
-   starts. If Claude Code asks about a step (rare in auto mode, see below), say "yes" or press Approve on its card;
-   "no" always denies.
-4. **End** in the call window, or the red button in the menu-bar panel. The call's work can open in the Claude app
-   afterwards.
+No account, no server of ours, no tracking.
 
-## A better voice (optional)
-
-Calls speak with Chrome's built-in voice, a British male one when Chrome has it. For a natural voice that runs on
-your Mac: **Settings › Speaks with › Download** in the menu-bar app (a 381 MB download, 365 MB on disk, a few
-minutes). Nothing to install by hand. It speaks as Fable, a British male voice; the three dots at the top right of the
-call window choose another.
-
-## What leaves your Mac, and what runs without asking
-
-- Chrome sends your speech to Google to become text.
-- Your words, and the files Claude Code reads, go to Anthropic, under your own Claude Code account.
-- Claude Code works in auto mode: it edits files, runs commands and uses the network without asking. Its own safety
-  checks refuse what they judge dangerous; they don't ask you. You are asked only when your own Claude Code settings
-  say so (an "ask" rule, or a tool that needs approval).
-- A spoken "yes" can approve edits, new files, and git add, commit and new branches in the project. Everything else
-  needs a click. Settings changes this to "any step" or "nothing".
-
-## Settings
-
-| Setting | What it does |
+| What | Where it goes |
 |---|---|
-| Claude Code model | Opus, Sonnet, Haiku or Fable for the work. The voice itself always runs on Haiku. |
-| A spoken "yes" approves | Safe steps (default), any step, or nothing. |
-| Open the work in the Claude app afterwards | When a call ends, its Claude Code sessions open in the Claude app. |
-| Speaks with | Which voice speaks. **Download** gets the voice on this Mac. |
-| Open at login | Starts the menu-bar app when you log in. |
+| Your speech | Nowhere. Apple's speech recognition turns it into text on your Mac. |
+| Your words, and the files Claude Code reads | Anthropic, under your own Claude Code account |
+| An update check | GitHub, where the releases are |
+
+### What Claude Code may do
+
+- **It works in auto mode:** it edits files, runs commands and uses the network without asking.
+- **Its own safety checks** refuse what they judge dangerous.
+- **A spoken "yes"** approves only edits, new files and git add, commit or new branch in the project. Everything else needs a click.
 
 ## When something goes wrong
 
-- **You can't see its icon in the menu bar.** On a full menu bar macOS hides icons behind the notch, and
-  System Settings › Menu Bar can switch them off. Open the app again (Spotlight works): its panel opens at the right
-  end of the menu bar.
-- **The call can't hear you.** The panel says why: its window was closed (**Show the call**), or the microphone is
-  blocked by macOS or by Chrome (**Allow microphone** opens the right setting).
-- **The call broke.** Oh Kevin starts it again by itself, once, and the same window comes back ("Reconnecting", then
-  listening). The voice starts fresh and the workers stopped; their work so far is saved in Claude Code. If it breaks
-  again, the panel says "Call lost": press **Call again** there.
-- **Anything else.** When a call fails, the panel says so in one line; **Show Details** opens the log
-  (`~/Library/Logs/Oh Kevin/call.log`).
+- **You can't see its icon in the menu bar.** A full menu bar hides icons behind the notch. You don't need it: everything is in the Oh Kevin window.
+- **The call can't hear you.** Oh Kevin says why; **Allow microphone** opens the right setting.
+- **The call broke.** Oh Kevin reconnects by itself. If it can't, it says "Call lost": press **Call again**. Work so far is saved in Claude Code.
+- **Anything else.** Oh Kevin says what failed in one line; **Show Log** in the ⋯ menu opens the log.
 
-## Uninstall
+<details>
+<summary>Voice</summary>
 
-Quit it from the ⋯ menu, delete the app, then remove `~/Library/Application Support/Oh Kevin` (Node, the packages,
-the voice and the call window's Chrome profile), `~/Library/Logs/Oh Kevin`, and the app's settings in
-`~/Library/Preferences` (the file named after the app's bundle id).
+Kevin's voice is made on your Mac. It speaks as Fable, a British male voice; the three dots at the top right of the window choose another.
+</details>
 
-## Without the menu-bar app
+<details>
+<summary>Settings</summary>
 
-The call server also runs from a terminal, with Node 18.14 or later and npm:
+The three dots at the top right of the window:
 
-```sh
-cd call && npm ci
-node server.mjs ~/path/to/your/project
-```
+| Setting | What it does |
+|---|---|
+| Project folder | The folder Claude Code works in. |
+| Model | Opus, Sonnet, Haiku or Fable for the work. Kevin itself always runs on Haiku. |
+| Voice | Which voice speaks. |
+</details>
 
-It prints a link and opens it in Chrome. Ctrl-C ends the call.
+<details>
+<summary>Uninstall</summary>
 
-## Contributing
+Quit Oh Kevin and delete the app. Then remove `~/Library/Application Support/Oh Kevin`, `~/Library/Logs/Oh Kevin`, and the app's file in `~/Library/Preferences`.
+</details>
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+---
 
-## Licence
+Build from source: [CONTRIBUTING.md](CONTRIBUTING.md) and [ARCHITECTURE.md](ARCHITECTURE.md). Licence: Apache 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
-Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+Not on a Mac? A browser page for every other computer is coming.
+
+*Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic.*
