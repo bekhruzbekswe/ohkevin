@@ -1,0 +1,19 @@
+.github/ISSUE_TEMPLATE/bug_report.yml
+  s_05186c50002419::t_f127c590a61658 2,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "716808373d60b0b833a5af4ca30735d2243202a2",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
