@@ -1,0 +1,19 @@
+app/Sources/OhKevinKit/App.swift
+  s_f9dcb370410d4f::t_9f44c7abd2badb 5,14-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2691f92d250ceecd34be04b7829216ee557dd01e",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
