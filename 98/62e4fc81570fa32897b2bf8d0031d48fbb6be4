@@ -1,0 +1,25 @@
+.gitignore
+  s_f9dcb370410d4f::t_916ea2650602c2 6-8
+AGENTS.md
+  s_f9dcb370410d4f::t_a6fe170a81be58 48-68
+call/README.md
+  s_f9dcb370410d4f::t_d8f59e01f23508 1-37
+call/package.json
+  s_f9dcb370410d4f::t_e943a8093dc88c 5-21,43-44,50-52
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9862e4fc81570fa32897b2bf8d0031d48fbb6be4",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
