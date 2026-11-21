@@ -1,0 +1,21 @@
+CONTRIBUTING.md
+  s_05186c50002419::t_2e72c307bfcbae 3-4,19,39-41
+README.md
+  s_05186c50002419::t_a5024781533963 24-29,36-37,39,43,49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2cae44484095b0ff9784d1fb505ddced036a0ccc",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}

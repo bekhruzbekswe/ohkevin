@@ -1,0 +1,25 @@
+AGENTS.md
+  s_05186c50002419::t_0f5bd6744b7684 28-30
+CLAUDE.md
+  s_05186c50002419::t_15fc950c4407e0 1
+launcher/publish.sh
+  s_05186c50002419::t_a64d4a38787dfd 10
+launcher/release.sh
+  s_05186c50002419::t_d5dcfeafdb9a7d 26
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4ad84637e093665d24c7efaa32195a6982f71c41",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+VISION.md
+  s_05186c50002419::t_330abaa67eca94 1-28
+decisions/0001-voice-first.md
+  s_05186c50002419::t_852c5a53e1fa87 1-19
+decisions/0002-natural-turn-taking-over-speed.md
+  s_05186c50002419::t_b7a3fa8231fc96 1-19
+decisions/0003-chrome-speech-for-the-launcher.md
+  s_05186c50002419::t_1f92c6aeee89a8 1-18
+decisions/0004-the-voice-runs-on-haiku.md
+  s_05186c50002419::t_db4714325f68de 1-17
+decisions/0005-kokoro-without-python.md
+  s_05186c50002419::t_83a8cae3f7506d 1-25
+decisions/0006-trunk-based-one-repository.md
+  s_05186c50002419::t_9fb7d3cf9dda63 1-19
+decisions/0007-apache-2.md
+  s_05186c50002419::t_11cb04fc7a33f3 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5389fdf12ece8a4bc908599b5231b1b1ea0ede18",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
