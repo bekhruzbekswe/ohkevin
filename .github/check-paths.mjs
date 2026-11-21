@@ -1,4 +1,4 @@
-// Every repository path cited in a Markdown file or a code comment must exist: from the repository root, from the
+// Every repository path cited in a Markdown file or a code comment must exist (and every Markdown link to a file here): from the repository root, from the
 // citing file's folder, or from its package (the nearest folder above it with a Package.swift or package.json) and its
 // Sources, or from any package (a doc's `Sources/X`). In docs, folders in backticks count too.
 // A path whose first folder is none of these is not this repository's.
@@ -31,6 +31,9 @@ for (const file of files) {
   readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
     let text = line
     if (kind !== 'md') { const m = line.match(comment[kind]); if (!m) return; text = m.slice(1).filter(Boolean).join(' ') }
+    if (kind === 'md') for (const [, link] of text.matchAll(/\]\(([^)\s#]+)(?:#[^)]*)?\)/g)) { // a Markdown link to a file here, from the file's own folder
+      if (!/^[a-z]+:/i.test(link) && !existsSync(path.join(dir, decodeURI(link)))) misses.push(`${file}:${i + 1}: (${link})`)
+    }
     const cited = [...text.matchAll(cite)].map(m => m[1]).concat(kind === 'md' ? [...text.matchAll(folder)].map(m => m[1]).filter(p => !/\.[A-Za-z0-9]+$/.test(p)) : [])
     for (const p of new Set(cited)) {
       if (/^(https?|www)\b|\.(com|org|io|net)\//.test(p) || /[<>*{}$]/.test(p)) continue
