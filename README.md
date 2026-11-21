@@ -7,9 +7,7 @@
 <sub>For Mac · macOS 26 · Apple silicon</sub>
 
 
-<!-- DEMO VIDEO SLOT: upload media/oh-kevin-demo.mp4 in the GitHub editor, then replace the whole next line with the
-     user-attachments URL it gives you, alone on its own line. GitHub turns it into a player. -->
-<a href="media/oh-kevin-demo.mp4"><picture><source media="(prefers-color-scheme: dark)" srcset="media/mac-play-dark.png"><img alt="Play the 46-second demo: the Oh Kevin window during a call, where a worker asks to push your commits" src="media/mac-play-light.png"></picture></a>
+https://github.com/user-attachments/assets/140a2374-d065-4b47-b776-a7fc1cbc85db
 
 ## How it works
 
