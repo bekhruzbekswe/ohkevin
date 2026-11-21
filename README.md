@@ -4,9 +4,6 @@
 
 <a href="https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg"><img alt="Download Oh Kevin for Mac" src="media/download.png" width="264"></a>
 
-<sub>For Mac · macOS 26 · Apple silicon</sub>
-
-
 https://github.com/user-attachments/assets/140a2374-d065-4b47-b776-a7fc1cbc85db
 
 ## How it works
@@ -36,6 +33,8 @@ Start a call from there, or see when Kevin needs you, without the window in fron
 <picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-start-dark.png"><img alt="The menu-bar panel before a call: a project chooser and a Start call button" src="media/menubar-start-light.png" width="380"></picture>&emsp;&emsp;<picture><source media="(prefers-color-scheme: dark)" srcset="media/menubar-needs-you-dark.png"><img alt="The menu-bar panel during a call: We need you, with an Answer in the call button" src="media/menubar-needs-you-light.png" width="380"></picture>
 
 ## Install
+
+You need a Mac with Apple silicon and macOS 26.
 
 1. **Open it, and click Open Anyway.** [Download](https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg), drag Oh Kevin to Applications and open it. macOS blocks the first open because Oh Kevin is not signed by Apple; the code is open, here. Go to **System Settings › Privacy & Security**, scroll to Security and click **Open Anyway**. Only once; updates install by themselves.
 
