@@ -28,13 +28,17 @@ Say "yes" for safe steps, or click **Approve**.
 
 ## Install
 
-You need a Mac with Apple silicon and macOS 26.
+### macOS (Apple silicon, macOS 26)
 
 1. **Open it, and click Open Anyway.** [Download](https://github.com/bekhruzbekswe/ohkevin/releases/download/app-feed/Oh-Kevin-App.dmg), drag Oh Kevin to Applications and open it. macOS blocks the first open because Oh Kevin is not signed by Apple; the code is open, here. Go to **System Settings › Privacy & Security**, scroll to Security and click **Open Anyway**. Only once; updates install by themselves.
 
    <picture><source media="(prefers-color-scheme: dark)" srcset="media/open-anyway-dark.png"><img alt="System Settings, Privacy and Security: Oh Kevin was blocked to protect your Mac, with an Open Anyway button" src="media/open-anyway-light.png" width="560"></picture>
 2. **Set up.** One window, three things: sign in to **Claude**, allow the **Microphone**, choose a **Project**. Kevin works through [Claude Code](https://claude.com/claude-code); if you don't have it yet, Oh Kevin helps you get it. It then downloads what a call needs, about 410 MB, most of it the voice (381 MB), and Apple's speech model if your Mac doesn't have it yet.
 3. **Start the first call** and say hello. Kevin understands English for now.
+
+### Other computers
+
+A browser page for every other computer is coming soon.
 
 ## What leaves your Mac
 
@@ -86,7 +90,5 @@ Quit Oh Kevin and delete the app. Then remove `~/Library/Application Support/Oh 
 ---
 
 Build from source: [CONTRIBUTING.md](CONTRIBUTING.md) and [ARCHITECTURE.md](ARCHITECTURE.md). Licence: Apache 2.0, see [LICENSE](LICENSE) and [NOTICE](NOTICE).
-
-Not on a Mac? A browser page for every other computer is coming.
 
 *Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic. It runs your own, unmodified Claude Code under your own account, and never sees or handles your sign-in.*
