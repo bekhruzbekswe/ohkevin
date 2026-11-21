@@ -2,7 +2,7 @@
 
 One repository, github.com/bekhruzbekswe/ohkevin, holds the source and the releases. It is public. One app lives in it:
 the Mac app (`app/`, tags `app-v<x.y>`), with the call server (`call/`) and the design (`design/`). The old menu-bar
-launcher is gone; its releases (tags `v<x.y>`) stay on GitHub.
+launcher and its releases are gone.
 
 ## Branches: trunk-based
 
@@ -38,9 +38,8 @@ Release history (the zips and feeds `generate_appcast` reads) lives outside git,
    new commit (`git tag -f -a`), and rebuild the same number.
 5. Publish, only on the owner's own go in that session: `git push origin main app-v0.4`, then `app/publish.sh 0.4`. It uploads the files, SHA256SUMS over them, and the tag's message as the release notes.
 
-- The Mac app reads the fixed release `app-feed` (`appcast-app.xml`), which publish.sh replaces; its releases are not
-  marked "latest". The old launcher's last release keeps "latest", because installed launchers read
-  `releases/latest/download/appcast.xml`, until the owner decides otherwise. Earlier releases stay, with their files.
+- The Mac app reads the fixed release `app-feed` (`appcast-app.xml`), which publish.sh replaces. Its newest
+  `app-v*` release is GitHub's "latest". Earlier releases stay, with their files.
 - Version numbers only go up. Sparkle never installs a lower version, so a bad release is fixed by a revert on main and
   a higher number; untick "latest" on the bad one meanwhile.
 

@@ -2,8 +2,7 @@
 
 ## Supported versions
 
-Only the Mac app's latest `app-v*` release gets fixes; it updates itself. The old menu-bar launcher (`v*` releases) is
-no longer developed.
+Only the Mac app's latest `app-v*` release gets fixes; it updates itself.
 
 ## Reporting a vulnerability
 
