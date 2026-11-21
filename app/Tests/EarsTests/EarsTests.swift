@@ -206,7 +206,7 @@ let AIRED = "Sure. I will run the login tests now, then report back."
     }
 
     @Test func aRecordedCallShowsEachAnswerOnce() throws {
-        let text = try String(contentsOf: callFolder.appending(path: "../app/results/recorded-call-1.jsonl"), encoding: .utf8)
+        let text = try String(contentsOf: callFolder.appending(path: "../app/Tests/recordings/recorded-call-1.jsonl"), encoding: .utf8)
         let r = Replay()
         r.run(text.split(separator: "\n").compactMap { try? JSONSerialization.jsonObject(with: Data($0.utf8)) as? [String: Any] })
         let voice = r.turns.lines.filter { $0.who == "voice" }.map(\.text)

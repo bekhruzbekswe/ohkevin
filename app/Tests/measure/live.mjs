@@ -1,6 +1,6 @@
 // The owner's live trial of today's call: the real Chrome (headed, real microphone and speakers, a throwaway profile),
 // the call page watched by hook.js, every event logged as run.mjs logs a headless run. Leaves nothing behind.
-//   node measure/live.mjs [--mute]      → results/trial-chrome-<time>.jsonl (+ .server.log); read it: node measure/trial.mjs <file>
+//   node Tests/measure/live.mjs [--mute]      → Tests/recordings/trial-chrome-<time>.jsonl (+ .server.log); read it: node Tests/measure/trial.mjs <file>
 // Talk until you close the window (or press Ctrl-C). --mute (for tests only) adds --mute-audio.
 import { appendFileSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -8,7 +8,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { openCall, startServer } from './rig.mjs'
 
-const RESULTS = path.join(path.dirname(fileURLToPath(import.meta.url)), '../results')
+const RESULTS = path.join(path.dirname(fileURLToPath(import.meta.url)), '../recordings')
 const scratch = mkdtempSync(path.join(tmpdir(), 'live-')), stamp = new Date().toISOString().slice(0, 19).replace(/[-:]/g, '')
 const file = path.join(RESULTS, `trial-chrome-${stamp}.jsonl`)
 let stopNow

@@ -1,6 +1,11 @@
 .build/
 build/
-results/trial-*
 releases/
 releases-rehearsal/
 rehearsal-install/
+# made by Tests/measure: live trials (real speech: never committed), the server logs, the WAV list and trial measurements
+Tests/recordings/trial-*
+Tests/recordings/server/
+Tests/recordings/*.silent.jsonl
+Tests/recordings/wavs.json
+Tests/recordings/trials.json

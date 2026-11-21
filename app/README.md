@@ -18,7 +18,7 @@ open "build/Oh Kevin.app" --args --log /abs/path/call.jsonl   # also write the c
   into Info.plist), so build it again if the repository moves.
 - macOS asks for the microphone and speech recognition on first use, and again after each rebuild (ad-hoc signing).
 - Nothing is written about a call unless asked: `--log <file>` writes every word heard, sent and said (JSON lines, the
-  shape `measure/hook.js` records from the page). Its own server's output goes to
+  shape `Tests/measure/hook.js` records from the page). Its own server's output goes to
   `~/Library/Logs/Claude Voice/native-<time>.log` (owner-only; the last three are kept).
 - `--call <link>` uses a running call server instead of starting one.
 
@@ -49,20 +49,20 @@ Everything runs on the main queue; the audio thread only copies samples into a r
 
 ```sh
 swift test                                   # ears.test.mjs case for case, every helper against the JavaScript, the call window's model
-node measure/check.mjs                       # every recorded call replayed through the Swift rules: the same /say and /hush (build.sh runs it)
-node measure/differ.mjs [seeds]              # call/voice.mjs and the Swift rules on the same events: logs, Track A's cases, 300 generated calls (check.mjs runs it)
-node measure/trial.mjs results/<log>.jsonl   # a live call's log, measured as the recorded ones are
-node measure/live.mjs                        # the Chrome side of a trial: today's page, logged in the same shape
+node Tests/measure/check.mjs                       # every recorded call replayed through the Swift rules: the same /say and /hush (build.sh runs it)
+node Tests/measure/differ.mjs [seeds]              # call/voice.mjs and the Swift rules on the same events: logs, the hand-written cases, 300 generated calls (check.mjs runs it)
+node Tests/measure/trial.mjs Tests/recordings/<log>.jsonl   # a live call's log, measured as the recorded ones are
+node Tests/measure/live.mjs                        # the Chrome side of a trial: today's page, logged in the same shape
 "build/Oh Kevin.app/Contents/MacOS/Oh Kevin" --check <folder>          # draws every state of the design, light and dark, to PNGs
 "build/Oh Kevin.app/Contents/MacOS/Oh Kevin" --engine-check <file>     # the audio engine, output muted: formats, samples, mute, stop, close
 "build/Oh Kevin.app/Contents/MacOS/Oh Kevin" --replay <log.jsonl>      # what the turn-taking would post and play on a recorded call (- : calls on stdin)
 VoiceApp --file <wav> --call <link> --log <out>                      # a measurement: a WAV in place of the microphone, nothing played
-node measure/run.mjs                       # ~10 min: today's page against the app on seven lines, raw logs in results/
+node Tests/measure/run.mjs                       # ~10 min: today's page against the app on seven lines, raw logs in Tests/recordings/
 ```
 
-`results/` holds the recordings and one whole recorded call (`recorded-call-1.jsonl`; the words said in it are made up).
-`measure/differ.mjs` lists, in one place, what the differential check leaves out and why,
-and the real differences it found (each with its smallest case in `measure/diff-cases/`).
+`Tests/recordings/` holds the recordings and one whole recorded call (`recorded-call-1.jsonl`; the words said in it are made up).
+`Tests/measure/differ.mjs` lists, in one place, what the differential check leaves out and why,
+and the real differences it found (each with its smallest case in `Tests/measure/diff-cases/`).
 
 ## Not known
 

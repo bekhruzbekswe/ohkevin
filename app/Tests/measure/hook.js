@@ -1,4 +1,4 @@
-// Injected into the call page before its own script (measure/run.mjs). It only watches: every hook calls the original
+// Injected into the call page before its own script (run.mjs). It only watches: every hook calls the original
 // and logs what passed through, as console.debug('[m2] {json}'), with t in epoch milliseconds. Nothing on the page changes.
 (() => {
   const log = o => console.debug('[m2] ' + JSON.stringify({ t: performance.timeOrigin + performance.now(), ...o }))

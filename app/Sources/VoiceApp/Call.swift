@@ -4,7 +4,7 @@ import Ears
 import VoiceCore
 
 /// The page's turn-taking (Ears.Turns) on real ears, a real mouth and the real server, and a log of all of it, one JSON
-/// object per line, in the same shape measure/hook.js records from the page. It also tells the window's model where the
+/// object per line, in the same shape Tests/measure/hook.js records from the page. It also tells the window's model where the
 /// call is (starting, live, ending, ended, or failed) and why the ears may be deaf.
 final class Call: Ears.Host, @unchecked Sendable { // Ears.: Foundation has a Host too. Main queue only.
     let server: Server, out: FileHandle?

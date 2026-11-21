@@ -1,6 +1,6 @@
 import Foundation
 
-/// Runs the ported turn-taking on a recorded call (a log written by measure/hook.js or by the app) in virtual time:
+/// Runs the ported turn-taking on a recorded call (a log written by Tests/measure/hook.js or by the app) in virtual time:
 /// the recogniser's results, the server's events, the levels the gate read and the voice's clips come in when they came
 /// in then, and everything Turns posts is collected. Same stream in, so the posts should be the ones in the log.
 public final class Replay: Host {

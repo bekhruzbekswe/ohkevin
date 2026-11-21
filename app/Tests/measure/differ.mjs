@@ -1,8 +1,8 @@
 // The differential check: the same events go to call/voice.mjs (in Node, on the fake host below) and to its Swift port
 // (VoiceApp --replay -, which is Replay and Turns), on one handed clock, and everything both produce must be the same:
 // every /say, /hush and /live post with its body and time, every clip played, stopped, paused and resumed, every log line.
-// Inputs: every log in results/, Track A's hand-written cases in call/replay/cases, and SEEDS generated calls.
-//   node measure/differ.mjs [seeds]        (after ./build.sh; check.mjs runs it; exits 1 on any difference)
+// Inputs: every log in Tests/recordings/, the hand-written cases in call/replay/cases, and SEEDS generated calls.
+//   node Tests/measure/differ.mjs [seeds]        (after ./build.sh; check.mjs runs it; exits 1 on any difference)
 //
 // What is not compared, each for its reason (the one list):
 // 1. Ears without echo cancellation (rec.onresult's speakers and headphones branch, F1 included) and the browser voice
@@ -20,11 +20,11 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { built } from './app.mjs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import * as ears from '../../call/ears.mjs'
-import { createCall } from '../../call/voice.mjs'
+import * as ears from '../../../call/ears.mjs'
+import { createCall } from '../../../call/voice.mjs'
 import { events, swift } from './measure.mjs'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.join(HERE, '..'), CALL = path.join(ROOT, '../call')
+const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.join(HERE, '../..'), CALL = path.join(ROOT, '../call')
 
 // voice.mjs on one call, on a host that keeps time and plays clips exactly as Replay.swift does.
 export async function js(list) {
@@ -196,7 +196,7 @@ export function generate(seed) {
 
 // Every input through both sides. Returns the counts and every difference ({ name, at }), a known case that stopped differing included.
 export async function differ(app, seeds = 300) {
-  const results = path.join(ROOT, 'results'), dir = path.join(CALL, 'replay/cases'), lines = f => readFileSync(f, 'utf8').trim().split('\n').map(l => JSON.parse(l))
+  const results = path.join(ROOT, 'Tests/recordings'), dir = path.join(CALL, 'replay/cases'), lines = f => readFileSync(f, 'utf8').trim().split('\n').map(l => JSON.parse(l))
   const named = [
     ...readdirSync(results).filter(f => /^(chrome|native|recorded-call)-.*\.jsonl$/.test(f) && !f.includes('.silent.')).sort().map(f => [f, events(path.join(results, f))]),
     ...readdirSync(dir).filter(f => f.startsWith('hand-')).sort().map(f => [f, fromCase(JSON.parse(readFileSync(path.join(dir, f), 'utf8')))]).filter(([, L]) => L),

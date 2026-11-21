@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url)), CALL = path.join(HERE, '../../call')
+const HERE = path.dirname(fileURLToPath(import.meta.url)), CALL = path.join(HERE, '../../../call')
 export const PORT = 4820, DEBUG_PORT = 4821, KEY = 'm2key', base = `http://127.0.0.1:${PORT}`
 // The local voice, found as the launcher finds it when the server's own default has none: KOKORO_DIR, else Spotlight.
 const KOKORO = process.env.KOKORO_DIR ?? execFileSync('/usr/bin/mdfind', ['-name', 'kokoro-v1.0.onnx'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })

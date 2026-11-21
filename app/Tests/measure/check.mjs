@@ -1,8 +1,8 @@
 // The equality checks, run by build.sh on every build: the Swift turn-taking must do what call/ears.mjs and the page do.
 // 1. swift test (ears.test.mjs case for case, ears.mjs's numbers read from the file, 305 inputs through both languages);
-// 2. every recorded call in results/ replayed through the Swift rules: the same /say and /hush, in order, within 50 ms;
+// 2. every recorded call in Tests/recordings/ replayed through the Swift rules: the same /say and /hush, in order, within 50 ms;
 // 3. the differential check (differ.mjs): voice.mjs and the Swift rules on the same events, every output the same.
-//   node measure/check.mjs        (after ./build.sh; exits 1 on any difference)
+//   node Tests/measure/check.mjs        (after ./build.sh; exits 1 on any difference)
 import { execFileSync } from 'node:child_process'
 import { readdirSync } from 'node:fs'
 import path from 'node:path'
@@ -11,7 +11,7 @@ import { replay } from './measure.mjs'
 import { differ, report } from './differ.mjs'
 import { built } from './app.mjs'
 
-const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..'), RESULTS = path.join(ROOT, 'results')
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../..'), RESULTS = path.join(ROOT, 'Tests/recordings')
 const APP = built()
 const DRIFT_MS = 50 // timers in virtual time against a real call's; measured drift so far is 20 ms
 let bad = 0

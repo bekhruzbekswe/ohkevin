@@ -89,4 +89,4 @@ sign_app() {
 if [[ -n "${SIGN_ID:-}" ]]; then sign_app "$SIGN_ID" --timestamp=none; else sign_app -; fi
 echo "Built $(cd "$OUT" && pwd)/$NAME.app  (version $VERSION, build $BUILD${UPDATES:+, updates from $FEED_URL})"
 # The equality checks: the Swift turn-taking against ears.mjs and every recorded call. A build that drifts fails here.
-if [[ "$OUT" == "build" ]]; then node measure/check.mjs; fi
+if [[ "$OUT" == "build" ]]; then node Tests/measure/check.mjs; fi

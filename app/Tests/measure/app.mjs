@@ -4,7 +4,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '../..')
 const name = /static let name = "(.*)"/.exec(readFileSync(path.join(ROOT, 'Sources/VoiceCore/Product.swift'), 'utf8'))?.[1]
 if (!name) throw new Error('No Product.name in Sources/VoiceCore/Product.swift')
 export const APP = path.join(ROOT, 'build', `${name}.app`, 'Contents', 'MacOS', name)

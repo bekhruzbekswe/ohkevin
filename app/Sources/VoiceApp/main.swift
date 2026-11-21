@@ -93,7 +93,7 @@ if args.contains("--install-model") {
 }
 
 if let path = arg("--replay") {
-    // A log file is one call; "-" reads calls from stdin, one JSON array of events per line (measure/differ.mjs). One JSON line out per call.
+    // A log file is one call; "-" reads calls from stdin, one JSON array of events per line (Tests/measure/differ.mjs). One JSON line out per call.
     guard let text = path == "-" ? String(decoding: FileHandle.standardInput.readDataToEndOfFile(), as: UTF8.self) : try? String(contentsOfFile: path, encoding: .utf8) else { fail("Cannot read \(path)") }
     let lines = text.split(separator: "\n").compactMap { try? JSONSerialization.jsonObject(with: Data($0.utf8)) }
     for events in path == "-" ? lines.compactMap({ $0 as? [[String: Any]] }) : [lines.compactMap { $0 as? [String: Any] }] {
@@ -164,7 +164,7 @@ for m in [
 app.setActivationPolicy(arg("--check") == nil ? .regular : ProcessInfo.processInfo.environment["REAL_POINTER"] == "1" ? .regular : .prohibited) // drawing figures: no Dock icon
 app.run()
 
-/// Replay's host, writing down what the voice did (plays, stops, pauses, resumes) for measure/differ.mjs to compare with voice.mjs.
+/// Replay's host, writing down what the voice did (plays, stops, pauses, resumes) for Tests/measure/differ.mjs to compare with voice.mjs.
 final class Tape: Ears.Host {
     let r: Replay
     var media: [[String: Any]] = [], playing = false, paused = false

@@ -1,10 +1,9 @@
 // Plays the same test utterances to today's call (the Chrome page, headless, the WAV as its microphone) and to the
 // native prototype (the WAV fed in real time in place of its microphone), against a fresh call server each time, and
-// keeps every raw log in app/results. Nothing is played aloud: Chrome runs with --mute-audio, the app with its
+// keeps every raw log in app/Tests/recordings. Nothing is played aloud: Chrome runs with --mute-audio, the app with its
 // output muted. Cost: the talker (Haiku) answers each utterance; the worker (Haiku) sits in an empty folder.
-//   node measure/run.mjs [name ...] [--side chrome|native|native-own|native-speech]     (build the app first: ./build.sh)
-// Each pass also records how busy the Mac was (results/load-<time>.txt): Apple's recogniser shares this machine, Google's does not.
-import { spawn, execFileSync } from 'node:child_process'
+//   node Tests/measure/run.mjs [name ...] [--side chrome|native|native-own|native-speech]     (build the app first: ./build.sh)
+import { spawn } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -13,8 +12,8 @@ import { fileURLToPath } from 'node:url'
 import { base, KEY, openCall, sleep, startServer } from './rig.mjs'
 import { built } from './app.mjs'
 
-const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.join(HERE, '..')
-const RESULTS = path.join(ROOT, 'results'), WAVS = path.join(ROOT, 'build/wavs'), APP = built()
+const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.join(HERE, '../..')
+const RESULTS = path.join(ROOT, 'Tests/recordings'), WAVS = path.join(ROOT, 'build/wavs'), APP = built()
 const SCRATCH = process.env.SCRATCH ?? mkdtempSync(path.join(tmpdir(), 'm2-'))
 
 // The test utterances. "|n|" is n seconds of quiet. Each file: 1 s of faint noise, the words, 12 s of faint noise.
@@ -108,17 +107,8 @@ mkdirSync(RESULTS, { recursive: true })
 const argv = process.argv.slice(2), sideAt = argv.indexOf('--side'), only = sideAt >= 0 ? argv[sideAt + 1] : null
 const names = argv.filter((a, i) => !a.startsWith('--') && (sideAt < 0 || i !== sideAt + 1))
 if (!existsSync(APP) && only !== 'chrome') throw new Error('Build the app first: ./build.sh')
-// How busy the Mac is: the prototype's recogniser competes for it, Chrome's runs on Google's machines.
-function load(tag) {
-  const run = (cmd, a) => { try { return execFileSync(cmd, a, { encoding: 'utf8', maxBuffer: 1 << 24 }) } catch (e) { return String(e) } }
-  const top = run('top', ['-l', '2', '-s', '3', '-o', 'cpu', '-n', '10', '-stats', 'pid,command,cpu,mem']).split(/^(?=Processes:)/m).at(-1)
-  const busy = run('ps', ['-Ao', 'pid,lstart,pcpu,rss,command']).split('\n').filter(l => /train|mlx|llama|torch|finetun|lora|ollama/i.test(l) && !/\bps\b/.test(l))
-  const text = `${tag} ${new Date().toISOString()}\n${run('uptime', [])}\n${top}\ntraining or model processes:\n${busy.join('\n') || '(none seen)'}\n`
-  writeFileSync(path.join(RESULTS, `load-${new Date().toISOString().slice(0, 19).replace(/:/g, '')}-${tag}.txt`), text.replaceAll(process.env.HOME, '~'))
-}
 let manifest
 const skipped = new Set()
-load('before')
 { const srv = await server('wavs'); try { manifest = await makeWavs() } finally { await srv.stop() } }
 for (const s of manifest.filter(x => !names.length || names.includes(x.name))) {
   for (const side of ['chrome', 'native', 'native-own', 'native-speech'].filter(x => (!only || x === only) && !skipped.has(x))) {
@@ -139,6 +129,5 @@ for (const s of manifest.filter(x => !names.length || names.includes(x.name))) {
     await sleep(1000)
   }
 }
-load('after')
 if (!process.env.SCRATCH) rmSync(SCRATCH, { recursive: true, force: true })
 log('done')
