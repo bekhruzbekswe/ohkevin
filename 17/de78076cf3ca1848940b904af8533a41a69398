@@ -1,0 +1,61 @@
+app/Package.swift
+  s_f9dcb370410d4f::t_545c8b2561705f 13-16,18,30-33
+app/Sources/AppChecks/EngineCheck.swift
+  s_f9dcb370410d4f::t_1de8bf06aa4120 6,8
+app/Sources/AppChecks/Icons.swift
+  s_f9dcb370410d4f::t_7b06a3b7d9bc0f 3-4,6-7,9,11
+app/Sources/AppChecks/Info.plist
+  s_f9dcb370410d4f::t_0610a16e980c76 1-9
+app/Sources/AppChecks/Scene.swift
+  s_f9dcb370410d4f::t_4b2c9802e44eeb 7,9,224,253,404
+app/Sources/AppChecks/main.swift
+  s_f9dcb370410d4f::t_d8081157dc8f5c 6-7,9-24,33-35,37,126
+app/Sources/OhKevin/main.swift
+  s_f9dcb370410d4f::t_7e598b53365c34 1-3
+app/Sources/OhKevinKit/App.swift
+  s_f9dcb370410d4f::t_b6670c970bb900 1-58
+app/Sources/OhKevinKit/Download.swift
+  s_f9dcb370410d4f::t_80fa975e00672a 27-28,84
+app/Sources/OhKevinKit/Recognizer.swift
+  s_f9dcb370410d4f::t_95895c284f9ca3 103,110
+app/Sources/OhKevinKit/Server.swift
+  s_f9dcb370410d4f::t_21cdc8f6fcd668 21
+app/Sources/OhKevinKit/Sound.swift
+  s_f9dcb370410d4f::t_2455011e1eaac3 18
+app/Sources/OhKevinKit/Window.swift
+  s_f9dcb370410d4f::t_75398be51829a4 13-16,19,39-40,53,59,68-70,83,292-293
+app/Tests/measure/app.mjs
+  s_f9dcb370410d4f::t_c2f7bcdf5b2bce 1-4,9-10
+app/Tests/measure/differ.mjs
+  s_f9dcb370410d4f::t_ce6eb4cd00b918 2
+app/Tests/measure/run.mjs
+  s_f9dcb370410d4f::t_e80f92c8a1ef83 109,127
+app/build.sh
+  s_f9dcb370410d4f::t_9e4a38c7911818 17,27,92
+app/README.md
+  s_05186c50002419::t_44f6f6825002f7 1,4-5,10-11,15-24,26,28-31,37,39-42,49-65,68-70,74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "17de78076cf3ca1848940b904af8533a41a69398",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "unknown"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    },
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
