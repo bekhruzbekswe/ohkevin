@@ -1,0 +1,25 @@
+call/ohkevin.mjs
+  s_05186c50002419::t_87c999d8f01bcf 14,66-70
+call/package.json
+  s_05186c50002419::t_380fa30acdfaef 20
+call/preflight.test.mjs
+  s_05186c50002419::t_9e24c253893691 1-24
+call/preflight.mjs
+  s_05186c50002419::t_72609630d97f5a 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "200c373484cfa2983c6b32ab5bd698263eb99f66",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
