@@ -1,0 +1,41 @@
+app/Sources/AppChecks/Offscreen.swift
+  s_f9dcb370410d4f::t_76ca2fbcaa319b 7-9,34-45
+app/Sources/AppChecks/Scene.swift
+  s_f9dcb370410d4f::t_afac04751405ae 158-160,171
+app/Sources/CallKit/CallModel.swift
+  s_f9dcb370410d4f::t_73d31b50da7832 350
+app/Sources/OhKevinKit/AppView.swift
+  s_f9dcb370410d4f::t_d5868c44cb1482 27,29-30
+app/Sources/OhKevinKit/MenuBar.swift
+  s_f9dcb370410d4f::t_fd3f96181d0834 155
+app/Sources/OhKevinKit/Server.swift
+  s_f9dcb370410d4f::t_d87b26e5c952e8 42,60,63-64
+app/Sources/OhKevinKit/Settings.swift
+  s_f9dcb370410d4f::t_142d081c0e2c84 2,9-12,76-98,113-114,119-120,126-136,141,143,152-155
+app/Sources/OhKevinKit/Window.swift
+  s_f9dcb370410d4f::t_933885d9c308ce 236
+app/Sources/VoiceCore/Disclosure.swift
+  s_f9dcb370410d4f::t_11d455a86a3736 1,4
+app/Sources/VoiceCore/PanelState.swift
+  s_f9dcb370410d4f::t_d2f189fb7f1a4d 128-129,153-154
+app/Tests/CallKitTests/CallModelTests.swift
+  s_f9dcb370410d4f::t_24e563ed16c087 37-43
+app/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_f9dcb370410d4f::t_ffb2abb097280b 893-899
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dd8efe29c9e1272f46cf39992b8523282677bf4c",
+  "prompts": {},
+  "sessions": {
+    "s_f9dcb370410d4f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "317b6e11-de5d-404a-a0ac-b3567d67ddfb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
