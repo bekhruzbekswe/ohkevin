@@ -18,8 +18,6 @@ Think out loud. It answers out loud. Then it gets on with the work, and calls yo
 
 </div>
 
-## Talk it through. Hand it off. Say yes.
-
 <table>
 <tr>
 <td width="33%" valign="top"><h3>Talk it through</h3>Start a call and think out loud. A plan, a bug, half an idea. Kevin answers at once, in a voice, and the idea moves as fast as you can talk.</td>
@@ -27,6 +25,8 @@ Think out loud. It answers out loud. Then it gets on with the work, and calls yo
 <td width="33%" valign="top"><h3>Say yes</h3>When it needs you, Kevin calls you over. Say "yes", or click <b>Approve</b>, and it carries on.</td>
 </tr>
 </table>
+
+I wanted Claude Code to keep working while my hands were busy on the other side of the room. A voice solved that. Then I noticed I'd rather talk ideas through than type them.
 
 <br>
 
