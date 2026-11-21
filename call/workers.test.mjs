@@ -8,22 +8,22 @@ import { askLine, spokenAnswer } from './approve.mjs'
 
 test('folders: the visible folders directly in the root, sorted; nothing when the root is missing', () => {
   const root = mkdtempSync(path.join(tmpdir(), 'workers-'))
-  for (const d of ['web', 'api', '.hidden', 'claude-voice', 'api/deeper']) mkdirSync(path.join(root, d))
+  for (const d of ['web', 'api', '.hidden', 'oh-kevin', 'api/deeper']) mkdirSync(path.join(root, d))
   writeFileSync(path.join(root, 'notes.txt'), '')
   symlinkSync(path.join(root, 'web'), path.join(root, 'web-link'))
-  assert.deepEqual(folders(root), ['api', 'claude-voice', 'web'])
+  assert.deepEqual(folders(root), ['api', 'oh-kevin', 'web'])
   assert.deepEqual(folders(path.join(root, 'missing')), [])
   rmSync(root, { recursive: true })
 })
 
 test('pickFolder: only a folder on the list, exactly or differing in case', () => {
-  const list = ['api', 'claude-voice', 'Gymo', 'web']
+  const list = ['api', 'oh-kevin', 'Gymo', 'web']
   assert.equal(pickFolder('api', list), 'api')
-  assert.equal(pickFolder(' claude-voice ', list), 'claude-voice')
+  assert.equal(pickFolder(' oh-kevin ', list), 'oh-kevin')
   assert.equal(pickFolder('gymo', list), 'Gymo')
   assert.equal(pickFolder('API', list), 'api')
   assert.equal(pickFolder('"web".', list), 'web') // quoted or with a full stop, as a model may write it
-  for (const s of ['claude voice', 'cloud-voice', 'ap', 'apis', 'the api', '../api', 'api/..', '/Users/x/Lab/api', '', '.', 'web two'])
+  for (const s of ['oh kevin', 'oh-kelvin', 'ap', 'apis', 'the api', '../api', 'api/..', '/Users/x/Lab/api', '', '.', 'web two'])
     assert.equal(pickFolder(s, list), null, s)
   assert.equal(pickFolder('readme', ['README', 'readme']), 'readme') // an exact match wins
   assert.equal(pickFolder('ReadMe', ['README', 'readme']), null) // two that differ only in case: no guess
@@ -36,7 +36,7 @@ test('nameFor: the folder name, then "two", "three"…; a name that sounds like 
   assert.equal(nameFor('api', ['api']), 'api two')
   assert.equal(nameFor('api', ['api', 'api two']), 'api three')
   assert.equal(nameFor('API', ['api']), 'API two') // names match ignoring case
-  assert.equal(nameFor('claude-voice', ['claude voice']), 'claude-voice two')
+  assert.equal(nameFor('oh-kevin', ['oh kevin']), 'oh-kevin two')
   const many = ['x']; for (let i = 0; i < 11; i++) many.push(nameFor('x', many))
   assert.deepEqual(many.slice(-3), ['x ten', 'x 11', 'x 12'])
   for (const f of ['stop', 'Stop', 'no', 'nope', 'cancel', 'deny', 'decline', 'dont', 'no-limits', 'stop_it', 'do-not-disturb', 'nah.app'])
@@ -47,7 +47,7 @@ test('nameFor: the folder name, then "two", "three"…; a name that sounds like 
 })
 
 test('a named question never sounds like an answer, whatever the folder is called', () => {
-  for (const f of ['api', 'stop', 'no', 'cancel', 'no-limits', 'do-not-disturb', 'yes', 'go', 'sure', 'approve', 'go ahead', 'claude-voice']) {
+  for (const f of ['api', 'stop', 'no', 'cancel', 'no-limits', 'do-not-disturb', 'yes', 'go', 'sure', 'approve', 'go ahead', 'oh-kevin']) {
     const name = nameFor(f, [])
     for (const voice of [true, false]) {
       const line = askAs(askLine('Write', { file_path: '/p/a.txt' }, voice), name)
@@ -61,14 +61,14 @@ test('a named question never sounds like an answer, whatever the folder is calle
 })
 
 test('pick: a known name before the colon or alone; anything else names no worker', () => {
-  const names = ['api', 'web', 'api two', 'claude-voice']
+  const names = ['api', 'web', 'api two', 'oh-kevin']
   assert.deepEqual(pick('web', names), { name: 'web', rest: '' })
   assert.deepEqual(pick('web: the login page', names), { name: 'web', rest: 'the login page' })
   assert.deepEqual(pick('Web:check it', names), { name: 'web', rest: 'check it' })
   assert.deepEqual(pick('api two: sonnet', names), { name: 'api two', rest: 'sonnet' })
   assert.deepEqual(pick('api two', names), { name: 'api two', rest: '' })
   assert.deepEqual(pick('"web"', names), { name: 'web', rest: '' })
-  assert.deepEqual(pick('claude voice: x', names), { name: 'claude-voice', rest: 'x' })
+  assert.deepEqual(pick('oh kevin: x', names), { name: 'oh-kevin', rest: 'x' })
   assert.deepEqual(pick('', names), { name: null, rest: '' })
   assert.deepEqual(pick('opus', names), { name: null, rest: 'opus' })
   assert.deepEqual(pick('the file is notes.txt', names), { name: null, rest: 'the file is notes.txt' })

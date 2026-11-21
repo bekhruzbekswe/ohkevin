@@ -29,7 +29,7 @@ export async function startServer(scratch, env = {}) {
   await Promise.race([up, sleep(180000)]) // Kokoro warms up slowly on a busy Mac: slow is not a failure
   if (!out.join('').includes('Kokoro')) { p.kill(); throw new Error('server did not start with Kokoro:\n' + out.join('')) }
   // the local voice (kokoro-runner) makes an output folder per start and leaves it behind, emptied: remove the ones this server made
-  const tidy = () => { for (const d of readdirSync(tmpdir())) if (d.startsWith('claude-voice-')) try { if (statSync(path.join(tmpdir(), d)).birthtimeMs >= since) rmdirSync(path.join(tmpdir(), d)) } catch {} }
+  const tidy = () => { for (const d of readdirSync(tmpdir())) if (d.startsWith('oh-kevin-')) try { if (statSync(path.join(tmpdir(), d)).birthtimeMs >= since) rmdirSync(path.join(tmpdir(), d)) } catch {} }
   return { stop: async file => { p.kill('SIGTERM'); await exited(p); tidy(); mkdirSync(path.dirname(file), { recursive: true }); writeFileSync(file, out.join('').replaceAll(scratch, '<scratch>')) } }
 }
 

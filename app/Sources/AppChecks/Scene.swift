@@ -189,7 +189,7 @@ enum Scene {
         }),
     ]
     /// Made-up machines for the setup pictures; `ready` has everything.
-    static let folder = URL(fileURLWithPath: "/Users/you/claude-voice/call"), claude = URL(fileURLWithPath: "/usr/local/bin/claude")
+    static let folder = URL(fileURLWithPath: "/Users/you/oh-kevin/call"), claude = URL(fileURLWithPath: "/usr/local/bin/claude")
     static let ready = Machine(callFolder: folder, node: Node(url: URL(fileURLWithPath: "/usr/local/bin/node"), version: "22.12.0"), packages: true,
                                claude: claude, claudeVersion: "9.9.9", signedIn: true)
     static let machines: [String: Machine] = {
