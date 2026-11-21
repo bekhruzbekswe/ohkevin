@@ -1,0 +1,21 @@
+call/handover.mjs
+  s_05186c50002419::t_0476289c0f566a 5,21-24,27,57
+call/index.html
+  s_05186c50002419::t_e012c5a1e9647e 496,501-505,510
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "032c9f5853aee2d68862fcd9bcf90360877b61a4",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
