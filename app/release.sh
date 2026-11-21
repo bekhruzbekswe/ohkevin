@@ -6,7 +6,7 @@
 #   ./release.sh <version> [build]
 #
 #   <version>   the number people see (also written to app/VERSION): 0.2
-#   [build]     the number Sparkle compares: must be higher than the last release's. Default: the commit count.
+#   [build]     the number Sparkle compares: must be higher than the last release's. Default: the feed's last build + 1.
 #
 # Environment (all optional):
 #   FEED_URL            the feed built into the app (default: https://github.com/bekhruzbekswe/ohkevin/releases/latest/download/appcast-app.xml)
@@ -24,7 +24,7 @@ cd "$(dirname "$0")"
 [[ "$(git branch --show-current)" == main && -z "$(git status --porcelain)" ]] || { echo "Release only from main with nothing uncommitted (AGENTS.md, Releases)." >&2; exit 4; }
 
 VERSION="${1:?usage: ./release.sh <version> [build]}"
-BUILD="${2:-$(git rev-list --count HEAD 2>/dev/null || echo 1)}"
+BUILD="${2:-}"
 REPO_URL="https://github.com/bekhruzbekswe/ohkevin"
 export FEED_URL="${FEED_URL:-$REPO_URL/releases/latest/download/appcast-app.xml}"
 DOWNLOAD_URL_PREFIX="${DOWNLOAD_URL_PREFIX:-$REPO_URL/releases/download/app-v$VERSION/}"
@@ -43,10 +43,9 @@ TOOLS=".build/artifacts/app/Sparkle/bin"
 
 mkdir -p "$RELEASES"
 # A build number that does not rise is an update Sparkle will never offer: say so now.
-if [[ -f "$RELEASES/$FEED" ]]; then
-  last=$(sed -n 's/.*<sparkle:version>\([0-9]*\)<.*/\1/p' "$RELEASES/$FEED" | sort -n | tail -1)
-  [[ -z "$last" || "$BUILD" -gt "$last" ]] || { echo "Build $BUILD is not higher than the last release's ($last): pass a higher build." >&2; exit 1; }
-fi
+last=$([[ -f "$RELEASES/$FEED" ]] && sed -n 's/.*<sparkle:version>\([0-9]*\)<.*/\1/p' "$RELEASES/$FEED" | sort -n | tail -1 || true)
+BUILD="${BUILD:-$(( ${last:-0} + 1 ))}"
+[[ -z "$last" || "$BUILD" -gt "$last" ]] || { echo "Build $BUILD is not higher than the last release's ($last): pass a higher build." >&2; exit 1; }
 
 OUT="$(mktemp -d)"; trap 'rm -rf "$OUT"' EXIT
 echo "$VERSION" > VERSION
