@@ -2,7 +2,7 @@
 // citing file's folder, or from its package (the nearest folder above it with a Package.swift or package.json) and its
 // Sources, or from any package (a doc's `Sources/X`). In docs, folders in backticks count too.
 // A path whose first folder is none of these is not this repository's.
-//   node check-paths.mjs        (check.sh runs it; prints each miss and exits 1)
+//   node .github/check-paths.mjs        (check.sh runs it, from the repository root; prints each miss and exits 1)
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import path from 'node:path'

@@ -1,7 +1,7 @@
 # Contributing
 
-How the pieces fit is in [ARCHITECTURE.md](ARCHITECTURE.md); why they are this way, in [decisions/](decisions/).
-How branches, merges and releases work is in [AGENTS.md](AGENTS.md).
+How the pieces fit is in [ARCHITECTURE.md](../ARCHITECTURE.md); why they are this way, in [decisions/](../decisions/).
+How branches, merges and releases work is in [AGENTS.md](../AGENTS.md).
 
 ## Run it from source
 
@@ -34,4 +34,4 @@ Rules for tests:
 ## Commits
 
 `type: short title`, for example `fix: the page ends the call when the server stops`. Types and the rest are in
-[AGENTS.md](AGENTS.md). A change to `call/` must keep the Mac app and the page working: `./check.sh` checks both.
+[AGENTS.md](../AGENTS.md). A change to `call/` must keep the Mac app and the page working: `./check.sh` checks both.

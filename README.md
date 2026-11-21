@@ -103,10 +103,10 @@ To uninstall, quit Oh Kevin and delete the app. Then remove `~/Library/Applicati
 
 ## Help build it
 
-Found a rough edge? Open an issue or send a fix. [CONTRIBUTING.md](CONTRIBUTING.md) has the build, the tests and the commit style.
+Found a rough edge? Open an issue or send a fix. [CONTRIBUTING.md](.github/CONTRIBUTING.md) has the build, the tests and the commit style.
 
 <br>
 
-[Build from source](CONTRIBUTING.md) · [Architecture](ARCHITECTURE.md) · [Apache 2.0](LICENSE) · [Notice](NOTICE)
+[Build from source](.github/CONTRIBUTING.md) · [Architecture](ARCHITECTURE.md) · [Apache 2.0](LICENSE) · [Notice](NOTICE)
 
 <sub>Oh Kevin is an independent project that works with Claude Code. It is not made by or affiliated with Anthropic. It runs your own, unmodified Claude Code under your own account, and never sees or handles your sign-in.</sub>
