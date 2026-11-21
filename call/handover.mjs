@@ -13,7 +13,8 @@ const sleep = ms => new Promise(r => setTimeout(r, ms))
 // Waits until this server has no child processes left (worker, talker, voice). The app must never take a session a live
 // worker still writes to. A closed worker is gone within 7 s: the SDK waits 2 s, sends SIGTERM, then SIGKILL 5 s later.
 export async function childrenGone({ pid = process.pid, list = children, wait = sleep, tries = 60, every = 150 } = {}) {
-  for (let i = 0; i < tries; i++) { if (!(await list(pid)).length) return true; await wait(every) }
+  const end = Date.now() + tries * every // also a time limit: one look takes seconds on Windows (PowerShell), not milliseconds
+  for (let i = 0; i < tries && (i === 0 || Date.now() < end); i++) { if (!(await list(pid)).length) return true; await wait(every) }
   return false
 }
 

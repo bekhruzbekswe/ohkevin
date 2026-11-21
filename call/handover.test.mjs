@@ -55,7 +55,7 @@ test('childrenGone waits until the server has no child processes, and gives up i
 })
 
 test('childrenGone sees a real child process', async () => {
-  const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 5000)'])
+  const kid = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 60000)']) // long enough for PowerShell, which takes seconds to start on Windows
   assert.equal(await childrenGone({ tries: 1, wait: async () => {} }), false)
   kid.kill()
   await new Promise(r => kid.once('exit', r))
