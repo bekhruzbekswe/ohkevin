@@ -1,7 +1,7 @@
 import AppKit
 import VoiceCore
 
-// Checks that drive the real app, and the icon renderer. Never shipped: the app is the ClaudeVoice product alone.
+// Checks that drive the real app, and the icon renderer. Never shipped: the app is the OhKevin product alone.
 //   --ui-test <snapshots folder>  the real app against a stub server and a stand-in Claude Code: no model, no sound
 //   --self-test <empty folder>     a real call server and a real call window (silent fake microphone), then a crash
 //   --hand-over <empty folder>     one real hand-over: one line to Claude Code on Haiku, then End Call (costs a model call)

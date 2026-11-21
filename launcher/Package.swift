@@ -9,7 +9,7 @@ let testingPlugin = "/Library/Developer/CommandLineTools/usr/lib/swift/host/plug
 let testSettings: [SwiftSetting] = FileManager.default.fileExists(atPath: testingPlugin)
     ? [.unsafeFlags(["-load-plugin-library", testingPlugin])] : []
 
-// VoiceCore: everything testable without a screen. CallViews: the panel's SwiftUI views. Updating: Sparkle updates and Move to Applications. LauncherKit: the app's windows and its model. ClaudeVoice: the app,
+// VoiceCore: everything testable without a screen. CallViews: the panel's SwiftUI views. Updating: Sparkle updates and Move to Applications. LauncherKit: the app's windows and its model. OhKevin: the app,
 // which is all that ships. LauncherChecks: the checks that drive the real app, and the icon renderer; never shipped.
 let package = Package(
     name: "Launcher",
@@ -25,7 +25,7 @@ let package = Package(
         // passes its bundle, defaults and quiet rule; nothing here knows the launcher.
         .target(name: "Updating", dependencies: ["VoiceCore", "Sparkle"]),
         .target(name: "LauncherKit", dependencies: ["VoiceCore", "CallViews", "Updating"]),
-        .executableTarget(name: "ClaudeVoice", dependencies: ["LauncherKit"]),
+        .executableTarget(name: "OhKevin", dependencies: ["LauncherKit"]),
         .executableTarget(name: "LauncherChecks", dependencies: ["LauncherKit", "Updating", "CallViews", "VoiceCore"]),
         // COnnxRuntime: onnxruntime's C header only (MIT); the library is opened at run time. kokoro-runner: the local voice without Python,
         // the same lines in and out as call/tts.py; one binary for both apps. Never links espeak-ng (GPL): it opens libespeak-ng at run time.

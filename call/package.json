@@ -1,5 +1,5 @@
 {
-  "name": "claude-voice-call",
+  "name": "oh-kevin-call",
   "version": "0.1.0",
   "description": "The call server behind Oh Kevin: a voice call with Claude Code.",
   "license": "Apache-2.0",

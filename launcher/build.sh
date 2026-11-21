@@ -29,21 +29,21 @@ RELEASE=$([[ "${1:-}" == "--release" ]] && echo 1 || true)
 OUT="${OUT:-build}"
 APP="$OUT/$FILE.app"
 
-swift build -c release --product ClaudeVoice
+swift build -c release --product OhKevin
 swift build -c release --product kokoro-runner # the local voice without Python: one binary for both apps, run from Contents/Helpers
 swift build --product LauncherChecks # never shipped: it draws the icon here, and runs the checks (README)
-BIN="$(swift build -c release --show-bin-path)/ClaudeVoice"
+BIN="$(swift build -c release --show-bin-path)/OhKevin"
 
 rm -rf "$APP" "$OUT/AppIcon.iconset"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-cp "$BIN" "$APP/Contents/MacOS/ClaudeVoice"
+cp "$BIN" "$APP/Contents/MacOS/OhKevin"
 mkdir -p "$APP/Contents/Helpers"
 cp "$(swift build -c release --show-bin-path)/kokoro-runner" "$APP/Contents/Helpers/kokoro-runner" # the installer copies it next to the voice's libraries
 # Sparkle: the framework goes inside the app, and the binary finds it there.
 SPARKLE_FRAMEWORK=".build/artifacts/launcher/Sparkle/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
 mkdir -p "$APP/Contents/Frameworks"
 ditto "$SPARKLE_FRAMEWORK" "$APP/Contents/Frameworks/Sparkle.framework"
-install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/ClaudeVoice"
+install_name_tool -add_rpath "@executable_path/../Frameworks" "$APP/Contents/MacOS/OhKevin"
 # The call server with its packages already installed (pack-call.sh): the app fetches only Node's program on first run.
 ./pack-call.sh "$APP/Contents/Resources/call"
 "$(swift build --show-bin-path)/LauncherChecks" --privacy "$APP/Contents/Resources/privacy.html" # shipped beside the call files, from the same words as Settings
@@ -70,7 +70,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
   <key>CFBundleName</key><string>$NAME</string>
   <key>CFBundleDisplayName</key><string>$NAME</string>
   <key>CFBundleIdentifier</key><string>$ID</string>
-  <key>CFBundleExecutable</key><string>ClaudeVoice</string>
+  <key>CFBundleExecutable</key><string>OhKevin</string>
   <key>CFBundleIconFile</key><string>AppIcon</string>
   <key>CFBundlePackageType</key><string>APPL</string>
   <key>CFBundleShortVersionString</key><string>$VERSION</string>

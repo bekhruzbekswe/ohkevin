@@ -132,7 +132,7 @@ Sources/LauncherKit/      the app's windows and model (ships)
   MenuBarItem.swift       the 52 × 22 menu-bar item's art
   Style.swift             Settings' small button
   SettingsView.swift      the settings window
-Sources/ClaudeVoice/      main.swift: runApp(). The only binary in the app
+Sources/OhKevin/          main.swift: runApp(). The only binary in the app
 Sources/LauncherChecks/   UITest.swift, Snapshots.swift, SelfTest.swift, CleanInstall.swift, AppIcon.swift (never shipped)
 Tests/VoiceCoreTests/     unit tests
 Tests/stub-server.mjs     the UI test's stand-in for the call server

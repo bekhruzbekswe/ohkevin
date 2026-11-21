@@ -37,7 +37,7 @@ Chrome's voice.
   server's events in plain words, updates' state. Shared with the Mac app.
 - `Sources/CallViews`: SwiftUI views in the design (panel, setup screen, Settings pieces). Shared.
 - `Sources/Updating`: Sparkle and Move to Applications. Shared.
-- `Sources/LauncherKit`: the menu-bar item, windows and wiring. `Sources/ClaudeVoice`: its `main`.
+- `Sources/LauncherKit`: the menu-bar item, windows and wiring. `Sources/OhKevin`: its `main`.
 - `Sources/kokoro-runner`: the local voice without Python (onnxruntime and espeak-ng loaded at run time). Both apps
   carry it in `Contents/Helpers`.
 - `Sources/LauncherChecks`: checks that drive the real app and draw every state; never shipped.
