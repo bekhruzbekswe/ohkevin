@@ -1,0 +1,25 @@
+app/rehearse-update.sh
+  s_05186c50002419::t_fd431fb5b6897f 18-20
+app/release.sh
+  s_05186c50002419::t_3c18a69927ff7e 25,32-39,59,62,66
+launcher/rehearse-update.sh
+  s_05186c50002419::t_1714543e112daf 17-19
+launcher/release.sh
+  s_05186c50002419::t_578d88db025134 16,33-40,59,62,67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a3a0639b24bc91d63619bbd4b0a980e32265e433",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
