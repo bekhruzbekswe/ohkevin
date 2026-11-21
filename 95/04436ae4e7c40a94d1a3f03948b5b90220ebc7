@@ -1,0 +1,29 @@
+NOTICE
+  s_05186c50002419::t_188c70da4a82b4 8-11
+launcher/README.md
+  s_05186c50002419::t_7a0e27bc2f067d 17-22
+launcher/Sources/LauncherChecks/FirstRun.swift
+  s_05186c50002419::t_94f37898ad3de4 53,85,89-91
+launcher/Sources/VoiceCore/Install.swift
+  s_05186c50002419::t_06021ff2af5c4c 4-5,17,30-67,101-102,133-135,147-151,156-159
+launcher/Tests/VoiceCoreTests/VoiceCoreTests.swift
+  s_05186c50002419::t_913dd7af3d9ddb 841-868
+launcher/pack-call.sh
+  s_05186c50002419::t_05180b3d96b58e 3-5,12,22,31,33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9504436ae4e7c40a94d1a3f03948b5b90220ebc7",
+  "prompts": {},
+  "sessions": {
+    "s_05186c50002419": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4f9d0789-9f77-4d08-906a-f72c39d048dc",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
