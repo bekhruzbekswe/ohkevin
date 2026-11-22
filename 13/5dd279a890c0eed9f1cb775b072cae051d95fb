@@ -1,0 +1,21 @@
+ARCHITECTURE.md
+  s_2103c3c3a4af3f::t_8e2ad44bc1b531 50
+app/design/spec.md
+  s_2103c3c3a4af3f::t_ca764e4b13f278 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "135dd279a890c0eed9f1cb775b072cae051d95fb",
+  "prompts": {},
+  "sessions": {
+    "s_2103c3c3a4af3f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1d2b57fb-69f5-46a1-855a-8091cb7b09e0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
