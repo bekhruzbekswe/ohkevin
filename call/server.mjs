@@ -13,7 +13,7 @@ import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, statSync,
 import { readFile, unlink } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { Splitter } from './speech.mjs'
-import { findClaude } from './claude-path.mjs'
+import { claudeEnv, findClaude } from './claude-path.mjs'
 import { TUNE, unfinished } from './ears.mjs'
 import { folders, pickFolder, nameFor, pick, toStop, stopProblem, askAs, Approvals, boardLines, pageBoard } from './workers.mjs'
 import { voiceOk, askLine, stepWords, answerAloud } from './approve.mjs'
@@ -193,6 +193,7 @@ const talker = query({
     includePartialMessages: true,
     cwd: os.tmpdir(),
     pathToClaudeCodeExecutable: findClaude(), // the user's own Claude Code (claude-path.mjs)
+    env: claudeEnv(), // without the call's own settings (claude-path.mjs)
   },
 })
 
@@ -308,6 +309,7 @@ const startWorker = w => query({
   options: {
     cwd: w.dir,
     pathToClaudeCodeExecutable: findClaude(),
+    env: claudeEnv(),
     model: w.board.model,
     permissionMode: 'auto', // no prompts for routine reads and edits; anything it still escalates lands on the page
     systemPrompt: { type: 'preset', preset: 'claude_code', append: WORKER_NOTE },

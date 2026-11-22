@@ -17,3 +17,9 @@ export function findClaude(env = process.env, platform = process.platform) {
   }
   return undefined
 }
+
+// The call's own settings, which the apps set on the server. Claude Code, and every command it runs, gets the user's environment
+// without them: otherwise a check or a call started inside a call acts as if the Mac app had started it (no env: the SDK passes all).
+export const CALL_SETTINGS = ['CALL_KEY', 'CALL_LAUNCHER', 'FIRST_CALL_FILE', 'KOKORO_DIR', 'NO_OPEN', 'OPEN_IN_APP', 'PORT', 'PROJECTS_DIR',
+  'SPEAK_FIRST', 'TALKER_MODEL', 'VOICE_APPROVE', 'WORKER_MODEL']
+export const claudeEnv = (env = process.env) => Object.fromEntries(Object.entries(env).filter(([k]) => !CALL_SETTINGS.includes(k)))

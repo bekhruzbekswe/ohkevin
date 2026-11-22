@@ -4,7 +4,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { spawn, spawnSync } from 'node:child_process'
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -13,13 +13,17 @@ import { createServer } from 'node:net'
 import { chmodSync } from 'node:fs'
 import { dataDir } from './platform.mjs'
 import { CHROME, openChrome } from './tools/chrome.mjs'
-import { findClaude } from './claude-path.mjs'
+import { CALL_SETTINGS, findClaude } from './claude-path.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const SERVER = path.join(HERE, 'server.mjs')
 // A port free on this Mac now, so two checkouts' checks never collide
 const PORT = await new Promise(done => { const s = createServer().listen(0, '127.0.0.1', () => { const { port } = s.address(); s.close(() => done(port)) }) })
 const KEY = 'testkey'
+// Each server here gets only the settings its test gives it, whatever the shell running the checks has set
+for (const k of CALL_SETTINGS) delete process.env[k]
+// A server that has stopped already says 'exit' no more
+const gone = p => p.exitCode === null && p.signalCode === null ? once(p, 'exit') : undefined
 // Every server here is past its first call, unless a test says otherwise: none reads or writes the real first-call file.
 const DONE = path.join(mkdtempSync(path.join(tmpdir(), 'call-first-')), 'first-call.json')
 writeFileSync(DONE, JSON.stringify({ greeted: true, hinted: true }))
@@ -51,11 +55,10 @@ test('a running server: the old-link page, the short word for scripts, and defau
   const root = mkdtempSync(path.join(tmpdir(), 'call-server-test-'))
   const project = path.join(root, 'app'); mkdirSync(project)
   const env = { ...process.env, NO_OPEN: '1', PORT: String(PORT), CALL_KEY: KEY, WORKER_MODEL: 'haiku', OPEN_IN_APP: '0' }
-  delete env.PROJECTS_DIR; delete env.KOKORO_DIR; delete env.VOICE_APPROVE
   const kid = spawn('node', [SERVER, project], { env, stdio: ['ignore', 'pipe', 'pipe'] })
   let out = ''
   kid.stdout.on('data', d => { out += d })
-  t.after(async () => { kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await new Promise(r => setTimeout(r, 100))
   assert.match(out, /Call page:/)
 
@@ -106,10 +109,27 @@ test('the voice folder\'s kokoro-runner is started, with the folder as its one a
   const kid = spawn('node', [SERVER, project], { env, stdio: ['ignore', 'pipe', 'pipe'] })
   let out = ''
   kid.stdout.on('data', d => { out += d })
-  t.after(async () => { kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Kokoro, on this Mac'); i++) await new Promise(r => setTimeout(r, 100))
   assert.match(out, /Voice: +Kokoro, on this Mac, 3 cores/)
   assert.equal(readFileSync(path.join(root, 'arg'), 'utf8').trim(), kokoro)
+})
+
+test('Claude Code gets the user\'s environment without the call\'s own settings, and every setting the server reads is on that list', { skip: process.platform === 'win32' && 'a shell script stands in for Claude Code' }, async t => {
+  const root = mkdtempSync(path.join(tmpdir(), 'call-server-test-'))
+  const project = path.join(root, 'app'); mkdirSync(project)
+  const claude = path.join(root, 'claude'), seen = path.join(root, 'env')
+  writeFileSync(claude, `#!/bin/sh\nenv > "${seen}.part" && mv "${seen}.part" "${seen}"\ncat >/dev/null\n`, { mode: 0o755 })
+  const env = { ...process.env, NO_OPEN: '1', PORT: String(PORT), CALL_KEY: KEY, WORKER_MODEL: 'haiku', OPEN_IN_APP: '0', PROJECTS_DIR: root, CLAUDE_PATH: claude }
+  const kid = spawn('node', [SERVER, project], { env, stdio: 'ignore' })
+  t.after(async () => { kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
+  for (let i = 0; i < 100 && !existsSync(seen); i++) await new Promise(r => setTimeout(r, 100))
+  const got = readFileSync(seen, 'utf8')
+  assert.match(got, /^PATH=/m)
+  for (const k of CALL_SETTINGS) assert.doesNotMatch(got, new RegExp(`^${k}=`, 'm'), k)
+  const read = readdirSync(HERE).filter(f => f.endsWith('.mjs') && !f.endsWith('.test.mjs'))
+    .flatMap(f => [...readFileSync(path.join(HERE, f), 'utf8').matchAll(/process\.env\.([A-Z_]+)/g)].map(m => m[1]))
+  assert.deepEqual([...new Set(read)].filter(k => !CALL_SETTINGS.includes(k)), [])
 })
 
 test('under the launcher, the old-link page points at the menu bar', async t => {
@@ -119,7 +139,7 @@ test('under the launcher, the old-link page points at the menu bar', async t => 
   const kid = spawn('node', [SERVER, project], { env, stdio: ['pipe', 'pipe', 'pipe'] }) // the launcher's pipe stays open
   let out = ''
   kid.stdout.on('data', d => { out += d })
-  t.after(async () => { kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await new Promise(r => setTimeout(r, 100))
   const page = await fetch(`http://127.0.0.1:${PORT}/`, { headers: { accept: 'text/html' } })
   assert.match(await page.text(), /earlier call\. Start a new call from the menu bar\./)
@@ -134,7 +154,7 @@ test('the first call: hello says first, a short hello gets the fixed line withou
   let out = ''
   kid.stdout.on('data', d => { out += d })
   const streams = new AbortController()
-  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await new Promise(r => setTimeout(r, 100))
   const base = `http://127.0.0.1:${PORT}`
   const said = []
@@ -163,7 +183,7 @@ test('a page says its microphone is blocked: the launcher\'s feed hears why, aga
   let out = ''
   kid.stdout.on('data', d => { out += d })
   const streams = new AbortController()
-  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await new Promise(r => setTimeout(r, 100))
   const base = `http://127.0.0.1:${PORT}`
   const read = (url, into) => fetch(url, { signal: streams.signal }).then(async r => {
@@ -199,7 +219,7 @@ test('the voice\'s state reaches the launcher: who has the floor, whether it is 
   let out = ''
   kid.stdout.on('data', d => { out += d })
   const streams = new AbortController()
-  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await once(kid, 'exit'); rmSync(root, { recursive: true, force: true }) })
+  t.after(async () => { streams.abort(); kid.kill('SIGTERM'); await gone(kid); rmSync(root, { recursive: true, force: true }) })
   for (let i = 0; i < 100 && !out.includes('Call page:'); i++) await new Promise(r => setTimeout(r, 100))
   const base = `http://127.0.0.1:${PORT}`
   const read = (url, into) => fetch(url, { signal: streams.signal }).then(async r => {
