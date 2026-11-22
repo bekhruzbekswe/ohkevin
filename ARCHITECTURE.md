@@ -47,7 +47,7 @@ the browser's voice.
 ### `design/`
 
 The approved look: `system.css` (tokens), `final.html`, `onboarding.html`, `updates.html`, the logo and disk image art.
-The old launcher's every state is kept as pictures in `docs/design/launcher/`.
+The old launcher's every state, as pictures, is in the history: `git show c60690d --stat`.
 
 ## Invariants
 
