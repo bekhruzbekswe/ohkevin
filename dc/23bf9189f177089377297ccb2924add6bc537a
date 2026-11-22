@@ -1,0 +1,23 @@
+call/claude-path.mjs
+  s_2103c3c3a4af3f::t_274f60dcafc6f3 20-25
+call/server.mjs
+  s_2103c3c3a4af3f::t_a9bbe78048db44 16,196,312
+call/server.test.mjs
+  s_2103c3c3a4af3f::t_326e177129df2a 7,16,23-26,61,112,118-134,142,157,186,222
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "dc23bf9189f177089377297ccb2924add6bc537a",
+  "prompts": {},
+  "sessions": {
+    "s_2103c3c3a4af3f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1d2b57fb-69f5-46a1-855a-8091cb7b09e0",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "bekhruzbekswe <174773462+bekhruzbekswe@users.noreply.github.com>"
+    }
+  }
+}
